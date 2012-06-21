@@ -10,11 +10,56 @@
         <!-- Too set up an application with a database, change the artifactId below to
              tapestry-hibernate, and add a dependency on your JDBC driver. You'll also
              need to add Hibernate configuration files, such as hibernate.cfg.xml. -->
-        <dependency>
-            <groupId>org.apache.tapestry</groupId>
-            <artifactId>tapestry-core</artifactId>
-            <version>${tapestry-release-version}</version>
-        </dependency>
+
+            <dependency>
+                <groupId>org.apache.tapestry</groupId>
+                <artifactId>tapestry-core</artifactId>
+                <version>${tapestry-release-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tapestry</groupId>
+                <artifactId>tapestry-beanvalidator</artifactId>
+                <version>${tapestry-release-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.tapestry</groupId>
+                <artifactId>tapestry-hibernate</artifactId>
+                <version>${tapestry-release-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>4.0.2.GA</version>
+                <type>jar</type>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.0-api</artifactId>
+                <version>1.0.0.Final</version>
+            </dependency>
+
+            <dependency>
+                <groupId>hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>1.8.0.7</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>1.2.142</version>
+            </dependency>
+
+            <!-- SLF4J dependency -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.5.6</version>
+            </dependency>
 
         <!-- This adds automatic compression of JavaScript and CSS when in production mode. -->
         <dependency>
@@ -24,6 +69,7 @@
         </dependency>
 
         <!-- Uncomment this to add support for file uploads:
+
 
          <dependency>
             <groupId>org.apache.tapestry</groupId>

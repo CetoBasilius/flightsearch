@@ -1,5 +1,8 @@
 package com.basilio.flightsearch.components;
 
+import com.basilio.flightsearch.entities.User;
+import com.basilio.flightsearch.pages.Index;
+import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.*;
@@ -30,6 +33,9 @@ public class Layout
     @Symbol(SymbolConstants.APPLICATION_VERSION)
     private String appVersion;
 
+    @Inject
+    private Authenticator authenticator;
+
     public String getClassForPageName()
     {
         return resources.getPageName().equalsIgnoreCase(pageName)
@@ -39,6 +45,18 @@ public class Layout
 
     public String[] getPageNames()
     {
-        return new String[]{"Index", "Results"};
+        return new String[]{};
+    }
+
+    public User getUser()
+    {
+        return authenticator.isLoggedIn() ? authenticator.getLoggedUser() : null;
+    }
+
+    @Log
+    public Object onActionFromLogout()
+    {
+        authenticator.logout();
+        return Index.class;
     }
 }
