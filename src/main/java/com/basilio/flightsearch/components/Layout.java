@@ -22,14 +22,6 @@ public class Layout
     @Property
     private String pageName;
 
-    @Property
-    @Parameter(defaultPrefix = BindingConstants.LITERAL)
-    private String sidebarTitle;
-
-    @Property
-    @Parameter(defaultPrefix = BindingConstants.LITERAL)
-    private Block sidebar;
-
     @Inject
     private ComponentResources resources;
 
@@ -37,7 +29,6 @@ public class Layout
     @Inject
     @Symbol(SymbolConstants.APPLICATION_VERSION)
     private String appVersion;
-
 
     public String getClassForPageName()
     {
@@ -48,6 +39,6 @@ public class Layout
 
     public String[] getPageNames()
     {
-        return new String[]{"Index", "About", "Contact"};
+        return new String[]{"Index", "Results"};
     }
 }
