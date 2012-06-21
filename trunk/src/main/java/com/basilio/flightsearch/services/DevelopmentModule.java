@@ -2,11 +2,14 @@ package com.basilio.flightsearch.services;
 
 import java.io.IOException;
 
+import com.basilio.flightsearch.dal.DataModule;
 import org.apache.tapestry5.*;
+import org.apache.tapestry5.hibernate.HibernateModule;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
 import org.apache.tapestry5.ioc.annotations.Local;
+import org.apache.tapestry5.ioc.annotations.SubModule;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.RequestFilter;
 import org.apache.tapestry5.services.RequestHandler;
@@ -17,6 +20,8 @@ import org.slf4j.Logger;
  * This module is automatically included as part of the Tapestry IoC Registry if <em>tapestry.execution-mode</em>
  * includes <code>development</code>.
  */
+
+
 public class DevelopmentModule
 {
     public static void contributeApplicationDefaults(

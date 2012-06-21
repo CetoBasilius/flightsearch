@@ -2,25 +2,38 @@ package com.basilio.flightsearch.services;
 
 import java.io.IOException;
 
+import com.basilio.flightsearch.dal.DataModule;
+import com.basilio.flightsearch.dal.HibernateModule;
+import com.basilio.flightsearch.security.AuthenticationFilter;
 import org.apache.tapestry5.*;
+
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
+import org.apache.tapestry5.ioc.annotations.Contribute;
 import org.apache.tapestry5.ioc.annotations.Local;
-import org.apache.tapestry5.services.Request;
-import org.apache.tapestry5.services.RequestFilter;
-import org.apache.tapestry5.services.RequestHandler;
-import org.apache.tapestry5.services.Response;
+import org.apache.tapestry5.ioc.annotations.SubModule;
+import org.apache.tapestry5.ioc.services.ApplicationDefaults;
+import org.apache.tapestry5.ioc.services.SymbolProvider;
+import org.apache.tapestry5.services.*;
+import org.apache.tapestry5.validator.ValidatorMacro;
 import org.slf4j.Logger;
 
 /**
  * This module is automatically included as part of the Tapestry IoC Registry, it's a good place to
  * configure and extend Tapestry, or to place your own service definitions.
  */
+
+@SubModule(
+        { HibernateModule.class, DataModule.class })
 public class AppModule
 {
+
     public static void bind(ServiceBinder binder)
     {
+
+        binder.bind(Authenticator.class, BasicAuthenticator.class);
+
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 
         // Make bind() calls on the binder object to define most IoC services.
@@ -38,9 +51,11 @@ public class AppModule
         // change, to force the browser to download new versions. This overrides Tapesty's default
         // (a random hexadecimal number), but may be further overriden by DevelopmentModule or
         // QaModule.
-        configuration.override(SymbolConstants.APPLICATION_VERSION, "0.1");
+        configuration.override(SymbolConstants.APPLICATION_VERSION, "0.26");
     }
 
+    @ApplicationDefaults
+    @Contribute(SymbolProvider.class)
     public static void contributeApplicationDefaults(
             MappedConfiguration<String, Object> configuration)
     {
@@ -113,5 +128,19 @@ public class AppModule
         // within the pipeline.
 
         configuration.add("Timing", filter);
+    }
+
+    @Contribute(ValidatorMacro.class)
+    public static void combineValidators(MappedConfiguration<String, String> configuration)
+    {
+        configuration.add("username", "required, minlength=3, maxlength=15");
+        configuration.add("password", "required, minlength=6, maxlength=12");
+    }
+
+    @Contribute(ComponentRequestHandler.class)
+    public static void contributeComponentRequestHandler(
+            OrderedConfiguration<ComponentRequestFilter> configuration)
+    {
+        configuration.addInstance("RequiresLogin", AuthenticationFilter.class);
     }
 }

@@ -1,0 +1,1 @@
+tml pages can also be at resources package

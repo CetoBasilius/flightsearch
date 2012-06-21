@@ -1,0 +1,57 @@
+<html t:type="layout" title="Flight Search Sign In"
+      t:pageTitle="Register"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+	<form class="full-form" t:id="registerForm" >
+		<t:errors/>
+		<table>
+			<tr>
+				<th>
+					<label t:type="label" t:for="username">User name:</label>
+				</th>
+				<td>
+					<input t:type="textfield" t:id="username" t:validate="required,minlength=3"/>
+				</td>	
+			</tr>
+			<tr>
+				<th>
+					<label t:type="label" t:for="fullname">Full name:</label>
+				</th>
+				<td>
+					<input t:type="textfield" t:id="fullname" t:validate="required,minlength=3"/>
+				</td>	
+			</tr>
+			<tr>
+				<th>
+					<label t:type="label" t:for="email">Email:</label>
+				</th>
+				<td>
+					<input t:type="textfield" t:id="email" t:validate="required,email"/>
+				</td>	
+			</tr>
+			<tr>
+				<th>
+					<label t:type="label" t:for="password">Password:</label>
+				</th>
+				<td>
+					<input t:type="passwordField" t:id="password" t:validate="required,minlength=6"/>
+				</td>	
+			</tr>
+			<tr>
+				<th>
+					<label t:type="label" t:for="verifyPassword">Verify password:</label>
+				</th>
+				<td>
+					<input t:type="passwordField" t:id="verifyPassword" t:validate="none"/>
+				</td>	
+			</tr>
+		</table>
+    	
+		<div class="form-submit">
+			<input type="submit" value="Register" />
+		</div>
+		<div class="member">Already a member ? <t:pagelink page="SignIn">Login now!</t:pagelink></div>
+	</form>
+
+</html>
