@@ -1,7 +1,7 @@
-<html t:type="layout" title="Contact com.basilio"
+<html t:type="layout" title="Search results"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <p>Contact com.basilio ...</p>
+    <p>This page is currently empty</p>
 
 </html>

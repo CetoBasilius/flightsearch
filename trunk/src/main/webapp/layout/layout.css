@@ -75,7 +75,6 @@ div.header {
 
 div.logo h1, div.logo p {
     float: left;
-    text-transform: lowercase;
 }
 
 div.logo h1 {
@@ -116,7 +115,6 @@ div.menu a {
     padding: 8px 20px 0px 20px;
     text-decoration: none;
     text-align: center;
-    text-transform: lowercase;
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-weight: normal;
     font-size: 14px;
@@ -161,7 +159,6 @@ div.content {
 
 .post .title h2 {
     padding: 30px 30px 0 0px;
-    text-transform: lowercase;
     font-weight: normal;
     font-size: 2.2em;
 }
@@ -243,7 +240,6 @@ div.sidebar li li {
 div.sidebar h2 {
     padding: 30px 30px 5px 10px;
     background: url(images/img09.gif) no-repeat;
-    text-transform: lowercase;
     font-weight: normal;
     font-size: 1.6em;
     color: #302D26;
