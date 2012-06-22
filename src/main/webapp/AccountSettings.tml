@@ -1,0 +1,7 @@
+<html t:type="layout" title="Settings  (Under Construction!)"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <p>From this page the user will be able to do changes to their account.</p>
+
+</html>

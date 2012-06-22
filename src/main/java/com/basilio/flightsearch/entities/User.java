@@ -67,6 +67,10 @@ public class User
     @NotNull
     private String password;
 
+    @Column(nullable = false)
+    @NotNull
+    private boolean isAdmin;
+
 
     public User()
     {
@@ -77,6 +81,7 @@ public class User
         this.fullname = fullname;
         this.username = username;
         this.email = email;
+        this.isAdmin = false;
     }
 
     public User(final String fullname, final String username, final String email,
@@ -84,6 +89,7 @@ public class User
     {
         this(fullname, username, email);
         this.password = password;
+        this.isAdmin = false;
     }
 
     public User(Long id, String username, String fullname, String email, String password)
@@ -94,6 +100,7 @@ public class User
         this.fullname = fullname;
         this.email = email;
         this.password = password;
+        this.isAdmin = false;
 
     }
 
@@ -107,6 +114,9 @@ public class User
         builder.append(",");
         builder.append("username ");
         builder.append(username);
+        builder.append(",");
+        builder.append("Admin ");
+        builder.append(isAdmin);
         return builder.toString();
     }
 
@@ -159,6 +169,16 @@ public class User
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public void setAdmin(boolean admin)
+    {
+        isAdmin = admin;
+    }
+
+    public Boolean isAdmin()
+    {
+        return isAdmin;
     }
 
 }

@@ -15,7 +15,7 @@ public class HibernateModule
 {
     public static void bind(ServiceBinder binder)
     {
-        binder.bind(CRUDServiceDAO.class, HibernateCRUDServiceDAO.class);
+        binder.bind(ServiceDAO.class, HibernateServiceDAO.class);
     }
 
     public static void contributeBeanValidatorSource(

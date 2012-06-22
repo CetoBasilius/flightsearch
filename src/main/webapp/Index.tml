@@ -1,7 +1,7 @@
-<html t:type="layout" title="Search flights"
+<html t:type="layout" title="Index"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <p>This page is currently empty</p>
+    <p>You are not supposed to be here</p>
 
 </html>

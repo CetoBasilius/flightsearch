@@ -41,6 +41,12 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
                     </li>
 
                     <t:security.authenticated>
+                        <li>
+                            <a href="#" t:type="actionlink" t:id="search" id="search">Search flights</a>
+                        </li>
+                        <li>
+                            <a href="#" t:type="actionlink" t:id="accountsettings" id="accountsettings">Settings</a>
+                        </li>
                         <li class="last">
                             <a href="#" t:type="actionlink" t:id="logout" id="logout">Log out</a>
                         </li>

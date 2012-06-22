@@ -1,7 +1,9 @@
 package com.basilio.flightsearch.components;
 
 import com.basilio.flightsearch.entities.User;
+import com.basilio.flightsearch.pages.AccountSettings;
 import com.basilio.flightsearch.pages.Index;
+import com.basilio.flightsearch.pages.Search;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.*;
@@ -58,5 +60,17 @@ public class Layout
     {
         authenticator.logout();
         return Index.class;
+    }
+
+    @Log
+    public Object onActionFromAccountSettings()
+    {
+        return AccountSettings.class;
+    }
+
+    @Log
+    public Object onActionFromSearch()
+    {
+        return Search.class;
     }
 }

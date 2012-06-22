@@ -1,7 +1,7 @@
 package com.basilio.flightsearch.security;
 
 
-import com.basilio.flightsearch.annotations.AnonymousAccess;
+import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.pages.Index;
 import com.basilio.flightsearch.pages.Signin;
 import com.basilio.flightsearch.pages.Signup;
@@ -85,7 +85,7 @@ public class AuthenticationFilter implements ComponentRequestFilter
 
         Component page = componentSource.getPage(pageName);
 
-        if (page.getClass().isAnnotationPresent(AnonymousAccess.class)) { return false; }
+        if (page.getClass().isAnnotationPresent(GuestAccess.class)) { return false; }
 
         Link link = renderLinkSource.createPageRenderLink("Signin");
 
