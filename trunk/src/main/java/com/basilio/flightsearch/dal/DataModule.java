@@ -17,9 +17,9 @@ public class DataModule
 {
     private static final Logger LOGGER = LoggerFactory.getLogger(DataModule.class);
 
-    private final CRUDServiceDAO DAO;
+    private final ServiceDAO DAO;
 
-    public DataModule(CRUDServiceDAO DAO)
+    public DataModule(ServiceDAO DAO)
     {
         super();
         this.DAO = DAO;

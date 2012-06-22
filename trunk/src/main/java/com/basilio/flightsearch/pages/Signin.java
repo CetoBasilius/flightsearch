@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.pages;
 
-import com.basilio.flightsearch.annotations.AnonymousAccess;
+import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.security.AuthenticationException;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.annotations.Component;
@@ -11,11 +11,11 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
- * User can sign in to the app
- * 
+ * User can sign in to the web application
+ *
  * @author Basilio
  */
-@AnonymousAccess
+@GuestAccess
 public class Signin
 {
     @Property

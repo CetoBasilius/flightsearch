@@ -1,7 +1,7 @@
 package com.basilio.flightsearch.services;
 
 
-import com.basilio.flightsearch.dal.CRUDServiceDAO;
+import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.dal.QueryParameters;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
@@ -17,12 +17,12 @@ import java.util.List;
  * @author Basilio
  * @version 1.0
  */
-public class BasicAuthenticator implements Authenticator
+public class AuthenticatorImpl implements Authenticator
 {
     public static final String AUTH_TOKEN = "authToken";
 
     @Inject
-    private CRUDServiceDAO CRUDService;
+    private ServiceDAO Service;
 
     @Inject
     private Request request;
@@ -32,13 +32,13 @@ public class BasicAuthenticator implements Authenticator
     {
 
         System.out.println(User.BY_CREDENTIALS+""+QueryParameters.with("username",username).and("password", password).parameters());
-        User user = CRUDService.findUniqueWithNamedQuery(User.BY_CREDENTIALS, QueryParameters.with(
+        User user = Service.findUniqueWithNamedQuery(User.BY_CREDENTIALS, QueryParameters.with(
                 "username",
                 username).and("password", password).parameters());
 
         System.out.println(username+","+password);
 
-        List<User> userList = CRUDService.findWithNamedQuery(User.ALL);
+        List<User> userList = Service.findWithNamedQuery(User.ALL);
         System.out.println("Users " + userList);
 
         if (user == null)

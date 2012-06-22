@@ -1,8 +1,8 @@
 package com.basilio.flightsearch.pages;
 
 
-import com.basilio.flightsearch.annotations.AnonymousAccess;
-import com.basilio.flightsearch.dal.CRUDServiceDAO;
+import com.basilio.flightsearch.annotations.GuestAccess;
+import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.dal.QueryParameters;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
@@ -18,12 +18,12 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
- * This page the user can create an account
+ * Registration page so a user can make an account
  * 
  * @author Basilio
  */
 
-@AnonymousAccess
+@GuestAccess
 public class Signup
 {
 
@@ -48,7 +48,7 @@ public class Signup
     private String verifyPassword;
 
     @Inject
-    private CRUDServiceDAO CRUDServiceDAO;
+    private ServiceDAO ServiceDAO;
 
     @Component
     private Form registerForm;
@@ -77,7 +77,7 @@ public class Signup
     public Object proceedSignup()
     {
 
-        User userVerif = CRUDServiceDAO.findUniqueWithNamedQuery(
+        User userVerif = ServiceDAO.findUniqueWithNamedQuery(
                 User.BY_USERNAME_OR_EMAIL,
                 QueryParameters.with("username", username).and("email", email).parameters());
 
@@ -90,7 +90,7 @@ public class Signup
 
         User user = new User(fullName, username, email, password);
 
-        CRUDServiceDAO.create(user);
+        ServiceDAO.create(user);
 
         try
         {

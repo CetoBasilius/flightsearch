@@ -1,7 +1,28 @@
-<html t:type="layout" title="Search"
+<html t:type="layout" title="Search parameters (Under Construction!)"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <p>This page is currently empty</p>
-
+    <form t:type="form" t:id="searchForm" class="full-form" >
+    		<table>
+    			<tr>
+    			    <th>
+                        <label t:type="label" t:for="originAirportName">Origin</label>
+                    </th>
+    				<td>
+                        <t:textfield t:id="originAirportName" t:mixins="autocomplete" />
+    				</td>
+                </tr>
+                <tr>
+    				<th>
+                        <label t:type="label" t:for="startDate">Start date</label>
+                    </th>
+                    <td>
+                        <t:datefield t:id="startDate"/>
+                    </td>
+    			</tr>
+    		</table>
+    		<div class="form-submit">
+    			<input type="submit" t:type="submit" class="btn-active" value="Search" />
+    		</div>
+    	</form>
 </html>

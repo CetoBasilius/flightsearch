@@ -1,5 +1,6 @@
 package com.basilio.flightsearch.services;
 
+
 import java.io.IOException;
 
 import com.basilio.flightsearch.dal.DataModule;
@@ -32,7 +33,7 @@ public class AppModule
     public static void bind(ServiceBinder binder)
     {
 
-        binder.bind(Authenticator.class, BasicAuthenticator.class);
+        binder.bind(Authenticator.class, AuthenticatorImpl.class);
 
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
 

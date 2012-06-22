@@ -18,7 +18,7 @@ import java.util.Set;
  * @param <T>, type entity
  * @param <PK>, primarykey
  */
-public class HibernateCRUDServiceDAO implements CRUDServiceDAO
+public class HibernateServiceDAO implements ServiceDAO
 {
 
     @Inject

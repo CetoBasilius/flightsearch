@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * CRUDServiceDAO interface.
+ * ServiceDAO interface.
  * 
  * @author Basilio
  */
-public interface CRUDServiceDAO
+public interface ServiceDAO
 {
     /**
      * Creates a new object for the given type. After a call to this method the entity will be

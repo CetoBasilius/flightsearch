@@ -12,7 +12,7 @@ import java.lang.annotation.*;
 { ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface AnonymousAccess
+public @interface GuestAccess
 {
 
 }
