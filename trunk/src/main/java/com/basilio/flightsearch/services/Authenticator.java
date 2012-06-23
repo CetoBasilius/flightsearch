@@ -42,6 +42,11 @@ public interface Authenticator
     void logout();
 
     /**
+     * @return true if the logged user is an admin
+     */
+    public boolean isUserAdmin();
+
+    /**
      * Sets the CRUD DAO
      *
      * @param service the Create Read Update and Delete service Data Access Object

@@ -26,23 +26,28 @@ public class AuthenticatorImplTest {
     private final String username = "myusername";
     private final String password = "mypassword";
 
+    Authenticator authenticator;
+    Request request;
+    ServiceDAO serviceDAO;
+    User user;
+    Session session;
+
     @Before
-    public void setupTest(){
+    public void setupTests(){
 
-    }
+        authenticator = new AuthenticatorImpl();
 
-    @Test
-    public void loginShouldLogin() throws AuthenticationException {
-
-        Authenticator authenticator = new AuthenticatorImpl();
-
-        Request request = createNiceMock(Request.class);
-        ServiceDAO serviceDAO = createNiceMock(ServiceDAO.class);
-        User user = createNiceMock(User.class);
-        Session session = createNiceMock(Session.class);
+        request = createNiceMock(Request.class);
+        serviceDAO = createNiceMock(ServiceDAO.class);
+        user = createNiceMock(User.class);
+        session = createNiceMock(Session.class);
 
         authenticator.setRequest(request);
         authenticator.setService(serviceDAO);
+    }
+
+    @Test
+    public void loginShouldLoginUser() throws AuthenticationException {
 
         expect(serviceDAO.findUniqueWithNamedQuery(User.BY_CREDENTIALS, QueryParameters.with(
                 "username",
@@ -63,16 +68,6 @@ public class AuthenticatorImplTest {
     @Test
     public void getLoggedUserShouldReturnLoggedUser() throws AuthenticationException {
 
-        Authenticator authenticator = new AuthenticatorImpl();
-
-        Request request = createNiceMock(Request.class);
-        ServiceDAO serviceDAO = createNiceMock(ServiceDAO.class);
-        User user = createNiceMock(User.class);
-        Session session = createNiceMock(Session.class);
-
-        authenticator.setRequest(request);
-        authenticator.setService(serviceDAO);
-
         expect(request.getSession(false)).andReturn(session);
         expect(session.getAttribute(AUTH_TOKEN)).andReturn(user);
         expect(request.getSession(true)).andReturn(session);
@@ -86,4 +81,21 @@ public class AuthenticatorImplTest {
 
     }
 
+    @Test
+    public void getLoggedUserShouldBeAdmin() throws AuthenticationException {
+
+        expect(request.getSession(false)).andReturn(session);
+        expect(session.getAttribute(AUTH_TOKEN)).andReturn(user);
+        expect(request.getSession(true)).andReturn(session);
+        expect(session.getAttribute(AUTH_TOKEN)).andReturn(user);
+
+        expect(user.isAdmin()).andReturn(true);
+
+        replay(request, serviceDAO, session, user);
+
+        assertEquals(true,authenticator.isUserAdmin());
+
+        verify(request,serviceDAO, session, user);
+
+    }
 }

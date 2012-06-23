@@ -64,6 +64,18 @@ public class AuthenticatorImpl implements Authenticator
         return false;
     }
 
+    public boolean isUserAdmin()
+    {
+        User user = null;
+        user = getLoggedUser();
+        if(user != null){
+            if(user.isAdmin()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public User getLoggedUser()
     {
         User user = null;
