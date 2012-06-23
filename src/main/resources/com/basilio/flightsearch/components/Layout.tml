@@ -30,11 +30,13 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 
             <div class="menu">
                 <ul>
-                    <li class="first">
-                        <t:security.authenticated>
+
+                    <t:security.authenticated>
+                        <li class="first">
                             Welcome, ${user?.fullName}
-                        </t:security.authenticated>
-                    </li>
+                        </li>
+                    </t:security.authenticated>
+
 
                     <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
                         <t:pagelink page="prop:pageName">${pageName}</t:pagelink>
@@ -47,10 +49,23 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
                         <li>
                             <a href="#" t:type="actionlink" t:id="accountsettings" id="accountsettings">Settings</a>
                         </li>
+                    </t:security.authenticated>
+
+                    <li>
+                        <a href="#" t:type="actionlink" t:id="about" id="about">About</a>
+                    </li>
+
+                    <t:security.authenticated>
                         <li class="last">
                             <a href="#" t:type="actionlink" t:id="logout" id="logout">Log out</a>
                         </li>
                     </t:security.authenticated>
+
+                    <t:security.notauthenticated>
+                        <li class="last">
+                            <a href="#" t:type="actionlink" t:id="signIn" id="signIn">Sign in</a>
+                        </li>
+                    </t:security.notauthenticated>
 
                 </ul>
             </div>

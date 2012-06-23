@@ -1,9 +1,7 @@
 package com.basilio.flightsearch.components;
 
 import com.basilio.flightsearch.entities.User;
-import com.basilio.flightsearch.pages.AccountSettings;
-import com.basilio.flightsearch.pages.Index;
-import com.basilio.flightsearch.pages.Search;
+import com.basilio.flightsearch.pages.*;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.*;
@@ -58,6 +56,8 @@ public class Layout
     @Log
     public Object onActionFromLogout()
     {
+        //TODO: add a logout page to ask the user if they really want to log out
+
         authenticator.logout();
         return Index.class;
     }
@@ -72,5 +72,17 @@ public class Layout
     public Object onActionFromSearch()
     {
         return Search.class;
+    }
+
+    @Log
+    public Object onActionFromSignIn()
+    {
+        return Signin.class;
+    }
+
+    @Log
+    public Object onActionFromAbout()
+    {
+        return About.class;
     }
 }
