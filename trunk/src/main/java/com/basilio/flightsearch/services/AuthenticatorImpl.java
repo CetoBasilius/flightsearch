@@ -27,35 +27,20 @@ public class AuthenticatorImpl implements Authenticator
     @Inject
     private Request request;
 
-
     public void login(String username, String password) throws AuthenticationException
     {
-
-        System.out.println(User.BY_CREDENTIALS+""+QueryParameters.with("username",username).and("password", password).parameters());
         User user = Service.findUniqueWithNamedQuery(User.BY_CREDENTIALS, QueryParameters.with(
                 "username",
                 username).and("password", password).parameters());
 
-        System.out.println(username+","+password);
-
         List<User> userList = Service.findWithNamedQuery(User.ALL);
-        System.out.println("Users " + userList);
 
         if (user == null)
         {
-            System.out.println("something went wrong");
             throw new AuthenticationException("The user doesn't exist");
         }
 
         request.getSession(true).setAttribute(AUTH_TOKEN, user);
-
-    }
-
-    public boolean isLoggedIn()
-    {
-        Session session = request.getSession(false);
-        if (session != null) { return session.getAttribute(AUTH_TOKEN) != null; }
-        return false;
     }
 
     public void logout()
@@ -68,6 +53,16 @@ public class AuthenticatorImpl implements Authenticator
         }
     }
 
+    public boolean isLoggedIn()
+    {
+        Session session = request.getSession(false);
+        if (session != null) {
+            if(session.getAttribute(AUTH_TOKEN) != null){
+                return true;
+            }
+        }
+        return false;
+    }
 
     public User getLoggedUser()
     {
@@ -84,5 +79,11 @@ public class AuthenticatorImpl implements Authenticator
         return user;
     }
 
+    public void setService(ServiceDAO service) {
+        Service = service;
+    }
 
+    public void setRequest(Request request) {
+        this.request = request;
+    }
 }

@@ -1,7 +1,9 @@
 package com.basilio.flightsearch.services;
 
+import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
+import org.apache.tapestry5.services.Request;
 
 /**
  * Basic security interface
@@ -38,4 +40,13 @@ public interface Authenticator
      * Logs out the user
      */
     void logout();
+
+    /**
+     * Sets the CRUD DAO
+     *
+     * @param service the Create Read Update and Delete service Data Access Object
+     */
+    public void setService(ServiceDAO service);
+
+    public void setRequest(Request request);
 }
