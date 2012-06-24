@@ -15,7 +15,7 @@ import java.util.List;
  * Basic Security Realm implementation
  * 
  * @author Basilio
- * @version 1.0
+ * @version 1.1
  */
 public class AuthenticatorImpl implements Authenticator
 {

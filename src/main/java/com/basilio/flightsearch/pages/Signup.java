@@ -94,7 +94,6 @@ public class Signup
 
         try
         {
-            System.out.println("logging in with "+username+","+password);
             authenticator.login(username, password);
         }
         catch (AuthenticationException ex)
@@ -104,6 +103,5 @@ public class Signup
         }
 
         return Index.class;
-
     }
 }
