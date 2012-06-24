@@ -4,4 +4,13 @@
 
     <p>From this page the user will be able to do changes to their account.</p>
 
+    <t:security.administrator>
+
+        <t:grid source="userlist" row="user" add="delete">
+            <p:deletecell>
+                <t:actionlink t:id="delete" context="user.id">Delete</t:actionlink>
+            </p:deletecell>
+        </t:grid>
+    </t:security.administrator>
+
 </html>

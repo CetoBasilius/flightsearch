@@ -31,9 +31,9 @@ public class DataModule
 
         List<User> users = new ArrayList<User>();
 
-        users.add(new User("Basilio German", "cetobasilius", "basi@correo.com",
-                "cetobasilius"));
+        users.add(new User("Basilio German", "cetobasilius", "basi@correo.com","cetobasilius"));
         users.add(new User("Demo person", "username", "user@correo.com", "password"));
+        users.add(new User("Administrator", "admin", "admin@flightsearch.com", "admin",true));
 
         LOGGER.info("Loading initial demo data");
         create(users);

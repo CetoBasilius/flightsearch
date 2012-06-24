@@ -92,6 +92,13 @@ public class User
         this.isAdmin = false;
     }
 
+    public User(final String fullname, final String username, final String email, final String password, final boolean admin)
+    {
+        this(fullname, username, email);
+        this.password = password;
+        this.isAdmin = admin;
+    }
+
     public User(Long id, String username, String fullname, String email, String password)
     {
         super();
