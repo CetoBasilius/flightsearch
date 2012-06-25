@@ -32,11 +32,17 @@ public class AuthenticationFilter implements ComponentRequestFilter
 
     private final Authenticator authenticator;
 
-    private String defaultPage = Index.class.getSimpleName();
+    private Class defaultPageClass = Index.class;
 
-    private String signinPage = Signin.class.getSimpleName();
+    private Class signinPageClass = Signin.class;
 
-    private String signupPage = Signup.class.getSimpleName();
+    private Class signupPageClass = Signup.class;
+
+    private String defaultPage = defaultPageClass.getSimpleName();
+
+    private String signinPage = signinPageClass.getSimpleName();
+
+    private String signupPage = signupPageClass.getSimpleName();
 
     public AuthenticationFilter(PageRenderLinkSource renderLinkSource,
                                 ComponentSource componentSource, Response response, Authenticator authenticator)
@@ -66,7 +72,10 @@ public class AuthenticationFilter implements ComponentRequestFilter
         handler.handlePageRender(parameters);
     }
 
-    private boolean dispatchedToLoginPage(String pageName) throws IOException
+
+
+    //returns true if
+    boolean dispatchedToLoginPage(String pageName) throws IOException
     {
 
         if (authenticator.isLoggedIn())
@@ -83,9 +92,9 @@ public class AuthenticationFilter implements ComponentRequestFilter
             return false;
         }
 
-        Component page = componentSource.getPage(pageName);
 
-        if (page.getClass().isAnnotationPresent(GuestAccess.class)) { return false; }
+
+        if ((hasGuestAnnotation( getPageClass(pageName)))) { return false; }
 
         Link link = renderLinkSource.createPageRenderLink("Signin");
 
@@ -93,4 +102,38 @@ public class AuthenticationFilter implements ComponentRequestFilter
 
         return true;
     }
+
+     Class getPageClass(String pageName) {
+        return componentSource.getPage(pageName).getClass();
+    }
+
+    private boolean hasGuestAnnotation(Class aClass) {
+        return aClass.isAnnotationPresent(GuestAccess.class) ? true: false;
+    }
+
+    public String getDefaultPage() {
+        return defaultPage;
+    }
+
+    public String getSigninPage() {
+        return signinPage;
+    }
+
+    public String getSignupPage() {
+        return signupPage;
+    }
+
+    public Class getDefaultPageClass() {
+        return defaultPageClass;
+    }
+
+    public Class getSigninPageClass() {
+        return signinPageClass;
+    }
+
+    public Class getSignupPageClass() {
+        return signupPageClass;
+    }
+
+
 }

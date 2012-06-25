@@ -12,6 +12,8 @@ import java.util.Set;
 
 /**
  * Hibernate Create, Read, Update, and Delete service data access interface
+ *
+ * Many of the methods have @SuppressWarnings("unchecked") because Eclipse will complain about illegal behavior, however we know it will be legal.
  * 
  * @author Basilio
  *
