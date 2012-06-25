@@ -11,6 +11,12 @@
     				<td>
                         <t:textfield t:id="originAirportName" t:mixins="autocomplete" />
     				</td>
+    				<th>
+                        <label t:type="label" t:for="destinationAirportName">Destination</label>
+                    </th>
+                    <td>
+                        <t:textfield t:id="destinationAirportName" t:mixins="autocomplete" />
+                    </td>
                 </tr>
                 <tr>
     				<th>
@@ -18,6 +24,12 @@
                     </th>
                     <td>
                         <t:datefield t:id="startDate"/>
+                    </td>
+                    <th>
+                        <label t:type="label" t:for="endDate">End date</label>
+                    </th>
+                    <td>
+                        <t:datefield t:id="endDate"/>
                     </td>
     			</tr>
     		</table>

@@ -41,13 +41,10 @@ public class Signin
     {
         try
         {
-            System.out.println("Trying to login with "+username);
             authenticator.login(username, password);
-            System.out.println("user "+username+" logged in...");
         }
         catch (AuthenticationException ex)
         {
-            System.out.println("Login failed, somehow...");
             loginForm.recordError(messages.get("error.login"));
             return null;
         }

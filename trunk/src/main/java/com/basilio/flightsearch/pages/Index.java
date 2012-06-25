@@ -2,6 +2,7 @@ package com.basilio.flightsearch.pages;
 
 import java.util.Date;
 
+import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.*;
@@ -15,6 +16,8 @@ import org.apache.tapestry5.alerts.AlertManager;
  * @author Basilio
  */
 
+
+@GuestAccess
 public class Index
 {
     @Inject
@@ -22,7 +25,7 @@ public class Index
 
     public Object onActivate()
     {
-        return authenticator.isLoggedIn() ? Search.class : Signin.class;
+        return authenticator.isLoggedIn() ? Search.class : About.class;
     }
 
 }
