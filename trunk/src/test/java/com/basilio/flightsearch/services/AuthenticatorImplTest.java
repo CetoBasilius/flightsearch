@@ -24,13 +24,18 @@ public class AuthenticatorImplTest {
     public static final String AUTH_TOKEN = "authToken";
 
     private final String username = "myusername";
+
     private final String password = "mypassword";
 
-    Authenticator authenticator;
-    Request request;
-    ServiceDAO serviceDAO;
-    User user;
-    Session session;
+    private Authenticator authenticator;
+
+    private Request request;
+
+    private ServiceDAO serviceDAO;
+
+    private User user;
+
+    private Session session;
 
     @Before
     public void setupTests(){
