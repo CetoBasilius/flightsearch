@@ -17,6 +17,7 @@ import org.apache.tapestry5.annotations.Property;
  * @author Basilio
  *
  */
+
 public class Search {
     @Inject
     private Session session;
@@ -25,7 +26,13 @@ public class Search {
     private Date startDate;
 
     @Property
+    private Date endDate;
+
+    @Property
     private String originAirportName;
+
+    @Property
+    private String destinationAirportName;
 
     //This assures this method gets called first
     @OnEvent(value = EventConstants.SUCCESS)
@@ -42,12 +49,45 @@ public class Search {
     List<String> onProvideCompletionsFromOriginAirportName(String partial)
     {
         //TODO consult a web service to grab airport names
+        List<String> allAirports = new ArrayList<String>();
+
+        allAirports.add("HMO Hermosillo Sonora Mexico");
+        allAirports.add("TUS Tucson Arizona USA");
+        allAirports.add("NYC New York City USA");
+        allAirports.add("MEX Mexico DF Mexico");
+
         List<String> result = new ArrayList<String>();
 
-        result.add("HMO");
-        result.add("TUS");
-        result.add("NYC");
-        result.add("MEX");
+        for(String airport : allAirports){
+            int index1 = airport.indexOf(partial);
+            if (index1 != -1)
+            {
+                result.add(airport);
+            }
+        }
+
+        return result;
+    }
+
+    List<String> onProvideCompletionsFromDestinationAirportName(String partial)
+    {
+        //TODO consult a web service to grab airport names
+        List<String> allAirports = new ArrayList<String>();
+
+        allAirports.add("HMO Hermosillo Sonora Mexico");
+        allAirports.add("TUS Tucson Arizona USA");
+        allAirports.add("NYC New York City USA");
+        allAirports.add("MEX Mexico DF Mexico");
+
+        List<String> result = new ArrayList<String>();
+
+        for(String airport : allAirports){
+            int index1 = airport.indexOf(partial);
+            if (index1 != -1)
+            {
+                result.add(airport);
+            }
+        }
 
         return result;
     }
