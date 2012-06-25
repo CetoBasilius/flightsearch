@@ -9,13 +9,13 @@
                         <label t:type="label" t:for="originAirportName">Origin</label>
                     </th>
     				<td>
-                        <t:textfield t:id="originAirportName" t:mixins="autocomplete" />
+                        <t:textfield t:id="originAirportName" t:mixins="autocomplete" size="40"/>
     				</td>
     				<th>
                         <label t:type="label" t:for="destinationAirportName">Destination</label>
                     </th>
                     <td>
-                        <t:textfield t:id="destinationAirportName" t:mixins="autocomplete" />
+                        <t:textfield t:id="destinationAirportName" t:mixins="autocomplete" size="40" />
                     </td>
                 </tr>
                 <tr>

@@ -55,11 +55,18 @@ public class Search {
         allAirports.add("TUS Tucson Arizona USA");
         allAirports.add("NYC New York City USA");
         allAirports.add("MEX Mexico DF Mexico");
+        allAirports.add("LAX Los Angeles California USA");
+        allAirports.add("SFO San Francisco California USA");
+        allAirports.add("XEX Paris France");
+        allAirports.add("BER Berlin Germany");
+        allAirports.add("PGG Sao Paulo Brazil");
+
+
 
         List<String> result = new ArrayList<String>();
 
         for(String airport : allAirports){
-            int index1 = airport.indexOf(partial);
+            int index1 = airport.toLowerCase().indexOf(partial.toLowerCase());
             if (index1 != -1)
             {
                 result.add(airport);
@@ -78,11 +85,16 @@ public class Search {
         allAirports.add("TUS Tucson Arizona USA");
         allAirports.add("NYC New York City USA");
         allAirports.add("MEX Mexico DF Mexico");
+        allAirports.add("LAX Los Angeles California USA");
+        allAirports.add("SFO San Francisco California USA");
+        allAirports.add("XEX Paris France");
+        allAirports.add("BER Berlin Germany");
+        allAirports.add("PGG Sao Paulo Brazil");
 
         List<String> result = new ArrayList<String>();
 
         for(String airport : allAirports){
-            int index1 = airport.indexOf(partial);
+            int index1 = airport.toLowerCase().indexOf(partial.toLowerCase());
             if (index1 != -1)
             {
                 result.add(airport);
