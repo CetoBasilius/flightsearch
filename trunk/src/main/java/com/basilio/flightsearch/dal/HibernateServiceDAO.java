@@ -16,7 +16,7 @@ import java.util.Set;
  * @author Basilio
  *
  * @param <T>, type entity
- * @param <PK>, primarykey
+ * @param <PK>, primary key
  */
 public class HibernateServiceDAO implements ServiceDAO
 {

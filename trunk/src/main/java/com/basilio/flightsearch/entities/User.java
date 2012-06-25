@@ -17,9 +17,11 @@ import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.Email;
 
 /**
- * Flight Search User
- * 
- * @author Basilio
+ * Created with IntelliJ IDEA.
+ * User: bgerman
+ * Date: 6/22/12
+ * Time: 11:29 PM
+ * To change this template use File | Settings | File Templates.
  */
 
 @Entity
@@ -29,7 +31,6 @@ import org.hibernate.validator.constraints.Email;
         @NamedQuery(name = User.BY_USERNAME_OR_EMAIL, query = "Select u from User u where u.username = :username or u.email = :email"),
         @NamedQuery(name = User.BY_CREDENTIALS, query = "Select u from User u where u.username = :username and u.password = :password") })
 @Table(name = "users")
-
 public class User
 {
 
@@ -40,7 +41,6 @@ public class User
     public static final String BY_CREDENTIALS = "User.byCredentials";
 
     private static final long serialVersionUID = 1L;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,7 +76,7 @@ public class User
     {
     }
 
-    public User(final String fullname, final String username, final String email)
+    public User(String fullname, String username, String email)
     {
         this.fullname = fullname;
         this.username = username;
@@ -84,15 +84,15 @@ public class User
         this.isAdmin = false;
     }
 
-    public User(final String fullname, final String username, final String email,
-                final String password)
+    public User(String fullname, String username, String email,
+                String password)
     {
         this(fullname, username, email);
         this.password = password;
         this.isAdmin = false;
     }
 
-    public User(final String fullname, final String username, final String email, final String password, final boolean admin)
+    public User(String fullname, String username, String email, String password, boolean admin)
     {
         this(fullname, username, email);
         this.password = password;
@@ -114,7 +114,6 @@ public class User
     @Override
     public String toString()
     {
-
         StringBuilder builder = new StringBuilder();
         builder.append("id ");
         builder.append(id);
@@ -126,7 +125,6 @@ public class User
         builder.append(isAdmin);
         return builder.toString();
     }
-
 
     public Long getId()
     {
@@ -178,14 +176,15 @@ public class User
         this.password = password;
     }
 
+    public Boolean isAdmin()
+    {
+        return isAdmin;
+    }
+
     public void setAdmin(boolean admin)
     {
         isAdmin = admin;
     }
 
-    public Boolean isAdmin()
-    {
-        return isAdmin;
-    }
 
 }
