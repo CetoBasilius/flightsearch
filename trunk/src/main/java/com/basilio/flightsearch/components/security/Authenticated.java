@@ -12,9 +12,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * Time: 12:35 PM
  * Used to check if user is logged in
  */
-public class Authenticated extends AbstractConditional
-{
-
+public class Authenticated extends AbstractConditional{
     @Inject
     private Authenticator authenticator;
 
@@ -23,5 +21,4 @@ public class Authenticated extends AbstractConditional
     {
         return authenticator.isLoggedIn();
     }
-
 }

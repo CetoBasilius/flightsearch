@@ -11,6 +11,9 @@
     				<td>
                         <t:textfield t:id="originAirportName" t:mixins="autocomplete" size="40"/>
     				</td>
+
+    				<td colspan="2"  width="40">&nbsp;</td>
+
     				<th>
                         <label t:type="label" t:for="destinationAirportName">Destination</label>
                     </th>
@@ -25,6 +28,9 @@
                     <td>
                         <t:datefield t:id="startDate"/>
                     </td>
+
+                    <td colspan="2"  width="40">&nbsp;</td>
+
                     <th>
                         <label t:type="label" t:for="endDate">End date</label>
                     </th>
@@ -32,6 +38,7 @@
                         <t:datefield t:id="endDate"/>
                     </td>
     			</tr>
+    			<td height="10">&nbsp;</td>
     		</table>
     		<div class="form-submit">
     			<input type="submit" t:type="submit" class="btn-active" value="Search" />

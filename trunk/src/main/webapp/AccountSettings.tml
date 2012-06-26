@@ -1,16 +1,47 @@
-<html t:type="layout" title="Settings  (Under Construction!)"
+<html t:type="layout" title="Account settings"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <p>From this page the user will be able to do changes to their account.</p>
+    <form class="full-form" t:id="changePasswordForm" >
+        <t:errors/>
+        <p><b>Change account password</b></p>
 
+        <table>
+            <tr>
+                <th>
+                    <label t:type="label" t:for="mypassword">Password:</label>
+                </th>
+                <td>
+                    <input t:type="passwordField" t:id="mypassword" t:validate="required,minlength=6"/>
+                </td>
+            </tr>
+            <td colspan="2"  width="40">&nbsp;</td>
+            <tr>
+                <th>
+                    <label t:type="label" t:for="verifyNewPassword1">New password:</label>
+                </th>
+                <td>
+                    <input t:type="passwordField" t:id="verifyNewPassword1" t:validate="required,minlength=6"/>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label t:type="label" t:for="verifyNewPassword2">Retype new password:</label>
+                </th>
+                <td>
+                    <input t:type="passwordField" t:id="verifyNewPassword2" t:validate="required,minlength=6"/>
+                </td>
+            </tr>
+            <td colspan="2"  width="40">&nbsp;</td>
+        </table>
+        <div class="form-submit">
+            <input type="submit" value="Change password" />
+        </div>
+    </form>
+    &nbsp;
     <t:security.administrator>
-
-
-
     <h1>Administrator Controls</h1>
     <table>
-
         <td>
             <p align="center"><b>Create new User:</b></p>
             <form class="full-form" t:id="registerForm" >
@@ -66,7 +97,7 @@
                         </tr>
 
                     </table>
-
+                    &nbsp;
                     <div class="form-submit">
                         <input type="submit" value="Register new User" />
                     </div>

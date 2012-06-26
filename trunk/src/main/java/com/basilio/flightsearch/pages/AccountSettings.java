@@ -37,6 +37,23 @@ public class AccountSettings {
     @Inject
     Authenticator authenticator;
 
+    //-------------------- Change password ---------------------
+    @Component
+    private Form changePasswordForm;
+
+    @Property
+    @Validate("password")
+    private String verifyNewPassword1;
+
+    @Property
+    @Validate("password")
+    private String verifyNewPassword2;
+
+    @Property
+    @Validate("password")
+    private String myPassword;
+
+    //------------------ Administrator create user --------------
     @Property
     private User user;
 
@@ -66,11 +83,12 @@ public class AccountSettings {
     @Property
     private boolean isAdmin;
 
+    //-------------------------------------------------
+
     public List<User> getUserlist()
     {
         List<User> userList = serviceDAO.findWithNamedQuery(User.ALL);
-
-        return userList;//session.createCriteria(User.class).list();
+        return userList;
     }
 
     public Object onActionFromDelete(long userId)
@@ -81,6 +99,27 @@ public class AccountSettings {
         serviceDAO.delete(User.class,userId);
         return(AccountSettings.class);
     }
+
+    @OnEvent(value = EventConstants.SUCCESS, component = "changePasswordForm")
+    public void proceedChangePassword(){
+        User myUser = serviceDAO.findUniqueWithNamedQuery(
+                User.BY_USERNAME_OR_EMAIL,
+                QueryParameters.with("username", authenticator.getLoggedUser().getUsername()).and("email", authenticator.getLoggedUser().getEmail()).parameters());
+        if(this.myPassword.equals(myUser.getPassword())){
+            if(this.verifyNewPassword1.equals(this.verifyNewPassword2)){
+
+                myUser.setPassword(verifyNewPassword1);
+                serviceDAO.update(myUser);
+            }else{
+                changePasswordForm.recordError(messages.get("error.verifypassword"));
+            }
+        }else{
+            changePasswordForm.recordError(messages.get("error.wrongchangepassword"));
+        }
+
+
+    }
+
 
     @OnEvent(value = EventConstants.SUCCESS, component = "RegisterForm")
     public Object proceedCreateUser()
