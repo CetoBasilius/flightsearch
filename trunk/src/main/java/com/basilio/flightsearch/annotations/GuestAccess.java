@@ -6,7 +6,6 @@ import java.lang.annotation.*;
  * Security annotation for Tapestry Pages. Enables anonymous access to pages, so the user does not
  * have to be logged in.
  *
- * @version 1.0
  */
 @Target(
 { ElementType.TYPE })

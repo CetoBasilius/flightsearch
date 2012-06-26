@@ -9,7 +9,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * User: Cetobasilius
  * Date: 6/22/12
  * Time: 9:20 PM
- * To change this template use File | Settings | File Templates.
+ * used to check if user is not logged in
  */
 public class NotAuthenticated extends AbstractConditional {
     @Inject

@@ -1,16 +1,5 @@
 <!DOCTYPE html>
-<!--
-
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-
-Title      : Concrete (modified for Tapestry)
-Version    : 1.0
-Released   : 20080825
-Description: A Web 2.0 design with fluid width suitable for blogs and small websites.
--->
-        <html xmlns="http://www.w3.org/1999/xhtml"
+    <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
     <head>
@@ -57,7 +46,7 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
 
                     <t:security.authenticated>
                         <li class="last">
-                            <a href="#" t:type="actionlink" t:id="logout" id="logout">Log out</a>
+                            <a href="#" t:type="actionlink" t:mixins="confirm" t:message="Are you sure you want to log out?" t:id="logout" id="logout">Log out</a>
                         </li>
                     </t:security.authenticated>
 

@@ -6,9 +6,11 @@ import org.apache.tapestry5.corelib.base.AbstractConditional;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
- * Checks if the user is logged in
- * 
- * @author Basilio
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/22/12
+ * Time: 12:35 PM
+ * Used to check if user is logged in
  */
 public class Authenticated extends AbstractConditional
 {
