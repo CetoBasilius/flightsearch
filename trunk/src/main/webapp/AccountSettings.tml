@@ -6,11 +6,86 @@
 
     <t:security.administrator>
 
-        <t:grid source="userlist" row="user" add="delete">
-            <p:deletecell>
-                <t:actionlink t:id="delete" context="user.id">Delete</t:actionlink>
-            </p:deletecell>
-        </t:grid>
+
+
+    <h1>Administrator Controls</h1>
+    <table>
+
+        <td>
+            <p align="center"><b>Create new User:</b></p>
+            <form class="full-form" t:id="registerForm" >
+                    <t:errors/>
+                    <table>
+                        <tr>
+                            <th>
+                                <label t:type="label" t:for="username">User name:</label>
+                            </th>
+                            <td>
+                                <input t:type="textfield" t:id="username" t:validate="required,minlength=3"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label t:type="label" t:for="fullname">Full name:</label>
+                            </th>
+                            <td>
+                                <input t:type="textfield" t:id="fullname" t:validate="required,minlength=3"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label t:type="label" t:for="email">Email:</label>
+                            </th>
+                            <td>
+                                <input t:type="textfield" t:id="email" t:validate="required,email"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label t:type="label" t:for="password">Password:</label>
+                            </th>
+                            <td>
+                                <input t:type="passwordField" t:id="password" t:validate="required,minlength=6"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label t:type="label" t:for="verifyPassword">Verify password:</label>
+                            </th>
+                            <td>
+                                <input t:type="passwordField" t:id="verifyPassword" t:validate="none"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <label t:type="label" t:for="isAdmin">Administrator:</label>
+                            </th>
+                            <td>
+                                <input t:type="checkbox" t:id="isAdmin" t:validate="none"/>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <div class="form-submit">
+                        <input type="submit" value="Register new User" />
+                    </div>
+                </form>
+            </td>
+
+            <td colspan="2"  width="100">&nbsp;</td>
+
+            <td>
+
+                <p align="center"><b>User list:</b></p>
+                <t:grid source="userlist" row="user" add="delete">
+                    <p:deletecell>
+                        <t:actionlink t:id="delete" context="user.id">Delete</t:actionlink>
+                    </p:deletecell>
+                </t:grid>
+            </td>
+        </table>
+
     </t:security.administrator>
 
 </html>

@@ -48,7 +48,7 @@ public class Signup
     private String verifyPassword;
 
     @Inject
-    private ServiceDAO ServiceDAO;
+    private ServiceDAO serviceDAO;
 
     @Component
     private Form registerForm;
@@ -77,7 +77,7 @@ public class Signup
     public Object proceedSignup()
     {
 
-        User userVerif = ServiceDAO.findUniqueWithNamedQuery(
+        User userVerif = serviceDAO.findUniqueWithNamedQuery(
                 User.BY_USERNAME_OR_EMAIL,
                 QueryParameters.with("username", username).and("email", email).parameters());
 
@@ -90,7 +90,7 @@ public class Signup
 
         User user = new User(fullName, username, email, password);
 
-        ServiceDAO.create(user);
+        serviceDAO.create(user);
 
         try
         {
