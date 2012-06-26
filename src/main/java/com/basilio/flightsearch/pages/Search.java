@@ -1,5 +1,7 @@
 package com.basilio.flightsearch.pages;
 
+import com.basilio.flightsearch.dal.ServiceDAO;
+import com.basilio.flightsearch.entities.Airport;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -19,8 +21,9 @@ import org.apache.tapestry5.annotations.Property;
  */
 
 public class Search {
+
     @Inject
-    private Session session;
+    ServiceDAO serviceDAO;
 
     @Property
     private Date startDate;
@@ -34,75 +37,53 @@ public class Search {
     @Property
     private String destinationAirportName;
 
-    //This assures this method gets called first
-    @OnEvent(value = EventConstants.SUCCESS)
-    void searchFlights()
-    {
-
-    }
+    @Property
+    @Persist
+    private List<Airport> allAirports;
 
     void onAction()
     {
 
     }
 
+    @Log
+    @OnEvent(value = EventConstants.ACTIVATE)
+    public void getAirports()
+    {
+        if(allAirports == null){
+            allAirports = serviceDAO.findWithNamedQuery(Airport.ALL);
+        }
+    }
+
+    public List<Airport> getAirportlist()
+    {
+        List<Airport> airportList = serviceDAO.findWithNamedQuery(Airport.ALL);
+        return airportList;
+    }
+
     List<String> onProvideCompletionsFromOriginAirportName(String partial)
     {
-        //TODO consult a web service to grab airport names
-        List<String> allAirports = new ArrayList<String>();
 
-        allAirports.add("HMO Hermosillo Sonora Mexico");
-        allAirports.add("TUS Tucson Arizona USA");
-        allAirports.add("NYC New York City USA");
-        allAirports.add("MEX Mexico DF Mexico");
-        allAirports.add("LAX Los Angeles California USA");
-        allAirports.add("SFO San Francisco California USA");
-        allAirports.add("XEX Paris France");
-        allAirports.add("BER Berlin Germany");
-        allAirports.add("PGG Sao Paulo Brazil");
-
-
-
-        List<String> result = new ArrayList<String>();
-
-        for(String airport : allAirports){
-            int index1 = airport.toLowerCase().indexOf(partial.toLowerCase());
-            if (index1 != -1)
-            {
-                result.add(airport);
-            }
-        }
-
-        return result;
+        return getAutoCompleteList(partial);
     }
 
     List<String> onProvideCompletionsFromDestinationAirportName(String partial)
     {
-        //TODO consult a web service to grab airport names
-        List<String> allAirports = new ArrayList<String>();
+        return getAutoCompleteList(partial);
+    }
 
-        allAirports.add("HMO Hermosillo Sonora Mexico");
-        allAirports.add("TUS Tucson Arizona USA");
-        allAirports.add("NYC New York City USA");
-        allAirports.add("MEX Mexico DF Mexico");
-        allAirports.add("LAX Los Angeles California USA");
-        allAirports.add("SFO San Francisco California USA");
-        allAirports.add("XEX Paris France");
-        allAirports.add("BER Berlin Germany");
-        allAirports.add("PGG Sao Paulo Brazil");
-
+    List<String> getAutoCompleteList(String partial) {
         List<String> result = new ArrayList<String>();
 
-        for(String airport : allAirports){
-            int index1 = airport.toLowerCase().indexOf(partial.toLowerCase());
+        for(Airport airport : allAirports){
+            int index1 = airport.toString().toLowerCase().indexOf(partial.toLowerCase());
             if (index1 != -1)
             {
-                result.add(airport);
+                result.add(airport.toString());
             }
         }
 
         return result;
     }
-
 
 }

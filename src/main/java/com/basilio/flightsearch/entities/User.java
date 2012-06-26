@@ -29,7 +29,7 @@ import org.hibernate.validator.constraints.Email;
 {
         @NamedQuery(name = User.ALL, query = "Select u from User u"),
         @NamedQuery(name = User.BY_USERNAME_OR_EMAIL, query = "Select u from User u where u.username = :username or u.email = :email"),
-        @NamedQuery(name = User.BY_CREDENTIALS, query = "Select u from User u where u.username = :username and u.password = :password") })
+        @NamedQuery(name = User.BY_CREDENTIALS, query = "Select u from User u where u.username = :username and u.password = :password")})
 @Table(name = "users")
 public class User
 {
@@ -108,7 +108,6 @@ public class User
         this.email = email;
         this.password = password;
         this.isAdmin = false;
-
     }
 
     @Override

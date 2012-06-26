@@ -12,9 +12,7 @@ import java.io.IOException;
 
 /**
  * Intercepts the current page to redirect through the requested page or to the authentication page
- * if login is required. For more understanding read the following tutorial <a
- * href="http://tapestryjava.blogspot.com/2009/12/securing-tapestry-pages-with.html"> Securing
- * Tapestry Pages with annotations </a>
+ * if login is required.
  * 
  * @author Basilio
  * @version 1.2
@@ -71,8 +69,7 @@ public class AuthenticationFilter implements ComponentRequestFilter
     }
 
 
-
-    //returns true if
+    //returns true if user will be redirected.
     boolean dispatchedToLoginPage(String pageName) throws IOException
     {
 
@@ -91,6 +88,7 @@ public class AuthenticationFilter implements ComponentRequestFilter
         }
 
 
+        //Guest user should be able to see the page if the annotation is present.
         if (hasGuestAnnotation( getPageClass(pageName))) { return false; }
 
         Link link = renderLinkSource.createPageRenderLink("Signin");

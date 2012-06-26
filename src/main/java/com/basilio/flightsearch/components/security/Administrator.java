@@ -12,7 +12,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * To change this template use File | Settings | File Templates.
  */
 public class Administrator extends AbstractConditional {
-
     @Inject
     private Authenticator authenticator;
 
