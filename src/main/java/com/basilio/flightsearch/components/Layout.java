@@ -10,7 +10,11 @@ import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.SymbolConstants;
 
 /**
- * Layout component for pages of application flightsearch.
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/21/12
+ * Time: 3:50 PM
+ * To change this template use File | Settings | File Templates.
  */
 @Import(stylesheet = "context:layout/layout.css")
 public class Layout
@@ -56,8 +60,6 @@ public class Layout
     @Log
     public Object onActionFromLogout()
     {
-        //TODO: add a logout page to ask the user if they really want to log out
-
         authenticator.logout();
         return Index.class;
     }

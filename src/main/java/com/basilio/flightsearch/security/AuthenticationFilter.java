@@ -1,13 +1,11 @@
 package com.basilio.flightsearch.security;
 
-
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.pages.Index;
 import com.basilio.flightsearch.pages.Signin;
 import com.basilio.flightsearch.pages.Signup;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.Link;
-import org.apache.tapestry5.runtime.Component;
 import org.apache.tapestry5.services.*;
 
 import java.io.IOException;
@@ -19,7 +17,7 @@ import java.io.IOException;
  * Tapestry Pages with annotations </a>
  * 
  * @author Basilio
- * @version 1.0
+ * @version 1.2
  */
 public class AuthenticationFilter implements ComponentRequestFilter
 {
@@ -93,8 +91,7 @@ public class AuthenticationFilter implements ComponentRequestFilter
         }
 
 
-
-        if ((hasGuestAnnotation( getPageClass(pageName)))) { return false; }
+        if (hasGuestAnnotation( getPageClass(pageName))) { return false; }
 
         Link link = renderLinkSource.createPageRenderLink("Signin");
 
