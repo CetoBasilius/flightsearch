@@ -2,6 +2,7 @@ package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.Airport;
+import com.basilio.flightsearch.entities.AirportStub;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.Log;
 import org.apache.tapestry5.annotations.OnEvent;
@@ -29,14 +30,14 @@ public class Search {
     private Date endDate;
 
     @Property
-    private String originAirportName;
+    private String origin;
 
     @Property
-    private String destinationAirportName;
+    private String destination;
 
     @Property
     @Persist
-    private List<Airport> allAirports;
+    private List<AirportStub> allAirportStubs;
 
     void onAction() {
 
@@ -45,29 +46,29 @@ public class Search {
     @Log
     @OnEvent(value = EventConstants.ACTIVATE)
     public void getAirports() {
-        if (allAirports == null) {
-            allAirports = serviceDAO.findWithNamedQuery(Airport.ALL);
+        if (allAirportStubs == null) {
+            allAirportStubs = serviceDAO.findWithNamedQuery(AirportStub.ALL);
         }
     }
 
-    public List<Airport> getAirportlist() {
-        List<Airport> airportList = serviceDAO.findWithNamedQuery(Airport.ALL);
+    public List<AirportStub> getAirportStublist() {
+        List<AirportStub> airportList = serviceDAO.findWithNamedQuery(AirportStub.ALL);
         return airportList;
     }
 
-    List<String> onProvideCompletionsFromOriginAirportName(String partial) {
+    List<String> onProvideCompletionsFromOrigin(String partial) {
 
         return getAutoCompleteList(partial);
     }
 
-    List<String> onProvideCompletionsFromDestinationAirportName(String partial) {
+    List<String> onProvideCompletionsFromDestination(String partial) {
         return getAutoCompleteList(partial);
     }
 
     List<String> getAutoCompleteList(String partial) {
         List<String> result = new ArrayList<String>();
 
-        for (Airport airport : allAirports) {
+        for (AirportStub airport : allAirportStubs) {
             int index1 = airport.toString().toLowerCase().indexOf(partial.toLowerCase());
             if (index1 != -1) {
                 result.add(airport.toString());

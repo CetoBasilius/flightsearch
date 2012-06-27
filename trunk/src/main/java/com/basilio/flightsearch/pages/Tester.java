@@ -1,7 +1,6 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.dal.HttpClientTester;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.annotations.Log;
@@ -27,10 +26,6 @@ public class Tester {
 
     @Log
     public void onActionFromTestHTTP() {
-        try {
-            HttpClientTester.testMethod();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 }

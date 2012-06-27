@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
  * User: bgerman
  * Date: 6/25/12
  * Time: 12:49 PM
- * Airport Class, for use on the search page, for the auto-complete text field.
+ * Airport Class
  */
 
 @Entity
@@ -94,8 +94,6 @@ public class Airport {
         this.country = country;
         this.name = name;
     }
-
-    //TODO: add other constructors
 
     @Override
     public String toString() {

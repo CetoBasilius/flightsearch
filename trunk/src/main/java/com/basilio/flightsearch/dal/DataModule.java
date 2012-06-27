@@ -1,11 +1,23 @@
 package com.basilio.flightsearch.dal;
 
 import com.basilio.flightsearch.entities.Airport;
+import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.User;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.tapestry5.ioc.annotations.Startup;
+import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +26,15 @@ import java.util.List;
  * User: Cetobasilius
  * Date: 6/17/12
  * Time: 10:50 AM
- * This is the main Data module. For now, it loads the DEMO users and airports.
+ * This is the main Data module. For now, it loads the DEMO users and airports from
  */
 
 public class DataModule {
     private static final Logger logger = LoggerFactory.getLogger(DataModule.class);
 
     private final ServiceDAO serviceDAO;
+
+    private final static String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
 
     public DataModule(ServiceDAO serviceDAO) {
         super();
@@ -31,7 +45,11 @@ public class DataModule {
     public void initialize() {
         logger.info("Loading initial demo data");
         createDemoUsers();
-        createDemoAirports();
+        try {
+            loadAirportStubsWithHTTP();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         logger.info("Data Loaded...");
     }
 
@@ -48,23 +66,80 @@ public class DataModule {
         logger.info("Users " + userList);
     }
 
+    private void loadAirportStubsWithHTTP() throws IOException {
+
+        List<String> airportGet = new ArrayList<String>();
+
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpGet httpget = new HttpGet(airportListURL);
+        HttpResponse response = httpclient.execute(httpget);
+        HttpEntity entity = response.getEntity();
+
+        if (entity != null) {
+            InputStream instream = entity.getContent();
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
+                String line;
+                do {
+                    line = reader.readLine();
+                    if (line != null) {
+                        if (line.contains("<li>")) {
+
+                            int count = StringUtils.countMatches(line, "<li>");
+                            if (count > 1) {
+                                String[] splitLine = line.split("<li>");
+                                for (int a = 1; a < splitLine.length; a++) {
+                                    airportGet.add(Jsoup.parse(splitLine[a]).text());
+
+                                }
+                            } else {
+                                airportGet.add(Jsoup.parse(line).text());
+                            }
+                        }
+                    }
+                } while (line != null);
+            } catch (IOException ex) {
+                throw ex;
+            } catch (RuntimeException ex) {
+                httpget.abort();
+                throw ex;
+            } finally {
+                instream.close();
+            }
+
+            httpclient.getConnectionManager().shutdown();
+
+            List<AirportStub> airportStubs = new ArrayList<AirportStub>();
+
+            for (String string : airportGet) {
+                if(string.length()>6){
+                    String code = string.substring(0,3);
+                    String descriptor = string.substring(6);
+                    AirportStub stub = new AirportStub(code,descriptor);
+                    airportStubs.add(stub);
+                }
+            }
+            create(airportStubs);
+        }
+    }
+
     private void createDemoAirports() {
-        List<Airport> airports = new ArrayList<Airport>();
+        List<AirportStub> airportStubs = new ArrayList<AirportStub>();
 
-        airports.add(new Airport("HMO", "Mexico", "Hermosillo Sonora"));
-        airports.add(new Airport("TUS", "USA", "Tucson Arizona"));
-        airports.add(new Airport("NYC", "USA", "New York City"));
-        airports.add(new Airport("MEX", "Mexico", "Mexico City"));
-        airports.add(new Airport("LAX", "USA", "Los Angeles California"));
-        airports.add(new Airport("SFO", "USA", "San Francisco California"));
-        airports.add(new Airport("XEX", "France", "Paris"));
-        airports.add(new Airport("BER", "Germany", "Berlin"));
-        airports.add(new Airport("PGG", "Brazil", "Sao Paulo"));
+        airportStubs.add(new AirportStub("HMO", "Mexico - Hermosillo Sonora"));
+        airportStubs.add(new AirportStub("TUS", "USA - Tucson Arizona"));
+        airportStubs.add(new AirportStub("NYC", "USA - New York City"));
+        airportStubs.add(new AirportStub("MEX", "Mexico - Mexico City"));
+        airportStubs.add(new AirportStub("LAX", "USA - Los Angeles California"));
+        airportStubs.add(new AirportStub("SFO", "USA - San Francisco California"));
+        airportStubs.add(new AirportStub("XEX", "France - Paris"));
+        airportStubs.add(new AirportStub("BER", "Germany - Berlin"));
+        airportStubs.add(new AirportStub("PGG", "Brazil - Sao Paulo"));
 
-        create(airports);
+        create(airportStubs);
 
-        List<Airport> airportList = serviceDAO.findWithNamedQuery(Airport.ALL);
-        logger.info("Airports " + airportList);
+        List<AirportStub> airportStubsList = serviceDAO.findWithNamedQuery(AirportStub.ALL);
+        logger.info("Airport stubs " + airportStubsList);
     }
 
     private void create(List<?> entities) {
