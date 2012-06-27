@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class AuthenticatorImplTest {
 
-    public static final String AUTH_TOKEN = "authToken";
+    public static final String AUTHORIZATION_TOKEN = "loggedUserToken";
 
     private final String username = "myusername";
 
@@ -58,7 +58,7 @@ public class AuthenticatorImplTest {
                 "username",
                 username).and("password", password).parameters())).andReturn(user);
         expect(request.getSession(true)).andReturn(session);
-        session.setAttribute(AUTH_TOKEN, user);
+        session.setAttribute(AUTHORIZATION_TOKEN, user);
         expectLastCall();
 
         replay(request, serviceDAO, session);
@@ -74,9 +74,9 @@ public class AuthenticatorImplTest {
     public void getLoggedUserShouldReturnLoggedUser() throws AuthenticationException {
 
         expect(request.getSession(false)).andReturn(session);
-        expect(session.getAttribute(AUTH_TOKEN)).andReturn(user);
+        expect(session.getAttribute(AUTHORIZATION_TOKEN)).andReturn(user);
         expect(request.getSession(true)).andReturn(session);
-        expect(session.getAttribute(AUTH_TOKEN)).andReturn(user);
+        expect(session.getAttribute(AUTHORIZATION_TOKEN)).andReturn(user);
 
         replay(request, serviceDAO, session);
 
@@ -90,9 +90,9 @@ public class AuthenticatorImplTest {
     public void getLoggedUserShouldBeAdmin() throws AuthenticationException {
 
         expect(request.getSession(false)).andReturn(session);
-        expect(session.getAttribute(AUTH_TOKEN)).andReturn(user);
+        expect(session.getAttribute(AUTHORIZATION_TOKEN)).andReturn(user);
         expect(request.getSession(true)).andReturn(session);
-        expect(session.getAttribute(AUTH_TOKEN)).andReturn(user);
+        expect(session.getAttribute(AUTHORIZATION_TOKEN)).andReturn(user);
 
         expect(user.isAdmin()).andReturn(true);
 

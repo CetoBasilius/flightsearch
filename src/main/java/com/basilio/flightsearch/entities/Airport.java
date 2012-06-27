@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
  * User: bgerman
  * Date: 6/25/12
  * Time: 12:49 PM
- * To change this template use File | Settings | File Templates.
+ * Airport Class, for use on the search page, for the auto-complete text field.
  */
 
 @Entity
@@ -26,8 +26,6 @@ public class Airport {
 
     public static final String BY_CODE = "Airport.byCode";
 
-    private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,7 +35,6 @@ public class Airport {
     @NotNull
     @Size(min = 1, max = 4)
     private String code;
-
 
     @Column(nullable = false)
     @NotNull
@@ -56,11 +53,6 @@ public class Airport {
     @NotNull
     @Size(min = 3, max = 50)
     private String country;
-
-    @Column(nullable = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    private String countryAbbrv;
 
 
     @Column(nullable = false)
@@ -93,21 +85,20 @@ public class Airport {
     private int longitudeSeconds;
 
 
-    public Airport(){}
+    public Airport() {
+    }
 
-    public Airport(String code,String country,String name){
+    public Airport(String code, String country, String name) {
         super();
         this.code = code;
         this.country = country;
         this.name = name;
-        this.countryAbbrv="DEF";
     }
 
     //TODO: add other constructors
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append("(");
         builder.append(code);
@@ -166,15 +157,6 @@ public class Airport {
     public void setRunwayHeight(int runwayHeight) {
         this.runwayHeight = runwayHeight;
     }
-
-    public String getCountryAbbrv() {
-        return countryAbbrv;
-    }
-
-    public void setCountryAbbrv(String countryAbbrv) {
-        this.countryAbbrv = countryAbbrv;
-    }
-
 
     public int getOffsetGMT() {
         return offsetGMT;

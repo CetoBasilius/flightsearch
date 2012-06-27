@@ -1,13 +1,10 @@
 package com.basilio.flightsearch.services;
 
 
-import java.io.IOException;
-
 import com.basilio.flightsearch.dal.DataModule;
 import com.basilio.flightsearch.dal.HibernateModule;
 import com.basilio.flightsearch.security.AuthenticationFilter;
-import org.apache.tapestry5.*;
-
+import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
@@ -20,18 +17,18 @@ import org.apache.tapestry5.services.*;
 import org.apache.tapestry5.validator.ValidatorMacro;
 import org.slf4j.Logger;
 
+import java.io.IOException;
+
 /**
  * This module is automatically included as part of the Tapestry IoC Registry, it's a good place to
  * configure and extend Tapestry, or to place your own service definitions.
  */
 
 @SubModule(
-        { HibernateModule.class, DataModule.class })
-public class AppModule
-{
+        {HibernateModule.class, DataModule.class})
+public class AppModule {
 
-    public static void bind(ServiceBinder binder)
-    {
+    public static void bind(ServiceBinder binder) {
 
         binder.bind(Authenticator.class, AuthenticatorImpl.class);
 
@@ -44,8 +41,7 @@ public class AppModule
     }
 
     public static void contributeFactoryDefaults(
-            MappedConfiguration<String, Object> configuration)
-    {
+            MappedConfiguration<String, Object> configuration) {
         // The application version number is incorprated into URLs for some
         // assets. Web browsers will cache assets because of the far future expires
         // header. If existing assets are changed, the version number should also
@@ -58,8 +54,7 @@ public class AppModule
     @ApplicationDefaults
     @Contribute(SymbolProvider.class)
     public static void contributeApplicationDefaults(
-            MappedConfiguration<String, Object> configuration)
-    {
+            MappedConfiguration<String, Object> configuration) {
         // Contributions to ApplicationDefaults will override any contributions to
         // FactoryDefaults (with the same key). Here we're restricting the supported
         // locales to just "en" (English). As you add localised message catalogs and other assets,
@@ -87,24 +82,19 @@ public class AppModule
      * a service named "RequestFilter" we use an explicit service id that we can reference
      * inside the contribution method.
      */
-    public RequestFilter buildTimingFilter(final Logger log)
-    {
-        return new RequestFilter()
-        {
+    public RequestFilter buildTimingFilter(final Logger log) {
+        return new RequestFilter() {
             public boolean service(Request request, Response response, RequestHandler handler)
-                    throws IOException
-            {
+                    throws IOException {
                 long startTime = System.currentTimeMillis();
 
-                try
-                {
+                try {
                     // The responsibility of a filter is to invoke the corresponding method
                     // in the handler. When you chain multiple filters together, each filter
                     // received a handler that is a bridge to the next filter.
 
                     return handler.service(request, response);
-                } finally
-                {
+                } finally {
                     long elapsed = System.currentTimeMillis() - startTime;
 
                     log.info(String.format("Request time: %d ms", elapsed));
@@ -122,8 +112,7 @@ public class AppModule
      */
     public void contributeRequestHandler(OrderedConfiguration<RequestFilter> configuration,
                                          @Local
-                                         RequestFilter filter)
-    {
+                                         RequestFilter filter) {
         // Each contribution to an ordered configuration has a name, When necessary, you may
         // set constraints to precisely control the invocation order of the contributed filter
         // within the pipeline.
@@ -132,16 +121,14 @@ public class AppModule
     }
 
     @Contribute(ValidatorMacro.class)
-    public static void combineValidators(MappedConfiguration<String, String> configuration)
-    {
+    public static void combineValidators(MappedConfiguration<String, String> configuration) {
         configuration.add("username", "required, minlength=3, maxlength=15");
         configuration.add("password", "required, minlength=6, maxlength=12");
     }
 
     @Contribute(ComponentRequestHandler.class)
     public static void contributeComponentRequestHandler(
-            OrderedConfiguration<ComponentRequestFilter> configuration)
-    {
+            OrderedConfiguration<ComponentRequestFilter> configuration) {
         configuration.addInstance("RequiresLogin", AuthenticationFilter.class);
     }
 }

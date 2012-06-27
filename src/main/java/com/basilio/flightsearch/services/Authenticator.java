@@ -6,33 +6,35 @@ import com.basilio.flightsearch.security.AuthenticationException;
 import org.apache.tapestry5.services.Request;
 
 /**
- * Basic security interface
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/15/12
+ * Time: 9:27 AM
+ * Basic authentication interface.
  *
  */
-public interface Authenticator
-{
+public interface Authenticator {
 
     /**
      * Gets the logged user
-     * 
+     *
      * @return User, the logged User
      */
     User getLoggedUser();
 
     /**
      * Checks if the current user is logged in
-     * 
+     *
      * @return true if the user is logged in
      */
     boolean isLoggedIn();
 
     /**
      * Logs the user.
-     * 
+     *
      * @param username
      * @param password
-     * @throws AuthenticationException
-     *             throw if an error occurs
+     * @throws AuthenticationException throw if an error occurs
      */
     void login(String username, String password) throws AuthenticationException;
 
@@ -53,5 +55,10 @@ public interface Authenticator
      */
     public void setService(ServiceDAO service);
 
+    /**
+     * Tapestry will send us the request object using this method
+     *
+     * @param request
+     */
     public void setRequest(Request request);
 }

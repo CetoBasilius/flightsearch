@@ -13,11 +13,10 @@ import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 /**
  * Append a loader icon to wait for zone update completion.
- * 
+ *
  * @author ccordenier
  */
-public class AjaxLoader
-{
+public class AjaxLoader {
     /**
      * The class of the element that shows the ajax loader image
      */
@@ -50,14 +49,12 @@ public class AjaxLoader
 
     private String loader;
 
-    String defaultElement()
-    {
+    String defaultElement() {
         return resources.getElementName("div");
     }
 
     @BeginRender
-    void initAjaxLoader(MarkupWriter writer)
-    {
+    void initAjaxLoader(MarkupWriter writer) {
         loader = javascriptSupport.allocateClientId("loader");
 
         JSONObject data = new JSONObject();
@@ -68,8 +65,7 @@ public class AjaxLoader
     }
 
     @AfterRender
-    void writeAjaxLoader(MarkupWriter writer)
-    {
+    void writeAjaxLoader(MarkupWriter writer) {
         writer.element(element, "id", loader, "class", this.loaderClass, "style", "display:none;");
         writer.end();
     }

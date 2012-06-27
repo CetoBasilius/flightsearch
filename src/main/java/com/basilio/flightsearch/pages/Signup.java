@@ -2,8 +2,8 @@ package com.basilio.flightsearch.pages;
 
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.dal.QueryParameters;
+import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
 import com.basilio.flightsearch.services.Authenticator;
@@ -18,14 +18,15 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
- * Registration page so a user can make an account
- * 
- * @author Basilio
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/26/12
+ * Time: 8:09 PM
+ * Sign up or register page. Where a user can register so that they can log in afterwards to search flights.
  */
 
 @GuestAccess
-public class Signup
-{
+public class Signup {
 
     @Property
     @Validate("username")
@@ -64,25 +65,21 @@ public class Signup
     private Signin signin;
 
     @OnEvent(value = EventConstants.VALIDATE, component = "RegisterForm")
-    public void checkForm()
-    {
-        if (!verifyPassword.equals(password))
-        {
+    public void checkForm() {
+        if (!verifyPassword.equals(password)) {
             registerForm.recordError(messages.get("error.verifypassword"));
         }
     }
 
 
     @OnEvent(value = EventConstants.SUCCESS, component = "RegisterForm")
-    public Object proceedSignup()
-    {
+    public Object proceedSignup() {
 
         User userVerif = serviceDAO.findUniqueWithNamedQuery(
                 User.BY_USERNAME_OR_EMAIL,
                 QueryParameters.with("username", username).and("email", email).parameters());
 
-        if (userVerif != null)
-        {
+        if (userVerif != null) {
             registerForm.recordError(messages.get("error.userexists"));
 
             return null;
@@ -92,12 +89,9 @@ public class Signup
 
         serviceDAO.create(user);
 
-        try
-        {
+        try {
             authenticator.login(username, password);
-        }
-        catch (AuthenticationException ex)
-        {
+        } catch (AuthenticationException ex) {
             registerForm.recordError("Authentication process has failed");
             return this;
         }

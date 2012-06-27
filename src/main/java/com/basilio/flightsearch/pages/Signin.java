@@ -11,13 +11,17 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
- * User can sign in to the web application
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/16/12
+ * Time: 2:03 PM
  *
- * @author Basilio
+ * Login page so that the user can search flights.
+ *
  */
+
 @GuestAccess
-public class Signin
-{
+public class Signin {
     @Property
     private String flashmessage;
 
@@ -37,14 +41,10 @@ public class Signin
     private Messages messages;
 
     @Log
-    public Object onSubmitFromLoginForm()
-    {
-        try
-        {
+    public Object onSubmitFromLoginForm() {
+        try {
             authenticator.login(username, password);
-        }
-        catch (AuthenticationException ex)
-        {
+        } catch (AuthenticationException ex) {
             loginForm.recordError(messages.get("error.login"));
             return null;
         }
@@ -52,13 +52,11 @@ public class Signin
         return Index.class;
     }
 
-    public String getFlashMessage()
-    {
+    public String getFlashMessage() {
         return flashmessage;
     }
 
-    public void setFlashMessage(String flashmessage)
-    {
+    public void setFlashMessage(String flashmessage) {
         this.flashmessage = flashmessage;
     }
 

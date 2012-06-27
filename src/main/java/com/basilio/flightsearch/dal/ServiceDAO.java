@@ -7,16 +7,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ServiceDAO interface.
- * 
- * @author Basilio
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/15/12
+ * Time: 7:02 PM
+ *
+ * @param <T>,  type entity
+ * @param <PK>, primary key
+ * @CommitAfter annotation causes the HibernateSessionManager's commit() method to be executed before the method returns.
  */
-public interface ServiceDAO
-{
+public interface ServiceDAO {
     /**
      * Creates a new object for the given type. After a call to this method the entity will be
      * persisted into database and then refreshed. Also current persistent Session will be flushed.
-     * 
+     *
      * @param <T>
      * @param t
      * @return persisted Object
@@ -26,7 +30,7 @@ public interface ServiceDAO
 
     /**
      * Updates the given object
-     * 
+     *
      * @param <T>
      * @param t
      * @return persisted object
@@ -36,11 +40,10 @@ public interface ServiceDAO
 
     /**
      * Deletes the given object by id
-     * 
+     *
      * @param <T>
      * @param <PK>
-     * @param type
-     *            , entity class type
+     * @param type , entity class type
      * @param id
      */
     @CommitAfter
@@ -48,7 +51,7 @@ public interface ServiceDAO
 
     /**
      * Finds an object by id
-     * 
+     *
      * @param <T>
      * @param <PK>
      * @param type
@@ -59,7 +62,7 @@ public interface ServiceDAO
 
     /**
      * Finds a list of objects for the given query name
-     * 
+     *
      * @param <T>
      * @param queryName
      * @return returns a list of objects
@@ -68,7 +71,7 @@ public interface ServiceDAO
 
     /**
      * Find a query with parameters
-     * 
+     *
      * @param <T>
      * @param queryName
      * @param params
@@ -78,7 +81,7 @@ public interface ServiceDAO
 
     /**
      * Returns one result, query without parameters
-     * 
+     *
      * @param <T>
      * @param queryName
      * @return T object
@@ -87,7 +90,7 @@ public interface ServiceDAO
 
     /**
      * Returns just one result with a named query and parameters
-     * 
+     *
      * @param <T>
      * @param queryName
      * @param params

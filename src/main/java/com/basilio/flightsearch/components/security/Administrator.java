@@ -9,15 +9,15 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * User: Cetobasilius
  * Date: 6/23/12
  * Time: 12:50 PM
- * To change this template use File | Settings | File Templates.
+ * Used to check if the logged user is an administrator.
  */
+
 public class Administrator extends AbstractConditional {
     @Inject
     private Authenticator authenticator;
 
     @Override
-    protected boolean test()
-    {
+    protected boolean test() {
         return authenticator.isUserAdmin();
     }
 }

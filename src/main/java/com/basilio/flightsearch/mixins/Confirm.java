@@ -14,11 +14,13 @@ import org.apache.tapestry5.services.javascript.JavaScriptSupport;
  * User: Cetobasilius
  * Date: 6/25/12
  * Time: 8:50 PM
- * To change this template use File | Settings | File Templates.
+ * This class is used directly by the template files (tml) as an injected JavaScript Object. See mixins/Confirm.js
  */
-@Import(library="Confirm.js")
+
+@Import(library = "Confirm.js")
 public class Confirm {
 
+    //Default message
     @Parameter(value = "Are you sure?", defaultPrefix = BindingConstants.LITERAL)
     private String message;
 
