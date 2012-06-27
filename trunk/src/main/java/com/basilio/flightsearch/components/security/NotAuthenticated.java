@@ -9,15 +9,15 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * User: Cetobasilius
  * Date: 6/22/12
  * Time: 9:20 PM
- * used to check if user is not logged in
+ * Used to check if user is not logged in
  */
+
 public class NotAuthenticated extends AbstractConditional {
     @Inject
     private Authenticator authenticator;
 
     @Override
-    protected boolean test()
-    {
+    protected boolean test() {
         return !authenticator.isLoggedIn();
     }
 }

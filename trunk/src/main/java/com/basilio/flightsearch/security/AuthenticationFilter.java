@@ -11,14 +11,14 @@ import org.apache.tapestry5.services.*;
 import java.io.IOException;
 
 /**
- * Intercepts the current page to redirect through the requested page or to the authentication page
- * if login is required.
- * 
- * @author Basilio
- * @version 1.2
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/19/12
+ * Time: 11:11 AM
+ * Intercepts the current page to redirect through the requested page or to the authentication page if login is required.
+ *
  */
-public class AuthenticationFilter implements ComponentRequestFilter
-{
+public class AuthenticationFilter implements ComponentRequestFilter {
 
     private final PageRenderLinkSource renderLinkSource;
 
@@ -41,8 +41,7 @@ public class AuthenticationFilter implements ComponentRequestFilter
     private String signupPage = signupPageClass.getSimpleName();
 
     public AuthenticationFilter(PageRenderLinkSource renderLinkSource,
-                                ComponentSource componentSource, Response response, Authenticator authenticator)
-    {
+                                ComponentSource componentSource, Response response, Authenticator authenticator) {
         this.renderLinkSource = renderLinkSource;
         this.componentSource = componentSource;
         this.response = response;
@@ -50,60 +49,69 @@ public class AuthenticationFilter implements ComponentRequestFilter
     }
 
     public void handleComponentEvent(ComponentEventRequestParameters parameters,
-            ComponentRequestHandler handler) throws IOException
-    {
+                                     ComponentRequestHandler handler) throws IOException {
 
-        if (dispatchedToLoginPage(parameters.getActivePageName())) { return; }
+        if (dispatchedToLoginPage(parameters.getActivePageName())) {
+            return;
+        }
 
         handler.handleComponentEvent(parameters);
 
     }
 
     public void handlePageRender(PageRenderRequestParameters parameters,
-            ComponentRequestHandler handler) throws IOException
-    {
+                                 ComponentRequestHandler handler) throws IOException {
 
-        if (dispatchedToLoginPage(parameters.getLogicalPageName())) { return; }
+        if (dispatchedToLoginPage(parameters.getLogicalPageName())) {
+            return;
+        }
 
         handler.handlePageRender(parameters);
     }
 
 
     //returns true if user will be redirected.
-    boolean dispatchedToLoginPage(String pageName) throws IOException
-    {
+    boolean dispatchedToLoginPage(String pageName) throws IOException {
 
-        if (authenticator.isLoggedIn())
-        {
-            // Logged user should not go back to Signin or Signup
-            if (signinPage.equalsIgnoreCase(pageName) || signupPage.equalsIgnoreCase(pageName))
-            {
+        if (authenticator.isLoggedIn()) {
+            return dispatchLoggedUser(pageName);
+        } else {
+            return dispatchGuest(pageName);
+        }
+    }
 
-                Link link = renderLinkSource.createPageRenderLink(defaultPage);
-                response.sendRedirect(link);
-
-                return true;
-            }
+    //returns true if Guest will be redirected.
+    private boolean dispatchGuest(String pageName) throws IOException {
+        //Guest user should be able to see the page if the annotation is present.
+        if (hasGuestAnnotation(getPageClass(pageName))) {
             return false;
         }
 
-
-        //Guest user should be able to see the page if the annotation is present.
-        if (hasGuestAnnotation( getPageClass(pageName))) { return false; }
-
-        Link link = renderLinkSource.createPageRenderLink("Signin");
+        Link link = renderLinkSource.createPageRenderLink(signinPage);
 
         response.sendRedirect(link);
-
         return true;
     }
 
-     Class getPageClass(String pageName) {
+    //returns true if user will be redirected.
+    private boolean dispatchLoggedUser(String pageName) throws IOException {
+        // Logged user should not go back to Signin or Signup
+        if (signinPage.equalsIgnoreCase(pageName) || signupPage.equalsIgnoreCase(pageName)) {
+
+            Link link = renderLinkSource.createPageRenderLink(defaultPage);
+            response.sendRedirect(link);
+
+            return true;
+        }
+        return false;
+    }
+
+    Class getPageClass(String pageName) {
         return componentSource.getPage(pageName).getClass();
     }
 
     private boolean hasGuestAnnotation(Class aClass) {
-        return aClass.isAnnotationPresent(GuestAccess.class) ? true: false;
+        return aClass.isAnnotationPresent(GuestAccess.class) ? true : false;
     }
 
     public String getDefaultPage() {
@@ -129,6 +137,5 @@ public class AuthenticationFilter implements ComponentRequestFilter
     public Class getSignupPageClass() {
         return signupPageClass;
     }
-
 
 }

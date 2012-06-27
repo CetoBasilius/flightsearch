@@ -3,7 +3,7 @@
  * User: Cetobasilius
  * Date: 6/25/12
  * Time: 8:59 PM
- * To change this template use File | Settings | File Templates.
+ * A small popup window to confirm if the user wants to continue or not, with a customizable message.
  */
 var Confirm = Class.create();
 Confirm.prototype = {

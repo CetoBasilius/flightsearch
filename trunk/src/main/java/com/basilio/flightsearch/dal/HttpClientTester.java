@@ -1,15 +1,21 @@
 package com.basilio.flightsearch.dal;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-
+import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,6 +29,8 @@ public class HttpClientTester {
     private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientTester.class);
 
     public static void testMethod() throws IOException {
+        List<String> airportGet = new ArrayList<String>();
+
         LOGGER.info("--------------- HTTP Client ----------------------");
 
         HttpClient httpclient = new DefaultHttpClient();
@@ -49,16 +57,26 @@ public class HttpClientTester {
                         new InputStreamReader(instream));
                 // do something useful with the response
 
+
                 String line;
-                do{
+                do {
                     line = reader.readLine();
-                    if(line!=null){
-                        if(line.contains("<li>")){
-                            System.out.println(line);
+                    if (line != null) {
+                        if (line.contains("<li>")) {
+
+                            int count = StringUtils.countMatches(line, "<li>");
+                            if (count > 1) {
+                                String[] splitLine = line.split("<li>");
+                                for (int a = 1; a < splitLine.length; a++) {
+                                    airportGet.add(Jsoup.parse(splitLine[a]).text());
+
+                                }
+                            } else {
+                                airportGet.add(Jsoup.parse(line).text());
+                            }
                         }
                     }
-                }while(line != null);
-
+                } while (line != null);
 
 
             } catch (IOException ex) {
@@ -87,6 +105,16 @@ public class HttpClientTester {
             // immediate deallocation of all system resources
             httpclient.getConnectionManager().shutdown();
             LOGGER.info("--------------- HTTP Client Shutdown ----------------------");
+
+            int count = 0;
+            for (String string : airportGet) {
+                System.out.println(string);
+                count++;
+            }
+            System.out.println(count + " airports");
+
+            LOGGER.info("--------------- End of airport list ----------------------");
+
         }
     }
 }

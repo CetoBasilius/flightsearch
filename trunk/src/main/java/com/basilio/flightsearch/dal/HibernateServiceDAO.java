@@ -11,23 +11,23 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/15/12
+ * Time: 7:21 PM
+ * <p/>
  * Hibernate Create, Read, Update, and Delete service data access interface
- *
  * Many of the methods have @SuppressWarnings("unchecked") because Eclipse will complain about illegal behavior, however we know it will be legal.
- * 
- * @author Basilio
  *
- * @param <T>, type entity
+ * @param <T>,  type entity
  * @param <PK>, primary key
  */
-public class HibernateServiceDAO implements ServiceDAO
-{
+public class HibernateServiceDAO implements ServiceDAO {
 
     @Inject
     private Session session;
 
-    public <T> T create(T t)
-    {
+    public <T> T create(T t) {
         session.persist(t);
         session.flush();
         session.refresh(t);
@@ -35,38 +35,32 @@ public class HibernateServiceDAO implements ServiceDAO
     }
 
     @SuppressWarnings("unchecked")
-    public <T, PK extends Serializable> T find(Class<T> type, PK id)
-    {
+    public <T, PK extends Serializable> T find(Class<T> type, PK id) {
         return (T) session.get(type, id);
     }
 
-    public <T> T update(T type)
-    {
+    public <T> T update(T type) {
         session.merge(type);
         return type;
     }
 
-    public <T, PK extends Serializable> void delete(Class<T> type, PK id)
-    {
+    public <T, PK extends Serializable> void delete(Class<T> type, PK id) {
         @SuppressWarnings("unchecked")
         T ref = (T) session.get(type, id);
         session.delete(ref);
     }
 
     @SuppressWarnings("unchecked")
-    public <T> List<T> findWithNamedQuery(String queryName)
-    {
+    public <T> List<T> findWithNamedQuery(String queryName) {
         return session.getNamedQuery(queryName).list();
     }
 
     @SuppressWarnings("unchecked")
-    public <T> List<T> findWithNamedQuery(String queryName, Map<String, Object> params)
-    {
+    public <T> List<T> findWithNamedQuery(String queryName, Map<String, Object> params) {
         Set<Entry<String, Object>> rawParameters = params.entrySet();
         Query query = session.getNamedQuery(queryName);
 
-        for (Entry<String, Object> entry : rawParameters)
-        {
+        for (Entry<String, Object> entry : rawParameters) {
             query.setParameter(entry.getKey(), entry.getValue());
 
         }
@@ -74,24 +68,21 @@ public class HibernateServiceDAO implements ServiceDAO
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T findUniqueWithNamedQuery(String queryName)
-    {
+    public <T> T findUniqueWithNamedQuery(String queryName) {
         System.out.println(queryName);
         T t = (T) session.getNamedQuery(queryName).uniqueResult();
-        if(t==null){
+        if (t == null) {
             System.out.println("null");
         }
         return t;
     }
 
     @SuppressWarnings("unchecked")
-    public <T> T findUniqueWithNamedQuery(String queryName, Map<String, Object> params)
-    {
+    public <T> T findUniqueWithNamedQuery(String queryName, Map<String, Object> params) {
         Set<Entry<String, Object>> rawParameters = params.entrySet();
         Query query = session.getNamedQuery(queryName);
 
-        for (Entry<String, Object> entry : rawParameters)
-        {
+        for (Entry<String, Object> entry : rawParameters) {
             query.setParameter(entry.getKey(), entry.getValue());
 
         }

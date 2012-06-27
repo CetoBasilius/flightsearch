@@ -1,20 +1,18 @@
 package com.basilio.flightsearch.pages;
 
-import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.dal.QueryParameters;
+import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
-import com.basilio.flightsearch.security.AuthenticationException;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.OnEvent;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.beaneditor.Validate;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+
 import java.util.List;
 
 /**
@@ -22,9 +20,9 @@ import java.util.List;
  * User: Cetobasilius
  * Date: 6/22/12
  * Time: 11:07 AM
- * To change this template use File | AccountSettings | File Templates.
+ * The users dashboard, where users will be able to change their password or manage their account.
+ * Administrators can view all users information, delete users and create new users.
  */
-
 
 public class AccountSettings {
 
@@ -85,52 +83,46 @@ public class AccountSettings {
 
     //-------------------------------------------------
 
-    public List<User> getUserlist()
-    {
+    public List<User> getUserlist() {
         List<User> userList = serviceDAO.findWithNamedQuery(User.ALL);
         return userList;
     }
 
-    public Object onActionFromDelete(long userId)
-    {
-        if(authenticator.getLoggedUser().getId() == userId){
+    public Object onActionFromDelete(long userId) {
+        if (authenticator.getLoggedUser().getId() == userId) {
             authenticator.logout();
         }
-        serviceDAO.delete(User.class,userId);
-        return(AccountSettings.class);
+        serviceDAO.delete(User.class, userId);
+        return (AccountSettings.class);
     }
 
     @OnEvent(value = EventConstants.SUCCESS, component = "changePasswordForm")
-    public void proceedChangePassword(){
+    public void proceedChangePassword() {
         User myUser = serviceDAO.findUniqueWithNamedQuery(
                 User.BY_USERNAME_OR_EMAIL,
                 QueryParameters.with("username", authenticator.getLoggedUser().getUsername()).and("email", authenticator.getLoggedUser().getEmail()).parameters());
-        if(this.myPassword.equals(myUser.getPassword())){
-            if(this.verifyNewPassword1.equals(this.verifyNewPassword2)){
+        if (this.myPassword.equals(myUser.getPassword())) {
+            if (this.verifyNewPassword1.equals(this.verifyNewPassword2)) {
 
                 myUser.setPassword(verifyNewPassword1);
                 serviceDAO.update(myUser);
-            }else{
+            } else {
                 changePasswordForm.recordError(messages.get("error.verifypassword"));
             }
-        }else{
+        } else {
             changePasswordForm.recordError(messages.get("error.wrongchangepassword"));
         }
-
-
     }
 
 
     @OnEvent(value = EventConstants.SUCCESS, component = "RegisterForm")
-    public Object proceedCreateUser()
-    {
+    public Object proceedCreateUser() {
 
         User userVerif = serviceDAO.findUniqueWithNamedQuery(
                 User.BY_USERNAME_OR_EMAIL,
                 QueryParameters.with("username", username).and("email", email).parameters());
 
-        if (userVerif != null)
-        {
+        if (userVerif != null) {
             registerForm.recordError(messages.get("error.userexists"));
 
             return null;

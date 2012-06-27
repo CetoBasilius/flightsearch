@@ -1,30 +1,25 @@
 package com.basilio.flightsearch.pages;
 
-import java.util.Date;
-
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.services.Authenticator;
-import org.apache.tapestry5.annotations.*;
-import org.apache.tapestry5.ioc.annotations.*;
-import org.apache.tapestry5.corelib.components.*;
-import org.apache.tapestry5.SymbolConstants;
-import org.apache.tapestry5.alerts.AlertManager;
+import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
- * This page the user can search flights
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/22/12
+ * Time: 11:07 AM
  *
- * @author Basilio
+ * This page will never be visible. it should redirect to the search page if the user is logged in, or redirect to the about page if the user is a guest.
+ *
  */
 
-
 @GuestAccess
-public class Index
-{
+public class Index {
     @Inject
     private Authenticator authenticator;
 
-    public Object onActivate()
-    {
+    public Object onActivate() {
         return authenticator.isLoggedIn() ? Search.class : About.class;
     }
 

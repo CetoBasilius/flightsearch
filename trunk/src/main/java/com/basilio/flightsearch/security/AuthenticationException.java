@@ -1,35 +1,28 @@
 package com.basilio.flightsearch.security;
 
 /**
- * Exception to managed errors on the authentication proccess
- * 
- * @author Basilio
+ * Created with IntelliJ IDEA.
+ * User: Cetobasilius
+ * Date: 6/26/12
+ * Time: 8:09 PM
+ * Custom authentication Exception.
  */
-public class AuthenticationException extends Exception
-{
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class AuthenticationException extends Exception {
 
-    public AuthenticationException()
-    {
+    public AuthenticationException() {
         super();
     }
 
-    public AuthenticationException(String message, Throwable cause)
-    {
+    public AuthenticationException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public AuthenticationException(String message)
-    {
+    public AuthenticationException(String message) {
         super(message);
     }
 
-    public AuthenticationException(Throwable cause)
-    {
+    public AuthenticationException(Throwable cause) {
         super(cause);
     }
 
