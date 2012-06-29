@@ -1,6 +1,5 @@
 package com.basilio.flightsearch.dal;
 
-import com.basilio.flightsearch.entities.Airport;
 import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.User;
 import org.apache.commons.lang3.StringUtils;
@@ -36,6 +35,8 @@ public class DataModule {
 
     private final static String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
 
+    private boolean useLocalDemoList = false;
+
     public DataModule(ServiceDAO serviceDAO) {
         super();
         this.serviceDAO = serviceDAO;
@@ -45,12 +46,22 @@ public class DataModule {
     public void initialize() {
         logger.info("Loading initial demo data");
         createDemoUsers();
-        try {
-            loadAirportStubsWithHTTP();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        createDemoAirportStubs();
         logger.info("Data Loaded...");
+    }
+
+    private void createDemoAirportStubs() {
+
+        if(useLocalDemoList){
+            createDemoAirportStubsLocal();
+        }else{
+            try {
+                loadAirportStubsWithHTTP();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     private void createDemoUsers() {
@@ -123,7 +134,7 @@ public class DataModule {
         }
     }
 
-    private void createDemoAirports() {
+    private void createDemoAirportStubsLocal() {
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
 
         airportStubs.add(new AirportStub("HMO", "Mexico - Hermosillo Sonora"));
