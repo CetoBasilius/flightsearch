@@ -1,5 +1,11 @@
 package com.basilio.flightsearch.pages;
 
+import com.basilio.flightsearch.entities.Airport;
+import com.basilio.flightsearch.entities.AirportStub;
+import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Cetobasilius
@@ -10,5 +16,20 @@ package com.basilio.flightsearch.pages;
  */
 
 public class Results {
+
+
+    @Property
+    @Persist(PersistenceConstants.FLASH)
+    String origin;
+
+    @Property
+    @Persist(PersistenceConstants.FLASH)
+    String destination;
+
+    void setup(String origin,String destination)
+    {
+        this.origin = origin;
+        this.destination = destination;
+    }
 
 }

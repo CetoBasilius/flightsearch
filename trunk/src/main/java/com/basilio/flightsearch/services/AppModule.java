@@ -1,6 +1,8 @@
 package com.basilio.flightsearch.services;
 
 
+import com.basilio.flightsearch.dal.AirportInformationDAO;
+import com.basilio.flightsearch.dal.HttpAirportInformationDAO;
 import com.basilio.flightsearch.dal.DataModule;
 import com.basilio.flightsearch.dal.HibernateModule;
 import com.basilio.flightsearch.security.AuthenticationFilter;
@@ -32,7 +34,7 @@ public class AppModule {
 
         binder.bind(Authenticator.class, AuthenticatorImpl.class);
 
-        // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
+        binder.bind(AirportInformationDAO.class, HttpAirportInformationDAO.class);
 
         // Make bind() calls on the binder object to define most IoC services.
         // Use service builder methods (example below) when the implementation
