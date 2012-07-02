@@ -1,0 +1,10 @@
+#summary Index
+
+= Searchflight wiki =
+
+Welcome to the Flightsearch Wiki. Here you can find information about:
+
+  * [http://code.google.com/p/searchflight/wiki/MainDocumentation Main documentation]
+  * [http://code.google.com/p/searchflight/wiki/Install How to install and run]
+  * [http://code.google.com/p/searchflight/wiki/ToolsUsed Tools and Frameworks used]
+  * [http://code.google.com/p/searchflight/wiki/ChangeLog Change log]
