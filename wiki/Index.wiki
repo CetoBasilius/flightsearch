@@ -5,6 +5,6 @@
 Welcome to the Flightsearch Wiki. Here you can find information about:
 
   * [http://code.google.com/p/flightsearch/wiki/MainDocumentation Main documentation]
-  * [http://code.google.com/p/flightsearch/wiki/Install How to install and run]
+  * [http://code.google.com/p/flightsearch/wiki/Installation How to install and run]
   * [http://code.google.com/p/flightsearch/wiki/ToolsUsed Tools and Frameworks used]
   * [http://code.google.com/p/flightsearch/wiki/ChangeLog Change log]
