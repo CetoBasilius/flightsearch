@@ -2,4 +2,6 @@
 
 = Documentation =
 
+For information on the tools used to develop this application, please visit the Tools and Frameworks [http://code.google.com/p/flightsearch/wiki/ToolsUsed page]
+
 You can track the applications development proggress and additional information [http://code.google.com/p/flightsearch/wiki/Timeprogress here]
