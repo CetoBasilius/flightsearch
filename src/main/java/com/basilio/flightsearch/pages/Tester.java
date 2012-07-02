@@ -1,12 +1,14 @@
 package com.basilio.flightsearch.pages;
 
+
 import com.basilio.flightsearch.annotations.GuestAccess;
+import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.dal.ServiceDAO;
+import com.basilio.flightsearch.dal.SimpleSoapClient;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.annotations.Log;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
-import java.io.IOException;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,10 +24,13 @@ public class Tester {
     Authenticator authenticator;
 
     @Inject
+    AirportInformationDAO airportInformationDAO;
+
+    @Inject
     ServiceDAO serviceDAO;
 
     @Log
-    public void onActionFromTestHTTP() {
+    public void onActionFromTestMethod() {
 
     }
 }

@@ -2,6 +2,20 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <p>This page is currently empty</p>
+    <table>
+        <td>
+            <p>
+                Origin: ${origin}
+            </p>
+        </td>
+
+        <td>
+            <p>
+                Destination: ${destination}
+            </p>
+        </td>
+     </table>
+
+
 
 </html>

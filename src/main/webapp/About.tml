@@ -3,5 +3,14 @@
       xmlns:p="tapestry:parameter">
 
     <p>Ever wanted to find a flight that adjusts to your budget? That's what Flightsearch is all about. finding flights from several dealers and travel sites with an easy to use and intuitive user interface. </p>
+
+    <t:security.notAuthenticated>
     <p>To use our service, you must first <t:pagelink page="SignIn">Login</t:pagelink>, If you are not a member yet, you can <t:pagelink page="SignUp">Register now!</t:pagelink></p>
+    </t:security.notAuthenticated>
+
+    <t:security.authenticated>
+    <p>To use our service, you can go to the <t:pagelink page="Search">Search</t:pagelink> page.</p>
+    </t:security.authenticated>
+
+
 </html>
