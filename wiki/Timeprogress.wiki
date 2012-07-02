@@ -1,0 +1,8 @@
+#summary Time progress
+
+= Time Progress =
+
+In this section you can see what the time is being spent on. 
+
+
+[https://docs.google.com/a/nearsoft.com/spreadsheet/pub?key=0Arb4o3BtCUHJdHljaURNUEJNcElOSE4zQzdTaFozWkE&output=html Spreadsheet]
