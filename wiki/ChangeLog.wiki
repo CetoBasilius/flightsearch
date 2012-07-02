@@ -4,7 +4,7 @@
 
 Here you will find the most significant changes made to the application between each version. You can also [http://code.google.com/p/flightsearch/source/browse/ browse] the source code to review changes between revisions.
 
-[http://code.google.com/p/flightsearch/source/detail?r=1 First Release ] Jun 29
+[http://code.google.com/p/flightsearch/downloads/detail?name=flightsearch-0.1.war&can=2&q= First Release ] Jun 29
   * Created main skeleton application. Features are:
       * Complete registration and authentication system
       * Partial Airport information retrieval
