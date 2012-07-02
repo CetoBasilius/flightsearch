@@ -2,4 +2,4 @@
 
 = Documentation =
 
-You can track the applications development proggress and additional information [http://code.google.com/p/searchflighttestwiki/wiki/Timeprogress here]
+You can track the applications development proggress and additional information [http://code.google.com/p/flightsearch/wiki/Timeprogress here]
