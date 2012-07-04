@@ -1,11 +1,13 @@
 package com.basilio.flightsearch.pages;
 
+import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.Airport;
 import com.basilio.flightsearch.entities.AirportStub;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
  * @author Basilio
  */
 
+@GuestAccess
 public class Search {
 
     @Inject
@@ -23,6 +26,9 @@ public class Search {
 
     @Inject
     AirportInformationDAO airportInformationDAO;
+
+    @Property
+    private Form searchForm;
 
     @Property
     private Date startDate;
@@ -43,8 +49,16 @@ public class Search {
     @InjectPage
     private Results results;
 
-    Object onAction() {
-        results.setup(airportInformationDAO.getAirportData(origin.substring(1,4)),airportInformationDAO.getAirportData(destination.substring(1,4)));
+    @Log
+    @OnEvent(value = EventConstants.SUCCESS, component = "SearchForm")
+    Object startSearch() {
+        String codeOrigin = airportInformationDAO.getAirportData(origin.substring(1,4));
+        String codeDestination = airportInformationDAO.getAirportData(destination.substring(1,4));
+        if(codeOrigin==null || codeDestination==null){
+            return null;
+        }
+
+        results.setup(codeOrigin,codeDestination);
         return results;
     }
 

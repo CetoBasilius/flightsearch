@@ -6,7 +6,10 @@ import com.basilio.flightsearch.dal.HttpAirportInformationDAO;
 import com.basilio.flightsearch.dal.DataModule;
 import com.basilio.flightsearch.dal.HibernateModule;
 import com.basilio.flightsearch.security.AuthenticationFilter;
+import com.basilio.flightsearch.validators.AutoCompleteValidator;
+import com.basilio.flightsearch.validators.DateValidator;
 import org.apache.tapestry5.SymbolConstants;
+import org.apache.tapestry5.Validator;
 import org.apache.tapestry5.ioc.MappedConfiguration;
 import org.apache.tapestry5.ioc.OrderedConfiguration;
 import org.apache.tapestry5.ioc.ServiceBinder;
@@ -33,7 +36,6 @@ public class AppModule {
     public static void bind(ServiceBinder binder) {
 
         binder.bind(Authenticator.class, AuthenticatorImpl.class);
-
         binder.bind(AirportInformationDAO.class, HttpAirportInformationDAO.class);
 
         // Make bind() calls on the binder object to define most IoC services.
@@ -50,7 +52,7 @@ public class AppModule {
         // change, to force the browser to download new versions. This overrides Tapesty's default
         // (a random hexadecimal number), but may be further overriden by DevelopmentModule or
         // QaModule.
-        configuration.override(SymbolConstants.APPLICATION_VERSION, "0.26");
+        configuration.override(SymbolConstants.APPLICATION_VERSION, "0.27");
     }
 
     @ApplicationDefaults
@@ -126,6 +128,14 @@ public class AppModule {
     public static void combineValidators(MappedConfiguration<String, String> configuration) {
         configuration.add("username", "required, minlength=3, maxlength=15");
         configuration.add("password", "required, minlength=6, maxlength=12");
+    }
+
+
+    public static void contributeFieldValidatorSource(
+            MappedConfiguration<String, Validator> configuration) {
+        configuration.add("infuture", new DateValidator());
+        configuration.add("codeintextfield", new AutoCompleteValidator());
+
     }
 
     @Contribute(ComponentRequestHandler.class)

@@ -35,7 +35,10 @@ public class DataModule {
 
     private final static String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
 
-    private boolean useLocalDemoList = false;
+    /**
+     * if true, will use small database for autocompletion of airport search
+     */
+    private boolean useLocalDemoList = true;
 
     public DataModule(ServiceDAO serviceDAO) {
         super();
@@ -45,6 +48,7 @@ public class DataModule {
     @Startup
     public void initialize() {
         logger.info("Loading initial demo data");
+
         createDemoUsers();
         createDemoAirportStubs();
         logger.info("Data Loaded...");
