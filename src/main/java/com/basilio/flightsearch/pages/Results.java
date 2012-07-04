@@ -1,5 +1,6 @@
 package com.basilio.flightsearch.pages;
 
+import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.entities.Airport;
 import com.basilio.flightsearch.entities.AirportStub;
 import org.apache.tapestry5.PersistenceConstants;
@@ -15,6 +16,7 @@ import org.apache.tapestry5.annotations.Property;
  * Search results include Origin, Destination, Price, Distance, Estimated Time.
  */
 
+@GuestAccess
 public class Results {
 
 
