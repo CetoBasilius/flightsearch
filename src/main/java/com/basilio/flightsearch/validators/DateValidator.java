@@ -16,12 +16,12 @@ import org.apache.tapestry5.validator.AbstractValidator;
  * User: bgerman
  * Date: 7/3/12
  * Time: 5:42 PM
- * To change this template use File | Settings | File Templates.
+ * This will validate that a date field does not select a date <= to the present day
  */
 public class DateValidator extends AbstractValidator<Void, Date> {
 
     public DateValidator() {
-        super(null, Date.class, "date-must-be-in-future");
+        super(null, Date.class, "error.validateenddate");
     }
 
     public void render(Field field, Void constraintValue,
@@ -29,13 +29,10 @@ public class DateValidator extends AbstractValidator<Void, Date> {
                        FormSupport formSupport) {
     }
 
-
-    @Log
     public void validate(Field field, Void constraintValue,
                          MessageFormatter formatter, Date value) throws
             ValidationException {
         if (value.before(new Date())) {
-            System.out.println("Date is before!!!!!");
             throw new ValidationException(buildMessage(formatter, field));
         }
     }

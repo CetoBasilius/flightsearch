@@ -5,6 +5,7 @@ import com.basilio.flightsearch.security.AuthenticationException;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Log;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
@@ -25,6 +26,7 @@ public class Signin {
     @Property
     private String flashmessage;
 
+    @Persist
     @Property
     private String username;
 
