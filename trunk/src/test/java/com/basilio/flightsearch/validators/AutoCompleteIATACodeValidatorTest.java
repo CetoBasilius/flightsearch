@@ -9,7 +9,7 @@ import org.junit.Test;
  * Time: 7:34 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AutoCompleteValidatorTest {
+public class AutoCompleteIATACodeValidatorTest {
     @Test
     public void testValidate() throws Exception {
 

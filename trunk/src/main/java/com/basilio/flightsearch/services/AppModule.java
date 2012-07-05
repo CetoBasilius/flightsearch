@@ -6,7 +6,7 @@ import com.basilio.flightsearch.dal.HttpAirportInformationDAO;
 import com.basilio.flightsearch.dal.DataModule;
 import com.basilio.flightsearch.dal.HibernateModule;
 import com.basilio.flightsearch.security.AuthenticationFilter;
-import com.basilio.flightsearch.validators.AutoCompleteValidator;
+import com.basilio.flightsearch.validators.AutoCompleteIATACodeValidator;
 import com.basilio.flightsearch.validators.DateValidator;
 import org.apache.tapestry5.SymbolConstants;
 import org.apache.tapestry5.Validator;
@@ -133,9 +133,9 @@ public class AppModule {
 
     public static void contributeFieldValidatorSource(
             MappedConfiguration<String, Validator> configuration) {
-        configuration.add("infuture", new DateValidator());
-        configuration.add("codeintextfield", new AutoCompleteValidator());
 
+        configuration.add("aftertoday", new DateValidator());
+        configuration.add("codeintextfield", new AutoCompleteIATACodeValidator());
     }
 
     @Contribute(ComponentRequestHandler.class)

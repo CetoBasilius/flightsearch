@@ -8,6 +8,7 @@ import com.basilio.flightsearch.entities.AirportStub;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import java.util.ArrayList;
@@ -27,8 +28,12 @@ public class Search {
     @Inject
     AirportInformationDAO airportInformationDAO;
 
-    @Property
+    //----------------- Search form ----------------
+    @Component
     private Form searchForm;
+
+    @Inject
+    private Messages messages;
 
     @Property
     private Date startDate;
@@ -46,6 +51,8 @@ public class Search {
     @Persist
     private List<AirportStub> allAirportStubs;
 
+    //-------------------------------------------
+
     @InjectPage
     private Results results;
 
@@ -55,6 +62,16 @@ public class Search {
         String codeOrigin = airportInformationDAO.getAirportData(origin.substring(1,4));
         String codeDestination = airportInformationDAO.getAirportData(destination.substring(1,4));
         if(codeOrigin==null || codeDestination==null){
+            return null;
+        }
+
+        if(searchForm==null){
+            System.out.println("searchform is null");}
+        if(messages==null){
+            System.out.println("messages is null");}
+
+        if(endDate.before(startDate)){
+            searchForm.recordError(messages.get("error.validateenddate"));
             return null;
         }
 

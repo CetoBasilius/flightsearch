@@ -3,6 +3,7 @@
       xmlns:p="tapestry:parameter">
 
     <form t:type="form" t:id="searchForm" class="full-form" >
+    <t:errors />
     		<table>
     			<tr>
     			    <th>
@@ -26,7 +27,7 @@
                         <label t:type="label" t:for="startDate">Start date</label>
                     </th>
                     <td>
-                        <t:datefield t:id="startDate" t:validate="required,infuture"/>
+                        <t:datefield t:id="startDate" t:validate="required,aftertoday"/>
                     </td>
 
                     <td colspan="2"  width="40">&nbsp;</td>
@@ -35,13 +36,13 @@
                         <label t:type="label" t:for="endDate">End date</label>
                     </th>
                     <td>
-                        <t:datefield t:id="endDate" t:validate="required,infuture"/>
+                        <t:datefield t:id="endDate" t:validate="required,aftertoday"/>
                     </td>
     			</tr>
     			<td height="10">&nbsp;</td>
     		</table>
     		<div class="form-submit">
-    			<input type="submit" t:type="submit" class="btn-active" value="Search" />
+    			<input type="submit" t:type="submit" value="Search" />
     		</div>
     	</form>
 </html>

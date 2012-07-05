@@ -14,9 +14,9 @@ import org.apache.tapestry5.validator.AbstractValidator;
  * Time: 6:12 PM
  * To change this template use File | Settings | File Templates.
  */
-public class AutoCompleteValidator extends AbstractValidator<Void, String> {
-    public AutoCompleteValidator() {
-        super(null, String.class, "autocomplete-value-not-selected");
+public class AutoCompleteIATACodeValidator extends AbstractValidator<Void, String> {
+    public AutoCompleteIATACodeValidator() {
+        super(null, String.class, "error.autocompletevaluenotselected");
     }
 
     public void validate(Field field, Void constraintValue, MessageFormatter formatter, String value)
@@ -30,12 +30,13 @@ public class AutoCompleteValidator extends AbstractValidator<Void, String> {
         }
     }
 
+    public void render(Field field, Void aVoid, MessageFormatter messageFormatter, MarkupWriter markupWriter, FormSupport formSupport) {
+
+    }
+
     private String buildMessage(MessageFormatter formatter, Field field, Void constraintValue) {
         return formatter.format(constraintValue, field.getLabel());
     }
 
-    public void render(Field field, Void constraintValue, MessageFormatter formatter, MarkupWriter writer,
-                       FormSupport formSupport) {
-    }
 
 }
