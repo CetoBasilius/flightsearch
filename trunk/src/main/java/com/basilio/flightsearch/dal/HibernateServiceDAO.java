@@ -34,6 +34,12 @@ public class HibernateServiceDAO implements ServiceDAO {
         return t;
     }
 
+    /*public void create(List<?> entities) {
+        for (Object thisEntity : entities) {
+            create(thisEntity);
+        }
+    }*/
+
     @SuppressWarnings("unchecked")
     public <T, PK extends Serializable> T find(Class<T> type, PK id) {
         return (T) session.get(type, id);

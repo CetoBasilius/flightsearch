@@ -21,7 +21,7 @@ import org.apache.tapestry5.validator.AbstractValidator;
 public class DateValidator extends AbstractValidator<Void, Date> {
 
     public DateValidator() {
-        super(null, Date.class, "error.validateenddate");
+        super(null, Date.class, "error.datemustbeaftertoday");
     }
 
     public void render(Field field, Void constraintValue,

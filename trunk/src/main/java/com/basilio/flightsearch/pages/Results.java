@@ -22,13 +22,13 @@ public class Results {
 
     @Property
     @Persist(PersistenceConstants.FLASH)
-    String origin;
+    private String origin;
 
     @Property
     @Persist(PersistenceConstants.FLASH)
-    String destination;
+    private String destination;
 
-    void setup(String origin,String destination)
+    public void setup(String origin,String destination)
     {
         this.origin = origin;
         this.destination = destination;

@@ -29,6 +29,11 @@ public interface ServiceDAO {
     <T> T create(T t);
 
     /**
+     * Creates a list with the specified list of entities. will usually make use of the individual create method.
+     * @param entities the list of entities
+    public void create(List<?> entities); */
+
+    /**
      * Updates the given object
      *
      * @param <T>
