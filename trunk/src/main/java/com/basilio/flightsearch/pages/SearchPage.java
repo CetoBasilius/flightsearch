@@ -1,6 +1,7 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
+import com.basilio.flightsearch.components.Slider;
 import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.dal.FlightSearchConnector;
 import com.basilio.flightsearch.dal.ServiceDAO;
@@ -64,11 +65,17 @@ public class SearchPage {
     @Persist
     private boolean roundTrip;
 
+    @Property
+    private String adults = "1";
+
 
     //----------------- Slider ------------
 
+    //@Component(parameters = {"value=slider1Value"})
+    //private Slider slider;
+
     @Property
-    private int slideZone;
+    private float slider = 500;
 
     //---------------------------------------
 
@@ -90,12 +97,13 @@ public class SearchPage {
             return null;
         }
 
-        if(endDate.before(startDate) || endDate.equals(startDate)){
-            searchForm.recordError(messages.get("error.validateenddate"));
-            return null;
+        if(endDate!=null){
+            if(endDate.before(startDate) || endDate.equals(startDate)){
+                searchForm.recordError(messages.get("error.validateenddate"));
+                return null;
+            }
         }
         Search search = new Search();
-
 
         search.setRoundTrip(roundTrip);
         search.setDepartureAirport(departureAirport);
@@ -119,6 +127,9 @@ public class SearchPage {
         }
     }
 
+    public boolean getRoundFlightValue(){
+        return roundTrip;
+    }
     public List<AirportStub> getAirportStublist() {
         List<AirportStub> airportList = serviceDAO.findWithNamedQuery(AirportStub.ALL);
         return airportList;
