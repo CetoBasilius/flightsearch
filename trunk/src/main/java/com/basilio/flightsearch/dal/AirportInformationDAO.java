@@ -1,5 +1,6 @@
 package com.basilio.flightsearch.dal;
 
+import com.basilio.flightsearch.entities.AirportStub;
 import org.w3c.dom.Document;
 
 /**
@@ -11,5 +12,5 @@ import org.w3c.dom.Document;
  */
 public interface AirportInformationDAO {
 
-    public String getAirportData(String airportCode);
+    public AirportStub getAirportData(String airportCode);
 }

@@ -24,11 +24,8 @@ public class DataModule {
     private final ServiceDAO serviceDAO;
 
     @Inject
-    private HttpListScraper HttpListScraper;
+    private HtmlListScraper HtmlListScraper;
 
-    /**
-     * if true, will use small database for autocompletion of airport search
-     */
     private boolean useLocalDemoList = true;
 
     public DataModule(ServiceDAO serviceDAO) {
@@ -39,7 +36,6 @@ public class DataModule {
     @Startup
     public void initialize() {
         logger.info("Loading initial demo data");
-
         createDemoUsers();
         createDemoAirportStubs();
         logger.info("Data Loaded...");
@@ -47,10 +43,10 @@ public class DataModule {
 
     private void createDemoAirportStubs() {
         if(useLocalDemoList){
-            create(HttpListScraper.createDemoAirportStubsLocal());
+            create(HtmlListScraper.GetAirportStubListLocal());
         }else{
             try {
-                create(HttpListScraper.loadAirportStubsWithHTTP());
+                create(HtmlListScraper.GetAirportStubList());
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -59,15 +55,10 @@ public class DataModule {
 
     private void createDemoUsers() {
         List<User> users = new ArrayList<User>();
-
         users.add(new User("Basilio German", "cetobasilius", "basi@correo.com", "cetobasilius"));
         users.add(new User("Demo person", "username", "user@correo.com", "password"));
         users.add(new User("Administrator", "admin", "admin@flightsearch.com", "admin", true));
-
         create(users);
-
-        List<User> userList = serviceDAO.findWithNamedQuery(User.ALL);
-        logger.info("Users " + userList);
     }
 
     private void create(List<?> entities) {

@@ -20,7 +20,7 @@ public class Index {
     private Authenticator authenticator;
 
     public Object onActivate() {
-        return authenticator.isLoggedIn() ? Search.class : About.class;
+        return authenticator.isLoggedIn() ? SearchPage.class : About.class;
     }
 
 }

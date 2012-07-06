@@ -1,6 +1,7 @@
 package com.basilio.flightsearch.dal;
 
 import com.basilio.flightsearch.dal.AirportInformationDAO;
+import com.basilio.flightsearch.entities.AirportStub;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -16,7 +17,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 
-import static com.basilio.flightsearch.dal.DomReader.readFile;
+import static com.basilio.flightsearch.dal.DomReader.readTag;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,10 +28,11 @@ import static com.basilio.flightsearch.dal.DomReader.readFile;
  */
 public class HttpAirportInformationDAO implements AirportInformationDAO {
 
-    public String getAirportData(String airportCode) {
+    public AirportStub getAirportData(String airportCode) {
 
         System.out.println("Searching for "+airportCode);
-        String data = "empty";
+        AirportStub returnAirportStub = new AirportStub();
+        returnAirportStub.setCode(airportCode);
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -38,6 +40,7 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
             HttpClient httpclient = new DefaultHttpClient();
 
             HttpGet httpget = new HttpGet("http://avdata.geekpilot.net/airport/"+airportCode+".xml");
+            System.out.println(httpget.getURI());
             HttpResponse response = httpclient.execute(httpget);
 
             HttpEntity entity = response.getEntity();
@@ -46,19 +49,19 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
             Document doc = dBuilder.parse(instream);
             doc.getDocumentElement().normalize();
 
-            data = readFile(doc);
+            returnAirportStub.setDescriptor(readTag(doc,"name"));
+            returnAirportStub.setLatitude(Float.valueOf(readTag(doc,"latitude")).floatValue());
+            returnAirportStub.setLongitude(Float.valueOf(readTag(doc, "longitude")).floatValue());
 
             httpclient.getConnectionManager().shutdown();
 
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         } catch (SAXException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            e.printStackTrace();
         } catch (IOException ee) {
-            ee.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            ee.printStackTrace();
         }
-        return data;
+        return returnAirportStub;
     }
-
-
 }

@@ -7,7 +7,7 @@
     <t:security.notAuthenticated>
     <p>To save searches and other features you must first <t:pagelink page="SignIn">Login</t:pagelink>, If you are not a member yet, you can <t:pagelink page="SignUp">Register now!</t:pagelink></p>
     </t:security.notAuthenticated>
-    <p>If you want to search now, you can go to the <t:pagelink page="Search">Search</t:pagelink> page.</p>
+    <p>If you want to search now, you can go to the <t:pagelink page="SearchPage">Search</t:pagelink> page.</p>
 
 
 </html>

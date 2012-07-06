@@ -27,9 +27,9 @@ import java.util.List;
  * Time: 3:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HttpListScraperImpl implements HttpListScraper {
+public class HtmlListScraperImpl implements HtmlListScraper {
 
-    private static final Logger logger = LoggerFactory.getLogger(HttpListScraperImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(HtmlListScraperImpl.class);
 
     private final static String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
 
@@ -37,10 +37,9 @@ public class HttpListScraperImpl implements HttpListScraper {
     private ServiceDAO serviceDAO;
 
     @Log
-    public List<AirportStub> loadAirportStubsWithHTTP() throws IOException {
+    public List<AirportStub> GetAirportStubList() throws IOException {
 
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
-        List<String> airportGet = new ArrayList<String>();
 
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpget = new HttpGet(airportListURL);
@@ -48,55 +47,62 @@ public class HttpListScraperImpl implements HttpListScraper {
         HttpEntity entity = response.getEntity();
 
         if (entity != null) {
-            InputStream instream = entity.getContent();
-            try {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
-                String line;
-                do {
-                    line = reader.readLine();
-                    if (line != null) {
-                        if (line.contains("<li>")) {
+            List<String> airportGet = parseHtml(httpget, entity);
+            airportStubs = createAirportStubList(airportGet);
+        }
 
-                            int count = StringUtils.countMatches(line, "<li>");
-                            if (count > 1) {
-                                String[] splitLine = line.split("<li>");
-                                for (int a = 1; a < splitLine.length; a++) {
-                                    airportGet.add(Jsoup.parse(splitLine[a]).text());
+        httpclient.getConnectionManager().shutdown();
+        return airportStubs;
+    }
 
-                                }
-                            } else {
-                                airportGet.add(Jsoup.parse(line).text());
-                            }
-                        }
-                    }
-                } while (line != null);
-            } catch (IOException ex) {
-                throw ex;
-            } catch (RuntimeException ex) {
-                httpget.abort();
-                throw ex;
-            } finally {
-                instream.close();
+    List<AirportStub> createAirportStubList( List<String> airportGet) {
+        List<AirportStub> airportStubs = new ArrayList<AirportStub>();
+        for (String string : airportGet) {
+            if(string.length()>6){
+                String code = string.substring(0,3);
+                String descriptor = string.substring(6);
+                AirportStub stub = new AirportStub(code,descriptor);
+                airportStubs.add(stub);
             }
-
-            httpclient.getConnectionManager().shutdown();
-
-            for (String string : airportGet) {
-                if(string.length()>6){
-                    String code = string.substring(0,3);
-                    String descriptor = string.substring(6);
-                    AirportStub stub = new AirportStub(code,descriptor);
-                    airportStubs.add(stub);
-                }
-            }
-
-
         }
         return airportStubs;
     }
 
+    List<String> parseHtml(HttpGet httpget, HttpEntity entity) throws IOException {
+        List<String> airportGet = new ArrayList<String>();
+        InputStream instream = entity.getContent();
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
+            String line;
+            do {
+                line = reader.readLine();
+                if (line != null) {
+                    if (line.contains("<li>")) {
+                        int count = StringUtils.countMatches(line, "<li>");
+                        if (count > 1) {
+                            String[] splitLine = line.split("<li>");
+                            for (int a = 1; a < splitLine.length; a++) {
+                                airportGet.add(Jsoup.parse(splitLine[a]).text());
+                            }
+                        } else {
+                            airportGet.add(Jsoup.parse(line).text());
+                        }
+                    }
+                }
+            } while (line != null);
+        } catch (IOException ex) {
+            throw ex;
+        } catch (RuntimeException ex) {
+            httpget.abort();
+            throw ex;
+        } finally {
+            instream.close();
+        }
+        return airportGet;
+    }
+
     @Log
-    public List<AirportStub> createDemoAirportStubsLocal() {
+    public List<AirportStub> GetAirportStubListLocal() {
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
 
         airportStubs.add(new AirportStub("HMO", "Mexico - Hermosillo Sonora"));

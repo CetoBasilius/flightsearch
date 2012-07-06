@@ -17,41 +17,28 @@ import java.io.File;
  * To change this template use File | Settings | File Templates.
  */
 public class DomReader {
-
-    public static String readFile(Document doc){
-
+    public static String readTag(Document doc,String tag){
         String data = "";
         try {
-
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
             NodeList nList = doc.getElementsByTagName("airport");
-            System.out.println("-----------------------");
-
             for (int temp = 0; temp < nList.getLength(); temp++) {
 
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element eElement = (Element) nNode;
-
-                    data+= "Airport Name : " + getTagValue("name", eElement)+"\n";
-                    data+= "Latitude : " + getTagValue("latitude", eElement)+"\n";
-                    data+= "Longitude : " + getTagValue("longitude", eElement)+"\n";
-
+                    data = getTagValue(tag, eElement);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println(data);
         return data;
     }
 
     private static String getTagValue(String sTag, Element eElement) {
         NodeList nlList = eElement.getElementsByTagName(sTag).item(0).getChildNodes();
-
         Node nValue = (Node) nlList.item(0);
-
         return nValue.getNodeValue();
     }
 
