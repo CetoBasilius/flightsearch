@@ -16,4 +16,4 @@ To run the web application, download the source code, use the "mvn jetty:run" co
 
 *Using the downloads*
 
-go to the [http://code.google.com/p/flightsearch/downloads/list download page], download the pacakge and use "java -jar application.war" where application is the name of the file downloaded.
+go to the [http://code.google.com/p/flightsearch/downloads/list download page], download the pacakge and use "java -jar application.war" where application is the name of the file downloaded. more specific information is included in each download.
