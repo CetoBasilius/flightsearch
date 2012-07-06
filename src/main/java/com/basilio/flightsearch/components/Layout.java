@@ -71,7 +71,7 @@ public class Layout {
 
     @Log
     public Object onActionFromSearch() {
-        return Search.class;
+        return SearchPage.class;
     }
 
     @Log

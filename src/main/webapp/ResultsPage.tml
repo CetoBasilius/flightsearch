@@ -16,6 +16,14 @@
         </td>
      </table>
 
+      <t:loop source="results" value="resultString">
+          <tr>
+            <td>
+                <label>${resultString}</label>
+            </td>
+          </tr>
+      </t:loop>
+
 
 
 </html>
