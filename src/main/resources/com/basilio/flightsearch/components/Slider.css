@@ -1,0 +1,21 @@
+DIV.ck_slider-handle {
+    width: 5px;
+    height: 15px;
+    top: -5px;
+    background-color: #555;
+    cursor: move;
+}
+
+DIV.ck_slider-track {
+    position: relative;
+    top: 10px;
+    width: 200px;
+    background-color: #aaa;
+    height: 5px;
+}
+
+DIV.ck_slider-value {
+    position: relative;
+    top: 0px;
+    left: 210px;
+}

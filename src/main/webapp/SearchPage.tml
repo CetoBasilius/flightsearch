@@ -1,4 +1,4 @@
-<html t:type="layout" title="Search parameters (Under Construction!)"
+<html t:type="layout" title="Search flight travel deals"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
@@ -15,12 +15,14 @@
 
     				<td colspan="2"  width="40">&nbsp;</td>
 
-    				<th>
+
+                    <th>
                         <label t:type="label" t:for="destination">Destination</label>
                     </th>
                     <td>
                         <t:textfield t:id="destination" t:mixins="autocomplete" size="50" t:validate="required,codeintextfield"/>
                     </td>
+
                 </tr>
                 <tr>
     				<th>
@@ -28,17 +30,19 @@
                     </th>
                     <td>
                         <t:datefield t:id="startDate" t:validate="required,aftertoday"/>
-                        <label>Round Trip</label><t:checkbox t:id="roundTrip"/>
+                        &nbsp;&nbsp;<label>Round Trip</label><t:checkbox t:id="roundTrip"/>
                     </td>
 
                     <td colspan="2"  width="40">&nbsp;</td>
 
-                    <th>
-                        <label t:type="label" t:for="endDate">Return date</label>
-                    </th>
-                    <td>
-                        <t:datefield t:id="endDate" t:validate="required,aftertoday"/>
-                    </td>
+                    <t:if test="roundFlightValue">
+                        <th>
+                            <label t:type="label" t:for="endDate">Return date</label>
+                        </th>
+                        <td>
+                            <t:datefield t:id="endDate" t:validate="required,aftertoday"/>
+                        </td>
+                    </t:if>
     			</tr>
 
     			<tr>
@@ -46,9 +50,17 @@
     			        <label>Budget</label>
     			    </th>
                     <td>
-                        Slider should go here
+                        <t:slider value="slider" min="500" max="30000" id="slider"/>
                     </td>
     			</tr>
+    			<tr>
+                    <th>
+                        <label t:type="label" t:for="adults">Adults</label>
+                    </th>
+                    <td>
+                        <t:textfield t:id="adults" value="adults" size="1" t:validate="required"/>
+                    </td>
+                </tr>
     			<td height="10">&nbsp;</td>
     		</table>
     		<div class="form-submit">
