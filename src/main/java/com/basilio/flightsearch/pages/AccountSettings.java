@@ -33,7 +33,7 @@ public class AccountSettings {
     private ServiceDAO serviceDAO;
 
     @Inject
-    Authenticator authenticator;
+    private Authenticator authenticator;
 
     //-------------------- Change password ---------------------
     @Component

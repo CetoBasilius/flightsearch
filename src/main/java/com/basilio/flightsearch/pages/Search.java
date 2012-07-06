@@ -8,8 +8,11 @@ import com.basilio.flightsearch.entities.AirportStub;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.json.JSONObject;
+import org.apache.tapestry5.services.Request;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,10 +26,10 @@ import java.util.List;
 public class Search {
 
     @Inject
-    ServiceDAO serviceDAO;
+    private ServiceDAO serviceDAO;
 
     @Inject
-    AirportInformationDAO airportInformationDAO;
+    private AirportInformationDAO airportInformationDAO;
 
     //----------------- Search form ----------------
     @Component
@@ -35,15 +38,19 @@ public class Search {
     @Inject
     private Messages messages;
 
+    @Persist
     @Property
     private Date startDate;
 
+    @Persist
     @Property
     private Date endDate;
 
+    @Persist
     @Property
     private String origin;
 
+    @Persist
     @Property
     private String destination;
 
@@ -51,7 +58,17 @@ public class Search {
     @Persist
     private List<AirportStub> allAirportStubs;
 
-    //-------------------------------------------
+    @Property
+    @Persist
+    private boolean roundTrip;
+
+
+    //----------------- Slider ------------
+
+    @Property
+    private int slideZone;
+
+    //---------------------------------------
 
     @InjectPage
     private Results results;
@@ -65,12 +82,7 @@ public class Search {
             return null;
         }
 
-        if(searchForm==null){
-            System.out.println("searchform is null");}
-        if(messages==null){
-            System.out.println("messages is null");}
-
-        if(endDate.before(startDate)){
+        if(endDate.before(startDate) || endDate.equals(startDate)){
             searchForm.recordError(messages.get("error.validateenddate"));
             return null;
         }

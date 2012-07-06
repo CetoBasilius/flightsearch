@@ -28,15 +28,25 @@
                     </th>
                     <td>
                         <t:datefield t:id="startDate" t:validate="required,aftertoday"/>
+                        <label>Round Trip</label><t:checkbox t:id="roundTrip"/>
                     </td>
 
                     <td colspan="2"  width="40">&nbsp;</td>
 
                     <th>
-                        <label t:type="label" t:for="endDate">End date</label>
+                        <label t:type="label" t:for="endDate">Return date</label>
                     </th>
                     <td>
                         <t:datefield t:id="endDate" t:validate="required,aftertoday"/>
+                    </td>
+    			</tr>
+
+    			<tr>
+    			    <th>
+    			        <label>Budget</label>
+    			    </th>
+                    <td>
+                        Slider should go here
                     </td>
     			</tr>
     			<td height="10">&nbsp;</td>
