@@ -26,7 +26,7 @@ public class DataModule {
     @Inject
     private HtmlListScraper HtmlListScraper;
 
-    private boolean useLocalDemoList = false;
+    private boolean useLocalDemoList = true;
 
     public DataModule(ServiceDAO serviceDAO) {
         super();

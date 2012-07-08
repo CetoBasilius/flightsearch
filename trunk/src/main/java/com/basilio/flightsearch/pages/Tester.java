@@ -5,7 +5,10 @@ import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.services.Authenticator;
+import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Log;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 
@@ -20,16 +23,12 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 @GuestAccess
 public class Tester {
     @Inject
-    Authenticator authenticator;
+    private Authenticator authenticator;
 
     @Inject
-    AirportInformationDAO airportInformationDAO;
+    private AirportInformationDAO airportInformationDAO;
 
     @Inject
-    ServiceDAO serviceDAO;
+    private ServiceDAO serviceDAO;
 
-    @Log
-    public void onActionFromTestMethod() {
-
-    }
 }
