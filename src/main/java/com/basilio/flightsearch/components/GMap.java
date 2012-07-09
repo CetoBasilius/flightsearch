@@ -15,6 +15,8 @@ import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 import org.chenillekit.google.services.GoogleGeoCoder;
 
+import java.util.List;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -65,6 +67,9 @@ public class GMap implements ClientElement
     @Parameter(defaultPrefix = BindingConstants.PROP)
     private Double lng;
 
+
+    @Parameter(defaultPrefix = BindingConstants.PROP)
+    private List<Double> coordlist;
 
     /**
      * name of a javascript function that acts as error handler.
@@ -135,13 +140,18 @@ public class GMap implements ClientElement
         javascriptSupport.addScript("%s.setMarker(%s, %s);", getClientId(), lat, lng);
 
         JSONObject Polyline = new JSONObject();
-        Polyline.put("lat1",29.0958995819);Polyline.put("lng1",-111.047996521);
-        Polyline.put("lat2",32.1161003113);Polyline.put("lng2",-110.941001892);
-        Polyline.put("lat3",33.94250107);Polyline.put("lng3",-118.4079971);
 
-        javascriptSupport.addScript("%s.addPolyline(%s);", getClientId(),Polyline);
+        if(coordlist!=null && coordlist.size()%2==0){
+            for(int a = 0; a<(coordlist.size()/2);a++){
+                Polyline.put("lat"+(a+1),coordlist.get(2*a));
+                Polyline.put("lng"+(a+1),coordlist.get((2*a)+1));
+            }
 
+            System.out.println(Polyline.toString());
+            javascriptSupport.addScript("%s.addPolyline(%s);", getClientId(),Polyline);
+        }
     }
+
 
     /**
      * for external configuration do override.

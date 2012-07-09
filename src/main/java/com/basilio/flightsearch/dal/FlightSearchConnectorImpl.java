@@ -23,7 +23,7 @@ import java.util.zip.GZIPInputStream;
  * User: Cetobasilius
  * Date: 7/5/12
  * Time: 8:54 PM
- * To change this template use File | Settings | File Templates.
+ *
  */
 public class FlightSearchConnectorImpl implements  FlightSearchConnector {
 
@@ -86,11 +86,11 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
     }
 
     public Result searchMostEconomicFlight(Search search) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     public Result searchMostFitFlight(Search search) {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return null;
     }
 
     private String createStateOnewayStatement(String from,String to,Date departureDate, int adults, int children, int infants){

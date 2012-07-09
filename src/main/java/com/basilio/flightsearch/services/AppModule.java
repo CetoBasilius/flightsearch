@@ -33,7 +33,6 @@ public class AppModule {
     public static void bind(ServiceBinder binder) {
 
         binder.bind(Authenticator.class, AuthenticatorImpl.class);
-        binder.bind(AirportInformationDAO.class, HttpAirportInformationDAO.class);
         binder.bind(HtmlListScraper.class,HtmlListScraperImpl.class);
         binder.bind(FlightSearchConnector.class,FlightSearchConnectorImpl.class);
 

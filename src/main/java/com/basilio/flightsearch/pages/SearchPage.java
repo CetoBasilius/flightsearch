@@ -1,8 +1,6 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.components.Slider;
-import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.dal.FlightSearchConnector;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportStub;
@@ -30,9 +28,6 @@ public class SearchPage {
 
     @Inject
     private ServiceDAO serviceDAO;
-
-    @Inject
-    private AirportInformationDAO airportInformationDAO;
 
     //----------------- SearchPage form ----------------
     @Component
@@ -80,6 +75,21 @@ public class SearchPage {
     //---------------------------------------
 
     @InjectPage
+    private Tester tester;
+
+    public Object onActionFromTester() {
+        List<Double> setupList = new ArrayList<Double>();
+        setupList.add(20.0);setupList.add(-20.0);
+        setupList.add(50.0);setupList.add(50.0);
+        setupList.add(-20.0);setupList.add(20.0);
+        setupList.add(120.0);setupList.add(-120.0);
+
+        tester.setup(setupList);
+        return tester;
+    }
+
+    //---------------------------------------
+    @InjectPage
     private ResultsPage resultsPage;
 
     @Log
@@ -88,14 +98,10 @@ public class SearchPage {
         String originCode = origin.substring(1,4);
         String destinationCode = destination.substring(1,4);
 
-        AirportStub departureAirport =  airportInformationDAO.getAirportData(originCode);
+        AirportStub departureAirport = new AirportStub();
         departureAirport.setCode(originCode);
-        AirportStub destinationAirport = airportInformationDAO.getAirportData(destinationCode);
+        AirportStub destinationAirport = new AirportStub();
         destinationAirport.setCode(destinationCode);
-
-        if(departureAirport==null || destinationAirport==null){
-            return null;
-        }
 
         if(endDate!=null){
             if(endDate.before(startDate) || endDate.equals(startDate)){
@@ -115,7 +121,7 @@ public class SearchPage {
         search.setNewBorns(0);
 
         List<Result> results = flightSearchConnector.searchOneWayFlights(search);
-        resultsPage.setup(search,results);
+        resultsPage.setup(search,results.get(0));
         return resultsPage;
     }
 
