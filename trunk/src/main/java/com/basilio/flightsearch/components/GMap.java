@@ -134,21 +134,32 @@ public class GMap implements ClientElement
                 dragendCallbackFunction,
                 configuration.toString());
 
-        javascriptSupport.addScript("%s.setCenter(%s, %s);", getClientId(), lat, lng);
 
-        //TESTS
-        javascriptSupport.addScript("%s.setMarker(%s, %s);", getClientId(), lat, lng);
 
         JSONObject Polyline = new JSONObject();
 
-        if(coordlist!=null && coordlist.size()%2==0){
-            for(int a = 0; a<(coordlist.size()/2);a++){
-                Polyline.put("lat"+(a+1),coordlist.get(2*a));
-                Polyline.put("lng"+(a+1),coordlist.get((2*a)+1));
-            }
+        double latavg = 0.0;
+        double lngavg = 0.0;
 
-            System.out.println(Polyline.toString());
+        if(coordlist!=null && coordlist.size()%2==0){
+            int coordinateCount = coordlist.size()/2;
+            for(int a = 0; a<(coordinateCount);a++){
+
+                Double getlat = coordlist.get(2 * a);
+                Double getlng = coordlist.get((2 * a) + 1);
+
+                latavg+=getlat;
+                lngavg+=getlng;
+
+                Polyline.put("lat"+(a+1), getlat);
+                Polyline.put("lng"+(a+1), getlng);
+
+                javascriptSupport.addScript("%s.setMarker(%s, %s);", getClientId(), getlat, getlng);
+            }
             javascriptSupport.addScript("%s.addPolyline(%s);", getClientId(),Polyline);
+            javascriptSupport.addScript("%s.setCenter(%s, %s);", getClientId(), latavg/coordinateCount, lngavg/coordinateCount);
+        } else {
+            javascriptSupport.addScript("%s.setCenter(%s, %s);", getClientId(), 0, 0);
         }
     }
 
