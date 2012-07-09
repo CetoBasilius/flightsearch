@@ -45,7 +45,10 @@
   	    var polyline = new GPolyline([
       		  new GLatLng(Polylinein.lat1,Polylinein.lng1),
       		  new GLatLng(Polylinein.lat2,Polylinein.lng2),
-      		  new GLatLng(Polylinein.lat3,Polylinein.lng3)
+      		  new GLatLng(Polylinein.lat3,Polylinein.lng3),
+      		  new GLatLng(Polylinein.lat4,Polylinein.lng4),
+      		  new GLatLng(Polylinein.lat5,Polylinein.lng5),
+      		  new GLatLng(Polylinein.lat6,Polylinein.lng6)
         ], "#ff0000", 10);
         this.map.addOverlay(polyline);
   	},

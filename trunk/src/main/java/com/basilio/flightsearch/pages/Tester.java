@@ -2,14 +2,13 @@ package com.basilio.flightsearch.pages;
 
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.services.Authenticator;
-import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Log;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.ioc.annotations.Inject;
+
+import java.util.List;
 
 
 /**
@@ -26,9 +25,21 @@ public class Tester {
     private Authenticator authenticator;
 
     @Inject
-    private AirportInformationDAO airportInformationDAO;
-
-    @Inject
     private ServiceDAO serviceDAO;
+
+    @Property
+    private double latin = 29.0958995819;
+
+    @Property
+    private double lngin = -111.047996521;
+
+    @Persist(PersistenceConstants.FLASH)
+    @Property
+    private List<Double> coordinatesParameter;
+
+    public void setup(List<Double> coordinatesin){
+        coordinatesParameter = coordinatesin;
+        System.out.println(coordinatesParameter);
+    }
 
 }

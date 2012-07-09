@@ -35,9 +35,9 @@ public class ResultsPage {
     @Persist(PersistenceConstants.FLASH)
     private Result result;
 
-    public void setup(Search search,List<Result> results)
+    public void setup(Search search,Result result)
     {
-        result = results.get(0);
+        this.result = result;
         this.origin = search.getDepartureAirport().getDescriptor();
         this.destination = search.getDestinationAirport().getDescriptor();
     }
