@@ -60,7 +60,15 @@
                         <label t:type="label" t:for="adults">Adults</label>
                     </th>
                     <td>
-                        <t:textfield t:id="adults" value="adults" size="1" t:validate="required"/>
+                        <t:textfield t:id="adults" value="adults" size="1" t:validate="required,regexp=^[0-9]+$"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label t:type="label" t:for="children">Children</label>
+                    </th>
+                    <td>
+                        <t:textfield t:id="children" value="children" size="1" t:validate="required,regexp=^[0-9]+$"/>
                     </td>
                 </tr>
     			<td height="10">&nbsp;</td>

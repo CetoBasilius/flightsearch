@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.dal;
 
-import com.basilio.flightsearch.entities.Result;
+import com.basilio.flightsearch.entities.ResultOld;
 import com.basilio.flightsearch.entities.Search;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -33,14 +33,14 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Log
-    public List<Result> searchOneWayFlights(Search search) {
+    public List<ResultOld> searchOneWayFlights(Search search) {
         String statement = createStateOnewayStatement(search.getDepartureAirport().getCode(),
                                                       search.getDestinationAirport().getCode(),
                                                       search.getDepartureDate(),
                                                       search.getNumberAdults(),
                                                       search.getNumberChildren(),
                                                       search.getNewBorns());
-        List<Result> resultingList = new ArrayList<Result>();
+        List<ResultOld> resultingList = new ArrayList<ResultOld>();
 
         try {
             HttpClient httpclient = new DefaultHttpClient();
@@ -57,7 +57,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(zippedInputStream));
 
                 String line;
-                Result result = new Result();
+                ResultOld result = new ResultOld();
                 List<String> resultList = new ArrayList<String>();
                 do {
                     line = reader.readLine();
@@ -85,11 +85,11 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
         return resultingList;
     }
 
-    public Result searchMostEconomicFlight(Search search) {
+    public ResultOld searchMostEconomicFlight(Search search) {
         return null;
     }
 
-    public Result searchMostFitFlight(Search search) {
+    public ResultOld searchMostFitFlight(Search search) {
         return null;
     }
 

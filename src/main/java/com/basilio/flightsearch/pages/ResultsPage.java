@@ -2,7 +2,7 @@ package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.Result;
+import com.basilio.flightsearch.entities.ResultOld;
 import com.basilio.flightsearch.entities.Search;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.Persist;
@@ -33,11 +33,12 @@ public class ResultsPage {
     private String destination;
 
     @Persist(PersistenceConstants.FLASH)
-    private Result result;
+    private ResultOld result;
 
-    public void setup(Search search,Result result)
+    public void setup(Search search,ResultOld result)
     {
         this.result = result;
+        result.createGoodResult();
         this.origin = search.getDepartureAirport().getDescriptor();
         this.destination = search.getDestinationAirport().getDescriptor();
     }
