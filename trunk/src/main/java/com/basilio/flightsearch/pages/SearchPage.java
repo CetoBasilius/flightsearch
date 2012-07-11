@@ -4,7 +4,7 @@ import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.dal.FlightSearchConnector;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.Result;
+import com.basilio.flightsearch.entities.ResultOld;
 import com.basilio.flightsearch.entities.Search;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
@@ -63,6 +63,9 @@ public class SearchPage {
     @Property
     private String adults = "1";
 
+    @Property
+    private String children = "0";
+
 
     //----------------- Slider ------------
 
@@ -70,7 +73,7 @@ public class SearchPage {
     //private Slider slider;
 
     @Property
-    private float slider = 500;
+    private int slider = 500;
 
     //---------------------------------------
 
@@ -116,11 +119,11 @@ public class SearchPage {
         search.setDestinationAirport(destinationAirport);
         search.setDepartureDate(startDate);
         search.setReturnDate(endDate);
-        search.setNumberAdults(1);
-        search.setNumberChildren(0);
+        search.setNumberAdults(Integer.parseInt(adults));
+        search.setNumberChildren(Integer.parseInt(children));
         search.setNewBorns(0);
 
-        List<Result> results = flightSearchConnector.searchOneWayFlights(search);
+        List<ResultOld> results = flightSearchConnector.searchOneWayFlights(search);
         resultsPage.setup(search,results.get(0));
         return resultsPage;
     }

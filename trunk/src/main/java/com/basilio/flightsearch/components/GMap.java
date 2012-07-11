@@ -134,14 +134,10 @@ public class GMap implements ClientElement
                 dragendCallbackFunction,
                 configuration.toString());
 
-
-
-        JSONObject Polyline = new JSONObject();
-
-        double latavg = 0.0;
-        double lngavg = 0.0;
-
         if(coordlist!=null && coordlist.size()%2==0){
+            JSONObject Polyline = new JSONObject();
+            double latavg = 0.0;
+            double lngavg = 0.0;
             int coordinateCount = coordlist.size()/2;
             for(int a = 0; a<(coordinateCount);a++){
 
