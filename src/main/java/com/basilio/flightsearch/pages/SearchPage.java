@@ -4,7 +4,7 @@ import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.dal.FlightSearchConnector;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.ResultOld;
+import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
@@ -123,7 +123,7 @@ public class SearchPage {
         search.setNumberChildren(Integer.parseInt(children));
         search.setNewBorns(0);
 
-        List<ResultOld> results = flightSearchConnector.searchOneWayFlights(search);
+        List<ResultCreator> results = flightSearchConnector.searchOneWayFlights(search);
         resultsPage.setup(search,results.get(0));
         return resultsPage;
     }

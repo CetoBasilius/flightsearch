@@ -1,15 +1,11 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.ResultOld;
+import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,14 +29,14 @@ public class ResultsPage {
     private String destination;
 
     @Persist(PersistenceConstants.FLASH)
-    private ResultOld result;
+    private ResultCreator result;
 
-    public void setup(Search search,ResultOld result)
+    public void setup(Search search,ResultCreator result)
     {
         this.result = result;
         result.createGoodResult();
-        this.origin = search.getDepartureAirport().getDescriptor();
-        this.destination = search.getDestinationAirport().getDescriptor();
+        this.origin = search.getDepartureAirport().getCode();
+        this.destination = search.getDestinationAirport().getCode();
     }
 
     @Property
@@ -58,7 +54,7 @@ public class ResultsPage {
 
         if(resultArray == null){
             resultArray= new String[1];
-            resultArray[0] = "results was empty";
+            resultArray[0] = "results was empty or null";
         }
 
         return resultArray;

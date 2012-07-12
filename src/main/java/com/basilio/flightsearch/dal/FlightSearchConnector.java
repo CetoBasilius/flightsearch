@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.dal;
 
-import com.basilio.flightsearch.entities.ResultOld;
+import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 
 import java.util.List;
@@ -19,20 +19,20 @@ public interface FlightSearchConnector {
      * @param search
      * @return
      */
-    public List<ResultOld> searchOneWayFlights(Search search);
+    public List<ResultCreator> searchOneWayFlights(Search search);
 
     /**
      * Will search for the most economic flight
      * @param search
      * @return
      */
-    public ResultOld searchMostEconomicFlight(Search search);
+    public ResultCreator searchMostEconomicFlight(Search search);
 
     /**
      * Will search for the most fit flight, adjusting to your budget, but not the cheapest flight.
      * @param search
      * @return
      */
-    public ResultOld searchMostFitFlight(Search search);
+    public ResultCreator searchMostFitFlight(Search search);
 
 }
