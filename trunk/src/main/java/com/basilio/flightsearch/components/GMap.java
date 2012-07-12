@@ -81,6 +81,7 @@ public class GMap implements ClientElement
     private String dragendCallbackFunction;
 
     private String assignedClientId;
+    private static final int MAX_POLYLINE_VERTICES = 6;
 
     void setupRender()
     {
@@ -139,19 +140,30 @@ public class GMap implements ClientElement
             double latavg = 0.0;
             double lngavg = 0.0;
             int coordinateCount = coordlist.size()/2;
-            for(int a = 0; a<(coordinateCount);a++){
+            for(int a = 0; a<MAX_POLYLINE_VERTICES;a++){
 
-                Double getlat = coordlist.get(2 * a);
-                Double getlng = coordlist.get((2 * a) + 1);
+                if(a<coordinateCount){
+                    Double getlat = coordlist.get(2 * a);
+                    Double getlng = coordlist.get((2 * a) + 1);
 
-                latavg+=getlat;
-                lngavg+=getlng;
+                    latavg+=getlat;
+                    lngavg+=getlng;
 
-                Polyline.put("lat"+(a+1), getlat);
-                Polyline.put("lng"+(a+1), getlng);
+                    Polyline.put("lat"+(a+1), getlat);
+                    Polyline.put("lng"+(a+1), getlng);
 
-                javascriptSupport.addScript("%s.setMarker(%s, %s);", getClientId(), getlat, getlng);
+                    javascriptSupport.addScript("%s.setMarker(%s, %s);", getClientId(), getlat, getlng);
+                } else {
+                    //We must fill the list.
+                    Double getlat = coordlist.get(2 * (coordinateCount-1));
+                    Double getlng = coordlist.get((2 * (coordinateCount-1)) + 1);
+
+                    Polyline.put("lat"+(a+1), getlat);
+                    Polyline.put("lng"+(a+1), getlng);
+                }
+
             }
+            System.out.println(Polyline.toCompactString());
             javascriptSupport.addScript("%s.addPolyline(%s);", getClientId(),Polyline);
             javascriptSupport.addScript("%s.setCenter(%s, %s);", getClientId(), latavg/coordinateCount, lngavg/coordinateCount);
         } else {

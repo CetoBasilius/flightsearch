@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 8:55 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ResultOld {
+public class ResultCreator {
     private List<String> result;
     private Result goodResult;
 

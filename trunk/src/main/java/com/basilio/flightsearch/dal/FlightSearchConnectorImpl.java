@@ -1,15 +1,13 @@
 package com.basilio.flightsearch.dal;
 
-import com.basilio.flightsearch.entities.ResultOld;
+import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.tapestry5.annotations.Log;
-import org.jsoup.Jsoup;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
@@ -33,14 +31,14 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     @Log
-    public List<ResultOld> searchOneWayFlights(Search search) {
+    public List<ResultCreator> searchOneWayFlights(Search search) {
         String statement = createStateOnewayStatement(search.getDepartureAirport().getCode(),
                                                       search.getDestinationAirport().getCode(),
                                                       search.getDepartureDate(),
                                                       search.getNumberAdults(),
                                                       search.getNumberChildren(),
                                                       search.getNewBorns());
-        List<ResultOld> resultingList = new ArrayList<ResultOld>();
+        List<ResultCreator> resultingList = new ArrayList<ResultCreator>();
 
         try {
             HttpClient httpclient = new DefaultHttpClient();
@@ -57,7 +55,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(zippedInputStream));
 
                 String line;
-                ResultOld result = new ResultOld();
+                ResultCreator result = new ResultCreator();
                 List<String> resultList = new ArrayList<String>();
                 do {
                     line = reader.readLine();
@@ -85,11 +83,11 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
         return resultingList;
     }
 
-    public ResultOld searchMostEconomicFlight(Search search) {
+    public ResultCreator searchMostEconomicFlight(Search search) {
         return null;
     }
 
-    public ResultOld searchMostFitFlight(Search search) {
+    public ResultCreator searchMostFitFlight(Search search) {
         return null;
     }
 
