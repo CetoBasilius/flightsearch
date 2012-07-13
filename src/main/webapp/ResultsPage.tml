@@ -2,30 +2,36 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <table style="width=100%; border:1px solid black;">
+    <table class="full">
         <tr>
-            <td style="width:60%">
-                <table style="width=100%; border:1px solid black;">
-                    <td><p>Origin: ${origin}</p></td>
-                    <td><p>Destination: ${destination}</p></td>
+            <td valign="top" style="width:50%">
+                <table class="full">
+                    <tr>
+                        <td><p>Origin: ${origin}</p></td>
+                        <td><p>Destination: ${destination}</p></td>
+                    </tr>
+                    <tr>
+                        <td><p>This search has ${numFlights} flight results</p></td>
+                    </tr>
                 </table>
 
-                <p>This search has ${numFlights} flight results</p>
 
-                <table style="width=100%; border:1px solid black;">
-                    <t:loop source="results" value="resultString">
+
+                <table class="full">
+                    <t:loop source="flights" value="flight">
                         <tr>
                             <td>
-                                <label>${resultString}</label>
+                                <t:loop source="flightStrings" value="flightString">
+                                    ${flightString}<br/>
+                                </t:loop>
                             </td>
                         </tr>
                     </t:loop>
                 </table>
             </td>
-            <td style="overflow:hidden;">
-                <t:zone t:id="zone">
-                </t:zone>
-                <div t:type="gmap" lng="lngin" lat="latin" coordlist="coordinatesParameter" style="width: 700px; height: 500px"/>
+
+            <td valign="top" style="width:50%">
+                <div t:type="gmap" lng="lngin" lat="latin" coordlist="coordinatesParameter" style="width:100%; height:500px;"/>
                 <div id="plotterError" style="display:none;">
                     There was an error loading the Google Map.
                 </div>
