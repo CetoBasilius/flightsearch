@@ -3,9 +3,15 @@ package com.basilio.flightsearch.pages;
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
+import com.basilio.flightsearch.entities.result.Result;
 import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.annotations.InjectComponent;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.corelib.components.Zone;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,15 +34,53 @@ public class ResultsPage {
     @Persist(PersistenceConstants.FLASH)
     private String destination;
 
-    @Persist(PersistenceConstants.FLASH)
-    private ResultCreator result;
+    @Property
+    private double latin = 0;
 
-    public void setup(Search search,ResultCreator result)
+    @Property
+    private double lngin = 0;
+
+    @Persist(PersistenceConstants.FLASH)
+    @Property
+    private List<Double> coordinatesParameter;
+
+    @InjectComponent
+    private Zone zone;
+
+
+    @Persist(PersistenceConstants.FLASH)
+    private Result result;
+
+    public void setup(Search search,Result result)
     {
         this.result = result;
-        result.createGoodResult();
         this.origin = search.getDepartureAirport().getCode();
         this.destination = search.getDestinationAirport().getCode();
+    }
+
+    public void setupGMap(List<Double> coordinatesin){
+        coordinatesParameter = coordinatesin;
+        System.out.println(coordinatesParameter);
+    }
+
+    Object onActionFromChangeMapTest()
+    {
+        List<Double> setupList = new ArrayList<Double>();
+        setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-20.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
+
+        this.setupGMap(setupList);
+        return zone;
+    }
+
+    public String getNumFlights(){
+        int numFlights = 0;
+        if(result != null){
+            numFlights = result.getFlights().size();
+        }
+        return Integer.toString(numFlights);
     }
 
     @Property
@@ -44,19 +88,20 @@ public class ResultsPage {
 
     public String[] getResults()
     {
+        int numFlights = 0;
         String[] resultArray = null;
-        if(result!=null){
-            resultArray = new String[result.getResult().size()];
-            for(int index = 0;index<result.getResult().size();index++){
-                resultArray[index] = (result.getResult().get(index));
+        if(result != null){
+
+            numFlights = result.getFlights().size();
+            resultArray = new String[numFlights];
+
+            for(int a = 0;a<numFlights;a++){
+                resultArray[a] = "This flight has "+result.getFlights().get(a).getOutboundRoutes().size()+" outbound routes.";
             }
+        } else {
+            resultArray = new String[1];
+            resultArray[0] = "There are no results to display.";
         }
-
-        if(resultArray == null){
-            resultArray= new String[1];
-            resultArray[0] = "results was empty or null";
-        }
-
         return resultArray;
     }
 

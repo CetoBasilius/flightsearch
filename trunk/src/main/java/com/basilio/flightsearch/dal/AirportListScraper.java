@@ -27,9 +27,9 @@ import java.util.List;
  * Time: 3:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HtmlListScraperImpl implements HtmlListScraper {
+public class AirportListScraper implements AirportListConnector {
 
-    private static final Logger logger = LoggerFactory.getLogger(HtmlListScraperImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(AirportListScraper.class);
 
     private final static String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
 
@@ -114,6 +114,7 @@ public class HtmlListScraperImpl implements HtmlListScraper {
         airportStubs.add(new AirportStub("XEX", "France - Paris"));
         airportStubs.add(new AirportStub("BER", "Germany - Berlin"));
         airportStubs.add(new AirportStub("PGG", "Brazil - Sao Paulo"));
+        airportStubs.add(new AirportStub("PAR", "Paris - France"));
 
         return airportStubs;
     }

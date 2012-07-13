@@ -12,7 +12,7 @@ import java.util.List;
  * Time: 3:36 PM
  * To change this template use File | Settings | File Templates.
  */
-public interface HtmlListScraper {
+public interface AirportListConnector {
 
     /**
      * Fetches a list with AirportStubs, which contains only a small description and the 3 letter IATA Code for each airport.
