@@ -29,13 +29,13 @@ public class Flights{
 	public void setInboundRoutes(List inboundRoutes){
 		this.inboundRoutes = inboundRoutes;
 	}
- 	public List getItineraryInfos(){
+ 	public List<ItineraryInfos> getItineraryInfos(){
 		return this.itineraryInfos;
 	}
 	public void setItineraryInfos(List itineraryInfos){
 		this.itineraryInfos = itineraryInfos;
 	}
- 	public List getOutboundRoutes(){
+ 	public List<OutboundRoutes> getOutboundRoutes(){
 		return this.outboundRoutes;
 	}
 	public void setOutboundRoutes(List outboundRoutes){

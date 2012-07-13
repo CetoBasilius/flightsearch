@@ -15,7 +15,7 @@ public class Result{
    	private List<Flights> flights;
    	private Meta meta;
 
- 	public List getFlights(){
+ 	public List<Flights> getFlights(){
 		return this.flights;
 	}
 	public void setFlights(List<Flights> flights){

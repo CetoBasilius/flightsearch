@@ -6,6 +6,7 @@ import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
+import com.basilio.flightsearch.entities.result.Result;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
@@ -95,7 +96,6 @@ public class SearchPage {
     @InjectPage
     private ResultsPage resultsPage;
 
-    @Log
     @OnEvent(value = EventConstants.SUCCESS, component = "SearchForm")
     Object startSearch() {
         String originCode = origin.substring(1,4);
@@ -123,8 +123,8 @@ public class SearchPage {
         search.setNumberChildren(Integer.parseInt(children));
         search.setNewBorns(0);
 
-        List<ResultCreator> results = flightSearchConnector.searchOneWayFlights(search);
-        resultsPage.setup(search,results.get(0));
+        Result result = flightSearchConnector.searchOneWayFlights(search,false);
+        resultsPage.setup(search,result);
         return resultsPage;
     }
 

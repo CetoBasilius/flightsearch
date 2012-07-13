@@ -7,8 +7,9 @@
 
     <t:zone t:id="zone">
 
-
     </t:zone>
+
+
     <div t:type="gmap" lng="lngin" lat="latin" coordlist="coordinatesParameter" style="width: 800px; height: 500px"/>
     <div id="plotterError" style="display:none;">
         There was an error loading the Google Map.
@@ -20,9 +21,6 @@
         <t:actionlink t:id="changeMapTest">Change Map</t:actionlink>
         ]
     </p>
-
-
-
 
 
 </html>

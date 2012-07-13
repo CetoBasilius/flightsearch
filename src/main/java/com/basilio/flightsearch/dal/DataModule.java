@@ -24,9 +24,9 @@ public class DataModule {
     private final ServiceDAO serviceDAO;
 
     @Inject
-    private HtmlListScraper HtmlListScraper;
+    private AirportListConnector airportListConnector;
 
-    private boolean useLocalDemoList = false;
+    private boolean useLocalDemoList = true;
 
     public DataModule(ServiceDAO serviceDAO) {
         super();
@@ -43,10 +43,10 @@ public class DataModule {
 
     private void createDemoAirportStubs() {
         if(useLocalDemoList){
-            create(HtmlListScraper.GetAirportStubListLocal());
+            create(airportListConnector.GetAirportStubListLocal());
         }else{
             try {
-                create(HtmlListScraper.GetAirportStubList());
+                create(airportListConnector.GetAirportStubList());
             } catch (IOException e) {
                 e.printStackTrace();
             }

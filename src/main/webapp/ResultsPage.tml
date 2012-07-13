@@ -2,28 +2,36 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <table>
-        <td>
-            <p>
-                Origin: ${origin}
-            </p>
-        </td>
+    <table style="width=100%; border:1px solid black;">
+        <tr>
+            <td style="width:60%">
+                <table style="width=100%; border:1px solid black;">
+                    <td><p>Origin: ${origin}</p></td>
+                    <td><p>Destination: ${destination}</p></td>
+                </table>
 
-        <td>
-            <p>
-                Destination: ${destination}
-            </p>
-        </td>
-     </table>
+                <p>This search has ${numFlights} flight results</p>
 
-      <t:loop source="results" value="resultString">
-          <tr>
-            <td>
-                <label>${resultString}</label>
+                <table style="width=100%; border:1px solid black;">
+                    <t:loop source="results" value="resultString">
+                        <tr>
+                            <td>
+                                <label>${resultString}</label>
+                            </td>
+                        </tr>
+                    </t:loop>
+                </table>
             </td>
-          </tr>
-      </t:loop>
-
-
+            <td style="overflow:hidden;">
+                <t:zone t:id="zone">
+                </t:zone>
+                <div t:type="gmap" lng="lngin" lat="latin" coordlist="coordinatesParameter" style="width: 700px; height: 500px"/>
+                <div id="plotterError" style="display:none;">
+                    There was an error loading the Google Map.
+                </div>
+                <p>[<t:actionlink t:id="changeMapTest">Change Map</t:actionlink>]</p>
+            </td>
+        </tr>
+    </table>
 
 </html>
