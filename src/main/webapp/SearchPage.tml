@@ -78,5 +78,4 @@
 
     		</div>
     	</form>
-    	<t:actionlink t:id="tester">Tester page</t:actionlink>
 </html>
