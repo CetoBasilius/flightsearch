@@ -47,6 +47,10 @@ public class ResultsPage {
     private List<Double> coordinatesParameter;
 
     @Persist(PersistenceConstants.SESSION)
+    @Property
+    private String visualizingFlight;
+
+    @Persist(PersistenceConstants.SESSION)
     private Result result;
 
     public void setup(Search search,Result result)
@@ -61,7 +65,7 @@ public class ResultsPage {
         System.out.println(coordinatesParameter);
     }
 
-    void onActionFromChangeMapTest()
+    public void onActionFromChangeMapTest()
     {
         List<Double> setupList = new ArrayList<Double>();
         setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
@@ -89,6 +93,19 @@ public class ResultsPage {
     public String[] getFlightStrings(){
         return flight.toStringArray();
     }
+
+    public void onActionFromView(String id)
+    {
+        visualizingFlight = "Visualizing flight "+id;
+        List<Double> setupList = new ArrayList<Double>();
+        setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-20.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
+
+        this.setupGMap(setupList);
+    }
+
 
     public Flights[] getFlights()
     {

@@ -78,20 +78,6 @@ public class SearchPage {
 
     //---------------------------------------
 
-    @InjectPage
-    private Tester tester;
-
-    public Object onActionFromTester() {
-        List<Double> setupList = new ArrayList<Double>();
-        setupList.add(20.0);setupList.add(-20.0);
-        setupList.add(50.0);setupList.add(50.0);
-        setupList.add(-20.0);setupList.add(20.0);
-        setupList.add(120.0);setupList.add(-120.0);
-
-        tester.setup(setupList);
-        return tester;
-    }
-
     //---------------------------------------
     @InjectPage
     private ResultsPage resultsPage;
