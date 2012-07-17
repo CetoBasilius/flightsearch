@@ -31,18 +31,6 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    @Log
-    public Result searchOneWayFlights(Search search, boolean economic) {
-        String statement = createStateOnewayStatement(search.getDepartureAirport().getCode(),
-                                                      search.getDestinationAirport().getCode(),
-                                                      search.getDepartureDate(),
-                                                      search.getNumberAdults(),
-                                                      search.getNumberChildren(),
-                                                      search.getNewBorns());
-        Result result = getFlightSearchResult(statement);
-        return result;
-    }
-
     private Result getFlightSearchResult(String statement) {
         ResultCreator resultCreator = new ResultCreator();
         try {
@@ -68,28 +56,39 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
         return resultCreator.getGoodResult();
     }
 
-    public Result searchRoundFlights(Search search, boolean economic) {
-        String statement = createStateRoundStatement(search.getDepartureAirport().getCode(),
-                search.getDestinationAirport().getCode(),
-                search.getDepartureDate(),
-                search.getReturnDate(),
-                search.getNumberAdults(),
-                search.getNumberChildren(),
-                search.getNewBorns());
+    public Result searchFlights(Search search) {
+        String statement = "";
+        if(search.isRoundTrip()){
+            statement = createRoundStatement(search.getDepartureAirport().getCode(),
+                    search.getDestinationAirport().getCode(),
+                    search.getDepartureDate(),
+                    search.getReturnDate(),
+                    search.getNumberAdults(),
+                    search.getNumberChildren(),
+                    search.getNewBorns());
+        } else {
+            statement = createOnewayStatement(search.getDepartureAirport().getCode(),
+                    search.getDestinationAirport().getCode(),
+                    search.getDepartureDate(),
+                    search.getNumberAdults(),
+                    search.getNumberChildren(),
+                    search.getNewBorns());
+        }
+
         return getFlightSearchResult(statement);
     }
 
-    private String createStateOnewayStatement(String from,String to,Date departureDate, int adults, int children, int infants){
+    private String createOnewayStatement(String from,String to,Date departureDate, int adults, int children, int infants){
         //{from}/{to}/{departureDate}/{adults}/{children}/{infants}
         //Date on yyyy-MM-dd format
-        String resultString = ApiTemplateOneWayFlightAddress+from+"/"+to+"/"+sdf.format(departureDate)+"/"+adults+"/"+children+"/"+infants;
+        String resultString = ApiTemplateOneWayFlightAddress+from+"/"+to+"/"+sdf.format(departureDate)+"/"+adults+"/"+children+"/"+infants+"?pagesize=50";
         System.out.println(resultString);
         return resultString;
     }
 
-    private String createStateRoundStatement(String from,String to,Date departureDate, Date returnDate, int adults, int children, int infants){
+    private String createRoundStatement(String from,String to,Date departureDate, Date returnDate, int adults, int children, int infants){
         //{from}/{to}/{departureDate}/{returningDate}/{adults}/{children}/{infants}
-        return ApiTemplateOneWayFlightAddress+from+"/"+to+"/"+sdf.format(departureDate)+"/"+returnDate+"/"+adults+"/"+children+"/"+infants+"/";
+        return ApiTemplateOneWayFlightAddress+from+"/"+to+"/"+sdf.format(departureDate)+"/"+returnDate+"/"+adults+"/"+children+"/"+infants+"/"+"?pagesize=50";
     }
 
 }

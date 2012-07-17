@@ -18,17 +18,9 @@ public interface FlightSearchConnector {
     /**
      * Will consult a web service for a list of flights with the given search.
      * @param search
-     * @param economic will adjust to the specified budget in search object
      * @return
      */
-    public Result searchOneWayFlights(Search search, boolean economic);
+    public Result searchFlights(Search search);
 
-    /**
-     * Will consult a web service for a list of flights with the given search.
-     * @param search
-     * @param economic will adjust to the specified budget in search object
-     * @return
-     */
-    public Result searchRoundFlights(Search search, boolean economic);
 
 }

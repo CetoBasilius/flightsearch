@@ -57,15 +57,19 @@ public class SearchPage {
     @Persist
     private List<AirportStub> allAirportStubs;
 
-    @Property
-    @Persist
-    private boolean roundTrip;
+
 
     @Property
     private String adults = "1";
 
     @Property
     private String children = "0";
+
+    @Property
+    private String infants = "0";
+
+    @Property
+    private boolean direct;
 
 
     //----------------- Slider ------------
@@ -82,8 +86,12 @@ public class SearchPage {
     @InjectPage
     private ResultsPage resultsPage;
 
-    @OnEvent(value = EventConstants.SUCCESS, component = "SearchForm")
-    Object startSearch() {
+    @InjectPage
+    private SearchPage searchPage;
+
+    @Log
+    @OnEvent(value = "search")
+    private Object startSearch() {
         String originCode = origin.substring(1,4);
         String destinationCode = destination.substring(1,4);
 
@@ -100,7 +108,7 @@ public class SearchPage {
         }
         Search search = new Search();
 
-        search.setRoundTrip(roundTrip);
+        search.setRoundTrip(showRoundTrip);
         search.setDepartureAirport(departureAirport);
         search.setDestinationAirport(destinationAirport);
         search.setDepartureDate(startDate);
@@ -109,7 +117,7 @@ public class SearchPage {
         search.setNumberChildren(Integer.parseInt(children));
         search.setNewBorns(0);
 
-        Result result = flightSearchConnector.searchOneWayFlights(search,false);
+        Result result = flightSearchConnector.searchFlights(search);
         resultsPage.setup(search,result);
         return resultsPage;
     }
@@ -122,16 +130,24 @@ public class SearchPage {
         }
     }
 
-    public boolean getRoundFlightValue(){
-        return roundTrip;
+    @Property
+    @Persist
+    private boolean showRoundTrip;
+
+    @Log
+    public Object onActionFromClicker(){
+        if(showRoundTrip){showRoundTrip=false;}
+        else{showRoundTrip=true;}
+
+        return searchPage;
     }
+
     public List<AirportStub> getAirportStublist() {
         List<AirportStub> airportList = serviceDAO.findWithNamedQuery(AirportStub.ALL);
         return airportList;
     }
 
     List<String> onProvideCompletionsFromOrigin(String partial) {
-
         return getAutoCompleteList(partial);
     }
 
