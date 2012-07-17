@@ -54,26 +54,26 @@ public class ResultsPage {
     @Persist(PersistenceConstants.SESSION)
     private Result result;
 
+    @Persist(PersistenceConstants.SESSION)
+    private Search search;
+
+    @Property
+    private Flights flight;
+
+    @Property
+    private String flightString;
+
     public void setup(Search search,Result result)
     {
         this.result = result;
+        this.search = search;
+
         this.origin = search.getDepartureAirport().getCode();
         this.destination = search.getDestinationAirport().getCode();
     }
 
     public void setupGMap(List<Double> coordinatesin){
         coordinatesParameter = coordinatesin;
-    }
-
-    public void onActionFromChangeMapTest()
-    {
-        List<Double> setupList = new ArrayList<Double>();
-        setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
-
-        this.setupGMap(setupList);
     }
 
     public String getNumFlights(){
@@ -84,12 +84,7 @@ public class ResultsPage {
         return Integer.toString(numFlights);
     }
 
-    @Property
-    private Flights flight;
-
-    @Property
-    private String flightString;
-
+    @Log
     public String[] getFlightStrings(){
         String returnString[];
         if(flight==null){
@@ -99,10 +94,6 @@ public class ResultsPage {
             returnString = flight.toStringArray();
         }
         return returnString;
-    }
-
-    public void onView(String id){
-        onActionFromView(id);
     }
 
     public void onActionFromView(String id)
@@ -117,18 +108,23 @@ public class ResultsPage {
         this.setupGMap(setupList);
     }
 
-
     public Flights[] getFlights()
     {
         int numFlights = 0;
         Flights[] resultArray = null;
         if(result != null){
-
-            numFlights = result.getFlights().size();
-            resultArray = new Flights[numFlights];
-
-            for(int a = 0;a<numFlights;a++){
-                resultArray[a] = result.getFlights().get(a);
+            if(search.isDirectFlight()){
+                numFlights = result.getDirectFlights().size();
+                resultArray = new Flights[numFlights];
+                for(int a = 0;a<numFlights;a++){
+                    resultArray[a] = result.getDirectFlights().get(a);
+                }
+            }else{
+                numFlights = result.getFlights().size();
+                resultArray = new Flights[numFlights];
+                for(int a = 0;a<numFlights;a++){
+                    resultArray[a] = result.getFlights().get(a);
+                }
             }
         } else {
             resultArray = new Flights[1];
@@ -136,5 +132,22 @@ public class ResultsPage {
         }
         return resultArray;
     }
+
+    public Search getSearch() {
+        return search;
+    }
+
+    public void setSearch(Search search) {
+        this.search = search;
+    }
+
+    public Result getResult() {
+        return result;
+    }
+
+    public void setResult(Result result) {
+        this.result = result;
+    }
+
 
 }

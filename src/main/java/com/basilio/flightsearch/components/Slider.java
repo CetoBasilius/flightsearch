@@ -155,8 +155,8 @@ public class Slider implements ClientElement
     {
         String numberPattern = "%d";
 
-        //if (value instanceof Float || value instanceof Double)
-        //    numberPattern = "%f";
+        if (value instanceof Float || value instanceof Double)
+            numberPattern = "%f";
 
         return numberPattern;
     }

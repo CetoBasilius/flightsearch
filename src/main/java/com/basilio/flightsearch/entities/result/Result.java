@@ -1,6 +1,7 @@
 
 package com.basilio.flightsearch.entities.result;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,4 +28,19 @@ public class Result{
 	public void setMeta(Meta meta){
 		this.meta = meta;
 	}
+
+    public List<Flights> getDirectFlights(){
+        List<Flights> returnFlights = new ArrayList<Flights>();
+        List<Flights> flights1 = this.getFlights();
+        for(int index = 0; index < flights1.size(); index++){
+            List<OutboundRoutes> outboundRoutes = flights1.get(index).getOutboundRoutes();
+            for(int routeIndex = 0; routeIndex < outboundRoutes.size(); routeIndex++){
+                if(outboundRoutes.get(routeIndex).getSegments().size()==1){
+                    returnFlights.add(flights1.get(index));
+                    break;
+                }
+            }
+        }
+        return returnFlights;
+    }
 }

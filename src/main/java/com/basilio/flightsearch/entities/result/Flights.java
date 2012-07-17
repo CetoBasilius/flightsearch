@@ -17,6 +17,26 @@ public class Flights{
    	private List<OutboundRoutes> outboundRoutes;
    	private PaymentInfo paymentInfo;
    	private PriceInfo priceInfo;
+    private boolean returnDirectFlights;
+
+
+    public void Flights(){
+        this.id = "empty";
+        this.inboundRoutes = new ArrayList<InboundRoutes>();
+        this.itineraryInfos = new ArrayList<ItineraryInfos>();
+        this.outboundRoutes = new ArrayList<OutboundRoutes>();
+        this.paymentInfo = new PaymentInfo();
+        this.priceInfo = new PriceInfo();
+        this.returnDirectFlights = false;
+    }
+
+    public boolean isReturnDirectFlights() {
+        return returnDirectFlights;
+    }
+
+    public void setReturnDirectFlights(boolean returnDirectFlights) {
+        this.returnDirectFlights = returnDirectFlights;
+    }
 
  	public String getId(){
 		return this.id;

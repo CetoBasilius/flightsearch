@@ -4,7 +4,7 @@
 
     <table class="full">
         <tr>
-            <td valign="top" style="width:50%">
+            <td valign="top" style="width:40%">
                 <table class="full">
                     <tr>
                         <td><p>Origin: ${origin}</p></td>
@@ -15,8 +15,6 @@
                     </tr>
                 </table>
 
-
-
                 <table class="full">
                     <a t:id="pagedLoop" source="flights" value="flight" rowsPerPage="2" pagerPosition="bottom">
                         <tr height="10">&nbsp;</tr>
@@ -25,9 +23,7 @@
                                 <t:loop source="flightStrings" value="flightString">
                                     ${flightString}<br/>
                                 </t:loop>
-
-                                  <t:actionlink t:id="view" context="flight.id">Visualize</t:actionlink>
-
+                                <t:actionlink t:id="view" context="flight.id">Visualize</t:actionlink>
                             </td>
                         </tr>
                     </a>
@@ -40,7 +36,6 @@
                 <div id="plotterError" style="display:none;">
                     There was an error loading the Google Map.
                 </div>
-                <p>[<t:actionlink t:id="changeMapTest">Change Map</t:actionlink>]</p>
             </td>
         </tr>
     </table>

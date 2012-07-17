@@ -4,97 +4,92 @@
 
     <form t:type="form" t:id="searchForm" class="full-form" >
     <t:errors />
-    		<table>
-    			<tr>
-    			    <th>
-                        <label t:type="label" t:for="origin">Origin</label>
-                    </th>
-    				<td>
-                        <t:textfield t:id="origin" t:mixins="autocomplete" size="50" t:validate="required,codeintextfield"/>
+        <table>
+            <tr>
+                <th>
+                    <label t:type="label" t:for="origin">Origin</label>
+                </th>
+                <td>
+                    <t:textfield t:id="origin" t:mixins="autocomplete" size="50" t:validate="required,codeintextfield"/>
+                </td>
+                <td colspan="2"  width="40">&nbsp;</td>
+                <th>
+                    <label t:type="label" t:for="destination">Destination</label>
+                </th>
+                <td>
+                    <t:textfield t:id="destination" t:mixins="autocomplete" size="50" t:validate="required,codeintextfield"/>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label t:type="label" t:for="startDate">Start date&nbsp;</label>
+                </th>
+                <td>
+                    <t:datefield t:id="startDate" t:validate="required,aftertoday"/>
+                    &nbsp;&nbsp;
 
-    				</td>
-
-    				<td colspan="2"  width="40">&nbsp;</td>
-
-
+                    <t:if test="!showRoundTrip">
+                        <t:actionlink t:id="clicker1" t:event="clicker">Set round trip</t:actionlink>
+                    </t:if>
+                    <t:if test="showRoundTrip">
+                        <t:actionlink t:id="clicker2" t:event="clicker">Set one way</t:actionlink>
+                    </t:if>
+                </td>
+                <td colspan="2"  width="40">&nbsp;</td>
+                <t:if test="showRoundTrip">
                     <th>
-                        <label t:type="label" t:for="destination">Destination</label>
+                        <label t:type="label" t:for="endDate">Return date</label>
                     </th>
                     <td>
-                        <t:textfield t:id="destination" t:mixins="autocomplete" size="50" t:validate="required,codeintextfield"/>
+                        <t:datefield t:id="endDate" t:validate="required,aftertoday"/>
                     </td>
-
-                </tr>
-                <tr>
-    				<th>
-                        <label t:type="label" t:for="startDate">Start date</label>
-                    </th>
-                    <td>
-                        <t:datefield t:id="startDate" t:validate="required,aftertoday"/>
-                        &nbsp;&nbsp;
-
-                        <t:actionlink t:id="clicker" t:event="clicker">Toggle round trip</t:actionlink>
-                    </td>
-
-                    <td colspan="2"  width="40">&nbsp;</td>
-
-
-
-                        <t:if test="showRoundTrip">
-                            <th>
-                                <label t:type="label" t:for="endDate">Return date</label>
-                            </th>
-                            <td>
-                                <t:datefield t:id="endDate" t:validate="required,aftertoday"/>
-                            </td>
-                        </t:if>
-
-    			</tr>
-
-    			<tr>
-    			    <th>
-    			        <label>Budget</label>
-    			    </th>
-                    <td>
-                        <t:slider value="slider" min="500" max="30000" id="slider"/>
-                    </td>
-    			</tr>
-    			<tr>
-                    <th>
-                        <label t:type="label" t:for="adults">Adults</label>
-                    </th>
-                    <td>
-                        <t:textfield t:id="adults" value="adults" size="1" t:validate="required,regexp=^[0-9]+$"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <label t:type="label" t:for="children">Children</label>
-                    </th>
-                    <td>
-                        <t:textfield t:id="children" value="children" size="1" t:validate="required,regexp=^[0-9]+$"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <label t:type="label" t:for="infants">Infants</label>
-                    </th>
-                    <td>
-                        <t:textfield t:id="infants" value="infants" size="1" t:validate="required,regexp=^[0-9]+$"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        <label t:type="label" t:for="direct">Direct flights only</label>
-                    </th>
-                    <td>
-                        <t:checkbox t:id="direct" value="direct" t:validate="required"/>
-                    </td>
-                </tr>
-    			<td height="10">&nbsp;</td>
-    		</table>
-    		<div class="form-submit">
-    			<input type="submit" t:type="submit" value="Search" t:id="search" t:event="search" />
-    		</div>
-    	</form>
+                </t:if>
+            </tr>
+            <tr>
+                <th>
+                    <label>Budget</label>
+                </th>
+                <td>
+                    <t:slider value="slider" min="500" max="30000" id="slider"/>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label t:type="label" t:for="adults">Adults</label>
+                </th>
+                <td>
+                    <t:textfield t:id="adults" value="adults" size="1" t:validate="required,regexp=^[0-9]+$"/>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label t:type="label" t:for="children">Children</label>
+                </th>
+                <td>
+                    <t:textfield t:id="children" value="children" size="1" t:validate="required,regexp=^[0-9]+$"/>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label t:type="label" t:for="infants">Infants</label>
+                </th>
+                <td>
+                    <t:textfield t:id="infants" value="infants" size="1" t:validate="required,regexp=^[0-9]+$"/>
+                </td>
+            </tr>
+            <tr height="5"/>
+            <tr>
+                <th>
+                    <label t:type="label" t:for="direct">Direct flights only</label>
+                </th>
+                <td>
+                    <t:checkbox t:id="direct" value="direct" t:validate="required"/>
+                </td>
+            </tr>
+            <td height="10">&nbsp;</td>
+        </table>
+        <div class="form-submit">
+            <input type="submit" t:type="submit" value="Search" t:id="search" t:event="search" />
+        </div>
+    </form>
 </html>

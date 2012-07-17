@@ -31,6 +31,7 @@ public class SearchPage {
     private ServiceDAO serviceDAO;
 
     //----------------- SearchPage form ----------------
+
     @Component
     private Form searchForm;
 
@@ -57,8 +58,6 @@ public class SearchPage {
     @Persist
     private List<AirportStub> allAirportStubs;
 
-
-
     @Property
     private String adults = "1";
 
@@ -71,11 +70,7 @@ public class SearchPage {
     @Property
     private boolean direct;
 
-
     //----------------- Slider ------------
-
-    //@Component(parameters = {"value=slider1Value"})
-    //private Slider slider;
 
     @Property
     private int slider = 500;
@@ -108,6 +103,7 @@ public class SearchPage {
         }
         Search search = new Search();
 
+        search.setDirectFlight(direct);
         search.setRoundTrip(showRoundTrip);
         search.setDepartureAirport(departureAirport);
         search.setDestinationAirport(destinationAirport);
@@ -115,7 +111,7 @@ public class SearchPage {
         search.setReturnDate(endDate);
         search.setNumberAdults(Integer.parseInt(adults));
         search.setNumberChildren(Integer.parseInt(children));
-        search.setNewBorns(0);
+        search.setNewBorns(Integer.parseInt(infants));
 
         Result result = flightSearchConnector.searchFlights(search);
         resultsPage.setup(search,result);
@@ -135,11 +131,15 @@ public class SearchPage {
     private boolean showRoundTrip;
 
     @Log
-    public Object onActionFromClicker(){
+    public Object onActionFromClicker1(){
         if(showRoundTrip){showRoundTrip=false;}
         else{showRoundTrip=true;}
-
         return searchPage;
+    }
+
+    @Log
+    public Object onActionFromClicker2(){
+        return onActionFromClicker1();
     }
 
     public List<AirportStub> getAirportStublist() {

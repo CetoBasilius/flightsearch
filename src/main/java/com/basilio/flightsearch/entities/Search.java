@@ -23,8 +23,17 @@ public class Search {
 
     private int numberAdults;
     private int numberChildren;
-
     private int newBorns;
+
+    private boolean isDirectFlight;
+
+    public boolean isDirectFlight() {
+        return isDirectFlight;
+    }
+
+    public void setDirectFlight(boolean directFlight) {
+        isDirectFlight = directFlight;
+    }
 
     public boolean isRoundTrip() {
         return isRoundTrip;
