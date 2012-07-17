@@ -18,10 +18,8 @@
 
 
                 <table class="full">
-                    <t:loop source="flights" value="flight">
-                        <tr height="10">
-                            &nbsp;
-                        </tr>
+                    <a t:id="pagedLoop" source="flights" value="flight" rowsPerPage="2" pagerPosition="bottom">
+                        <tr height="10">&nbsp;</tr>
                         <tr>
                             <td>
                                 <t:loop source="flightStrings" value="flightString">
@@ -32,7 +30,7 @@
 
                             </td>
                         </tr>
-                    </t:loop>
+                    </a>
                 </table>
             </td>
 

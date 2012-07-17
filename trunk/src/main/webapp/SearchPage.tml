@@ -31,20 +31,24 @@
                     </th>
                     <td>
                         <t:datefield t:id="startDate" t:validate="required,aftertoday"/>
-                        &nbsp;&nbsp;<label>Round Trip</label><t:checkbox t:id="roundTrip"/>
+                        &nbsp;&nbsp;
+
+                        <t:actionlink t:id="clicker" t:event="clicker">Toggle round trip</t:actionlink>
                     </td>
 
                     <td colspan="2"  width="40">&nbsp;</td>
 
 
-                    <t:if test="roundFlightValue">
-                        <th>
-                            <label t:type="label" t:for="endDate">Return date</label>
-                        </th>
-                        <td>
-                            <t:datefield t:id="endDate" t:validate="required,aftertoday"/>
-                        </td>
-                    </t:if>
+
+                        <t:if test="showRoundTrip">
+                            <th>
+                                <label t:type="label" t:for="endDate">Return date</label>
+                            </th>
+                            <td>
+                                <t:datefield t:id="endDate" t:validate="required,aftertoday"/>
+                            </td>
+                        </t:if>
+
     			</tr>
 
     			<tr>
@@ -71,11 +75,26 @@
                         <t:textfield t:id="children" value="children" size="1" t:validate="required,regexp=^[0-9]+$"/>
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        <label t:type="label" t:for="infants">Infants</label>
+                    </th>
+                    <td>
+                        <t:textfield t:id="infants" value="infants" size="1" t:validate="required,regexp=^[0-9]+$"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label t:type="label" t:for="direct">Direct flights only</label>
+                    </th>
+                    <td>
+                        <t:checkbox t:id="direct" value="direct" t:validate="required"/>
+                    </td>
+                </tr>
     			<td height="10">&nbsp;</td>
     		</table>
     		<div class="form-submit">
-    			<input type="submit" t:type="submit" value="Search" />
-
+    			<input type="submit" t:type="submit" value="Search" t:id="search" t:event="search" />
     		</div>
     	</form>
 </html>

@@ -6,11 +6,9 @@ import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.Flights;
 import com.basilio.flightsearch.entities.result.Result;
 import org.apache.tapestry5.PersistenceConstants;
-import org.apache.tapestry5.annotations.InjectComponent;
-import org.apache.tapestry5.annotations.InjectPage;
-import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.chenillekit.tapestry.core.components.PagedLoop;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +48,9 @@ public class ResultsPage {
     @Property
     private String visualizingFlight;
 
+    @Component
+    private PagedLoop pagedLoop;
+
     @Persist(PersistenceConstants.SESSION)
     private Result result;
 
@@ -62,7 +63,6 @@ public class ResultsPage {
 
     public void setupGMap(List<Double> coordinatesin){
         coordinatesParameter = coordinatesin;
-        System.out.println(coordinatesParameter);
     }
 
     public void onActionFromChangeMapTest()
@@ -91,7 +91,18 @@ public class ResultsPage {
     private String flightString;
 
     public String[] getFlightStrings(){
-        return flight.toStringArray();
+        String returnString[];
+        if(flight==null){
+            returnString = new String[1];
+            returnString[0] = "There were no results";
+        }else{
+            returnString = flight.toStringArray();
+        }
+        return returnString;
+    }
+
+    public void onView(String id){
+        onActionFromView(id);
     }
 
     public void onActionFromView(String id)
@@ -117,7 +128,6 @@ public class ResultsPage {
             resultArray = new Flights[numFlights];
 
             for(int a = 0;a<numFlights;a++){
-                //resultArray[a] = "This flight has "+result.getFlights().get(a).getOutboundRoutes().size()+" outbound routes.";
                 resultArray[a] = result.getFlights().get(a);
             }
         } else {
