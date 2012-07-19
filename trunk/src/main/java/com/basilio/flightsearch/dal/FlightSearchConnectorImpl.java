@@ -88,7 +88,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
 
     private String createRoundStatement(String from,String to,Date departureDate, Date returnDate, int adults, int children, int infants){
         //{from}/{to}/{departureDate}/{returningDate}/{adults}/{children}/{infants}
-        return ApiTemplateOneWayFlightAddress+from+"/"+to+"/"+sdf.format(departureDate)+"/"+returnDate+"/"+adults+"/"+children+"/"+infants+"/"+"?pagesize=50";
+        return ApiTemplateOneWayFlightAddress+from+"/"+to+"/"+sdf.format(departureDate)+"/"+sdf.format(returnDate)+"/"+adults+"/"+children+"/"+infants+"/"+"?pagesize=50";
     }
 
 }

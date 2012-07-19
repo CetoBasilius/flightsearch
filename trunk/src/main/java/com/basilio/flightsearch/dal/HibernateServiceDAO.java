@@ -3,6 +3,8 @@ package com.basilio.flightsearch.dal;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.List;
@@ -24,6 +26,8 @@ import java.util.Set;
  */
 public class HibernateServiceDAO implements ServiceDAO {
 
+    private static final Logger logger = LoggerFactory.getLogger(HibernateServiceDAO.class);
+
     @Inject
     private Session session;
 
@@ -33,12 +37,6 @@ public class HibernateServiceDAO implements ServiceDAO {
         session.refresh(t);
         return t;
     }
-
-    /*public void create(List<?> entities) {
-        for (Object thisEntity : entities) {
-            create(thisEntity);
-        }
-    }*/
 
     @SuppressWarnings("unchecked")
     public <T, PK extends Serializable> T find(Class<T> type, PK id) {
@@ -78,7 +76,7 @@ public class HibernateServiceDAO implements ServiceDAO {
         System.out.println(queryName);
         T t = (T) session.getNamedQuery(queryName).uniqueResult();
         if (t == null) {
-            System.out.println("null");
+            logger.error("There was no Object using "+queryName);
         }
         return t;
     }
@@ -90,7 +88,6 @@ public class HibernateServiceDAO implements ServiceDAO {
 
         for (Entry<String, Object> entry : rawParameters) {
             query.setParameter(entry.getKey(), entry.getValue());
-
         }
         return (T) query.uniqueResult();
     }

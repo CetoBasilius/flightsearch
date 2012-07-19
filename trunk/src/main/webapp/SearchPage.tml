@@ -1,4 +1,6 @@
-<html t:type="layout" title="Search flight travel deals"
+<html t:type="layout"
+        title="Search flight travel deals"
+        description="Find the best flight adjusting to your budget."
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
@@ -10,9 +12,11 @@
                     <label t:type="label" t:for="origin">Origin</label>
                 </th>
                 <td>
-                    <t:textfield t:id="origin" t:mixins="autocomplete" size="50" t:validate="required,codeintextfield"/>
+                    <t:textfield t:id="origin" t:value="origin" t:mixins="autocomplete" size="50" t:validate="required,codeintextfield"/>
                 </td>
                 <td colspan="2"  width="40">&nbsp;</td>
+            </tr>
+            <tr>
                 <th>
                     <label t:type="label" t:for="destination">Destination</label>
                 </th>
@@ -27,7 +31,6 @@
                 <td>
                     <t:datefield t:id="startDate" t:validate="required,aftertoday"/>
                     &nbsp;&nbsp;
-
                     <t:if test="!showRoundTrip">
                         <t:actionlink t:id="clicker1" t:event="clicker">Set round trip</t:actionlink>
                     </t:if>
@@ -35,7 +38,8 @@
                         <t:actionlink t:id="clicker2" t:event="clicker">Set one way</t:actionlink>
                     </t:if>
                 </td>
-                <td colspan="2"  width="40">&nbsp;</td>
+            </tr>
+            <tr>
                 <t:if test="showRoundTrip">
                     <th>
                         <label t:type="label" t:for="endDate">Return date</label>
@@ -50,7 +54,17 @@
                     <label>Budget</label>
                 </th>
                 <td>
-                    <t:slider value="slider" min="500" max="30000" id="slider"/>
+                    <table>
+                        <tr>
+                            <td>
+                                <t:slider value="slider" id="slider" t:min="500" t:max="12000" t:steps="100"/>
+                            </td>
+                            <td colspan="2"  width="50">&nbsp;</td>
+                            <td>
+                                ${currency}
+                            </td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
             <tr>

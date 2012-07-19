@@ -81,7 +81,6 @@ public class Signup {
 
         if (userVerif != null) {
             registerForm.recordError(messages.get("error.userexists"));
-
             return null;
         }
 

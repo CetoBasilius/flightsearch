@@ -4,7 +4,6 @@
       xmlns:p="tapestry:parameter">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
-
         <title>${title}</title>
     </head>
     <body>
@@ -14,7 +13,6 @@
                 <h1>
                     <t:pagelink page="index">Flight Search</t:pagelink>
                     &nbsp;
-
                 </h1>
             </div>
 
@@ -71,6 +69,8 @@
                 <div class="post">
                     <div class="title">
                         <h2>${title}</h2>
+                        <label>${description}</label>
+                        <br/>&nbsp;
                     </div>
                     <div class="entry">
                         <t:body/>

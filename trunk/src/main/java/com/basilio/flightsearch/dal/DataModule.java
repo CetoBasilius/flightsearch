@@ -26,7 +26,7 @@ public class DataModule {
     @Inject
     private AirportListConnector airportListConnector;
 
-    private boolean useLocalDemoList = true;
+    private boolean useLocalDemoList = false;
 
     public DataModule(ServiceDAO serviceDAO) {
         super();
@@ -36,8 +36,10 @@ public class DataModule {
     @Startup
     public void initialize() {
         logger.info("Loading initial demo data");
-        createDemoUsers();
-        createDemoAirportStubs();
+        try{
+            createDemoUsers();
+            createDemoAirportStubs();
+        }catch(Exception e){}
         logger.info("Data Loaded...");
     }
 
@@ -63,7 +65,11 @@ public class DataModule {
 
     private void create(List<?> entities) {
         for (Object thisEntity : entities) {
-            serviceDAO.create(thisEntity);
+            try{
+                serviceDAO.create(thisEntity);
+            }catch(Exception e){
+                logger.error("Could not create "+thisEntity.toString());
+            }
         }
     }
 

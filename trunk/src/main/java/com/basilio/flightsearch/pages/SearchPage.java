@@ -3,6 +3,7 @@ package com.basilio.flightsearch.pages;
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.dal.FlightSearchConnector;
 import com.basilio.flightsearch.dal.ServiceDAO;
+import com.basilio.flightsearch.entities.AirportString;
 import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
@@ -12,10 +13,9 @@ import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.commons.lang.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Basilio
@@ -55,6 +55,9 @@ public class SearchPage {
     private String destination;
 
     @Property
+    private String Currency = "Dollars";
+
+    @Property
     @Persist
     private List<AirportStub> allAirportStubs;
 
@@ -85,7 +88,7 @@ public class SearchPage {
     private SearchPage searchPage;
 
     @Log
-    @OnEvent(value = "search")
+    @OnEvent(value = EventConstants.SUCCESS, component = "SearchForm")
     private Object startSearch() {
         String originCode = origin.substring(1,4);
         String destinationCode = destination.substring(1,4);
@@ -101,6 +104,7 @@ public class SearchPage {
                 return null;
             }
         }
+
         Search search = new Search();
 
         search.setDirectFlight(direct);
@@ -119,7 +123,7 @@ public class SearchPage {
     }
 
     @Log
-    @OnEvent(value = EventConstants.ACTIVATE)
+    @OnEvent(value = EventConstants.ACTIVATE, component = "")
     public void getAirports() {
         if (allAirportStubs == null) {
             allAirportStubs = serviceDAO.findWithNamedQuery(AirportStub.ALL);
@@ -132,14 +136,21 @@ public class SearchPage {
 
     @Log
     public Object onActionFromClicker1(){
-        if(showRoundTrip){showRoundTrip=false;}
-        else{showRoundTrip=true;}
+        toggleRoundTrip();
+        searchPage.setTheOrigin(origin);
         return searchPage;
     }
 
     @Log
     public Object onActionFromClicker2(){
-        return onActionFromClicker1();
+        toggleRoundTrip();
+        searchPage.setTheOrigin(origin);
+        return searchPage;
+    }
+
+    void toggleRoundTrip() {
+        if(showRoundTrip){showRoundTrip=false;}
+        else{showRoundTrip=true;}
     }
 
     public List<AirportStub> getAirportStublist() {
@@ -155,17 +166,125 @@ public class SearchPage {
         return getAutoCompleteList(partial);
     }
 
+    /**
+     * Autocomplete algorithm will return the airport with most occurences
+     * @param partial the string provided by the user
+     * @return  a list that matches the partial string
+     */
     List<String> getAutoCompleteList(String partial) {
-        List<String> result = new ArrayList<String>();
+        List<AirportString> orderedResult = new ArrayList<AirportString>();
 
-        for (AirportStub airport : allAirportStubs) {
-            int index1 = airport.toString().toLowerCase().indexOf(partial.toLowerCase());
-            if (index1 != -1) {
-                result.add(airport.toString());
+        if(partial.length()==3){
+            for (AirportStub airport : allAirportStubs) {
+                if(partial.toLowerCase().equals(airport.getCode().toLowerCase())){
+                    orderedResult.add(new AirportString(airport.toString(),1));
+                }
             }
+        }else{
+
+            for (AirportStub airport : allAirportStubs) {
+                int occurrences = StringUtils.countMatches(airport.toString().toLowerCase(), partial.toLowerCase());
+                if(occurrences>0){
+                    orderedResult.add(new AirportString(airport.toString(),occurrences));
+                }
+            }
+
+            Collections.sort(orderedResult,Collections.reverseOrder());
+        }
+        List<String> finalResult = new ArrayList<String>();
+        for (AirportString airport : orderedResult) {
+            finalResult.add(airport.getString());
         }
 
-        return result;
+        return finalResult;
+    }
+
+    public Date getTheStartDate() {
+        return startDate;
+    }
+
+    public void setTheStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getTheEndDate() {
+        return endDate;
+    }
+
+    public void setTheEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getTheOrigin() {
+        return origin;
+    }
+
+    public void setTheOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getTheDestination() {
+        return destination;
+    }
+
+    public void setTheDestination(String destination) {
+        this.destination = destination;
+    }
+
+    public String getNumberOfAdults() {
+        return adults;
+    }
+
+    public void setNumberOfAdults(String adults) {
+        this.adults = adults;
+    }
+
+    public String getNumberOfChildren() {
+        return children;
+    }
+
+    public void setNumberOfChildren(String children) {
+        this.children = children;
+    }
+
+    public String getNumberOfInfants() {
+        return infants;
+    }
+
+    public void setNumberOfInfants(String infants) {
+        this.infants = infants;
+    }
+
+    public boolean isDirect() {
+        return direct;
+    }
+
+    public void setIsDirect(boolean direct) {
+        this.direct = direct;
+    }
+
+    public int getSliderValue() {
+        return slider;
+    }
+
+    public void setSliderValue(int slider) {
+        this.slider = slider;
+    }
+
+    public List<AirportStub> getAllTheAirportStubs() {
+        return allAirportStubs;
+    }
+
+    public void setAllTheAirportStubs(List<AirportStub> allAirportStubs) {
+        this.allAirportStubs = allAirportStubs;
+    }
+
+    public boolean showRoundTripValue() {
+        return showRoundTrip;
+    }
+
+    public void setShowRoundTripValue(boolean showRoundTrip) {
+        this.showRoundTrip = showRoundTrip;
     }
 
 }

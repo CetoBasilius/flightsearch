@@ -11,6 +11,11 @@ body {
     text-align: justify;
     font: 15px Arial, Helvetica, sans-serif;
     color: #626262;
+    height:100%;
+}
+#container {
+   min-height:100%;
+   position:relative;
 }
 
 form {
@@ -89,7 +94,7 @@ a:hover {
 /* Header */
 
 div.header {
-    height: 42px;
+    height: 40px;
 }
 
 div.logo h1, div.logo p {
@@ -110,7 +115,7 @@ div.logo p {
 
 div.logo a {
     text-decoration: none;
-    color: #D0C7A6;
+    color: #DDDDDD;
 }
 
 div.menu {
@@ -137,7 +142,7 @@ div.menu a {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-weight: normal;
     font-size: 14px;
-    color: #CEC5A4;
+    color: #DDDDDD;
 }
 
 div.menu .last {
@@ -158,7 +163,7 @@ div.menu .current_page_item a {
 /* Page */
 
 div.page {
-    padding: 30px 30px 30px 30px;
+    padding: 10px 30px 30px 30px;
     width: 96%;
     height: 100%;
 }
@@ -322,6 +327,9 @@ div.calendar thead {
     background: #F1F1F1;
 }
 
+
+
+
 div.calendar tbody td {
     border: 1px solid #F1F1F1;
 }
@@ -348,9 +356,18 @@ div.calendar #today {
 
 /* Footer */
 
+#body {
+   padding:10px;
+   padding-bottom:50px;   /* Height of the footer */
+}
+
 div.footer {
-    padding: 70px 0 50px 0;
-    background: #757575 url(images/img08.gif) repeat-x;
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:0px;   /* Height of the footer */
+    padding: 40px 0 40px 0;
+    background: #757575 url(images/img08.jpg) repeat-x;
 }
 
 div.footer p {

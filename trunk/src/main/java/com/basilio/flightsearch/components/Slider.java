@@ -1,5 +1,6 @@
 package com.basilio.flightsearch.components;
 
+import com.google.gson.JsonObject;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ClientElement;
 import org.apache.tapestry5.ComponentResources;
@@ -44,23 +45,14 @@ public class Slider implements ClientElement
     @Parameter(required = true)
     private Number value;
 
-    /**
-     * min. slide-able value.
-     */
-    @Parameter(value = "0", required = false)
-    private Number min;
+    @Parameter(required = true)
+    private int min;
 
-    /**
-     * max. slide-able value.
-     */
-    @Parameter(value = "100", required = false)
-    private Number max;
+    @Parameter(required = true)
+    private int max;
 
-    /**
-     * increments x on every step.
-     */
-    @Parameter(value = "1", required = false)
-    private Number inc;
+    @Parameter(required = true)
+    private int steps;
 
     /**
      * If true, then the field will render out with a disabled attribute (to turn off client-side behavior).
@@ -99,12 +91,13 @@ public class Slider implements ClientElement
                 "class", trackCSS);
         writer.element("div", "id", handleId,
                 "class", handleCSS);
+
+        writer.end();
+        writer.end();
     }
 
     void afterRender(MarkupWriter writer)
     {
-        writer.end();
-        writer.end();
 
         writer.element("div", "id", ouputId, "class", valueCSS);
 
@@ -115,11 +108,29 @@ public class Slider implements ClientElement
 
         writer.end();
 
+        if(steps<=0){
+            steps=1;
+        }
+        StringBuffer ticks = new StringBuffer();
+        int range = max-min;
+        float realStep = (float)range/(float)steps;
+        ticks.append("values: [");
+        int accumulatedStep=min;
+        for(int a = 0; a<steps;a++){
+            if((a+1)<steps){
+                ticks.append(accumulatedStep);
+                ticks.append(",");
+            }else{
+                ticks.append(accumulatedStep);
+            }
+            accumulatedStep+=(int)realStep;
+        }
+        ticks.append("]");
 
         String jsCommand = "new Control.Slider('%s','%s',{sliderValue:" + getNumberPattern(value) + ",range:" +
-                "$R(" + getNumberPattern(min) + "," + getNumberPattern(max) + "),increment:" + getNumberPattern(inc) +
+                "$R('%d','%d'),"+ticks.toString()+
                 ",onSlide:function(v){$('%s').innerHTML = v}";
-        jsCommand = String.format(Locale.US, jsCommand, handleId, tackId, value, min, max, inc, ouputId);
+        jsCommand = String.format(Locale.US, jsCommand, handleId, tackId, value,min, max, ouputId);
 
         if (disabled)
             jsCommand += ",disabled:true";
@@ -151,14 +162,8 @@ public class Slider implements ClientElement
         return componentResources.createEventLink(EventConstants.ACTION).toURI();
     }
 
-    private String getNumberPattern(Number value)
-    {
-        String numberPattern = "%d";
-
-        if (value instanceof Float || value instanceof Double)
-            numberPattern = "%f";
-
-        return numberPattern;
+    private String getNumberPattern(Number value){
+        return "%d";
     }
 
     /**
