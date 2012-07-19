@@ -29,7 +29,7 @@
                     <label t:type="label" t:for="startDate">Start date&nbsp;</label>
                 </th>
                 <td>
-                    <t:datefield t:id="startDate" t:validate="required,aftertoday"/>
+                    <t:datefield t:id="startDate" t:validate="required,aftertomorrow"/>
                     &nbsp;&nbsp;
                     <t:if test="!showRoundTrip">
                         <t:actionlink t:id="clicker1" t:event="clicker">Set round trip</t:actionlink>
@@ -45,7 +45,7 @@
                         <label t:type="label" t:for="endDate">Return date</label>
                     </th>
                     <td>
-                        <t:datefield t:id="endDate" t:validate="required,aftertoday"/>
+                        <t:datefield t:id="endDate" t:validate="required,aftertomorrow"/>
                     </td>
                 </t:if>
             </tr>

@@ -122,8 +122,12 @@ public class SearchPage {
         return resultsPage;
     }
 
+    public List<AirportStub> getAirportStublist() {
+        List<AirportStub> airportList = serviceDAO.findWithNamedQuery(AirportStub.ALL);
+        return airportList;
+    }
+
     @Log
-    @OnEvent(value = EventConstants.ACTIVATE, component = "")
     public void getAirports() {
         if (allAirportStubs == null) {
             allAirportStubs = serviceDAO.findWithNamedQuery(AirportStub.ALL);
@@ -153,17 +157,24 @@ public class SearchPage {
         else{showRoundTrip=true;}
     }
 
-    public List<AirportStub> getAirportStublist() {
-        List<AirportStub> airportList = serviceDAO.findWithNamedQuery(AirportStub.ALL);
-        return airportList;
-    }
+
 
     List<String> onProvideCompletionsFromOrigin(String partial) {
-        return getAutoCompleteList(partial);
+        getAirports();
+        List<String> result = getAutoCompleteList(partial);
+        if(result!=null && result.size()>0){
+            origin = result.get(0);
+        }
+        return result;
     }
 
     List<String> onProvideCompletionsFromDestination(String partial) {
-        return getAutoCompleteList(partial);
+        getAirports();
+        List<String> result = getAutoCompleteList(partial);
+        if(result!=null && result.size()>0){
+            destination = result.get(0);
+        }
+        return result;
     }
 
     /**
@@ -173,29 +184,31 @@ public class SearchPage {
      */
     List<String> getAutoCompleteList(String partial) {
         List<AirportString> orderedResult = new ArrayList<AirportString>();
-
-        if(partial.length()==3){
-            for (AirportStub airport : allAirportStubs) {
-                if(partial.toLowerCase().equals(airport.getCode().toLowerCase())){
-                    orderedResult.add(new AirportString(airport.toString(),1));
-                }
-            }
-        }else{
-
-            for (AirportStub airport : allAirportStubs) {
-                int occurrences = StringUtils.countMatches(airport.toString().toLowerCase(), partial.toLowerCase());
-                if(occurrences>0){
-                    orderedResult.add(new AirportString(airport.toString(),occurrences));
-                }
-            }
-
-            Collections.sort(orderedResult,Collections.reverseOrder());
-        }
         List<String> finalResult = new ArrayList<String>();
-        for (AirportString airport : orderedResult) {
-            finalResult.add(airport.getString());
-        }
 
+        if(allAirportStubs!=null){
+            if(partial.length()==3){
+                for (AirportStub airport : allAirportStubs) {
+                    if(partial.toLowerCase().equals(airport.getCode().toLowerCase())){
+                        orderedResult.add(new AirportString(airport.toString(),1));
+                    }
+                }
+            }else{
+
+                for (AirportStub airport : allAirportStubs) {
+                    int occurrences = StringUtils.countMatches(airport.toString().toLowerCase(), partial.toLowerCase());
+                    if(occurrences>0){
+                        orderedResult.add(new AirportString(airport.toString(),occurrences));
+                    }
+                }
+
+                Collections.sort(orderedResult,Collections.reverseOrder());
+            }
+
+            for (AirportString airport : orderedResult) {
+                finalResult.add(airport.getString());
+            }
+        }
         return finalResult;
     }
 

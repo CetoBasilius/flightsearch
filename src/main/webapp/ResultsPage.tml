@@ -7,16 +7,16 @@
             <td valign="top" style="width:40%">
                 <table class="full">
                     <tr>
-                        <td><p>Origin: ${origin}</p></td>
-                        <td><p>Destination: ${destination}</p></td>
+                        <td>Origin: ${origin}</td>
+                        <td>Destination: ${destination}</td>
                     </tr>
                     <tr>
-                        <td><p>This search has ${numFlights} flight results</p></td>
+                        <td>This search has ${numFlights} flight results</td>
                     </tr>
                 </table>
 
                 <table class="full">
-                    <a t:id="pagedLoop" source="flights" value="flight" rowsPerPage="2" pagerPosition="bottom">
+                    <a t:id="customPagedLoop" source="flights" value="flight" rowsPerPage="2" pagerPosition="bottom">
                         <tr height="10">&nbsp;</tr>
                         <tr>
                             <td>
@@ -30,7 +30,7 @@
                 </table>
             </td>
 
-            <td valign="top" style="width:50%">
+            <td valign="top" style="width:40%">
                 <p>${visualizingFlight}</p>
                 <div t:type="gmap" lng="lngin" lat="latin" coordlist="coordinatesParameter" style="width:100%; height:500px;"/>
                 <div id="plotterError" style="display:none;">

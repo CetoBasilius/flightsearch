@@ -21,7 +21,7 @@ import org.apache.tapestry5.validator.AbstractValidator;
 public class DateValidator extends AbstractValidator<Void, Date> {
 
     public DateValidator() {
-        super(null, Date.class, "error.datemustbeaftertoday");
+        super(null, Date.class, "error.datemustbeaftertomorrow");
     }
 
     public void render(Field field, Void constraintValue,
@@ -32,7 +32,10 @@ public class DateValidator extends AbstractValidator<Void, Date> {
     public void validate(Field field, Void constraintValue,
                          MessageFormatter formatter, Date value) throws
             ValidationException {
-        if (value.before(new Date())) {
+
+        Date tomorrow = new Date();
+        tomorrow.setTime(tomorrow.getTime() + 86400000);
+        if (value.before(tomorrow)) {
             throw new ValidationException(buildMessage(formatter, field));
         }
     }

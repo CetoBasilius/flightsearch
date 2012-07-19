@@ -133,7 +133,7 @@ public class AppModule {
     public static void contributeFieldValidatorSource(
             MappedConfiguration<String, Validator> configuration) {
 
-        configuration.add("aftertoday", new DateValidator());
+        configuration.add("aftertomorrow", new DateValidator());
         configuration.add("codeintextfield", new AutoCompleteIATACodeValidator());
     }
 

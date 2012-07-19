@@ -1,0 +1,28 @@
+
+div.paged_loop_pager {
+    font-size: 10pt;
+    font-family: sans-serif;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+}
+
+div.paged_loop_pager A {
+    margin: 3px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    text-decoration: none;
+
+}
+
+span.paged_loop_current {
+    margin: 3px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-weight: bold;
+    border: 3px solid black;
+}
