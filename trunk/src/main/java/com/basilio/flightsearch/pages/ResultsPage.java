@@ -1,6 +1,7 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
+import com.basilio.flightsearch.components.CustomPagedLoop;
 import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.Flights;
@@ -49,7 +50,7 @@ public class ResultsPage {
     private String visualizingFlight;
 
     @Component
-    private PagedLoop pagedLoop;
+    private CustomPagedLoop customPagedLoop;
 
     @Persist(PersistenceConstants.SESSION)
     private Result result;

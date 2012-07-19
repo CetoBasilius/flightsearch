@@ -148,7 +148,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>${servlet-api-release-version}</version>
-           <!-- <scope>provided</scope> -->
+            <scope>provided</scope>
         </dependency>
 
         <!-- Provide dependency to the Tapestry javadoc taglet which replaces the Maven component report -->
