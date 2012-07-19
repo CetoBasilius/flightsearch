@@ -31,6 +31,10 @@ public class Layout {
     private String title;
 
     @Property
+    @Parameter(required = false, defaultPrefix = BindingConstants.LITERAL)
+    private String description;
+
+    @Property
     private String pageName;
 
     @Inject

@@ -16,11 +16,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 
 @GuestAccess
 public class Index {
-    @Inject
-    private Authenticator authenticator;
 
     public Object onActivate() {
-        return authenticator.isLoggedIn() ? SearchPage.class : About.class;
+        return SearchPage.class;
     }
-
 }
