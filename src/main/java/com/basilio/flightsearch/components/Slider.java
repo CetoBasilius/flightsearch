@@ -101,12 +101,14 @@ public class Slider implements ClientElement
 
         writer.element("div", "id", ouputId, "class", valueCSS);
 
-        if (value == null)
+        if (value == null){
             value = 0;
-
+        }
+        writer.writeRaw("No more than ");
         writer.write(value.toString());
-
+        writer.writeRaw(" dollars");
         writer.end();
+
 
         if(steps<=0){
             steps=1;
@@ -129,13 +131,13 @@ public class Slider implements ClientElement
 
         String jsCommand = "new Control.Slider('%s','%s',{sliderValue:" + getNumberPattern(value) + ",range:" +
                 "$R('%d','%d'),"+ticks.toString()+
-                ",onSlide:function(v){$('%s').innerHTML = v}";
+                ",onSlide:function(v){$('%s').innerHTML = 'No more than ' + v  + ' dollars'}";
         jsCommand = String.format(Locale.US, jsCommand, handleId, tackId, value,min, max, ouputId);
 
         if (disabled)
             jsCommand += ",disabled:true";
 
-        jsCommand += ", onChange:function(value){$('%s').innerHTML = value; new Ajax.Request('%s/' + value,{method:'get', onFailure: function(){ alert('%s')}})}});";
+        jsCommand += ", onChange:function(value){$('%s').innerHTML = 'No more than ' + value + ' dollars'; new Ajax.Request('%s/' + value ,{method:'get', onFailure: function(){ alert('%s')}})}});";
         jsCommand = String.format(Locale.US, jsCommand, ouputId, getActionLink(), "Something went wrong...");
 
         javascriptSupport.addScript(jsCommand);

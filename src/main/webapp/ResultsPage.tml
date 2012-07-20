@@ -5,10 +5,7 @@
     <table class="full" >
         <tr>
             <td valign="top" style="width:60%">
-                <table class="full">
-                    <tr>
-                        <td>Origin: ${origin}, Destination: ${destination}</td>
-                    </tr>
+                <table class="full" style="width:80%">
                     <tr>
                         <td>${searchDescription}</td>
                     </tr>

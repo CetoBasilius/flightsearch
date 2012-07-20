@@ -1,5 +1,6 @@
 package com.basilio.flightsearch.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -24,6 +25,8 @@ public class Search {
     private int numberAdults;
     private int numberChildren;
     private int newBorns;
+    private SimpleDateFormat sdf = new SimpleDateFormat("MMMM d, yyyy");
+
 
     private boolean isDirectFlight;
 
@@ -109,45 +112,57 @@ public class Search {
 
     public String getDescription() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("You searched for a flight from: ");
+        buffer.append("You searched for a flight from ");
         buffer.append(this.getDepartureAirport().getCode());
-        buffer.append(" to: ");
+        buffer.append(" to ");
         buffer.append(this.getDestinationAirport().getCode());
         buffer.append(", ");
         if(this.isRoundTrip()){
-            buffer.append("A round trip from dates: ");
-            buffer.append(this.getDepartureDate().toString());
-            buffer.append("to: ");
-            buffer.append(this.getReturnDate().toString());
+            buffer.append("A round trip from ");
+            buffer.append(sdf.format(this.getDepartureDate()).toString());
+            buffer.append(" to ");
+            buffer.append(sdf.format(this.getReturnDate()).toString());
         }else{
-            buffer.append("A one-way trip on: ");
-            buffer.append(this.getDepartureDate().toString());
+            buffer.append("A one-way trip on ");
+            buffer.append(sdf.format(this.getDepartureDate()).toString());
             buffer.append(", ");
         }
         if(this.isDirectFlight()){
-            buffer.append("only direct flights. ");
+            buffer.append(" including only direct flights, ");
         }else{
-            buffer.append("including segmented flights. ");
+            buffer.append(" including segmented and direct flights, ");
         }
 
         if(this.getNumberAdults()>0){
             buffer.append("for ");
             buffer.append(this.getNumberAdults());
-            buffer.append(" Adults. ");
+            if(this.getNumberAdults()>1){
+                buffer.append(" adults, ");
+            }else{
+                buffer.append(" adult, ");
+            }
         }
         if(this.getNumberChildren()>0){
             buffer.append("for ");
             buffer.append(this.getNumberChildren());
-            buffer.append(" Children. ");
+            if(this.getNumberChildren()>1){
+                buffer.append(" children, ");
+            }else{
+                buffer.append(" child, ");
+            }
         }
         if(this.getNewBorns()>0){
             buffer.append("for ");
             buffer.append(this.getNewBorns());
-            buffer.append(" Newborn children. ");
+            if(this.getNewBorns()>1){
+                buffer.append(" newborns, ");
+            }else{
+                buffer.append(" newborn, ");
+            }
         }
-        buffer.append("With a budget of no more than ");
+        buffer.append("with a budget of no more than ");
         buffer.append(this.getBudgetDollars());
-        buffer.append(" Dollars.");
+        buffer.append(" dollars.");
         return buffer.toString();
     }
 }

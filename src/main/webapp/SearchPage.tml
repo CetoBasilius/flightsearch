@@ -61,11 +61,7 @@
                     <table>
                         <tr>
                             <td>
-                                <t:slider value="slider" id="slider" t:min="500" t:max="12000" t:steps="100"/>
-                            </td>
-                            <td colspan="2"  width="50">&nbsp;</td>
-                            <td>
-                                ${currency}
+                                <t:slider value="slider" id="slider" t:min="500" t:max="15000" t:steps="100"/>
                             </td>
                         </tr>
                     </table>
