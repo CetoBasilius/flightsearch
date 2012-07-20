@@ -106,4 +106,48 @@ public class Search {
     public void setNumberAdults(int numberAdults) {
         this.numberAdults = numberAdults;
     }
+
+    public String getDescription() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("You searched for a flight from: ");
+        buffer.append(this.getDepartureAirport().getCode());
+        buffer.append(" to: ");
+        buffer.append(this.getDestinationAirport().getCode());
+        buffer.append(", ");
+        if(this.isRoundTrip()){
+            buffer.append("A round trip from dates: ");
+            buffer.append(this.getDepartureDate().toString());
+            buffer.append("to: ");
+            buffer.append(this.getReturnDate().toString());
+        }else{
+            buffer.append("A one-way trip on: ");
+            buffer.append(this.getDepartureDate().toString());
+            buffer.append(", ");
+        }
+        if(this.isDirectFlight()){
+            buffer.append("only direct flights. ");
+        }else{
+            buffer.append("including segmented flights. ");
+        }
+
+        if(this.getNumberAdults()>0){
+            buffer.append("for ");
+            buffer.append(this.getNumberAdults());
+            buffer.append(" Adults. ");
+        }
+        if(this.getNumberChildren()>0){
+            buffer.append("for ");
+            buffer.append(this.getNumberChildren());
+            buffer.append(" Children. ");
+        }
+        if(this.getNewBorns()>0){
+            buffer.append("for ");
+            buffer.append(this.getNewBorns());
+            buffer.append(" Newborn children. ");
+        }
+        buffer.append("With a budget of no more than ");
+        buffer.append(this.getBudgetDollars());
+        buffer.append(" Dollars.");
+        return buffer.toString();
+    }
 }

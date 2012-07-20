@@ -35,6 +35,7 @@ public class AppModule {
         binder.bind(Authenticator.class, AuthenticatorImpl.class);
         binder.bind(AirportListConnector.class,AirportListScraper.class);
         binder.bind(FlightSearchConnector.class,FlightSearchConnectorImpl.class);
+        binder.bind(AirportInformationDAO.class,HttpAirportInformationDAO.class);
 
 
         // Make bind() calls on the binder object to define most IoC services.

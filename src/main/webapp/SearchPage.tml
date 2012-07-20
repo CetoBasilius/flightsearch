@@ -26,26 +26,30 @@
             </tr>
             <tr>
                 <th>
-                    <label t:type="label" t:for="startDate">Start date&nbsp;</label>
+                    <label t:type="label" t:for="startDateTimeField">Start date&nbsp;</label>
                 </th>
                 <td>
-                    <t:datefield t:id="startDate" t:validate="required,aftertomorrow"/>
+
+
+                    <input t:id="startDateTimeField" t:value="startDate" t:validate="required,aftertomorrow"/>
+
+
                     &nbsp;&nbsp;
                     <t:if test="!showRoundTrip">
                         <t:actionlink t:id="clicker1" t:event="clicker">Set round trip</t:actionlink>
-                    </t:if>
-                    <t:if test="showRoundTrip">
-                        <t:actionlink t:id="clicker2" t:event="clicker">Set one way</t:actionlink>
+                        <p:else>
+                            <t:actionlink t:id="clicker2" t:event="clicker">Set one way</t:actionlink>
+                        </p:else>
                     </t:if>
                 </td>
             </tr>
             <tr>
                 <t:if test="showRoundTrip">
                     <th>
-                        <label t:type="label" t:for="endDate">Return date</label>
+                        <label t:type="label" t:for="endDateTimeField">Return date</label>
                     </th>
                     <td>
-                        <t:datefield t:id="endDate" t:validate="required,aftertomorrow"/>
+                        <input t:id="endDateTimeField" t:value="endDate" t:validate="required,aftertomorrow"/>
                     </td>
                 </t:if>
             </tr>

@@ -161,9 +161,8 @@ public class GMap implements ClientElement
                     Polyline.put("lat"+(a+1), getlat);
                     Polyline.put("lng"+(a+1), getlng);
                 }
-
             }
-            System.out.println(Polyline.toCompactString());
+
             javascriptSupport.addScript("%s.addPolyline(%s);", getClientId(),Polyline);
             javascriptSupport.addScript("%s.setCenter(%s, %s);", getClientId(), latavg/coordinateCount, lngavg/coordinateCount);
         } else {

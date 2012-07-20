@@ -97,4 +97,8 @@ public class Segments{
 	public void setStopovers(List stopovers){
 		this.stopovers = stopovers;
 	}
+
+    public String getDescription() {
+        return "This is a segment description";
+    }
 }

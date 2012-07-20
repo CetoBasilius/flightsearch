@@ -5,7 +5,9 @@ import com.basilio.flightsearch.components.CustomPagedLoop;
 import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.Flights;
+import com.basilio.flightsearch.entities.result.OutboundRoutes;
 import com.basilio.flightsearch.entities.result.Result;
+import com.basilio.flightsearch.entities.result.Segments;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Zone;
@@ -62,7 +64,13 @@ public class ResultsPage {
     private Flights flight;
 
     @Property
-    private String flightString;
+    private OutboundRoutes outboundRoute;
+
+    @Property
+    private Segments segment;
+
+    @Property
+    private boolean emptyResult;
 
     public void setup(Search search,Result result)
     {
@@ -85,18 +93,6 @@ public class ResultsPage {
         return Integer.toString(numFlights);
     }
 
-    @Log
-    public String[] getFlightStrings(){
-        String returnString[];
-        if(flight==null){
-            returnString = new String[1];
-            returnString[0] = "There were no results";
-        }else{
-            returnString = flight.toStringArray();
-        }
-        return returnString;
-    }
-
     public void onActionFromView(String id)
     {
         visualizingFlight = "Visualizing flight "+id;
@@ -109,27 +105,91 @@ public class ResultsPage {
         this.setupGMap(setupList);
     }
 
+    public String getFlightDescription(){
+        return flight.getDescription();
+    }
+
+    public String getSegmentInfo(){
+        return segment.getDescription();
+    }
+
+    public String getRouteInfo(){
+        return outboundRoute.getDescription();
+    }
+
+    public String getSearchDescription(){
+        return search.getDescription();
+    }
+
+    @Log
+    public Segments[] getSegments(){
+        List<Segments> outSegmentsList = outboundRoute.getSegments();
+        Segments outSegments[] = new Segments[outSegmentsList.size()];
+        for(int index = 0; index<outSegmentsList.size();index++){
+            outSegments[index] = outSegmentsList.get(index);
+        }
+
+        return outSegments;
+    }
+
+    @Log
+    public OutboundRoutes[] getOutRoutes(){
+        List<OutboundRoutes> outRoutesList = flight.getOutboundRoutes();
+        OutboundRoutes outRoutes[] = new OutboundRoutes[outRoutesList.size()];
+        for(int index = 0; index<outRoutesList.size();index++){
+            outRoutes[index] = outRoutesList.get(index);
+        }
+
+        return outRoutes;
+    }
+
+/*    @Log
+    public String[] getFlightStrings(){
+        String returnString[];
+        if(flight==null){
+            returnString = new String[1];
+            returnString[0] = "There were no results";
+        }else{
+            returnString = flight.toStringArray();
+        }
+        return returnString;
+    }*/
+
+    @Log
     public Flights[] getFlights()
     {
         int numFlights = 0;
         Flights[] resultArray = null;
         if(result != null){
             if(search.isDirectFlight()){
-                numFlights = result.getDirectFlights().size();
-                resultArray = new Flights[numFlights];
-                for(int a = 0;a<numFlights;a++){
-                    resultArray[a] = result.getDirectFlights().get(a);
+                if(result.getFlights()!=null){
+                    numFlights = result.getDirectFlights().size();
+                    resultArray = new Flights[numFlights];
+                    for(int a = 0;a<numFlights;a++){
+                        resultArray[a] = result.getDirectFlights().get(a);
+                    }
+                }else{
+                    resultArray = new Flights[1];
+                    resultArray[0] = new Flights();
+                    emptyResult=true;
                 }
             }else{
-                numFlights = result.getFlights().size();
-                resultArray = new Flights[numFlights];
-                for(int a = 0;a<numFlights;a++){
-                    resultArray[a] = result.getFlights().get(a);
+                if(result.getFlights()!=null){
+                    numFlights = result.getFlights().size();
+                    resultArray = new Flights[numFlights];
+                    for(int a = 0;a<numFlights;a++){
+                        resultArray[a] = result.getFlights().get(a);
+                    }
+                }else{
+                    resultArray = new Flights[1];
+                    resultArray[0] = new Flights();
+                    emptyResult=true;
                 }
             }
         } else {
             resultArray = new Flights[1];
             resultArray[0] = new Flights();
+            emptyResult=true;
         }
         return resultArray;
     }

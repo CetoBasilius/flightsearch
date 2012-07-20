@@ -14,6 +14,7 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.commons.lang.StringUtils;
+import org.chenillekit.tapestry.core.components.DateTimeField;
 
 import java.util.*;
 
@@ -46,6 +47,21 @@ public class SearchPage {
     @Property
     private Date endDate;
 
+    @Component
+    private DateTimeField endDateTimeField;
+
+    @Component
+    private DateTimeField startDateTimeField;
+
+    void setupRender()
+    {
+        Date tomorrow = new Date();
+        tomorrow.setTime(tomorrow.getTime() + 2*86400000);
+        startDate = tomorrow;
+        endDate = tomorrow;
+        slider = 500;
+    }
+
     @Persist
     @Property
     private String origin;
@@ -75,10 +91,13 @@ public class SearchPage {
 
     //----------------- Slider ------------
 
+    @Persist
     @Property
-    private int slider = 500;
+    private int slider;
 
     //---------------------------------------
+
+
 
     //---------------------------------------
     @InjectPage
@@ -105,8 +124,16 @@ public class SearchPage {
             }
         }
 
+        int numberPersons = Integer.parseInt(adults)+Integer.parseInt(children)+Integer.parseInt(infants);
+
+
+        if(numberPersons>8){
+            searchForm.recordError(messages.get("error.exceedpersons"));
+        }
+
         Search search = new Search();
 
+        search.setBudgetDollars(slider);
         search.setDirectFlight(direct);
         search.setRoundTrip(showRoundTrip);
         search.setDepartureAirport(departureAirport);
