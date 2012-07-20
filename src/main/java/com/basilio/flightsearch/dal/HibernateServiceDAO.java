@@ -17,12 +17,12 @@ import java.util.Set;
  * User: Cetobasilius
  * Date: 6/15/12
  * Time: 7:21 PM
- * <p/>
+ *
  * Hibernate Create, Read, Update, and Delete service data access interface
  * Many of the methods have @SuppressWarnings("unchecked") because Eclipse will complain about illegal behavior, however we know it will be legal.
  *
- * @param <T>,  type entity
- * @param <PK>, primary key
+ *  <T>,  type entity
+ *  <PK>, primary key
  */
 public class HibernateServiceDAO implements ServiceDAO {
 
@@ -32,6 +32,9 @@ public class HibernateServiceDAO implements ServiceDAO {
     private Session session;
 
     public <T> T create(T t) {
+        String createString = "Creating " + t.toString();
+        logger.info(createString);
+        System.out.println(createString);
         session.persist(t);
         session.flush();
         session.refresh(t);
@@ -44,11 +47,13 @@ public class HibernateServiceDAO implements ServiceDAO {
     }
 
     public <T> T update(T type) {
+        logger.info("Updating " + type.toString());
         session.merge(type);
         return type;
     }
 
     public <T, PK extends Serializable> void delete(Class<T> type, PK id) {
+        logger.info("Deleting " + type.toString() + " with id " + id.toString());
         @SuppressWarnings("unchecked")
         T ref = (T) session.get(type, id);
         session.delete(ref);

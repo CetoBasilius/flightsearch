@@ -27,8 +27,7 @@ import java.util.zip.GZIPInputStream;
 public class FlightSearchConnectorImpl implements  FlightSearchConnector {
 
     private String ApiTemplateOneWayFlightAddress = "http://api.despegar.com/availability/flights/oneWay/";
-    private String ApiTemplateRoundFlightAddress = "http://api.despegar.com/availability/flights/roundTrip/";
-
+    private String ApiTemplateRoundFlightAddress =  "http://api.despegar.com/availability/flights/roundTrip/";
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     private Result getFlightSearchResult(String statement) {
@@ -88,7 +87,10 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
 
     private String createRoundStatement(String from,String to,Date departureDate, Date returnDate, int adults, int children, int infants){
         //{from}/{to}/{departureDate}/{returningDate}/{adults}/{children}/{infants}
-        return ApiTemplateOneWayFlightAddress+from+"/"+to+"/"+sdf.format(departureDate)+"/"+sdf.format(returnDate)+"/"+adults+"/"+children+"/"+infants+"/"+"?pagesize=50";
+        //"http://api.despegar.com/availability/flights/roundTrip/HMO/MEX/2012-07-23/2012-07-27/1/0/0"
+        String s = ApiTemplateRoundFlightAddress + from + "/" + to + "/" + sdf.format(departureDate) + "/" + sdf.format(returnDate) + "/" + adults + "/" + children + "/" + infants  + "?pagesize=50";
+        System.out.println(s);
+        return s;
     }
 
 }

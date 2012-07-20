@@ -39,12 +39,16 @@ public class DataModule {
 
     @Startup
     public void initialize() {
-        logger.info("Loading initial demo data");
+        String loadingString = "Loading initial demo data";
+        logger.info(loadingString);
+        System.out.println(loadingString);
         try{
             createDemoUsers();
             createDemoAirportStubs();
         }catch(Exception e){}
-        logger.info("Data Loaded...");
+        String loadedCompleteString = "Data Loaded...";
+        logger.info(loadedCompleteString);
+        System.out.println(loadedCompleteString);
     }
 
     private void createDemoAirportStubs() {
@@ -80,6 +84,9 @@ public class DataModule {
     private void create(List<?> entities) {
         for (Object thisEntity : entities) {
             try{
+                String attemptString = "Attempting to create " + thisEntity.toString();
+                logger.info(attemptString);
+                System.out.println(attemptString);
                 serviceDAO.create(thisEntity);
             }catch(Exception e){
                 logger.error("Could not create "+thisEntity.toString());

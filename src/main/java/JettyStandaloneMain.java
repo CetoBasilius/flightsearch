@@ -3,6 +3,9 @@ import java.security.ProtectionDomain;
 
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.webapp.WebAppContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Created with IntelliJ IDEA.
  * User: bgerman
@@ -11,6 +14,8 @@ import org.mortbay.jetty.webapp.WebAppContext;
  * To change this template use File | Settings | File Templates.
  */
 public class JettyStandaloneMain {
+
+    private static final Logger logger = LoggerFactory.getLogger(JettyStandaloneMain.class);
 
     public static void main(String[] args) throws Exception
     {
@@ -30,9 +35,11 @@ public class JettyStandaloneMain {
         // java.io.tmpdir will be used since it is commented out, can cause problems if tmp is cleaned regularly
         //webapp.setTempDirectory(new File("somepath i did not use/"));
 
+        System.out.println("Server is initializing, please wait, this might take a few minutes.");
         server.setHandler(webapp);
         server.start();
         server.join();
+
     }
 }
 

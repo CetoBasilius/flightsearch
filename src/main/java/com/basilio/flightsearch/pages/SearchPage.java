@@ -53,15 +53,6 @@ public class SearchPage {
     @Component
     private DateTimeField startDateTimeField;
 
-    void setupRender()
-    {
-        Date tomorrow = new Date();
-        tomorrow.setTime(tomorrow.getTime() + 2*86400000);
-        startDate = tomorrow;
-        endDate = tomorrow;
-        slider = 500;
-    }
-
     @Persist
     @Property
     private String origin;
@@ -78,13 +69,13 @@ public class SearchPage {
     private List<AirportStub> allAirportStubs;
 
     @Property
-    private String adults = "1";
+    private String adults;
 
     @Property
-    private String children = "0";
+    private String children;
 
     @Property
-    private String infants = "0";
+    private String infants;
 
     @Property
     private boolean direct;
@@ -97,6 +88,17 @@ public class SearchPage {
 
     //---------------------------------------
 
+    void setupRender()
+    {
+        Date tomorrow = new Date();
+        tomorrow.setTime(tomorrow.getTime() + 2*86400000);
+        startDate = tomorrow;
+        endDate = tomorrow;
+        slider = 500;
+        adults = "1";
+        children = "0";
+        infants = "0";
+    }
 
 
     //---------------------------------------
@@ -118,9 +120,11 @@ public class SearchPage {
         destinationAirport.setCode(destinationCode);
 
         if(endDate!=null){
-            if(endDate.before(startDate) || endDate.equals(startDate)){
-                searchForm.recordError(messages.get("error.validateenddate"));
-                return null;
+            if(this.showRoundTrip==true){
+                if(endDate.before(startDate) || endDate.equals(startDate)){
+                    searchForm.recordError(messages.get("error.validateenddate"));
+                    return null;
+                }
             }
         }
 
@@ -133,10 +137,12 @@ public class SearchPage {
 
         if(Integer.parseInt(adults)<=0){
             searchForm.recordError(messages.get("error.adultmustgo"));
+            return null;
         }
 
         if(numberPersons>8){
             searchForm.recordError(messages.get("error.exceedpersons"));
+            return null;
         }
 
         Search search = new Search();
