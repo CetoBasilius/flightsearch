@@ -124,8 +124,16 @@ public class SearchPage {
             }
         }
 
+        if(slider<500){
+            searchForm.recordError(messages.get("error.notvalid"));
+            return null;
+        }
+
         int numberPersons = Integer.parseInt(adults)+Integer.parseInt(children)+Integer.parseInt(infants);
 
+        if(Integer.parseInt(adults)<=0){
+            searchForm.recordError(messages.get("error.adultmustgo"));
+        }
 
         if(numberPersons>8){
             searchForm.recordError(messages.get("error.exceedpersons"));
