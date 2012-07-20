@@ -1,5 +1,6 @@
 package com.basilio.flightsearch.pages;
 
+import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.Flights;
 import com.basilio.flightsearch.entities.result.Result;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -34,6 +36,11 @@ public class ResultsPageTest {
         search = createNiceMock(Search.class);
         result = createNiceMock(Result.class);
 
+    }
+
+    @Test
+    public void testGuestAccess(){
+        assertTrue(ResultsPage.class.isAnnotationPresent(GuestAccess.class));
     }
 
     @Test

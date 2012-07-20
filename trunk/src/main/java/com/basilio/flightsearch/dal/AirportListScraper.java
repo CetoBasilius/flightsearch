@@ -33,9 +33,6 @@ public class AirportListScraper implements AirportListConnector {
 
     private final static String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
 
-    @Inject
-    private ServiceDAO serviceDAO;
-
     @Log
     public List<AirportStub> GetAirportStubList() throws IOException {
 

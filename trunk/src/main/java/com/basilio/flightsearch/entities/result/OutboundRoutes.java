@@ -41,4 +41,8 @@ public class OutboundRoutes{
 	public void setType(String type){
 		this.type = type;
 	}
+
+    public String getDescription() {
+        return "This flight leaves at a certain time, returns at another time, its duration is some hours long, and has some segments";
+    }
 }

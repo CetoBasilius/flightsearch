@@ -1,5 +1,6 @@
 package com.basilio.flightsearch.dal;
 
+import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.User;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.annotations.Startup;
@@ -26,6 +27,9 @@ public class DataModule {
     @Inject
     private AirportListConnector airportListConnector;
 
+    @Inject
+    private AirportInformationDAO airportInformationDAO;
+
     private boolean useLocalDemoList = false;
 
     public DataModule(ServiceDAO serviceDAO) {
@@ -48,7 +52,17 @@ public class DataModule {
             create(airportListConnector.GetAirportStubListLocal());
         }else{
             try {
-                create(airportListConnector.GetAirportStubList());
+                List<AirportStub> entities = airportListConnector.GetAirportStubList();
+                /*for(AirportStub airport : entities){
+                    AirportStub stub = airportInformationDAO.getAirportData(airport.getCode());
+                    airport.setLatitude(stub.getLatitude());
+                    airport.setLongitude(stub.getLongitude());
+                    if(airport.getLongitude()==0 || airport.getLatitude()==0){
+                        logger.warn(airport.getCode()+" coordinate information not found");
+                    }
+
+                }*/
+                create(entities);
             } catch (IOException e) {
                 e.printStackTrace();
             }

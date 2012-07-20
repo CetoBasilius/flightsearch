@@ -2,28 +2,37 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <table class="full">
+    <table class="full" >
         <tr>
-            <td valign="top" style="width:40%">
+            <td valign="top" style="width:60%">
                 <table class="full">
                     <tr>
-                        <td>Origin: ${origin}</td>
-                        <td>Destination: ${destination}</td>
+                        <td>Origin: ${origin}, Destination: ${destination}</td>
                     </tr>
                     <tr>
-                        <td>This search has ${numFlights} flight results</td>
+                        <td>${searchDescription}</td>
                     </tr>
                 </table>
 
-                <table class="full">
+                <table>
                     <a t:id="customPagedLoop" source="flights" value="flight" rowsPerPage="2" pagerPosition="bottom">
                         <tr height="10">&nbsp;</tr>
                         <tr>
                             <td>
-                                <t:loop source="flightStrings" value="flightString">
-                                    ${flightString}<br/>
-                                </t:loop>
-                                <t:actionlink t:id="view" context="flight.id">Visualize</t:actionlink>
+                                <t:if test="!emptyResult">
+                                    ${flightDescription}<br/>
+                                    <t:loop source="outRoutes" value="outboundRoute">
+                                        ${routeInfo}<br/>
+                                        <t:loop source="segments" value="segment">
+                                            ${segmentInfo}<br/>
+                                        </t:loop>
+                                        <t:actionlink t:id="view" context="flight.id">Visualize</t:actionlink><br/>
+                                    </t:loop>
+                                    <p:else>
+                                        <p>We are sorry, but your search returned no results.</p>
+                                    </p:else>
+                                </t:if>
+
                             </td>
                         </tr>
                     </a>
