@@ -1,6 +1,13 @@
 
 package com.basilio.flightsearch.entities.result;
 
+import org.apache.commons.lang.time.DateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,12 +19,19 @@ import java.util.List;
  */
 
 public class OutboundRoutes{
+
+    private static final Logger logger = LoggerFactory.getLogger(OutboundRoutes.class);
+
    	private String duration;
    	private boolean hasAirportChange;
    	private List<Segments> segments;
    	private String type;
 
- 	public String getDuration(){
+    private SimpleDateFormat inDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private SimpleDateFormat outDateFormat = new SimpleDateFormat("MMMM d', at 'HH:mm");
+    private SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm");
+
+    public String getDuration(){
 		return this.duration;
 	}
 	public void setDuration(String duration){
@@ -59,9 +73,25 @@ public class OutboundRoutes{
     }
 
     public String getDescription() {
+
+        Date departureDate = new Date();
+        Date duration = new Date();
+        try {
+            departureDate = inDateFormat.parse(this.getDepartureTime());
+            duration = hourFormat.parse(this.getDuration());
+        } catch (ParseException e) {
+            logger.error("Date was unparseable!");
+        }
+
+        Date arriveDate;
+        arriveDate = DateUtils.addHours(departureDate,duration.getHours());
+        arriveDate = DateUtils.addMinutes(arriveDate, duration.getMinutes());
+
         StringBuffer buffer = new StringBuffer();
-        buffer.append("This flight leaves at: ");
-        buffer.append(this.getDepartureTime());
+        buffer.append("This flight leaves at ");
+        buffer.append(outDateFormat.format(departureDate));
+        buffer.append(", returns at ");
+        buffer.append(outDateFormat.format(arriveDate));
         buffer.append(", it has a duration of ");
         buffer.append(this.getDuration());
         buffer.append(". Segment size: ");

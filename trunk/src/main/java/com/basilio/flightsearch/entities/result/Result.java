@@ -34,18 +34,19 @@ public class Result{
 
     public String getDescription() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("We found ");
-        buffer.append(this.getFlights().size());
-        buffer.append(" flights matching your search, of which ");
-        buffer.append(this.getFlightsInPriceRange().size());
-        buffer.append(" matched your budget of no more than ");
-        buffer.append(this.getSearchedPrice());
-        buffer.append(" dollars. The most economic flight is ");
-        buffer.append(this.getMeta().getFacets().get(2).getMin());
-        buffer.append(" dollars per person, and the most expensive flight is ");
-        buffer.append(this.getMeta().getFacets().get(2).getMax());
-        buffer.append(" dollars. ");
-
+        if(flights!=null){
+            buffer.append("We found ");
+            buffer.append(this.getFlights().size());
+            buffer.append(" flights matching your search, of which ");
+            buffer.append(this.getFlightsInPriceRange().size());
+            buffer.append(" matched your budget of no more than ");
+            buffer.append(this.getSearchedPrice());
+            buffer.append(" dollars. The most economic flight is ");
+            buffer.append(this.getMeta().getFacets().get(2).getMin());
+            buffer.append(" dollars per adult, and the most expensive flight is ");
+            buffer.append(this.getMeta().getFacets().get(2).getMax());
+            buffer.append(" dollars per adult. ");
+        }
         return buffer.toString();
     }
 

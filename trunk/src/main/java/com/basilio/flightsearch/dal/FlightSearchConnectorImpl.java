@@ -55,6 +55,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
         }
 
         Result goodResult = resultCreator.getGoodResult();
+        System.out.println(this.search);
         goodResult.setSearchedPrice(this.search.getBudgetDollars());
         return goodResult;
     }

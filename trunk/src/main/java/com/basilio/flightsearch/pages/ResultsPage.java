@@ -146,7 +146,10 @@ public class ResultsPage {
     }
 
     public String getSearchDescription(){
-        return search.getDescription();
+        if(search!=null){
+            return search.getDescription();
+        }
+        return "No search was made.";
     }
 
     public String getResultDescription(){
@@ -192,18 +195,6 @@ public class ResultsPage {
         }
         return inRoutes;
     }
-
-/*    @Log
-    public String[] getFlightStrings(){
-        String returnString[];
-        if(flight==null){
-            returnString = new String[1];
-            returnString[0] = "There were no results";
-        }else{
-            returnString = flight.toStringArray();
-        }
-        return returnString;
-    }*/
 
     @Log
     public Flights[] getFlights()
