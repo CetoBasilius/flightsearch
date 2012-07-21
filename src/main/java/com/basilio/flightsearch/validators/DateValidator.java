@@ -2,6 +2,7 @@ package com.basilio.flightsearch.validators;
 
 import java.util.Date;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.apache.tapestry5.Field;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.ValidationException;
@@ -35,7 +36,7 @@ public class DateValidator extends AbstractValidator<Void, Date> {
             ValidationException {
 
         Date tomorrow = new Date();
-        tomorrow.setTime(tomorrow.getTime() + 86400000);
+        tomorrow = DateUtils.addDays(tomorrow,1);
         if (value.before(tomorrow)) {
             throw new ValidationException(buildMessage(formatter, field));
         }

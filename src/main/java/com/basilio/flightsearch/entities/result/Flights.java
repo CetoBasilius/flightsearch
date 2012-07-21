@@ -76,6 +76,9 @@ public class Flights{
 	}
 
     public String getDescription() {
-        return "This flight is from somewhere to somewhere, on some date, the following are available:";
+        //"This flight is from somewhere to somewhere, on some date, the following are available:"
+        StringBuffer buffer = new StringBuffer();
+        //buffer.append();
+        return buffer.toString();
     }
 }
