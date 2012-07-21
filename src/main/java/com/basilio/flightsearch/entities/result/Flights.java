@@ -44,22 +44,22 @@ public class Flights{
 	public void setId(String id){
 		this.id = id;
 	}
- 	public List getInboundRoutes(){
+ 	public List<InboundRoutes> getInboundRoutes(){
 		return this.inboundRoutes;
 	}
-	public void setInboundRoutes(List inboundRoutes){
+	public void setInboundRoutes(List<InboundRoutes> inboundRoutes){
 		this.inboundRoutes = inboundRoutes;
 	}
  	public List<ItineraryInfos> getItineraryInfos(){
 		return this.itineraryInfos;
 	}
-	public void setItineraryInfos(List itineraryInfos){
+	public void setItineraryInfos(List<ItineraryInfos> itineraryInfos){
 		this.itineraryInfos = itineraryInfos;
 	}
  	public List<OutboundRoutes> getOutboundRoutes(){
 		return this.outboundRoutes;
 	}
-	public void setOutboundRoutes(List outboundRoutes){
+	public void setOutboundRoutes(List<OutboundRoutes> outboundRoutes){
 		this.outboundRoutes = outboundRoutes;
 	}
  	public PaymentInfo getPaymentInfo(){

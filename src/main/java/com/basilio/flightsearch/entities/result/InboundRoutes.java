@@ -21,7 +21,7 @@ public class InboundRoutes{
 	public void setHasAirportChange(boolean hasAirportChange){
 		this.hasAirportChange = hasAirportChange;
 	}
- 	public List getSegments(){
+ 	public List<Segments> getSegments(){
 		return this.segments;
 	}
 	public void setSegments(List segments){
@@ -33,4 +33,8 @@ public class InboundRoutes{
 	public void setType(String type){
 		this.type = type;
 	}
+
+    public String getDescription() {
+        return "Inbound: This flight leaves at a certain time, returns at another time, its duration is some hours long, and has some segments";
+    }
 }

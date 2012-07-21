@@ -4,10 +4,7 @@ import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.components.CustomPagedLoop;
 import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
-import com.basilio.flightsearch.entities.result.Flights;
-import com.basilio.flightsearch.entities.result.OutboundRoutes;
-import com.basilio.flightsearch.entities.result.Result;
-import com.basilio.flightsearch.entities.result.Segments;
+import com.basilio.flightsearch.entities.result.*;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Zone;
@@ -67,7 +64,13 @@ public class ResultsPage {
     private OutboundRoutes outboundRoute;
 
     @Property
-    private Segments segment;
+    private InboundRoutes inboundRoute;
+
+    @Property
+    private Segments outSegment;
+
+    @Property
+    private Segments inSegment;
 
     @Property
     private boolean emptyResult;
@@ -93,7 +96,24 @@ public class ResultsPage {
         return Integer.toString(numFlights);
     }
 
-    public void onActionFromView(String id)
+    public String getFlightPrice(){
+
+        return String.valueOf(flight.getPriceInfo().getTotal().getFare().intValue())+" dollars";
+    }
+
+    public void onActionFromViewDepart(String id)
+    {
+        visualizingFlight = "Visualizing flight "+id;
+        List<Double> setupList = new ArrayList<Double>();
+        setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-20.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
+
+        this.setupGMap(setupList);
+    }
+
+    public void onActionFromViewReturn(String id)
     {
         visualizingFlight = "Visualizing flight "+id;
         List<Double> setupList = new ArrayList<Double>();
@@ -109,27 +129,48 @@ public class ResultsPage {
         return flight.getDescription();
     }
 
-    public String getSegmentInfo(){
-        return segment.getDescription();
+    public String getOutSegmentInfo(){
+        return outSegment.getDescription();
     }
 
-    public String getRouteInfo(){
+    public String getInSegmentInfo(){
+        return inSegment.getDescription();
+    }
+
+    public String getOutRouteInfo(){
         return outboundRoute.getDescription();
+    }
+
+    public String getInRouteInfo(){
+        return inboundRoute.getDescription();
     }
 
     public String getSearchDescription(){
         return search.getDescription();
     }
 
+    public String getResultDescription(){
+        return result.getDescription();
+    }
+
     @Log
-    public Segments[] getSegments(){
+    public Segments[] getOutSegments(){
         List<Segments> outSegmentsList = outboundRoute.getSegments();
         Segments outSegments[] = new Segments[outSegmentsList.size()];
         for(int index = 0; index<outSegmentsList.size();index++){
             outSegments[index] = outSegmentsList.get(index);
         }
-
         return outSegments;
+    }
+
+    @Log
+    public Segments[] getInSegments(){
+        List<Segments> inSegmentsList = outboundRoute.getSegments();
+        Segments inSegments[] = new Segments[inSegmentsList.size()];
+        for(int index = 0; index<inSegmentsList.size();index++){
+            inSegments[index] = inSegmentsList.get(index);
+        }
+        return inSegments;
     }
 
     @Log
@@ -139,8 +180,17 @@ public class ResultsPage {
         for(int index = 0; index<outRoutesList.size();index++){
             outRoutes[index] = outRoutesList.get(index);
         }
-
         return outRoutes;
+    }
+
+    @Log
+    public InboundRoutes[] getInRoutes(){
+        List<InboundRoutes> inRoutesList = flight.getInboundRoutes();
+        InboundRoutes inRoutes[] = new InboundRoutes[inRoutesList.size()];
+        for(int index = 0; index<inRoutesList.size();index++){
+            inRoutes[index] = inRoutesList.get(index);
+        }
+        return inRoutes;
     }
 
 /*    @Log

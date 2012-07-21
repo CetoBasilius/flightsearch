@@ -6,31 +6,55 @@
         <tr>
             <td valign="top" style="width:60%">
                 <table class="full" style="width:80%">
-                    <tr>
-                        <td>${searchDescription}</td>
-                    </tr>
+                    <t:if test="search">
+                        <tr>
+                            <td>${searchDescription}</td>
+                        </tr>
+                        <tr>
+                            <td>${resultDescription}</td>
+                        </tr>
+                        <p:else>
+                            <tr>
+                                <td>To view results, you must first make a search on the <t:pagelink page="SearchPage">search page.</t:pagelink></td>
+                            </tr>
+                        </p:else>
+                    </t:if>
+
                 </table>
 
                 <table>
                     <a t:id="customPagedLoop" source="flights" value="flight" rowsPerPage="2" pagerPosition="bottom">
                         <tr height="10">&nbsp;</tr>
                         <tr>
-                            <td>
-                                <t:if test="!emptyResult">
+                            <t:if test="!emptyResult">
+                                <td style="border-style:solid; border-width:1px;">
                                     ${flightDescription}<br/>
-                                    <t:loop source="outRoutes" value="outboundRoute">
-                                        ${routeInfo}<br/>
-                                        <t:loop source="segments" value="segment">
-                                            ${segmentInfo}<br/>
-                                        </t:loop>
-                                        <t:actionlink t:id="view" context="flight.id">Visualize</t:actionlink><br/>
-                                    </t:loop>
-                                    <p:else>
-                                        <p>We are sorry, but your search returned no results.</p>
-                                    </p:else>
-                                </t:if>
 
-                            </td>
+                                    <t:loop source="outRoutes" value="outboundRoute">
+                                        ${outRouteInfo}<br/>
+                                        <t:loop source="outSegments" value="outSegment">
+                                            ${outSegmentInfo}<br/>
+                                        </t:loop>
+                                        <t:actionlink t:id="viewDepart" context="flight.id">Visualize departure</t:actionlink><br/>
+                                    </t:loop>
+
+                                    <t:loop source="inRoutes" value="inboundRoute">
+                                        ${inRouteInfo}<br/>
+                                        <t:loop source="inSegments" value="inSegment">
+                                            ${inSegmentInfo}<br/>
+                                        </t:loop>
+                                        <t:actionlink t:id="viewReturn" context="flight.id">Visualize return</t:actionlink><br/>
+                                    </t:loop>
+                                </td>
+                                <td style="border-style:solid; border-width:1px;">
+                                    <p>${flightPrice}</p>
+                                </td>
+                                <p:else>
+                                    <td>
+                                        <p>We are sorry, but your search returned no results.</p>
+                                    </td>
+                                </p:else>
+                            </t:if>
                         </tr>
                     </a>
                 </table>

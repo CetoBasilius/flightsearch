@@ -42,7 +42,35 @@ public class OutboundRoutes{
 		this.type = type;
 	}
 
+    public String getFinalDestination(){
+        Arrival arrival = this.getSegments().get(this.getSegments().size() - 1).getArrival();
+        String returnString = arrival.getLocation()+", "+arrival.getLocationDescription();
+        return returnString;
+    }
+
+    public String getDeparturePlace(){
+        Departure departure = this.getSegments().get(0).getDeparture();
+        String returnString = departure.getLocation()+", "+departure.getLocationDescription();
+        return returnString;
+    }
+
+    public String getDepartureTime(){
+        return this.getSegments().get(0).getDeparture().getDate();
+    }
+
     public String getDescription() {
-        return "This flight leaves at a certain time, returns at another time, its duration is some hours long, and has some segments";
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("This flight leaves at: ");
+        buffer.append(this.getDepartureTime());
+        buffer.append(", it has a duration of ");
+        buffer.append(this.getDuration());
+        buffer.append(". Segment size: ");
+        buffer.append(this.getSegments().size());
+        buffer.append(". Leaves from ");
+        buffer.append(this.getDeparturePlace());
+        buffer.append(", arrives at ");
+        buffer.append(this.getFinalDestination());
+
+        return buffer.toString();
     }
 }
