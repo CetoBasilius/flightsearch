@@ -28,7 +28,7 @@ public class OutboundRoutes{
    	private String type;
 
     private SimpleDateFormat inDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    private SimpleDateFormat outDateFormat = new SimpleDateFormat("MMMM d', at 'HH:mm");
+    private SimpleDateFormat outDateFormat = new SimpleDateFormat("MMMM d', 'H:mm");
     private SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm");
 
     public String getDuration(){

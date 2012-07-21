@@ -112,18 +112,24 @@ public class Search {
 
     public String getDescription() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("You searched for a flight from ");
+        buffer.append("You searched for a ");
+        if(this.isRoundTrip()){
+            buffer.append(" round");
+        }else{
+            buffer.append(" one-way");
+        }
+        buffer.append(" flight from ");
         buffer.append(this.getDepartureAirport().getCode());
         buffer.append(" to ");
         buffer.append(this.getDestinationAirport().getCode());
         buffer.append(", ");
         if(this.isRoundTrip()){
-            buffer.append("A round trip from ");
+            buffer.append("from ");
             buffer.append(sdf.format(this.getDepartureDate()).toString());
             buffer.append(" to ");
             buffer.append(sdf.format(this.getReturnDate()).toString());
         }else{
-            buffer.append("A one-way trip on ");
+            buffer.append("on ");
             buffer.append(sdf.format(this.getDepartureDate()).toString());
             buffer.append(", ");
         }
