@@ -30,6 +30,8 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
     private String ApiTemplateRoundFlightAddress =  "http://api.despegar.com/availability/flights/roundTrip/";
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    private Search search;
+
     private Result getFlightSearchResult(String statement) {
         ResultCreator resultCreator = new ResultCreator();
         try {
@@ -52,10 +54,13 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
             e.printStackTrace();
         }
 
-        return resultCreator.getGoodResult();
+        Result goodResult = resultCreator.getGoodResult();
+        goodResult.setSearchedPrice(this.search.getBudgetDollars());
+        return goodResult;
     }
 
     public Result searchFlights(Search search) {
+        this.search = search;
         String statement = "";
         if(search.isRoundTrip()){
             statement = createRoundStatement(search.getDepartureAirport().getCode(),
