@@ -146,14 +146,44 @@ public class ResultsPage {
         return inSegment.getDescription();
     }
 
+
+    //-----------------------------------------------
+
+    public String getOutRouteScheduleInfo(){
+        return outboundRoute.getScheduleDescription();
+    }
+
+    public String getOutRouteSegmentInfo(){
+        return outboundRoute.getSegmentsDescription();
+    }
+
+    public String getOutRouteDurationInfo(){
+        return outboundRoute.getDurationDescription();
+    }
+
     public String getOutRouteInfo(){
         return outboundRoute.getDescription();
     }
 
-    public String getInRouteInfo(){
-        return inboundRoute.getDescription();
+    //-------------------------------------------
+
+    public String getInRouteScheduleInfo(){
+        return outboundRoute.getScheduleDescription();
     }
 
+    public String getInRouteSegmentInfo(){
+        return outboundRoute.getSegmentsDescription();
+    }
+
+    public String getInRouteDurationInfo(){
+        return outboundRoute.getDurationDescription();
+    }
+
+    public String getInRouteInfo(){
+        return outboundRoute.getDescription();
+    }
+
+    //-------------------------------------------
     public String getSearchDescription(){
         if(search!=null){
             return search.getDescription();

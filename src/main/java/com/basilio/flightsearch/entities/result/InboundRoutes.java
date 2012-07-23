@@ -22,7 +22,7 @@ public class InboundRoutes{
     private SimpleDateFormat inDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private SimpleDateFormat outDateFormat = new SimpleDateFormat("MMMM d', 'H:mm");
     private SimpleDateFormat inHourFormat = new SimpleDateFormat("H:mm");
-    private SimpleDateFormat outHourFormat = new SimpleDateFormat("H' hours and 'mm' ,minutes'");
+    private SimpleDateFormat outHourFormat = new SimpleDateFormat("H' hours and 'mm' minutes'");
 
  	public String getDuration(){
 		return this.duration;
@@ -67,6 +67,16 @@ public class InboundRoutes{
 
     public String getDescription() {
 
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("This flight leaves from ");
+        buffer.append(this.getDeparturePlace());
+        buffer.append(", and will arrive at ");
+        buffer.append(this.getFinalDestination());
+        return buffer.toString();
+    }
+
+    public String getScheduleDescription() {
+        StringBuffer buffer = new StringBuffer();
         Date departureDate = new Date();
         Date duration = new Date();
         try {
@@ -77,22 +87,40 @@ public class InboundRoutes{
         }
 
         Date arriveDate;
-        arriveDate = DateUtils.addHours(departureDate, duration.getHours());
+        arriveDate = DateUtils.addHours(departureDate,duration.getHours());
         arriveDate = DateUtils.addMinutes(arriveDate, duration.getMinutes());
 
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("This flight leaves at ");
+        buffer.append("Leaves at ");
         buffer.append(outDateFormat.format(departureDate));
-        buffer.append(", from ");
-        buffer.append(this.getDeparturePlace());
-        buffer.append(", arrives on ");
+        buffer.append(", arrives at ");
         buffer.append(outDateFormat.format(arriveDate));
-        buffer.append(", at ");
-        buffer.append(this.getFinalDestination());
-        buffer.append(", it has a duration of ");
+
+        return buffer.toString();
+    }
+
+    public String getDurationDescription() {
+        StringBuffer buffer = new StringBuffer();
+        Date departureDate = new Date();
+        Date duration = new Date();
+        try {
+            departureDate = inDateFormat.parse(this.getDepartureTime());
+            duration = inHourFormat.parse(this.getDuration());
+        } catch (ParseException e) {
+            logger.error("Date was unparseable!");
+        }
+
         buffer.append(outHourFormat.format(duration));
-        buffer.append(". Segment size: ");
-        buffer.append(this.getSegments().size());
+
+        return buffer.toString();
+    }
+
+    public String getSegmentsDescription() {
+        StringBuffer buffer = new StringBuffer();
+        if(this.getSegments().size()>1){
+            buffer.append(this.getSegments().size());
+        } else {
+            buffer.append(" Flight is direct.");
+        }
 
         return buffer.toString();
     }

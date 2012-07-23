@@ -4,7 +4,9 @@
 
     <table class="full">
         <tr>
-            <td valign="top" style="width:60%">
+            <td valign="top" style="width:20%; border-style:solid; border-width:1px;">
+            </td>
+            <td valign="top" style="width:60%; border-style:solid; border-width:1px;">
                 <table class="full" style="width:100%">
                     <t:if test="search">
                         <tr>
@@ -48,9 +50,48 @@
                                                         </tr>
                                                     </table>
 
-                                                    ${outRouteInfo}<br/>
+
 
                                                     <table>
+                                                        <tr>
+                                                            <td style="border-style:solid; border-width:1px;">
+                                                                <table>
+                                                                    <tr>
+                                                                        <th style="width:10%;">
+                                                                            <label>Schedule</label>
+                                                                        </th>
+                                                                        <td style="border-style:solid; border-width:1px;">
+                                                                            ${outRouteScheduleInfo}<br/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width:10%;">
+                                                                            <label>Duration</label>
+                                                                        </th>
+                                                                        <td style="border-style:solid; border-width:1px;">
+                                                                            ${outRouteDurationInfo}<br/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width:10%;">
+                                                                            <label>Description</label>
+                                                                        </th>
+                                                                        <td style="border-style:solid; border-width:1px;">
+                                                                            ${outRouteInfo}<br/>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <th style="width:10%;">
+                                                                            <label>Segments</label>
+                                                                        </th>
+                                                                        <td style="border-style:solid; border-width:1px;">
+                                                                            ${outRouteSegmentInfo}<br/>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
                                                         <tr>
                                                             <td style="border-style:solid; border-width:1px;">
                                                                 <t:loop source="outSegments" value="outSegment">
@@ -83,15 +124,52 @@
                                                         </tr>
                                                     </table>
 
-                                                    ${inRouteInfo}<br/>
-
                                                     <table>
+                                                        <tr>
+                                                            <td style="border-style:solid; border-width:1px;">
+                                                                <table>
+                                                                    <tr>
+                                                                        <th style="width:10%;">
+                                                                            <label>Schedule</label>
+                                                                        </th>
+                                                                        <td style="border-style:solid; border-width:1px;">
+                                                                            ${inRouteScheduleInfo}<br/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width:10%;">
+                                                                            <label>Duration</label>
+                                                                        </th>
+                                                                        <td style="border-style:solid; border-width:1px;">
+                                                                            ${inRouteDurationInfo}<br/>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th style="width:10%;">
+                                                                            <label>Description</label>
+                                                                        </th>
+                                                                        <td style="border-style:solid; border-width:1px;">
+                                                                            ${inRouteInfo}<br/>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <th style="width:10%;">
+                                                                            <label>Segments</label>
+                                                                        </th>
+                                                                        <td style="border-style:solid; border-width:1px;">
+                                                                            ${inRouteSegmentInfo}<br/>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
                                                         <tr>
                                                             <td style="border-style:solid; border-width:1px;">
                                                                 <t:loop source="inSegments" value="inSegment">
                                                                     ${inSegmentInfo}<br/>
                                                                 </t:loop>
-                                                             </td>
+                                                            </td>
                                                         </tr>
                                                     </table>
                                                     <!--<t:actionlink t:id="viewReturn" context="flight.id">Visualize return</t:actionlink><br/>
@@ -131,7 +209,7 @@
                 </div>
             </td>
 
-            <td valign="top" style="width:40%">
+            <td valign="top" style="width:0%">
                 <p>${visualizingFlight}</p>
                 <!--
                 <div t:type="gmap" lng="lngin" lat="latin" coordlist="coordinatesParameter" style="width:100%; height:500px;"/>
