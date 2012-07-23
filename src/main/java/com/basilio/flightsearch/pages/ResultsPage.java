@@ -15,6 +15,7 @@ import org.chenillekit.tapestry.core.components.Window;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -82,9 +83,12 @@ public class ResultsPage {
     @Property
     private boolean emptyResult;
 
+    @Property
+    @Persist
+    private int rowsPerPage;
+
     public void setup(Search search,Result result)
     {
-        customPagedLoop.setCurrentPage(1);
         this.result = result;
         this.search = search;
 
@@ -163,6 +167,12 @@ public class ResultsPage {
 
     public String getOutRouteInfo(){
         return outboundRoute.getDescription();
+    }
+
+    void setupRender()
+    {
+        rowsPerPage = 2;
+        //TODO: rowsperpage must be retrieved from user settings.
     }
 
     //-------------------------------------------
