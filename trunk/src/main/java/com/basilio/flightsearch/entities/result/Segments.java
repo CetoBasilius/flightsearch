@@ -114,6 +114,8 @@ public class Segments{
         buffer.append(", ");
         buffer.append(arrival1.getLocationDescription());
 
+        buffer.append(", DELAYINFO: ");
+        buffer.append(this.getDelayInfo());
 
         return buffer.toString();
     }
