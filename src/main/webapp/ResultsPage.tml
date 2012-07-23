@@ -2,10 +2,10 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-    <table class="full" >
+    <table class="full">
         <tr>
             <td valign="top" style="width:60%">
-                <table class="full" style="width:80%">
+                <table class="full" style="width:100%">
                     <t:if test="search">
                         <tr>
                             <td>${searchDescription}</td>
@@ -124,6 +124,11 @@
                         </t:if>
                     </a>
                 </table>
+                <div id="non-printable">
+                    <input type="button"
+                      onClick="window.print()"
+                      value="Print This Page"/>
+                </div>
             </td>
 
             <td valign="top" style="width:40%">
