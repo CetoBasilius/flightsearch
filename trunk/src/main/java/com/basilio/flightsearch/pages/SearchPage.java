@@ -15,6 +15,8 @@ import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.commons.lang.StringUtils;
 import org.chenillekit.tapestry.core.components.DateTimeField;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -24,6 +26,8 @@ import java.util.*;
 
 @GuestAccess
 public class SearchPage {
+
+    private static final Logger logger = LoggerFactory.getLogger(SearchPage.class);
 
     @Inject
     private FlightSearchConnector flightSearchConnector;
@@ -130,6 +134,7 @@ public class SearchPage {
 
         if(slider<500){
             searchForm.recordError(messages.get("error.notvalid"));
+            logger.error("slider value was " + slider);
             return null;
         }
 
@@ -137,11 +142,13 @@ public class SearchPage {
 
         if(Integer.parseInt(adults)<=0){
             searchForm.recordError(messages.get("error.adultmustgo"));
+            logger.error("user tried to search for no adults");
             return null;
         }
 
         if(numberPersons>8){
             searchForm.recordError(messages.get("error.exceedpersons"));
+            logger.error("user tried to search for more than 8 persons");
             return null;
         }
 
