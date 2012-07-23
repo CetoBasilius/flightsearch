@@ -25,37 +25,103 @@
                 <table>
                     <a t:id="customPagedLoop" source="flights" value="flight" rowsPerPage="2" pagerPosition="bottom">
                         <tr height="10">&nbsp;</tr>
-                        <tr>
-                            <t:if test="!emptyResult">
+                        <t:if test="!emptyResult">
+                            <tr>
                                 <td style="border-style:solid; border-width:1px;">
+
                                     ${flightDescription}<br/>
 
                                     <t:loop source="outRoutes" value="outboundRoute">
-                                        ${outRouteInfo}<br/>
-                                        <t:loop source="outSegments" value="outSegment">
-                                            ${outSegmentInfo}<br/>
-                                        </t:loop>
-                                        <t:actionlink t:id="viewDepart" context="flight.id">Visualize departure</t:actionlink><br/>
+                                        <table>
+                                            <tr>
+                                                <td style="border-style:solid; border-width:1px;">
+                                                    <table>
+                                                        <tr>
+                                                            <td style="border-style:solid; border-width:1px;">
+                                                                <center>
+                                                                    <img src="${request.contextPath}/layout/images/going.png" />
+                                                                </center>
+                                                            </td>
+                                                            <td style="border-style:solid; border-width:1px;">
+                                                                <label class="routelabel">Going</label>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    ${outRouteInfo}<br/>
+
+                                                    <table>
+                                                        <tr>
+                                                            <td style="border-style:solid; border-width:1px;">
+                                                                <t:loop source="outSegments" value="outSegment">
+                                                                    ${outSegmentInfo}<br/>
+                                                                </t:loop>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <!--<t:actionlink t:id="viewDepart" context="flight.id">Visualize departure</t:actionlink><br/>
+                                                    -->
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </t:loop>
 
                                     <t:loop source="inRoutes" value="inboundRoute">
-                                        ${inRouteInfo}<br/>
-                                        <t:loop source="inSegments" value="inSegment">
-                                            ${inSegmentInfo}<br/>
-                                        </t:loop>
-                                        <t:actionlink t:id="viewReturn" context="flight.id">Visualize return</t:actionlink><br/>
+                                        <table>
+                                            <tr>
+                                                <td style="border-style:solid; border-width:1px;">
+                                                    <table>
+                                                        <tr>
+                                                            <td style="border-style:solid; border-width:1px;">
+                                                                <center>
+                                                                    <img src="${request.contextPath}/layout/images/returning.png" />
+                                                                </center>
+                                                            </td>
+                                                            <td style="border-style:solid; border-width:1px;">
+                                                                <label class="routelabel">Returning</label>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+
+                                                    ${inRouteInfo}<br/>
+
+                                                    <table>
+                                                        <tr>
+                                                            <td style="border-style:solid; border-width:1px;">
+                                                                <t:loop source="inSegments" value="inSegment">
+                                                                    ${inSegmentInfo}<br/>
+                                                                </t:loop>
+                                                             </td>
+                                                        </tr>
+                                                    </table>
+                                                    <!--<t:actionlink t:id="viewReturn" context="flight.id">Visualize return</t:actionlink><br/>
+                                                    -->
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </t:loop>
                                 </td>
-                                <td style="border-style:solid; border-width:1px;">
-                                    <p>${flightPrice}</p>
+                            </tr>
+                            <tr>
+                                <td align="right" style="border-style:solid; border-width:1px;">
+                                    <table class="pricetable">
+                                        <tr>
+                                            <td class="pricetdcenter" >
+                                                <center>${flightPrice}</center>
+                                            </td>
+                                        </tr>
+                                    </table>
+
                                 </td>
-                                <p:else>
+                            </tr>
+                            <p:else>
+                                <tr>
                                     <td>
                                         <p>We are sorry, but your search returned no results.</p>
                                     </td>
-                                </p:else>
-                            </t:if>
-                        </tr>
+                                </tr>
+                            </p:else>
+                        </t:if>
                     </a>
                 </table>
             </td>
@@ -70,5 +136,7 @@
             </td>
         </tr>
     </table>
+
+
 
 </html>

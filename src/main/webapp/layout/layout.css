@@ -10,7 +10,7 @@ body {
     background: #FFFFFF url(images/img01.jpg) repeat-x;
     text-align: justify;
     font: 15px Arial, Helvetica, sans-serif;
-    color: #626262;
+    color: #222222;
     height:100%;
 }
 #container {
@@ -359,8 +359,8 @@ div.calendar #today {
 
 
 div.footer {
-    position:absolute;
-    bottom:0px;
+    #position:absolute;
+    #bottom:0px;
     width:100%;
     height:40px;   /* Height of the footer */
     padding: 40px 0 0px 0;
@@ -406,5 +406,24 @@ table.full {
     width:100%;
 
 }
+
+table.pricetable {
+    width:130px;
+    font-size: 1.2em;
+    font-weight: bold;
+    background: url(images/img03.jpg) no-repeat  center
+}
+
+
+table.pricetable td.pricetdcenter {
+    color:#FFFFFF;
+}
+
+label.routelabel {
+    color:#111111;
+    font-weight: bold;
+}
+
+
 
 

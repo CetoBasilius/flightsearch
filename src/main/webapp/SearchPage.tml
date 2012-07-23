@@ -12,16 +12,15 @@
                     <label t:type="label" t:for="origin">Origin</label>
                 </th>
                 <td>
-                    <t:textfield t:id="origin" t:value="origin" t:mixins="autocomplete" size="50" t:validate="required,codeintextfield"/>
+                    <t:textfield t:id="origin" t:value="origin" t:mixins="autocomplete" size="60" t:validate="required,codeintextfield"/>
                 </td>
-                <td colspan="2"  width="40">&nbsp;</td>
             </tr>
             <tr>
                 <th>
                     <label t:type="label" t:for="destination">Destination</label>
                 </th>
                 <td>
-                    <t:textfield t:id="destination" t:mixins="autocomplete" size="50" t:validate="required,codeintextfield"/>
+                    <t:textfield t:id="destination" t:mixins="autocomplete" size="60" t:validate="required,codeintextfield"/>
                 </td>
             </tr>
             <tr>
@@ -29,11 +28,7 @@
                     <label t:type="label" t:for="startDateTimeField">Start date&nbsp;</label>
                 </th>
                 <td>
-
-
                     <input t:id="startDateTimeField" t:value="startDate" t:validate="required,aftertomorrow"/>
-
-
                     &nbsp;&nbsp;
                     <t:if test="!showRoundTrip">
                         <t:actionlink t:id="clicker1" t:event="clicker">Set round trip</t:actionlink>
@@ -58,13 +53,9 @@
                     <label>Budget</label>
                 </th>
                 <td>
-                    <table>
-                        <tr>
-                            <td>
-                                <t:slider value="slider" id="slider" t:min="500" t:max="15000" t:steps="100"/>
-                            </td>
-                        </tr>
-                    </table>
+
+                            <t:slider value="slider" id="slider" t:min="500" t:max="15000" t:steps="145"/>
+
                 </td>
             </tr>
             <tr>

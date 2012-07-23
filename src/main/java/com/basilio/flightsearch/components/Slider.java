@@ -28,9 +28,9 @@ import java.util.Locale;
         stylesheet = {"Slider.css"})
 public class Slider implements ClientElement
 {
-    private final static String handleCSS = "ck_slider-handle";
-    private final static String trackCSS = "ck_slider-track";
-    private final static String valueCSS = "ck_slider-value";
+    private final static String handleCSS = "slider-handle";
+    private final static String trackCSS = "slider-track";
+    private final static String valueCSS = "slider-value";
 
     /**
      * The id used to generate a page-unique client-side identifier for the component. If a component renders multiple
@@ -119,25 +119,22 @@ public class Slider implements ClientElement
         ticks.append("values: [");
         int accumulatedStep=min;
         for(int a = 0; a<steps;a++){
-            if((a+1)<steps){
-                ticks.append(accumulatedStep);
-                ticks.append(",");
-            }else{
-                ticks.append(accumulatedStep);
-            }
+            ticks.append(accumulatedStep);
+            ticks.append(",");
             accumulatedStep+=(int)realStep;
         }
+        ticks.append(accumulatedStep);
         ticks.append("]");
 
         String jsCommand = "new Control.Slider('%s','%s',{sliderValue:" + getNumberPattern(value) + ",range:" +
                 "$R('%d','%d'),"+ticks.toString()+
-                ",onSlide:function(v){$('%s').innerHTML = 'No more than ' + v  + ' dollars'}";
+                ",onSlide:function(v){$('%s').innerHTML = 'No more than ' + v  + ' USD'}";
         jsCommand = String.format(Locale.US, jsCommand, handleId, tackId, value,min, max, ouputId);
 
         if (disabled)
             jsCommand += ",disabled:true";
 
-        jsCommand += ", onChange:function(value){$('%s').innerHTML = 'No more than ' + value + ' dollars'; new Ajax.Request('%s/' + value ,{method:'get', onFailure: function(){ alert('%s')}})}});";
+        jsCommand += ", onChange:function(value){$('%s').innerHTML = 'No more than ' + value + ' USD'; new Ajax.Request('%s/' + value ,{method:'get', onFailure: function(){ alert('%s')}})}});";
         jsCommand = String.format(Locale.US, jsCommand, ouputId, getActionLink(), "Something went wrong...");
 
         javascriptSupport.addScript(jsCommand);
