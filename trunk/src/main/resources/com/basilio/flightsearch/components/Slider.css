@@ -9,7 +9,7 @@ div.slider-handle {
 div.slider-track {
     position: relative;
     top: 10px;
-    width: 260px;
+    width: 300px;
     background-color: #aaa;
     height: 5px;
 }
@@ -17,5 +17,5 @@ div.slider-track {
 div.slider-value {
     position: relative;
     top: 0px;
-    left: 270px;
+    left: 310px;
 }

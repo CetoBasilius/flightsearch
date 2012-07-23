@@ -12,7 +12,7 @@
                     <label t:type="label" t:for="origin">Origin</label>
                 </th>
                 <td>
-                    <t:textfield t:id="origin" t:value="origin" t:mixins="autocomplete" size="60" t:validate="required,codeintextfield"/>
+                    <t:textfield t:id="origin" t:value="origin" t:mixins="autocomplete" size="70" t:validate="required,codeintextfield"/>
                 </td>
             </tr>
             <tr>
@@ -20,7 +20,7 @@
                     <label t:type="label" t:for="destination">Destination</label>
                 </th>
                 <td>
-                    <t:textfield t:id="destination" t:mixins="autocomplete" size="60" t:validate="required,codeintextfield"/>
+                    <t:textfield t:id="destination" t:mixins="autocomplete" size="70" t:validate="required,codeintextfield"/>
                 </td>
             </tr>
             <tr>
@@ -54,7 +54,7 @@
                 </th>
                 <td>
 
-                            <t:slider value="slider" id="slider" t:min="500" t:max="15000" t:steps="145"/>
+                            <t:slider value="slider" id="slider" t:min="200" t:max="15000" t:steps="148"/>
 
                 </td>
             </tr>
