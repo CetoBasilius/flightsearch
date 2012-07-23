@@ -1,21 +1,21 @@
-DIV.ck_slider-handle {
-    width: 5px;
+div.slider-handle {
+    width: 15px;
     height: 15px;
-    top: -5px;
+    top: -6px;
     background-color: #555;
     cursor: move;
 }
 
-DIV.ck_slider-track {
+div.slider-track {
     position: relative;
     top: 10px;
-    width: 200px;
+    width: 260px;
     background-color: #aaa;
     height: 5px;
 }
 
-DIV.ck_slider-value {
+div.slider-value {
     position: relative;
     top: 0px;
-    left: 210px;
+    left: 270px;
 }

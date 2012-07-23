@@ -29,7 +29,8 @@ public class OutboundRoutes{
 
     private SimpleDateFormat inDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private SimpleDateFormat outDateFormat = new SimpleDateFormat("MMMM d', 'H:mm");
-    private SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm");
+    private SimpleDateFormat inHourFormat = new SimpleDateFormat("H:mm");
+    private SimpleDateFormat outHourFormat = new SimpleDateFormat("H' hours and 'mm' ,minutes'");
 
     public String getDuration(){
 		return this.duration;
@@ -78,7 +79,7 @@ public class OutboundRoutes{
         Date duration = new Date();
         try {
             departureDate = inDateFormat.parse(this.getDepartureTime());
-            duration = hourFormat.parse(this.getDuration());
+            duration = inHourFormat.parse(this.getDuration());
         } catch (ParseException e) {
             logger.error("Date was unparseable!");
         }
@@ -90,16 +91,16 @@ public class OutboundRoutes{
         StringBuffer buffer = new StringBuffer();
         buffer.append("This flight leaves at ");
         buffer.append(outDateFormat.format(departureDate));
-        buffer.append(", returns at ");
+        buffer.append(", from ");
+        buffer.append(this.getDeparturePlace());
+        buffer.append(", arrives on ");
         buffer.append(outDateFormat.format(arriveDate));
+        buffer.append(", at ");
+        buffer.append(this.getFinalDestination());
         buffer.append(", it has a duration of ");
-        buffer.append(this.getDuration());
+        buffer.append(outHourFormat.format(duration));
         buffer.append(". Segment size: ");
         buffer.append(this.getSegments().size());
-        buffer.append(". Leaves from ");
-        buffer.append(this.getDeparturePlace());
-        buffer.append(", arrives at ");
-        buffer.append(this.getFinalDestination());
 
         return buffer.toString();
     }

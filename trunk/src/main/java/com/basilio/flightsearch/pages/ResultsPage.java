@@ -8,8 +8,12 @@ import com.basilio.flightsearch.entities.result.*;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Zone;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.apache.tapestry5.services.Request;
 import org.chenillekit.tapestry.core.components.PagedLoop;
+import org.chenillekit.tapestry.core.components.Window;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +29,9 @@ import java.util.List;
 @GuestAccess
 public class ResultsPage {
 
+    @Property
+    @Inject
+    private Request request;
 
     @Property
     @Persist(PersistenceConstants.SESSION)
@@ -77,6 +84,7 @@ public class ResultsPage {
 
     public void setup(Search search,Result result)
     {
+        customPagedLoop.setCurrentPage(1);
         this.result = result;
         this.search = search;
 
@@ -97,11 +105,12 @@ public class ResultsPage {
     }
 
     public String getFlightPrice(){
+        DecimalFormat df = new DecimalFormat("#.00");
 
-        return String.valueOf(flight.getPriceInfo().getTotal().getFare().intValue())+" dollars";
+        return df.format(flight.getPriceInfo().getTotal().getFare().floatValue())+" USD";
     }
 
-    public void onActionFromViewDepart(String id)
+    /*public void onActionFromViewDepart(String id)
     {
         visualizingFlight = "Visualizing flight "+id;
         List<Double> setupList = new ArrayList<Double>();
@@ -123,7 +132,7 @@ public class ResultsPage {
         setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
 
         this.setupGMap(setupList);
-    }
+    }*/
 
     public String getFlightDescription(){
         return flight.getDescription();

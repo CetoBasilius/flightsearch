@@ -99,6 +99,22 @@ public class Segments{
 	}
 
     public String getDescription() {
-        return "This is a segment description";
+        StringBuffer buffer = new StringBuffer();
+        Departure departure1 = this.getDeparture();
+
+        buffer.append("it will depart from ");
+        buffer.append(departure1.getLocation());
+        buffer.append(", ");
+        buffer.append(departure1.getLocationDescription());
+
+        Arrival arrival1 = this.getArrival();
+
+        buffer.append(" and arrive at ");
+        buffer.append(arrival1.getLocation());
+        buffer.append(", ");
+        buffer.append(arrival1.getLocationDescription());
+
+
+        return buffer.toString();
     }
 }
