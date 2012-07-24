@@ -91,13 +91,19 @@ public class ResultsPage {
 
 
 
-    @Component(parameters = {"style=bluelighting", "show=false",
-            "modal=true", "title=literal:Window 1"})
-    private Window window1;
+    @Component(parameters = {"style=bluelighting",
+            "show=false",
+            "modal=true",
+            "width=500",
+            "title=literal:Outbound Segments"})
+    private Window outboundWindow;
 
-    @Component(parameters = {"style=bluelighting", "show=false",
-            "modal=true", "title=literal:Window 1"})
-    private Window window2;
+    @Component(parameters = {"style=bluelighting",
+            "show=false",
+            "modal=true",
+            "width=500",
+            "title=literal:Inbound Segments"})
+    private Window inboundWindow;
 
 
 

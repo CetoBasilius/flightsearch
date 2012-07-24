@@ -115,7 +115,7 @@
                                                         <tr>
                                                             <td style="border-style:solid; border-width:1px;">
                                                                 <a href="#" onclick="Windows.windows[0].showCenter()">click here to show segments details</a>
-                                                                <div t:id="window1">
+                                                                <div t:id="outboundWindow">
                                                                     <table>
                                                                         <t:loop source="outSegments" value="outSegment">
                                                                             <tr>
@@ -213,7 +213,7 @@
                                                         <tr>
                                                             <td style="border-style:solid; border-width:1px;">
                                                                 <a href="#" onclick="Windows.windows[1].showCenter()">click here to show segments details</a>
-                                                                <div t:id="window2">
+                                                                <div t:id="inboundWindow">
                                                                     <table>
                                                                         <t:loop source="inSegments" value="inSegment">
                                                                             <tr>
