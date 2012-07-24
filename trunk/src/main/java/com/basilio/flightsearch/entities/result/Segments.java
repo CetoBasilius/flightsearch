@@ -98,25 +98,26 @@ public class Segments{
 		this.stopovers = stopovers;
 	}
 
-    public String getDescription() {
+    public String getDepartureDescription(){
         StringBuffer buffer = new StringBuffer();
         Departure departure1 = this.getDeparture();
-
-        buffer.append("it will depart from ");
         buffer.append(departure1.getLocation());
         buffer.append(", ");
         buffer.append(departure1.getLocationDescription());
+        return buffer.toString();
+    }
 
+    public String getArrivalDescription(){
+        StringBuffer buffer = new StringBuffer();
         Arrival arrival1 = this.getArrival();
-
-        buffer.append(" and arrive at ");
         buffer.append(arrival1.getLocation());
         buffer.append(", ");
         buffer.append(arrival1.getLocationDescription());
+        return buffer.toString();
+    }
 
-        buffer.append(", DELAYINFO: ");
-        buffer.append(this.getDelayInfo());
-
+    public String getDescription() {
+        StringBuffer buffer = new StringBuffer();
         return buffer.toString();
     }
 }

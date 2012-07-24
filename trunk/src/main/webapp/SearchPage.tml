@@ -5,7 +5,7 @@
       xmlns:p="tapestry:parameter">
 
     <form t:type="form" t:id="searchForm" class="full-form" >
-    <t:errors />
+    <t:errors/>
         <table>
             <tr>
                 <th>
@@ -53,9 +53,7 @@
                     <label>Budget</label>
                 </th>
                 <td>
-
-                            <t:slider value="slider" id="slider" t:min="200" t:max="15000" t:steps="148"/>
-
+                    <t:slider value="slider" id="slider" t:min="200" t:max="15000" t:steps="148"/>
                 </td>
             </tr>
             <tr>

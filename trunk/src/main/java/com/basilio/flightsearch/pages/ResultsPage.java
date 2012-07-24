@@ -6,9 +6,14 @@ import com.basilio.flightsearch.components.Window;
 import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.Block;
+import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.PersistenceConstants;
+import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 
@@ -30,6 +35,9 @@ import java.util.List;
 
 @GuestAccess
 public class ResultsPage {
+
+    @Component
+    private Form buyForm;
 
     @Property
     @Inject
@@ -67,7 +75,11 @@ public class ResultsPage {
     private Search search;
 
     @Property
+    @Persist
     private Flights flight;
+
+    @Property
+    private int flightIndex;
 
     @Property
     private OutboundRoutes outboundRoute;
@@ -84,12 +96,28 @@ public class ResultsPage {
     @Property
     private boolean emptyResult;
 
+    @Inject
+    private Messages messages;
+
     @Property
     @Persist
     private int rowsPerPage;
 
+    @Property
+    private int outBoundIndex;
 
+    @Property
+    @Persist
+    @SuppressWarnings("unused")
+    private String outRadioSelectedValue;
 
+    @Property
+    private int inBoundIndex;
+
+    @Property
+    @Persist
+    @SuppressWarnings("unused")
+    private String inRadioSelectedValue;
 
     @Component(parameters = {"style=bluelighting",
             "show=false",
@@ -119,6 +147,17 @@ public class ResultsPage {
     public void setupGMap(List<Double> coordinatesin){
         coordinatesParameter = coordinatesin;
     }
+
+
+    public String getOutboundRouteShort(){
+        //TODO: this method gives me the correct value
+        return flightIndex+","+outBoundIndex+","+(this.getNumFlightsBeforeCurrentPage()+flightIndex);
+    }
+
+    public String getInboundRouteShort(){
+        return inboundRoute.toString();
+    }
+
 
     public String getNumFlights(){
         int numFlights = 0;
@@ -158,25 +197,141 @@ public class ResultsPage {
         this.setupGMap(setupList);
     }*/
 
+    @Persist
+    private String bought;
+
+    public String getBoughtItem(){
+        return bought;
+    }
+
     public String getFlightDescription(){
         return flight.getDescription();
     }
 
-    public String getOutSegmentInfo(){
-        return outSegment.getDescription();
+    public String getOutSegmentArriveInfo(){
+        return outSegment.getArrivalDescription();
     }
 
-    public String getInSegmentInfo(){
-        return inSegment.getDescription();
+    public String getOutSegmentLeaveInfo(){
+        return outSegment.getDepartureDescription();
+    }
+
+    public String getInSegmentArriveInfo(){
+        return inSegment.getArrivalDescription();
+    }
+
+    public String getInSegmentLeaveInfo(){
+        return inSegment.getDepartureDescription();
     }
 
 
+    @Log
+    @OnEvent(value = EventConstants.SUCCESS, component = "buyForm")
+    public Object buyTicket(){
+        if(StringUtils.isNotBlank(outRadioSelectedValue)){
+            bought = "SV:"+this.outRadioSelectedValue;
+        } else {
+            buyForm.recordError(messages.get("error.mustselectoutboundroute"));
+            return null;
+        }
+        /*if(search.isRoundTrip()){
+            if(StringUtils.isNotBlank(inRadioSelectedValue)){
+                bought += inRadioSelectedValue;
+            } else {
+                buyForm.recordError(messages.get("error.mustselectinboundroute"));
+                return null;
+            }
+        }*/
+
+        return null;
+    }
     //-----------------------------------------------
 
     public String getOutRouteScheduleInfo(){
         return outboundRoute.getScheduleDescription();
     }
 
+
+
+    private int getNumFlightsBeforeCurrentPage() {
+        if(customPagedLoop.getCurrentPage()<1){
+            customPagedLoop.setCurrentPage(1);
+        }
+        return (customPagedLoop.getCurrentPage()-1)*rowsPerPage;
+    }
+//-----------------------------------------------------
+    @Property
+    private final ValueEncoder<InboundRoutes> inboundRoutesValueEncoder = new ValueEncoder<InboundRoutes>() {
+
+        public String toClient(InboundRoutes answer) {
+            int in = flight.getInboundRoutes().indexOf(answer);
+            return String.valueOf(in);
+        }
+
+        public InboundRoutes toValue(String str) {
+            if(StringUtils.isNotBlank(str)){
+                int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
+                return result.getFlights().get(numberOfFlightsBeforeThisOne+1+flightIndex).getInboundRoutes().get(Integer.parseInt(str));
+            }else{
+                return null;
+            }
+        }
+    };
+
+    @Property
+    private final ValueEncoder<Segments> inSegmentsValueEncoder = new ValueEncoder<Segments>() {
+
+        public String toClient(Segments answer) {
+            int in = inboundRoute.getSegments().indexOf(answer);
+            return String.valueOf(in);
+        }
+
+        public Segments toValue(String str) {
+            if(StringUtils.isNotBlank(str)){
+                int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
+                return result.getFlights().get(numberOfFlightsBeforeThisOne + 1 + flightIndex).getInboundRoutes().get(outBoundIndex).getSegments().get(Integer.parseInt(str));
+            }else{
+                return null;
+            }
+        }
+    };
+//-----------------------------------------------------
+    @Property
+    private final ValueEncoder<OutboundRoutes> outboundRoutesValueEncoder = new ValueEncoder<OutboundRoutes>() {
+
+        public String toClient(OutboundRoutes answer) {
+            int in = flight.getOutboundRoutes().indexOf(answer);
+            return String.valueOf(in);
+        }
+
+        public OutboundRoutes toValue(String str) {
+            if(StringUtils.isNotBlank(str)){
+                int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
+                return result.getFlights().get(numberOfFlightsBeforeThisOne+1+flightIndex).getOutboundRoutes().get(Integer.parseInt(str));
+            }else{
+                return null;
+            }
+        }
+    };
+
+    @Property
+    private final ValueEncoder<Segments> outSegmentsValueEncoder = new ValueEncoder<Segments>() {
+
+        public String toClient(Segments answer) {
+            int in = outboundRoute.getSegments().indexOf(answer);
+            return String.valueOf(in);
+        }
+
+        public Segments toValue(String str) {
+            if(StringUtils.isNotBlank(str)){
+                int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
+                return result.getFlights().get(numberOfFlightsBeforeThisOne + 1 + flightIndex).getOutboundRoutes().get(outBoundIndex).getSegments().get(Integer.parseInt(str));
+            }else{
+                return null;
+            }
+        }
+    };
+//-----------------------------------------------------
     public String getOutRouteSegmentInfo(){
         return outboundRoute.getSegmentsDescription();
     }
@@ -273,6 +428,9 @@ public class ResultsPage {
         return inRoutes;
     }
 
+    @Persist
+    private Flights[] storedFlights;
+
     @Log
     public Flights[] getFlights()
     {
@@ -309,6 +467,7 @@ public class ResultsPage {
             resultArray[0] = new Flights();
             emptyResult=true;
         }
+        storedFlights=resultArray;
         return resultArray;
     }
 
