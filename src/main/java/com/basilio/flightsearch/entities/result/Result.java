@@ -35,6 +35,7 @@ public class Result{
     public String getDescription() {
         StringBuffer buffer = new StringBuffer();
         if(flights!=null){
+            if(flights.size()>0){
             buffer.append("We found ");
             buffer.append(this.getFlights().size());
             buffer.append(" flights matching your search, of which ");
@@ -46,6 +47,9 @@ public class Result{
             buffer.append(" dollars per adult.");/*, and the most expensive flight is ");
             buffer.append(this.getMeta().getFacets().get(2).getMax());
             buffer.append(" dollars per adult. ");*/
+            } else {
+                buffer.append("We are sorry, but your search had no results.");
+            }
         }
         return buffer.toString();
     }

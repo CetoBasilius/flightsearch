@@ -73,16 +73,6 @@ public class OutboundRoutes{
         return this.getSegments().get(0).getDeparture().getDate();
     }
 
-    public String getDescription() {
-
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("This flight leaves from ");
-        buffer.append(this.getDeparturePlace());
-        buffer.append(", and will arrive at ");
-        buffer.append(this.getFinalDestination());
-        return buffer.toString();
-    }
-
     public String getScheduleDescription() {
         StringBuffer buffer = new StringBuffer();
         Date departureDate = new Date();
@@ -131,5 +121,13 @@ public class OutboundRoutes{
         }
 
         return buffer.toString();
+    }
+
+    public String getLeaveDescription() {
+        return this.getDeparturePlace();
+    }
+
+    public String getArriveDescription() {
+        return this.getFinalDestination();
     }
 }
