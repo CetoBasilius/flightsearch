@@ -125,4 +125,11 @@ public class InboundRoutes{
         return buffer.toString();
     }
 
+    public String getArriveDescription() {
+        return this.getFinalDestination();
+    }
+
+    public String getLeaveDescription() {
+        return this.getDeparturePlace();
+    }
 }

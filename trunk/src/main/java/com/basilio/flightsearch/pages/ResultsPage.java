@@ -2,16 +2,17 @@ package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.components.CustomPagedLoop;
+import com.basilio.flightsearch.components.Window;
 import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.*;
+import org.apache.tapestry5.Block;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.*;
-import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
-import org.chenillekit.tapestry.core.components.PagedLoop;
-import org.chenillekit.tapestry.core.components.Window;
+
+
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -86,6 +87,19 @@ public class ResultsPage {
     @Property
     @Persist
     private int rowsPerPage;
+
+
+
+
+    @Component(parameters = {"style=bluelighting", "show=false",
+            "modal=true", "title=literal:Window 1"})
+    private Window window1;
+
+    @Component(parameters = {"style=bluelighting", "show=false",
+            "modal=true", "title=literal:Window 1"})
+    private Window window2;
+
+
 
     public void setup(Search search,Result result)
     {
@@ -165,8 +179,12 @@ public class ResultsPage {
         return outboundRoute.getDurationDescription();
     }
 
-    public String getOutRouteInfo(){
-        return outboundRoute.getDescription();
+    public String getOutRouteArriveInfo(){
+        return outboundRoute.getArriveDescription();
+    }
+
+    public String getOutRouteLeaveInfo(){
+        return outboundRoute.getLeaveDescription();
     }
 
     void setupRender()
@@ -178,19 +196,23 @@ public class ResultsPage {
     //-------------------------------------------
 
     public String getInRouteScheduleInfo(){
-        return outboundRoute.getScheduleDescription();
+        return inboundRoute.getScheduleDescription();
     }
 
     public String getInRouteSegmentInfo(){
-        return outboundRoute.getSegmentsDescription();
+        return inboundRoute.getSegmentsDescription();
     }
 
     public String getInRouteDurationInfo(){
-        return outboundRoute.getDurationDescription();
+        return inboundRoute.getDurationDescription();
     }
 
-    public String getInRouteInfo(){
-        return outboundRoute.getDescription();
+    public String getInRouteArriveInfo(){
+        return inboundRoute.getArriveDescription();
+    }
+
+    public String getInRouteLeaveInfo(){
+        return inboundRoute.getLeaveDescription();
     }
 
     //-------------------------------------------
@@ -217,7 +239,7 @@ public class ResultsPage {
 
     @Log
     public Segments[] getInSegments(){
-        List<Segments> inSegmentsList = outboundRoute.getSegments();
+        List<Segments> inSegmentsList = inboundRoute.getSegments();
         Segments inSegments[] = new Segments[inSegmentsList.size()];
         for(int index = 0; index<inSegmentsList.size();index++){
             inSegments[index] = inSegmentsList.get(index);
