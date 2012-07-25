@@ -121,6 +121,7 @@ public class Route {
         StringBuffer buffer = new StringBuffer();
         if(this.getSegments().size()>1){
             buffer.append(this.getSegments().size());
+            buffer.append(" segments");
         } else {
             buffer.append(" Non-stop");
         }
