@@ -17,7 +17,11 @@ public class Arrival{
    	private String locationDescription;
    	private Number timezone;
 
- 	public String getDate(){
+    public Arrival(String location) {
+        this.location = location;
+    }
+
+    public String getDate(){
 		return this.date;
 	}
 	public void setDate(String date){
