@@ -161,8 +161,9 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="showtd">
-                                                                            <a href="#" onclick="Windows.windows[0].showCenter()">Show segments details</a>
+                                                                            <a href="#" onclick="Windows.windows[${outWindowNumber}].showCenter()">Show segments details</a>
                                                                             <div t:id="outboundWindow">
+                                                                                <p>${staticOutWindowNumber}</p>
                                                                                 <table>
                                                                                     <t:loop source="outSegments" value="outSegment" encoder="outSegmentsValueEncoder">
                                                                                         <tr>
@@ -301,8 +302,9 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="showtd">
-                                                                            <a href="#" onclick="Windows.windows[1].showCenter()">click here to show segments details</a>
+                                                                            <a href="#" onclick="Windows.windows[${inWindowNumber}].showCenter()">Show segments details</a>
                                                                             <div t:id="inboundWindow">
+                                                                                <p>${staticInWindowNumber}</p>
                                                                                 <table>
                                                                                     <t:loop source="inSegments" value="inSegment" encoder="inSegmentsValueEncoder">
                                                                                         <tr>

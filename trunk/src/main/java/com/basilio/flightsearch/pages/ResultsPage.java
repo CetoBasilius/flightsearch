@@ -108,15 +108,17 @@ public class ResultsPage {
     private int rowsPerPage;
 
     @Property
+    @Persist
     private int outBoundIndex;
+
+    @Property
+    @Persist
+    private int inBoundIndex;
 
     @Property
     @Persist
     @SuppressWarnings("unused")
     private String outRadioSelectedValue;
-
-    @Property
-    private int inBoundIndex;
 
     @Property
     @Persist
@@ -151,6 +153,7 @@ public class ResultsPage {
     void setupRender()
     {
         rowsPerPage = 2;
+        windowNumber = 0;
         //TODO: rowsperpage must be retrieved from user settings.
     }
 
@@ -377,7 +380,7 @@ public class ResultsPage {
     }
 
     public String[] getInRouteSegmentInfo(){
-        return outboundRoute.getSegmentsDescription();
+        return inboundRoute.getSegmentsDescription();
     }
 
     public String getOutRouteDurationInfo(){
@@ -434,6 +437,31 @@ public class ResultsPage {
 
     public String getResultDescription(){
         return result.getDescription();
+    }
+
+    @Persist
+    private int windowNumber;
+
+    public String getOutWindowNumber(){
+        int returnNumber = windowNumber;
+        windowNumber++;
+        return ""+returnNumber;
+    }
+
+    public String getInWindowNumber(){
+        int returnNumber = windowNumber;
+        windowNumber++;
+        return ""+returnNumber;
+    }
+
+    public String getStaticOutWindowNumber(){
+        int returnNumber = windowNumber-1;
+        return ""+returnNumber;
+    }
+
+    public String getStaticInWindowNumber(){
+        int returnNumber = windowNumber-1;
+        return ""+returnNumber;
     }
 
     @Log
