@@ -50,7 +50,7 @@
                             <tr height="10">&nbsp;</tr>
                             <t:if test="!emptyResult">
                                 <tr>
-                                    <td class="showtd">
+                                    <td class="flightbox">
                                         <form t:type="form" t:id="buyForm">
                                             <t:errors/>
                                             ${flightDescription}<br/>
@@ -59,18 +59,18 @@
 
                                                     <table>
                                                         <tr>
-                                                            <td class="showtd">
-                                                                <table>
+                                                            <td class="goingbox">
+                                                                <table class="blueflightchooser">
                                                                     <tr>
-                                                                        <td class="showtd">
+                                                                        <td>
                                                                             <t:radio id="radio_${outBoundIndex}" value="outboundRouteShort"/>
                                                                         </td>
-                                                                        <td class="showtd">
+                                                                        <td>
                                                                             <center>
                                                                                 <img src="${request.contextPath}/layout/images/going.png" />
                                                                             </center>
                                                                         </td>
-                                                                        <td class="showtd">
+                                                                        <td>
                                                                             <label class="routelabel">Going</label>
                                                                         </td>
                                                                     </tr>
@@ -78,13 +78,13 @@
 
                                                                 <table>
                                                                     <tr>
-                                                                        <td class="showtd">
+                                                                        <td class="rounded4">
                                                                             <table>
                                                                                 <tr>
                                                                                     <th style="width:10%;">
                                                                                         <label>Schedule</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
+                                                                                    <td class="rounded5">
                                                                                         ${outRouteScheduleInfo}<br/>
                                                                                     </td>
                                                                                 </tr>
@@ -92,7 +92,7 @@
                                                                                     <th style="width:10%;">
                                                                                         <label>Duration</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
+                                                                                    <td class="rounded5">
                                                                                         ${outRouteDurationInfo}<br/>
                                                                                     </td>
                                                                                 </tr>
@@ -101,34 +101,25 @@
                                                                                     <th style="width:10%;">
                                                                                         <label>Type</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
+                                                                                    <td class="rounded5">
                                                                                         ${outRouteType}<br/>
                                                                                     </td>
                                                                                 </tr>
 
                                                                                 <tr>
                                                                                     <th style="width:10%;">
-                                                                                        <label>Description</label>
+                                                                                        <label>Leaves</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
-                                                                                        <table>
-                                                                                            <tr>
-                                                                                                <th style="width:10%;">
-                                                                                                    <label>Leaves</label>
-                                                                                                </th>
-                                                                                                <td class="showtd">
-                                                                                                    ${outRouteLeaveInfo}<br/>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <th style="width:10%;">
-                                                                                                    <label>Arrives</label>
-                                                                                                </th>
-                                                                                                <td class="showtd">
-                                                                                                    ${outRouteArriveInfo}<br/>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </table>
+                                                                                    <td class="rounded5">
+                                                                                        ${outRouteLeaveInfo}<br/>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th style="width:10%;">
+                                                                                        <label>Arrives</label>
+                                                                                    </th>
+                                                                                    <td class="rounded5">
+                                                                                        ${outRouteArriveInfo}<br/>
                                                                                     </td>
                                                                                 </tr>
 
@@ -136,32 +127,34 @@
                                                                                     <th style="width:10%;">
                                                                                         <label>Segments</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
+                                                                                    <td class="rounded5">
                                                                                         <table style="width:100%;">
                                                                                             <tr>
-                                                                                                <td class="showtd" style="width:30%">
+                                                                                                <td style="text-align:right">
                                                                                                     ${outRouteSegmentNumber}<br/>
                                                                                                 </td>
-                                                                                                 <td class="showtd">
-                                                                                                    <center>
-                                                                                                        <t:loop source="outRouteSegmentInfo" value="outSegmentInfo" index="outRouteSegmentInfoIndex">
-                                                                                                            ${outSegmentInfo}
-                                                                                                            <t:if test="outContinueRenderingArrow">
-                                                                                                                <img src="${request.contextPath}/layout/images/arrowright.png" />
-                                                                                                            </t:if>
-                                                                                                        </t:loop>
-                                                                                                    </center>
+                                                                                                <td>&nbsp;</td>
+                                                                                                <td>
+                                                                                                    <t:loop source="outRouteSegmentInfo" value="outSegmentInfo" index="outRouteSegmentInfoIndex">
+                                                                                                        ${outSegmentInfo}
+                                                                                                        <t:if test="outContinueRenderingArrow">
+                                                                                                            <img src="${request.contextPath}/layout/images/arrowright.png" />
+                                                                                                        </t:if>
+                                                                                                    </t:loop>
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </table>
+                                                                                        <center>
+                                                                                            <a href="#" onclick="Windows.windows[${outWindowNumber}].showCenter()">Show segment details</a>
+                                                                                        </center>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="showtd">
-                                                                            <a href="#" onclick="Windows.windows[${outWindowNumber}].showCenter()">Show segments details</a>
+                                                                        <td>
+
                                                                             <div t:id="outboundWindow">
                                                                                 <p>${staticOutWindowNumber}</p>
                                                                                 <table>
@@ -171,7 +164,7 @@
                                                                                                 <label>Leaves</label>
                                                                                             </th>
                                                                                             <td class="showtd">
-                                                                                                ${outSegmentLeaveInfo}<br/>
+                                                                                                ${outSegmentLeaveInfo}
                                                                                             </td>
                                                                                         </tr>
                                                                                         <tr>
@@ -200,18 +193,18 @@
                                                 <t:loop source="inRoutes" value="inboundRoute" index="inBoundIndex" encoder="inboundRoutesValueEncoder">
                                                     <table>
                                                         <tr>
-                                                            <td class="showtd">
-                                                                <table>
+                                                            <td class="returningbox">
+                                                                <table class="redflightchooser">
                                                                     <tr>
-                                                                        <td class="showtd">
+                                                                        <td>
                                                                             <t:radio id="radio_${inBoundIndex}" value="inboundRouteShort"/>
                                                                         </td>
-                                                                        <td class="showtd">
+                                                                        <td>
                                                                             <center>
                                                                                 <img src="${request.contextPath}/layout/images/returning.png" />
                                                                             </center>
                                                                         </td>
-                                                                        <td class="showtd">
+                                                                        <td>
                                                                             <label class="routelabel">Returning</label>
                                                                         </td>
                                                                     </tr>
@@ -219,13 +212,13 @@
 
                                                                 <table>
                                                                     <tr>
-                                                                        <td class="showtd">
+                                                                        <td class="rounded4">
                                                                             <table>
                                                                                 <tr>
                                                                                     <th style="width:10%;">
                                                                                         <label>Schedule</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
+                                                                                    <td class="rounded5">
                                                                                         ${inRouteScheduleInfo}<br/>
                                                                                     </td>
                                                                                 </tr>
@@ -233,7 +226,7 @@
                                                                                     <th style="width:10%;">
                                                                                         <label>Duration</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
+                                                                                    <td class="rounded5">
                                                                                         ${inRouteDurationInfo}<br/>
                                                                                     </td>
                                                                                 </tr>
@@ -242,34 +235,25 @@
                                                                                     <th style="width:10%;">
                                                                                         <label>Type</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
+                                                                                    <td class="rounded5">
                                                                                         ${inRouteType}<br/>
                                                                                     </td>
                                                                                 </tr>
 
                                                                                 <tr>
                                                                                     <th style="width:10%;">
-                                                                                        <label>Description</label>
+                                                                                        <label>Leaves</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
-                                                                                        <table>
-                                                                                            <tr>
-                                                                                                <th style="width:10%;">
-                                                                                                    <label>Leaves</label>
-                                                                                                </th>
-                                                                                                <td class="showtd">
-                                                                                                    ${inRouteLeaveInfo}<br/>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                            <tr>
-                                                                                                <th style="width:10%;">
-                                                                                                    <label>Arrives</label>
-                                                                                                </th>
-                                                                                                <td class="showtd">
-                                                                                                    ${inRouteArriveInfo}<br/>
-                                                                                                </td>
-                                                                                            </tr>
-                                                                                        </table>
+                                                                                    <td class="rounded5">
+                                                                                        ${inRouteLeaveInfo}<br/>
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th style="width:10%;">
+                                                                                        <label>Arrives</label>
+                                                                                    </th>
+                                                                                    <td class="rounded5">
+                                                                                        ${inRouteArriveInfo}<br/>
                                                                                     </td>
                                                                                 </tr>
 
@@ -277,32 +261,36 @@
                                                                                     <th style="width:10%;">
                                                                                         <label>Segments</label>
                                                                                     </th>
-                                                                                    <td class="showtd">
+                                                                                    <td class="rounded5">
                                                                                         <table style="width:100%;">
                                                                                             <tr>
-                                                                                                <td class="showtd" style="width:30%">
-                                                                                                    ${inRouteSegmentNumber}<br/>
+                                                                                                <td style="text-align:right;">
+                                                                                                    ${inRouteSegmentNumber}
                                                                                                 </td>
-                                                                                                 <td class="showtd">
-                                                                                                    <center>
-                                                                                                        <t:loop source="inRouteSegmentInfo" value="inSegmentInfo" index="inRouteSegmentInfoIndex">
-                                                                                                            ${inSegmentInfo}
-                                                                                                            <t:if test="inContinueRenderingArrow">
-                                                                                                                <img src="${request.contextPath}/layout/images/arrowright.png" />
-                                                                                                            </t:if>
-                                                                                                        </t:loop>
-                                                                                                    </center>
+                                                                                                <td>&nbsp;</td>
+                                                                                                <td>
+
+                                                                                                    <t:loop source="inRouteSegmentInfo" value="inSegmentInfo" index="inRouteSegmentInfoIndex">
+                                                                                                        ${inSegmentInfo}
+                                                                                                        <t:if test="inContinueRenderingArrow">
+                                                                                                            <img src="${request.contextPath}/layout/images/arrowright.png" />
+                                                                                                        </t:if>
+                                                                                                    </t:loop>
+
                                                                                                 </td>
                                                                                             </tr>
                                                                                         </table>
+                                                                                        <center>
+                                                                                            <a href="#" onclick="Windows.windows[${inWindowNumber}].showCenter()">Show segment details</a>
+                                                                                        </center>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>
+
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="showtd">
-                                                                            <a href="#" onclick="Windows.windows[${inWindowNumber}].showCenter()">Show segments details</a>
+                                                                        <td>
                                                                             <div t:id="inboundWindow">
                                                                                 <p>${staticInWindowNumber}</p>
                                                                                 <table>
@@ -343,7 +331,7 @@
                                                 </t:loop>
                                                 <table align="right">
                                                     <tr>
-                                                        <td align="right" class="showtd">
+                                                        <td align="right">
                                                             <table>
                                                                 <tr>
                                                                     <td>

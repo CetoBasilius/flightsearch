@@ -419,7 +419,30 @@ table.buytable td.buytdcenter {
     color:#FFFFFF;
 }
 
+table.blueflightchooser {
+    border-style:solid; border-width:4px;
+    border-color:#009ACD;
+    background-color: #FFFFFF;
+    padding: 5px;
+    margin-top: 10px;
+    margin-right: 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+table.redflightchooser {
+    border-style:solid; border-width:4px;
+    border-color:#FF5333;
+    background-color: #FFFFFF;
+    padding: 5px;
+    margin-top: 10px;
+    margin-right: 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
 table.pricetable {
+
     border-spacing:3px;
     width:130px;
     font-size: 1.2em;
@@ -429,6 +452,57 @@ table.pricetable {
 
 table td.showtd {
     border-style:solid; border-width:1px;
+}
+
+
+table td.flightbox {
+    border-style:solid; border-width:1px;
+    background-color: #FAFAFA;
+	padding: 5px;
+	margin-top: 10px;
+	margin-right: 20px;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+}
+
+table td.goingbox {
+    #border-style:solid; border-width:1px;
+    background-color: #00BFFF;
+	padding: 10px;
+	margin-top: 10px;
+	margin-right: 20px;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+}
+
+table td.returningbox {
+    #border-style:solid; border-width:1px;
+    background-color: #FF6666;
+	padding: 10px;
+	margin-top: 10px;
+	margin-right: 20px;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+}
+
+table td.rounded4 {
+    border-style:solid; border-width:1px;
+    background-color: #FAFAFA;
+    padding: 5px;
+    margin-top: 10px;
+    margin-right: 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+}
+
+table td.rounded5 {
+    border-style:solid; border-width:1px;
+    background-color: #FFFFFF;
+	padding: 5px;
+	margin-top: 10px;
+	margin-right: 20px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 
 
@@ -458,6 +532,5 @@ label.routelabel {
     #non-printable { display: none; }
     #printable { display: block; }
 }
-
 
 
