@@ -16,6 +16,7 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
+import org.apache.commons.lang.WordUtils;
 
 
 
@@ -38,6 +39,9 @@ public class ResultsPage {
 
     @Component
     private Form buyForm;
+
+    @Component
+    private Form errorForm;
 
     @Property
     @Inject
@@ -144,6 +148,12 @@ public class ResultsPage {
         this.destination = search.getDestinationAirport().getCode();
     }
 
+    void setupRender()
+    {
+        rowsPerPage = 2;
+        //TODO: rowsperpage must be retrieved from user settings.
+    }
+
     public void setupGMap(List<Double> coordinatesin){
         coordinatesParameter = coordinatesin;
     }
@@ -155,7 +165,7 @@ public class ResultsPage {
     }
 
     public String getInboundRouteShort(){
-        return inboundRoute.toString();
+        return flightIndex+","+inBoundIndex+","+(this.getNumFlightsBeforeCurrentPage()+flightIndex);
     }
 
 
@@ -216,6 +226,8 @@ public class ResultsPage {
         return outSegment.getDepartureDescription();
     }
 
+
+
     public String getInSegmentArriveInfo(){
         return inSegment.getArrivalDescription();
     }
@@ -224,33 +236,41 @@ public class ResultsPage {
         return inSegment.getDepartureDescription();
     }
 
+    public boolean getInContinueRenderingArrow(){
+        if(inRouteSegmentInfoIndex<inboundRoute.getSegments().size()){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean getOutContinueRenderingArrow(){
+        if(outRouteSegmentInfoIndex<outboundRoute.getSegments().size()){
+            return true;
+        }
+        return false;
+    }
 
     @Log
     @OnEvent(value = EventConstants.SUCCESS, component = "buyForm")
     public Object buyTicket(){
         if(StringUtils.isNotBlank(outRadioSelectedValue)){
-            bought = "SV:"+this.outRadioSelectedValue;
+            bought = "SVO:"+this.outRadioSelectedValue;
         } else {
-            buyForm.recordError(messages.get("error.mustselectoutboundroute"));
+            errorForm.recordError(messages.get("error.mustselectoutboundroute"));
             return null;
         }
-        /*if(search.isRoundTrip()){
+        if(search.isRoundTrip()){
             if(StringUtils.isNotBlank(inRadioSelectedValue)){
-                bought += inRadioSelectedValue;
+                bought += " SVI:"+inRadioSelectedValue;
             } else {
-                buyForm.recordError(messages.get("error.mustselectinboundroute"));
+                errorForm.recordError(messages.get("error.mustselectinboundroute"));
                 return null;
             }
-        }*/
+        }
 
         return null;
     }
     //-----------------------------------------------
-
-    public String getOutRouteScheduleInfo(){
-        return outboundRoute.getScheduleDescription();
-    }
-
 
 
     private int getNumFlightsBeforeCurrentPage() {
@@ -289,7 +309,7 @@ public class ResultsPage {
         public Segments toValue(String str) {
             if(StringUtils.isNotBlank(str)){
                 int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return result.getFlights().get(numberOfFlightsBeforeThisOne + 1 + flightIndex).getInboundRoutes().get(outBoundIndex).getSegments().get(Integer.parseInt(str));
+                return result.getFlights().get(numberOfFlightsBeforeThisOne + 1 + flightIndex).getInboundRoutes().get(inBoundIndex).getSegments().get(Integer.parseInt(str));
             }else{
                 return null;
             }
@@ -332,7 +352,31 @@ public class ResultsPage {
         }
     };
 //-----------------------------------------------------
-    public String getOutRouteSegmentInfo(){
+    public String getOutRouteSegmentNumber(){
+        return outboundRoute.getSegmentsNumber();
+    }
+
+    public String getInRouteSegmentNumber(){
+        return inboundRoute.getSegmentsNumber();
+    }
+
+    @Property
+    private int outRouteSegmentInfoIndex;
+
+    @Property
+    private int inRouteSegmentInfoIndex;
+
+    @Property
+    private String outSegmentInfo;
+
+    @Property
+    private String inSegmentInfo;
+
+    public String[] getOutRouteSegmentInfo(){
+        return outboundRoute.getSegmentsDescription();
+    }
+
+    public String[] getInRouteSegmentInfo(){
         return outboundRoute.getSegmentsDescription();
     }
 
@@ -340,40 +384,44 @@ public class ResultsPage {
         return outboundRoute.getDurationDescription();
     }
 
-    public String getOutRouteArriveInfo(){
-        return outboundRoute.getArriveDescription();
-    }
-
-    public String getOutRouteLeaveInfo(){
-        return outboundRoute.getLeaveDescription();
-    }
-
-    void setupRender()
-    {
-        rowsPerPage = 2;
-        //TODO: rowsperpage must be retrieved from user settings.
-    }
-
-    //-------------------------------------------
-
-    public String getInRouteScheduleInfo(){
-        return inboundRoute.getScheduleDescription();
-    }
-
-    public String getInRouteSegmentInfo(){
-        return inboundRoute.getSegmentsDescription();
-    }
-
     public String getInRouteDurationInfo(){
         return inboundRoute.getDurationDescription();
+    }
+
+    public String getOutRouteArriveInfo(){
+        return outboundRoute.getArriveDescription();
     }
 
     public String getInRouteArriveInfo(){
         return inboundRoute.getArriveDescription();
     }
 
+    public String getOutRouteLeaveInfo(){
+        return outboundRoute.getLeaveDescription();
+    }
+
     public String getInRouteLeaveInfo(){
         return inboundRoute.getLeaveDescription();
+    }
+
+
+
+    //-------------------------------------------
+
+    public String getOutRouteScheduleInfo(){
+        return outboundRoute.getScheduleDescription();
+    }
+
+    public String getInRouteScheduleInfo(){
+        return inboundRoute.getScheduleDescription();
+    }
+
+    public String getOutRouteType(){
+        return WordUtils.capitalize(outboundRoute.getSegments().get(0).getMarketingCabinTypeCode().toLowerCase());
+    }
+
+    public String getInRouteType(){
+        return WordUtils.capitalize(inboundRoute.getSegments().get(0).getMarketingCabinTypeCode().toLowerCase());
     }
 
     //-------------------------------------------
@@ -428,8 +476,6 @@ public class ResultsPage {
         return inRoutes;
     }
 
-    @Persist
-    private Flights[] storedFlights;
 
     @Log
     public Flights[] getFlights()
@@ -467,7 +513,6 @@ public class ResultsPage {
             resultArray[0] = new Flights();
             emptyResult=true;
         }
-        storedFlights=resultArray;
         return resultArray;
     }
 

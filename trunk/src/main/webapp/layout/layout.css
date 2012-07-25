@@ -408,6 +408,7 @@ table.full {
 }
 
 table.buytable {
+    border-spacing:0px;
     width:100px;
     font-size: 1.2em;
     font-weight: bold;
@@ -419,14 +420,19 @@ table.buytable td.buytdcenter {
 }
 
 table.pricetable {
+    border-spacing:3px;
     width:130px;
     font-size: 1.2em;
     font-weight: bold;
     background: url(images/img03.jpg) no-repeat  center
 }
 
+table td.showtd {
+    border-style:solid; border-width:1px;
+}
 
-table.pricetable td.pricetdcenter {
+
+td.pricetdcenter {
     color:#FFFFFF;
 }
 
@@ -436,6 +442,7 @@ label.routelabel {
 }
 
 .buybutton {
+    width: 80px;
     background: none;
     border-style: none;
     font-weight: bold;

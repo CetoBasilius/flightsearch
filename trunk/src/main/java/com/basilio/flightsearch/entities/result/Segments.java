@@ -25,7 +25,7 @@ public class Segments{
    	private String operatingCarrierDescription;
    	private List stopovers;
 
- 	public Arrival getArrival(){
+    public Arrival getArrival(){
 		return this.arrival;
 	}
 	public void setArrival(Arrival arrival){
