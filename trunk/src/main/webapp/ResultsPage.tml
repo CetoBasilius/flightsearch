@@ -377,6 +377,7 @@
                             </t:if>
                         </a>
                     </table>
+                    <br/>
                     <div id="non-printable">
                         <input type="button"
                           onClick="window.print()"

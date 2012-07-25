@@ -7,6 +7,12 @@ div.paged_loop_pager {
 
 }
 
+label.paged_loop_pagenumber {
+    color: #000000;
+    font-size: 12pt;
+    font-weight: bold;
+}
+
 div.paged_loop_pager A {
     margin: 3px;
     padding-top: 1px;
@@ -18,11 +24,16 @@ div.paged_loop_pager A {
 }
 
 span.paged_loop_current {
-    margin: 3px;
+    color: #000000;
+    #background-color: #00FF00;
+    font-size: 12pt;
+    margin: 5px;
     padding-top: 1px;
     padding-bottom: 1px;
     padding-left: 4px;
     padding-right: 4px;
     font-weight: bold;
     border: 3px solid black;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
 }
