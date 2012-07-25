@@ -108,11 +108,9 @@ public class ResultsPage {
     private int rowsPerPage;
 
     @Property
-    @Persist
     private int outBoundIndex;
 
     @Property
-    @Persist
     private int inBoundIndex;
 
     @Property
@@ -330,7 +328,7 @@ public class ResultsPage {
         public OutboundRoutes toValue(String str) {
             if(StringUtils.isNotBlank(str)){
                 int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return result.getFlights().get(numberOfFlightsBeforeThisOne+1+flightIndex).getOutboundRoutes().get(Integer.parseInt(str));
+                return result.getFlights().get(numberOfFlightsBeforeThisOne+flightIndex).getOutboundRoutes().get(Integer.parseInt(str));
             }else{
                 return null;
             }
@@ -348,7 +346,7 @@ public class ResultsPage {
         public Segments toValue(String str) {
             if(StringUtils.isNotBlank(str)){
                 int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return result.getFlights().get(numberOfFlightsBeforeThisOne + 1 + flightIndex).getOutboundRoutes().get(outBoundIndex).getSegments().get(Integer.parseInt(str));
+                return result.getFlights().get(numberOfFlightsBeforeThisOne + flightIndex).getOutboundRoutes().get(outBoundIndex).getSegments().get(Integer.parseInt(str));
             }else{
                 return null;
             }
