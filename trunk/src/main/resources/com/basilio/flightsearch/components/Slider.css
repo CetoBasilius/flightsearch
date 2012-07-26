@@ -19,3 +19,25 @@ div.slider-value {
     top: 0px;
     left: 310px;
 }
+
+div.slider-handle-custom {
+    width: 8px;
+    height: 15px;
+    top: -6px;
+    background-color: #555;
+    cursor: move;
+}
+
+div.slider-track-custom {
+    position: relative;
+    top: 10px;
+    width: 256px;
+    background-color: #aaa;
+    height: 5px;
+}
+
+div.slider-value-custom {
+    position: relative;
+    top: 20px;
+    left: 40px;
+}

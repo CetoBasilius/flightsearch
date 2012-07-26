@@ -5,25 +5,102 @@
         <table class="full">
             <tr>
                 <td valign="top" id="non-printable" style="width:20%;" class="showtd">
-                    <table>
+                    <table style="width:100%;">
                         <tr>
-                            <td>
-                            Price table
+                            <td class="showtd">
+                                <form t:type="form" t:id="priceFilterForm">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td class="showtd">
+                                                <center>Price</center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign="top" class="resultfilterslider">
+                                                <t:slider value="slider" id="slider" t:min="minPriceFilter" t:max="maxPriceFilter" t:steps="priceFilterSteps"
+                                                t:customHandleCSS="customHandleCSS" t:customTrackCSS="customTrackCSS" t:customValueCSS="customValueCSS"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="showtd">
+                                                <input type="submit" t:type="submit" value="Apply filter" t:id="priceFilter" t:event="priceFilter"/>&nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="showtd">
+                                <form t:type="form" t:id="durationFilterForm">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td class="showtd">
+                                                <center>Duration</center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign="top" class="resultfilterslider">
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="showtd">
+                                                <input type="submit" t:type="submit" value="Apply filter" t:id="durationFilter" t:event="durationFilter"/>&nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                            Duration table
+                                <form t:type="form" t:id="segmentFilterForm">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td class="showtd">
+                                                <center>Segments</center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign="top" class="resultfilterslider">
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="showtd">
+                                                <input type="submit" t:type="submit" value="Apply filter" t:id="segmentFilter" t:event="segmentFilter"/>&nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                            Segments table
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                            Type table
+                                <form t:type="form" t:id="typeFilterForm">
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td class="showtd">
+                                                <center>Type</center>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td valign="top" class="resultfilterslider">
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="showtd">
+                                                <input type="submit" t:type="submit" value="Apply filter" t:id="typeFilter" t:event="typeFilter"/>&nbsp;
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
                             </td>
                         </tr>
                     </table>
@@ -50,28 +127,40 @@
                             <tr height="10">&nbsp;</tr>
                             <t:if test="!emptyResult">
                                 <tr>
-                                    <td class="flightbox">
+                                    <td class="${IsOnPriceRangeCSS}">
                                         <form t:type="form" t:id="buyForm">
                                             <t:errors/>
                                             ${flightDescription}<br/>
+                                            <t:if test="!isOnPriceRangeBoolean">
+                                                <center>This flight is out of your ${BudgetDollarsString} dollar budget!</center>
+                                            </t:if>
                                             <t:radiogroup t:id="outBoundRadios" value="outRadioSelectedValue">
                                                 <t:loop source="outRoutes" value="outboundRoute" index="outBoundIndex" encoder="outboundRoutesValueEncoder">
 
                                                     <table>
                                                         <tr>
                                                             <td class="goingbox">
-                                                                <table class="blueflightchooser">
+                                                                <table>
                                                                     <tr>
                                                                         <td>
-                                                                            <t:radio id="radio_${outBoundIndex}" value="outboundRouteShort"/>
+                                                                            <table class="blueflightchooser">
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <t:radio id="radio_${outBoundIndex}" value="outboundRouteShort"/>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <center>
+                                                                                            <img src="${request.contextPath}/layout/images/going.png" />
+                                                                                        </center>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <label class="routelabel">Going</label>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
                                                                         </td>
-                                                                        <td>
-                                                                            <center>
-                                                                                <img src="${request.contextPath}/layout/images/going.png" />
-                                                                            </center>
-                                                                        </td>
-                                                                        <td>
-                                                                            <label class="routelabel">Going</label>
+                                                                        <td valign="middle">
+                                                                        <!-- some sort of tittle can go here -->
                                                                         </td>
                                                                     </tr>
                                                                 </table>
@@ -341,7 +430,7 @@
                                                                                     <center>
                                                                                         <div class="form-submit">
                                                                                             <input type="submit" t:type="submit" value="Buy" t:id="buy" t:event="buy" class="buybutton"/>&nbsp;
-                                                                                            <!--<input type="submit" t:type="submit" value="Buy" t:id="buy" t:event="buy" /> -->
+
                                                                                         </div>
                                                                                     </center>
                                                                                 </td>
