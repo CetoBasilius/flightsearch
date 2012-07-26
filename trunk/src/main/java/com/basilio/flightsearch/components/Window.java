@@ -7,7 +7,6 @@ import org.apache.tapestry5.annotations.BeforeRenderBody;
 import org.apache.tapestry5.annotations.Environmental;
 import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
-import org.chenillekit.tapestry.core.base.AbstractWindow;
 
 /**
  * Created with IntelliJ IDEA.
@@ -82,7 +81,7 @@ public class Window extends AbstractWindow
         ckOptions.put("windowoptions", options);
         ckOptions.put("hasbody", hasBody);
         ckOptions.put("show", isShow());
-        ckOptions.put("center", isCenter());
+        //ckOptions.put("center", isCenter());
         ckOptions.put("modal", isModal());
         ckOptions.put("clientid", getClientId());
         ckOptions.put("contentid", contentDivId);
