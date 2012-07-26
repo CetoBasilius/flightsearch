@@ -57,8 +57,8 @@ Window.prototype = {
     this.options = Object.extend({
       className:         "dialog",
       blurClassName:     null,
-      minWidth:          600,
-      minHeight:         600,
+      minWidth:          200,
+      minHeight:         100,
       resizable:         false,
       closable:          true,
       minimizable:       false,
@@ -74,8 +74,8 @@ Window.prototype = {
       title:             "&nbsp;",
       url:               null,
       onload:            Prototype.emptyFunction,
-      width:             600,
-      height:            600,
+      width:             200,
+      height:            100,
       opacity:           1,
       recenterAuto:      true,
       wiredDrag:         false,
@@ -796,7 +796,7 @@ Window.prototype = {
       
     this._checkIEOverlapping();
     WindowUtilities.focusedWindow = this
-    this._notify("onShow");   
+    this._notify("onShow");
   },
   
   // Displays window modal state or not at the center of the page
@@ -968,7 +968,7 @@ Window.prototype = {
         var dim = this.options.parent.getDimensions();
         pageSize.windowWidth = dim.width;
         pageSize.windowHeight = dim.height;
-        top = 0; 
+        top = 0;
         left = 0;
       }
       

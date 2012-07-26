@@ -71,7 +71,7 @@
     <orderEntry type="library" name="Maven: org.apache.tapestry:tapestry-yuicompressor:5.3.3" level="project" />
     <orderEntry type="library" name="Maven: com.yahoo.platform.yui:yuicompressor:2.4.6" level="project" />
     <orderEntry type="library" name="Maven: rhino:js:1.6R7" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.easymock:easymock:3.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: cglib:cglib-nodep:2.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:1.2" level="project" />

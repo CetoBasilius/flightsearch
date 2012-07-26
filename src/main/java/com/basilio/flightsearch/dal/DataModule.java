@@ -30,7 +30,7 @@ public class DataModule {
     @Inject
     private AirportInformationDAO airportInformationDAO;
 
-    private boolean useLocalDemoList = false;
+    private boolean useLocalDemoList = true;
 
     public DataModule(ServiceDAO serviceDAO) {
         super();

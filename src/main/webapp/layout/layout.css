@@ -427,7 +427,7 @@ table.blueflightchooser {
 
 table.redflightchooser {
     border-style:solid; border-width:4px;
-    border-color:#D43D1A;
+    border-color:#FFC125;
     background-color: #FFFFFF;
     padding: 5px;
     margin-top: 10px;
@@ -462,7 +462,7 @@ table td.flightbox {
 
 table td.flightboxnotinrange {
     border-style:solid; border-width:1px;
-    background-color: #FFAAAA;
+    background-color: #EE4000;
 	padding: 5px;
 	margin-top: 10px;
 	margin-right: 20px;
@@ -473,7 +473,7 @@ table td.flightboxnotinrange {
 
 table td.goingbox {
     #border-style:solid; border-width:1px;
-    background-color: #00BFFF;
+    background-color: #E0EEEE;
 	padding: 10px;
 	margin-top: 10px;
 	margin-right: 20px;
@@ -483,7 +483,7 @@ table td.goingbox {
 
 table td.returningbox {
     #border-style:solid; border-width:1px;
-    background-color: #FF6666;
+    background-color: #E0EEEE;
 	padding: 10px;
 	margin-top: 10px;
 	margin-right: 20px;
@@ -512,9 +512,11 @@ table td.rounded5 {
 }
 
 table td.resultfilterslider {
-    border-style:solid; border-width:1px;
-
     height: 50px;
+}
+
+label.outofrangelabel {
+    color: #FFFFFF;
 }
 
 td.pricetdcenter {

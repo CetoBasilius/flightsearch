@@ -3,9 +3,9 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.basilio</groupId>
     <artifactId>flightsearch</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
     <packaging>war</packaging>
-    <name>flightsearch Tapestry 5 Application</name>
+    <name>flightsearch</name>
         <dependencies>
         <!-- Too set up an application with a database, change the artifactId below to
              tapestry-hibernate, and add a dependency on your JDBC driver. You'll also
@@ -124,7 +124,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8</version>
+            <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
 
@@ -163,7 +163,6 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
     <build>
         <finalName>flightsearch</finalName>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -241,12 +240,12 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.7.2</version>
                 <configuration>
-                   <!-- <systemPropertyVariables>
+                   <systemPropertyVariables>
                         <tapestry.execution-mode>Qa</tapestry.execution-mode>
-                    </systemPropertyVariables>
-                   --> <includes>
+                   </systemPropertyVariables>
+                   <includes>
                         <include>**/*Test.java</include>
-                    </includes>
+                   </includes>
                 </configuration>
             </plugin>
 
@@ -265,7 +264,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
                     <systemProperties>
                         <systemProperty>
                             <name>tapestry.execution-mode</name>
-                            <value>development</value>
+                            <value>QA</value>
                         </systemProperty>
                     </systemProperties>
                 </configuration>
