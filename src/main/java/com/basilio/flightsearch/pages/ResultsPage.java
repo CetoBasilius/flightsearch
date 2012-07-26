@@ -37,6 +37,40 @@ import java.util.List;
 @GuestAccess
 public class ResultsPage {
 
+    @Property
+    private boolean showAnyPrice;
+
+    //-----------------------------------------
+
+    @Persist
+    @Property
+    private int minPriceFilter;
+
+    @Persist
+    @Property
+    private int maxPriceFilter;
+
+    @Persist
+    @Property
+    private int priceFilterSteps;
+
+    @Property
+    private int slider;
+
+    @Persist
+    @Property
+    private String customHandleCSS;
+
+    @Persist
+    @Property
+    private String customTrackCSS;
+
+    @Persist
+    @Property
+    private String customValueCSS;
+
+    //---------------------------------------
+
     @Component
     private Form buyForm;
 
@@ -46,14 +80,6 @@ public class ResultsPage {
     @Property
     @Inject
     private Request request;
-
-    @Property
-    @Persist(PersistenceConstants.SESSION)
-    private String origin;
-
-    @Property
-    @Persist(PersistenceConstants.SESSION)
-    private String destination;
 
     @Property
     private double latin = 0;
@@ -141,18 +167,53 @@ public class ResultsPage {
 
     public void setup(Search search,Result result)
     {
+
         this.result = result;
         this.search = search;
 
-        this.origin = search.getDepartureAirport().getCode();
-        this.destination = search.getDestinationAirport().getCode();
     }
 
     void setupRender()
     {
+        customHandleCSS = "slider-handle-custom";
+        customTrackCSS = "slider-track-custom";
+        customValueCSS = "slider-value-custom";
+
+        if(result!=null){
+            Facets minmaxFacet = result.getMeta().getFacets().get(2);
+            minPriceFilter = minmaxFacet.getMin().intValue()-(minmaxFacet.getMin().intValue()%100);
+            maxPriceFilter = minmaxFacet.getMax().intValue()+(100-(minmaxFacet.getMax().intValue()%100));
+            priceFilterSteps = (maxPriceFilter-minPriceFilter)/100;
+
+            slider = search.getBudgetDollars();
+        }
+
+
         rowsPerPage = 2;
         windowNumber = 0;
         //TODO: rowsperpage must be retrieved from user settings.
+    }
+
+    public String getBudgetDollarsString(){
+        return String.valueOf(search.getBudgetDollars());
+    }
+
+    public String getIsOnPriceRangeCSS(){
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        if(flight.getPriceInfo().getTotal().getFare().floatValue()>search.getBudgetDollars()){
+            return "flightboxnotinrange";
+        }
+        return "flightbox";
+    }
+
+    public boolean getIsOnPriceRangeBoolean(){
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        if(flight.getPriceInfo().getTotal().getFare().floatValue()>search.getBudgetDollars()){
+            return false;
+        }
+        return true;
     }
 
     public void setupGMap(List<Double> coordinatesin){
@@ -180,7 +241,6 @@ public class ResultsPage {
 
     public String getFlightPrice(){
         DecimalFormat df = new DecimalFormat("#.00");
-
         return df.format(flight.getPriceInfo().getTotal().getFare().floatValue())+" USD";
     }
 

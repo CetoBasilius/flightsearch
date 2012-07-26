@@ -1,8 +1,3 @@
-/*
-Design by Free CSS Templates
-http://www.freecsstemplates.org
-Released for free under a Creative Commons Attribution 2.5 License
-*/
 
 body {
     margin: 0;
@@ -228,7 +223,7 @@ div.content {
 .post .links .more {
     width: 128px;
     height: 30px;
-    background: url(images/img03.jpg) no-repeat left center;
+    background: url(images/img03.png) no-repeat left center;
 }
 
 .post .links .comments {
@@ -412,7 +407,7 @@ table.buytable {
     width:100px;
     font-size: 1.2em;
     font-weight: bold;
-    background: url(images/img02.jpg) no-repeat  center
+    background: url(images/img02.png) no-repeat  center
 }
 
 table.buytable td.buytdcenter {
@@ -447,7 +442,7 @@ table.pricetable {
     width:130px;
     font-size: 1.2em;
     font-weight: bold;
-    background: url(images/img03.jpg) no-repeat  center
+    background: url(images/img03.png) no-repeat  center
 }
 
 table td.showtd {
@@ -464,6 +459,17 @@ table td.flightbox {
     border-radius: 25px;
     -moz-border-radius: 25px;
 }
+
+table td.flightboxnotinrange {
+    border-style:solid; border-width:1px;
+    background-color: #FFAAAA;
+	padding: 5px;
+	margin-top: 10px;
+	margin-right: 20px;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+}
+
 
 table td.goingbox {
     #border-style:solid; border-width:1px;
@@ -505,6 +511,11 @@ table td.rounded5 {
     -moz-border-radius: 5px;
 }
 
+table td.resultfilterslider {
+    border-style:solid; border-width:1px;
+
+    height: 50px;
+}
 
 td.pricetdcenter {
     color:#FFFFFF;

@@ -1,6 +1,7 @@
 package com.basilio.flightsearch.components;
 
 import com.google.gson.JsonObject;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.BindingConstants;
 import org.apache.tapestry5.ClientElement;
 import org.apache.tapestry5.ComponentResources;
@@ -31,6 +32,15 @@ public class Slider implements ClientElement
     private final static String handleCSS = "slider-handle";
     private final static String trackCSS = "slider-track";
     private final static String valueCSS = "slider-value";
+
+    @Parameter(required = false)
+    private String customHandleCSS;
+
+    @Parameter(required = false)
+    private String customTrackCSS;
+
+    @Parameter(required = false)
+    private String customValueCSS;
 
     /**
      * The id used to generate a page-unique client-side identifier for the component. If a component renders multiple
@@ -87,10 +97,17 @@ public class Slider implements ClientElement
         tackId = "track_" + getClientId();
         ouputId = "ouput_" + getClientId();
 
-        writer.element("div", "id", tackId,
-                "class", trackCSS);
-        writer.element("div", "id", handleId,
-                "class", handleCSS);
+        if(StringUtils.isNotBlank(customTrackCSS)){
+            writer.element("div", "id", tackId, "class", customTrackCSS);
+        }else{
+            writer.element("div", "id", tackId, "class", trackCSS);
+        }
+
+        if(StringUtils.isNotBlank(customHandleCSS)){
+            writer.element("div", "id", handleId,"class", customHandleCSS);
+        }else{
+            writer.element("div", "id", handleId,"class", handleCSS);
+        }
 
         writer.end();
         writer.end();
@@ -98,15 +115,19 @@ public class Slider implements ClientElement
 
     void afterRender(MarkupWriter writer)
     {
+        if(StringUtils.isNotBlank(customValueCSS)){
+            writer.element("div", "id", ouputId, "class", customValueCSS);
+        }else{
+            writer.element("div", "id", ouputId, "class", valueCSS);
+        }
 
-        writer.element("div", "id", ouputId, "class", valueCSS);
 
         if (value == null){
             value = 0;
         }
         writer.writeRaw("No more than ");
         writer.write(value.toString());
-        writer.writeRaw(" dollars");
+        writer.writeRaw(" USD");
         writer.end();
 
 
