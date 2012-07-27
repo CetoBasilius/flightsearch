@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +24,6 @@ public class ResultTest {
     public void setupTests(){
 
     }
-
 
     @Test
     public void testGetDirectFlights() throws Exception {
@@ -54,5 +54,67 @@ public class ResultTest {
         assertEquals(0, result.getDirectFlights().size());
 
         verify(mockedFlight1,mockedOutboundRoutes,mockedSegments,mockedOutboundRoute);
+    }
+
+    @Test
+    public void testGetDescription(){
+        Result result = new Result();
+        result.setSearchedPrice(600);
+        assertNotNull(result.getDescription());
+        assertEquals(String.class, result.getDescription().getClass());
+
+        List<Flights> flightList = new ArrayList<Flights>();
+        Flights flight1 = new Flights();
+        PriceInfo priceInfo = new PriceInfo();
+        Total total = new Total();
+        total.setFare(new Integer(500));
+        priceInfo.setTotal(total);
+        flight1.setPriceInfo(priceInfo);
+        flightList.add(flight1);
+        result.setFlights(flightList);
+
+        Meta meta = new Meta();
+        Facets facet = new Facets();
+        List<Facets> facets = new ArrayList<Facets>();
+        facets.add(facet);
+        facets.add(facet);
+        facets.add(facet);
+        meta.setFacets(facets);
+        result.setMeta(meta);
+
+        assertNotNull(result.getDescription());
+        assertEquals(String.class, result.getDescription().getClass());
+
+    }
+
+    @Test
+    public void testGetFlightsInPriceRange(){
+        Result result = new Result();
+        result.setSearchedPrice(600);
+
+        List<Flights> mockFlightList = new ArrayList<Flights>();
+        Flights mockedFlight1 = createNiceMock(Flights.class);
+        mockFlightList.add(mockedFlight1);
+        mockFlightList.add(mockedFlight1);
+        result.setFlights(mockFlightList);
+
+        Total mockedTotal = createNiceMock(Total.class);
+        PriceInfo mockedPriceInfo = createNiceMock(PriceInfo.class);
+
+        expect(mockedFlight1.getPriceInfo()).andReturn(mockedPriceInfo).anyTimes();
+        expect(mockedPriceInfo.getTotal()).andReturn(mockedTotal).anyTimes();
+        expect(mockedTotal.getFare()).andReturn(new Integer(20)).once();
+        expect(mockedTotal.getFare()).andReturn(new Integer(30)).once();
+
+        expect(mockedTotal.getFare()).andReturn(new Integer(20)).once();
+        expect(mockedTotal.getFare()).andReturn(new Integer(3000)).once();
+
+        replay(mockedFlight1, mockedPriceInfo,mockedTotal);
+
+        assertEquals(2,result.getFlightsInPriceRange().size());
+        assertEquals(1,result.getFlightsInPriceRange().size());
+
+        verify(mockedFlight1, mockedPriceInfo,mockedTotal);
+
     }
 }

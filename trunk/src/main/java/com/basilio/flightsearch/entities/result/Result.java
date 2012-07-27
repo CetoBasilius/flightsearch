@@ -36,17 +36,17 @@ public class Result{
         StringBuffer buffer = new StringBuffer();
         if(flights!=null){
             if(flights.size()>0){
-            buffer.append("We found ");
-            buffer.append(this.getFlights().size());
-            buffer.append(" flights matching your search, of which ");
-            buffer.append(this.getFlightsInPriceRange().size());
-            buffer.append(" matched your budget of no more than ");
-            buffer.append(this.getSearchedPrice());
-            buffer.append(" dollars. The most economic flight is ");
-            buffer.append(this.getMeta().getFacets().get(2).getMin());
-            buffer.append(" dollars per adult.");/*, and the most expensive flight is ");
-            buffer.append(this.getMeta().getFacets().get(2).getMax());
-            buffer.append(" dollars per adult. ");*/
+                buffer.append("We found ");
+                buffer.append(this.getFlights().size());
+                buffer.append(" flights matching your search, of which ");
+                buffer.append(this.getFlightsInPriceRange().size());
+                buffer.append(" matched your budget of no more than ");
+                buffer.append(this.getSearchedPrice());
+                buffer.append(" dollars. The most economic flight is ");
+                buffer.append(this.getMeta().getFacets().get(2).getMin());
+                buffer.append(" dollars per adult.");/*, and the most expensive flight is ");
+                buffer.append(this.getMeta().getFacets().get(2).getMax());
+                buffer.append(" dollars per adult. ");*/
             } else {
                 buffer.append("We are sorry, but your search had no results.");
             }
@@ -54,12 +54,13 @@ public class Result{
         return buffer.toString();
     }
 
-    private List<Flights> getFlightsInPriceRange() {
+    public List<Flights> getFlightsInPriceRange() {
         List<Flights> returnFlights = new ArrayList<Flights>();
         List<Flights> flights1 = this.getFlights();
         for(int index = 0; index < flights1.size(); index++){
             Total total = flights1.get(index).getPriceInfo().getTotal();
-            if((total.getFare().intValue())<this.getSearchedPrice()){
+            Number fare = total.getFare();
+            if((fare.intValue())<this.getSearchedPrice()){
                 returnFlights.add(flights1.get(index));
             }
         }

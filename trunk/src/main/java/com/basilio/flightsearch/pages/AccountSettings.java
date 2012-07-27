@@ -96,6 +96,7 @@ public class AccountSettings {
         return (AccountSettings.class);
     }
 
+    //TODO return success window or dialog
     @OnEvent(value = EventConstants.SUCCESS, component = "changePasswordForm")
     public void proceedChangePassword() {
         User myUser = serviceDAO.findUniqueWithNamedQuery(
