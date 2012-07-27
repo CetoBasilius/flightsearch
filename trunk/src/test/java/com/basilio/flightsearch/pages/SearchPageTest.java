@@ -2,7 +2,7 @@ package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.entities.AirportStub;
 import org.apache.tapestry5.annotations.InjectPage;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;

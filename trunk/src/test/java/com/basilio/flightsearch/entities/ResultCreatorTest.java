@@ -2,7 +2,7 @@ package com.basilio.flightsearch.entities;
 
 import com.basilio.flightsearch.entities.result.Result;
 import com.google.gson.Gson;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import static org.easymock.EasyMock.createNiceMock;
 import static org.junit.Assert.assertEquals;

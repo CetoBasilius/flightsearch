@@ -3,12 +3,13 @@ package com.basilio.flightsearch.security;
 import com.basilio.flightsearch.pages.Index;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.Link;
-import org.apache.tapestry5.runtime.Component;
 import org.apache.tapestry5.services.ComponentSource;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Response;
-import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 
 import java.io.IOException;
@@ -27,27 +28,10 @@ import static org.easymock.EasyMock.createNiceMock;
  */
 public class AuthenticationFilterTest {
 
-    private AuthenticationFilter authenticationFilter;
-
-    private PageRenderLinkSource renderLinkSource;
-
-    private ComponentSource componentSource;
-
-    private Response response;
-
-    private Authenticator authenticator;
-
-    @Before
-    public void setupTests(){
-        renderLinkSource = createNiceMock(PageRenderLinkSource.class);
-        componentSource = createNiceMock(ComponentSource.class);
-        response = createNiceMock(Response.class);
-        authenticator  = createNiceMock(Authenticator.class);
-
-        authenticationFilter = createAuthenticateFilter();
-    }
-
-    private AuthenticationFilter createAuthenticateFilter() {
+    private AuthenticationFilter createAuthenticateFilter(PageRenderLinkSource renderLinkSource,
+                                                          ComponentSource componentSource,
+                                                          Response response,
+                                                          Authenticator authenticator) {
         return new AuthenticationFilter(renderLinkSource, componentSource, response, authenticator){
             @Override
             Class getPageClass(String pageName) {
@@ -61,6 +45,12 @@ public class AuthenticationFilterTest {
 
     @Test
     public void dispatchedToLoginPageShouldRedirectIfNotLoggedIn() throws IOException {
+        AuthenticationFilter authenticationFilter;
+        PageRenderLinkSource renderLinkSource = createNiceMock(PageRenderLinkSource.class);
+        ComponentSource componentSource = createNiceMock(ComponentSource.class);
+        Response response = createNiceMock(Response.class);
+        Authenticator authenticator  = createNiceMock(Authenticator.class);
+        authenticationFilter = createAuthenticateFilter(renderLinkSource, componentSource, response, authenticator);
 
         String pageName = "index";
 
@@ -77,13 +67,16 @@ public class AuthenticationFilterTest {
 
     @Test
     public void dispatchedToLoginPageShouldAllowIfLoggedIn() throws IOException {
+        AuthenticationFilter authenticationFilter;
+        PageRenderLinkSource renderLinkSource = createNiceMock(PageRenderLinkSource.class);
+        ComponentSource componentSource = createNiceMock(ComponentSource.class);
+        Response response = createNiceMock(Response.class);
+        Authenticator authenticator  = createNiceMock(Authenticator.class);
+        authenticationFilter = createAuthenticateFilter(renderLinkSource, componentSource, response, authenticator);
 
         String pageName = authenticationFilter.getDefaultPage();
 
-        Link link = createNiceMock(Link.class);
-
         expect(authenticator.isLoggedIn()).andReturn(true).times(2);
-
 
         replay(renderLinkSource, componentSource, response, authenticator);
 
@@ -96,6 +89,12 @@ public class AuthenticationFilterTest {
 
     @Test
     public void dispatchedToLoginPageShouldRedirectToDefaultPage() throws IOException {
+        AuthenticationFilter authenticationFilter;
+        PageRenderLinkSource renderLinkSource = createNiceMock(PageRenderLinkSource.class);
+        ComponentSource componentSource = createNiceMock(ComponentSource.class);
+        Response response = createNiceMock(Response.class);
+        Authenticator authenticator  = createNiceMock(Authenticator.class);
+        authenticationFilter = createAuthenticateFilter(renderLinkSource, componentSource, response, authenticator);
 
         String pageName = authenticationFilter.getSigninPage();
 
