@@ -9,7 +9,7 @@ import org.apache.tapestry5.services.ComponentSource;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Response;
 import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;

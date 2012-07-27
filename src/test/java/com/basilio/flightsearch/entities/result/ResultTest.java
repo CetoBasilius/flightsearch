@@ -2,7 +2,7 @@ package com.basilio.flightsearch.entities.result;
 
 import com.basilio.flightsearch.entities.Search;
 import org.junit.Before;
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;

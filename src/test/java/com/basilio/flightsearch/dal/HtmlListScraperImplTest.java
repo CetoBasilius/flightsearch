@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.dal;
 
-import org.junit.Test;
+import org.testng.annotations.Test;
 
 /**
  * Created with IntelliJ IDEA.
