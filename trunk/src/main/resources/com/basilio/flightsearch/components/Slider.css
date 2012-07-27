@@ -21,8 +21,9 @@ div.slider-value {
 }
 
 div.slider-handle-custom {
-    width: 8px;
+    width: 15px;
     height: 15px;
+    left:20px;
     top: -6px;
     background-color: #555;
     cursor: move;
@@ -30,7 +31,8 @@ div.slider-handle-custom {
 
 div.slider-track-custom {
     position: relative;
-    top: 10px;
+    top: -6px;
+    left:20px;
     width: 256px;
     background-color: #aaa;
     height: 5px;
@@ -38,6 +40,6 @@ div.slider-track-custom {
 
 div.slider-value-custom {
     position: relative;
-    top: 20px;
-    left: 40px;
+    top: 6px;
+    left: 70px;
 }

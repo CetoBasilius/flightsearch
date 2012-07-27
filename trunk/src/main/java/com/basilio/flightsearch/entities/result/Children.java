@@ -8,7 +8,6 @@ package com.basilio.flightsearch.entities.result;
  * To change this template use File | Settings | File Templates.
  */
 
-import java.util.List;
 
 public class Children{
     private Number baseFare;

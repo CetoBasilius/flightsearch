@@ -37,8 +37,38 @@ import java.util.List;
 @GuestAccess
 public class ResultsPage {
 
+    @Component
+    private Form typeFilterForm;
+
     @Property
-    private boolean showAnyPrice;
+    private String radioDirect;
+
+    @Property
+    private String radio1Segment;
+
+    @Property
+    private String radio2SegmentMore;
+
+    @Property
+    private String radioAllSegments;
+
+    @Property
+    @Persist
+    private String segmentFilterRadioSelectedValue;
+
+    @Property
+    private String radioAllDurations;
+
+    @Property
+    @Persist
+    private String durationFilterRadioSelectedValue;
+
+    @Property
+    private String radioAllTypes;
+
+    @Property
+    @Persist
+    private String typeFilterRadioSelectedValue;
 
     //-----------------------------------------
 
@@ -167,7 +197,7 @@ public class ResultsPage {
 
     public void setup(Search search,Result result)
     {
-
+        customPagedLoop.setCurrentPage(1);
         this.result = result;
         this.search = search;
 
@@ -204,7 +234,7 @@ public class ResultsPage {
         if(flight.getPriceInfo().getTotal().getFare().floatValue()>search.getBudgetDollars()){
             return "flightboxnotinrange";
         }
-        return "flightbox";
+        return "roundedbox";
     }
 
     public boolean getIsOnPriceRangeBoolean(){
@@ -332,6 +362,14 @@ public class ResultsPage {
         return null;
     }
     //-----------------------------------------------
+
+    @Log
+    @OnEvent(value = EventConstants.SUCCESS, component = "typeFilterForm")
+    public Object filterResults(){
+
+
+        return null;
+    }
 
 
     private int getNumFlightsBeforeCurrentPage() {
