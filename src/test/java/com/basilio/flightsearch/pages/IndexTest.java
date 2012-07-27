@@ -3,6 +3,7 @@ package com.basilio.flightsearch.pages;
 import com.basilio.flightsearch.annotations.GuestAccess;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -15,7 +16,13 @@ import static org.junit.Assert.assertTrue;
 public class IndexTest {
 
     @Test
-    public void AboutShouldHaveGuestAccess(){
-        assertTrue(About.class.isAnnotationPresent(GuestAccess.class));
+    public void testIndexShouldHaveGuestAccess(){
+        assertTrue(Index.class.isAnnotationPresent(GuestAccess.class));
+    }
+
+    @Test
+    public void testIndexOnActivateShouldRedirectToSearchPage(){
+        Index index = new Index();
+        assertEquals(SearchPage.class,index.onActivate());
     }
 }

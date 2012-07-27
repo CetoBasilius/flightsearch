@@ -10,7 +10,6 @@ package com.basilio.flightsearch.entities;
 public class AirportString implements Comparable<AirportString>{
 
     private String string;
-
     private int occurrences;
 
     public AirportString(String s, int occurrences) {
