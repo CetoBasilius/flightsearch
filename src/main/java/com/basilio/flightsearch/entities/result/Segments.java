@@ -23,7 +23,7 @@ public class Segments{
    	private String marketingCarrierDescription;
    	private String operatingCarrierCode;
    	private String operatingCarrierDescription;
-   	private List stopovers;
+    private List<Stopovers> stopovers;
 
     public Arrival getArrival(){
 		return this.arrival;
@@ -91,10 +91,10 @@ public class Segments{
 	public void setOperatingCarrierDescription(String operatingCarrierDescription){
 		this.operatingCarrierDescription = operatingCarrierDescription;
 	}
- 	public List getStopovers(){
+ 	public List<Stopovers> getStopovers(){
 		return this.stopovers;
 	}
-	public void setStopovers(List stopovers){
+	public void setStopovers(List<Stopovers> stopovers){
 		this.stopovers = stopovers;
 	}
 

@@ -19,17 +19,6 @@ public class Flights{
    	private PriceInfo priceInfo;
     private boolean returnDirectFlights;
 
-
-    public void Flights(){
-        this.id = "empty";
-        this.inboundRoutes = new ArrayList<InboundRoutes>();
-        this.itineraryInfos = new ArrayList<ItineraryInfos>();
-        this.outboundRoutes = new ArrayList<OutboundRoutes>();
-        this.paymentInfo = new PaymentInfo();
-        this.priceInfo = new PriceInfo();
-        this.returnDirectFlights = false;
-    }
-
     public boolean isReturnDirectFlights() {
         return returnDirectFlights;
     }
@@ -78,8 +67,6 @@ public class Flights{
     public String getDescription() {
         //"This flight is from somewhere to somewhere, on some date, the following are available:"
         StringBuffer buffer = new StringBuffer();
-
-        //buffer.append();
         return buffer.toString();
     }
 }
