@@ -4,7 +4,7 @@
     <t:if test="search">
         <table class="full">
             <tr>
-                <td colspan="2" class="showtd">
+                <td colspan="3" class="showtd">
                     <table class="full" style="width:100%">
                         <tr>
                             <td>
@@ -182,7 +182,7 @@
                     </form>
                 </td>
 
-                <td valign="top" style="width:80%;" class="showtd">
+                <td valign="top" style="width:50%;" class="showtd">
                     <form t:type="form" t:id="errorForm">
                         <t:errors/>
                     </form>
@@ -191,7 +191,7 @@
                     <div t:id="customPagedLoop" source="flights" value="flight" rowsPerPage="rowsPerPage" index="flightIndex" pagerPosition="both" style="color: #222;">
 
                         <t:if test="!emptyResult">
-                            <table>
+                            <table style="width:100%;">
                                 <tr>
                                     <td class="${IsOnPriceRangeCSS}">
                                         <form t:type="form" t:id="buyForm">
@@ -302,7 +302,7 @@
                                                                                             </tr>
                                                                                         </table>
                                                                                         <center>
-                                                                                            <a href="#outwindow${staticOutWindowNumber}" onclick="Windows.windows[${outWindowNumber}].showCenter();">Show segment details</a>
+                                                                                            <a href="#outwindow${staticOutWindowNumber}" onclick="Windows.windows[${outWindowNumber}].showCenter();">Show more details</a>
                                                                                         </center>
                                                                                     </td>
                                                                                 </tr>
@@ -313,9 +313,20 @@
                                                                         <td>
 
                                                                             <div t:id="outboundWindow">
-                                                                                <p>${staticOutWindowNumber}</p>
+                                                                                ${staticOutWindowNumber}
                                                                                 <table>
-                                                                                    <t:loop source="outSegments" value="outSegment" encoder="outSegmentsValueEncoder">
+                                                                                    <t:loop source="outSegments" value="outSegment" encoder="outSegmentsValueEncoder" index="outSegmentWindowIndex">
+
+                                                                                        <tr>
+                                                                                            <td class="showtd" colspan="2">
+                                                                                                ${outSegmentWindowMoreInfo}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td class="showtd" colspan="2">
+                                                                                                ${outSegmentWindowDescription}
+                                                                                            </td>
+                                                                                        </tr>
                                                                                         <tr>
                                                                                             <th style="width:10%;">
                                                                                                 <label>Leaves</label>
@@ -334,6 +345,7 @@
                                                                                         </tr>
                                                                                     </t:loop>
                                                                                 </table>
+                                                                                <t:actionlink t:id="viewmap" target="_blank">View map in new tab</t:actionlink>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -438,7 +450,7 @@
                                                                                             </tr>
                                                                                         </table>
                                                                                         <center>
-                                                                                            <a href="#inwindow${staticInWindowNumber}" onclick="Windows.windows[${inWindowNumber}].showCenter()">Show segment details</a>
+                                                                                            <a href="#inwindow${staticInWindowNumber}" onclick="Windows.windows[${inWindowNumber}].showCenter()">Show more details</a>
                                                                                         </center>
                                                                                     </td>
                                                                                 </tr>
@@ -546,13 +558,8 @@
                     </div>
                 </td>
 
-                <td valign="top" style="width:0%">
-                    <p>${visualizingFlight}</p>
-                    <!--
-                    <div t:type="gmap" lng="lngin" lat="latin" coordlist="coordinatesParameter" style="width:100%; height:500px;"/>
-                    <div id="plotterError" style="display:none;">
-                        There was an error loading the Google Map.
-                    </div>        -->
+                <td valign="top" style="width:30%" class="showtd">
+                    <!-- empty space for now -->
                 </td>
             </tr>
         </table>
@@ -560,7 +567,5 @@
             <p>To view results, you must first make a search on the <t:pagelink page="SearchPage">search page.</t:pagelink></p>
         </p:else>
     </t:if>
-
-
 
 </html>
