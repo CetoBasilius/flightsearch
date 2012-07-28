@@ -26,8 +26,6 @@ public class AuthenticatorImplTest {
     private final String password = "mypassword";
 
 
-
-
     @Test
     public void loginShouldLoginUser() throws AuthenticationException {
         Authenticator authenticator = new AuthenticatorImpl();;

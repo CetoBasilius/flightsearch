@@ -37,6 +37,10 @@ import java.util.List;
 @GuestAccess
 public class ResultsPage {
 
+    @Property
+    private int outSegmentWindowIndex;
+
+    //------------------------------------------------------
     @Component
     private Form typeFilterForm;
 
@@ -111,20 +115,6 @@ public class ResultsPage {
     @Inject
     private Request request;
 
-    @Property
-    private double latin = 0;
-
-    @Property
-    private double lngin = 0;
-
-    @Persist(PersistenceConstants.SESSION)
-    @Property
-    private List<Double> coordinatesParameter;
-
-    @Persist(PersistenceConstants.SESSION)
-    @Property
-    private String visualizingFlight;
-
     @Component
     private CustomPagedLoop customPagedLoop;
 
@@ -183,14 +173,14 @@ public class ResultsPage {
             "show=false",
             "modal=true",
             "width=500",
-            "title=literal:Outbound Segments"})
+            "title=literal:Outbound flight details"})
     private Window outboundWindow;
 
     @Component(parameters = {"style=bluelighting",
             "show=false",
             "modal=true",
             "width=500",
-            "title=literal:Inbound Segments"})
+            "title=literal:Inbound flight details"})
     private Window inboundWindow;
 
 
@@ -246,9 +236,7 @@ public class ResultsPage {
         return true;
     }
 
-    public void setupGMap(List<Double> coordinatesin){
-        coordinatesParameter = coordinatesin;
-    }
+
 
 
     public String getOutboundRouteShort(){
@@ -273,30 +261,6 @@ public class ResultsPage {
         DecimalFormat df = new DecimalFormat("#.00");
         return df.format(flight.getPriceInfo().getTotal().getFare().floatValue())+" USD";
     }
-
-    /*public void onActionFromViewDepart(String id)
-    {
-        visualizingFlight = "Visualizing flight "+id;
-        List<Double> setupList = new ArrayList<Double>();
-        setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
-
-        this.setupGMap(setupList);
-    }
-
-    public void onActionFromViewReturn(String id)
-    {
-        visualizingFlight = "Visualizing flight "+id;
-        List<Double> setupList = new ArrayList<Double>();
-        setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
-
-        this.setupGMap(setupList);
-    }*/
 
     @Persist
     private String bought;
@@ -640,6 +604,28 @@ public class ResultsPage {
         return resultArray;
     }
 
+    public String getOutSegmentWindowDescription(){
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(outSegmentWindowIndex);
+        buffer.append(" - Flight ");
+        buffer.append(outSegment.getFlightNumber());
+        buffer.append(" - ");
+        buffer.append(outSegment.getMarketingCabinTypeCode());
+        return buffer.toString();
+    }
+
+    public String getOutSegmentWindowMoreInfo(){
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("MCTC:"+outSegment.getMarketingCabinTypeCode());
+
+        buffer.append(" D:"+outSegment.getDuration());
+        buffer.append(" MCC:"+outSegment.getMarketingCarrierCode());
+        buffer.append(" OCC:"+outSegment.getOperatingCarrierCode());
+        buffer.append(" AD:"+outSegment.getArrival().getDate());
+
+        return buffer.toString();
+    }
+
     public Search getSearch() {
         return search;
     }
@@ -656,5 +642,18 @@ public class ResultsPage {
         this.result = result;
     }
 
+    @InjectPage
+    private MapPage mapPage;
+
+
+    public Object onActionFromViewMap(){
+        List<Double> setupList = new ArrayList<Double>();
+        setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-20.0+(Math.random()*20));
+        setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
+        mapPage.setupGMap(setupList);
+        return mapPage;
+    }
 
 }
