@@ -1,6 +1,9 @@
 
 package com.basilio.flightsearch.entities.result;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,6 +27,8 @@ public class Segments{
    	private String operatingCarrierCode;
    	private String operatingCarrierDescription;
     private List<Stopovers> stopovers;
+
+    private SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm");
 
     public Arrival getArrival(){
 		return this.arrival;
@@ -136,6 +141,21 @@ public class Segments{
             }
         }
 
+        return buffer.toString();
+    }
+
+    public String getDurationDescription() {
+        StringBuffer buffer = new StringBuffer();
+        Date duration = new Date();
+        try {
+            duration = hourFormat.parse(this.getDuration());
+        } catch (ParseException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        buffer.append(duration.getHours());
+        buffer.append(" hours, ");
+        buffer.append(duration.getMinutes());
+        buffer.append(" minutes.");
         return buffer.toString();
     }
 }

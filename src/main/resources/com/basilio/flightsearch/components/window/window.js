@@ -57,7 +57,7 @@ Window.prototype = {
     this.options = Object.extend({
       className:         "dialog",
       blurClassName:     null,
-      minWidth:          200,
+      minWidth:          240,
       minHeight:         100,
       resizable:         false,
       closable:          true,
@@ -74,7 +74,7 @@ Window.prototype = {
       title:             "&nbsp;",
       url:               null,
       onload:            Prototype.emptyFunction,
-      width:             200,
+      width:             240,
       height:            100,
       opacity:           1,
       recenterAuto:      true,

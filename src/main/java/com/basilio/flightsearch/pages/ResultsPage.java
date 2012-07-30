@@ -3,6 +3,7 @@ package com.basilio.flightsearch.pages;
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.components.CustomPagedLoop;
 import com.basilio.flightsearch.components.Window;
+import com.basilio.flightsearch.core.helpers.NumberHelper;
 import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.Search;
@@ -47,18 +48,23 @@ public class ResultsPage {
     private int outSegmentWindowIndex;
 
     //------------------------------------------------------
+
     @Component
     private Form filterForm;
 
+    @Persist
     @Property
     private String radioDirect;
 
+    @Persist
     @Property
     private String radio1Segment;
 
+    @Persist
     @Property
     private String radio2SegmentMore;
 
+    @Persist
     @Property
     private String radioAllSegments;
 
@@ -66,6 +72,7 @@ public class ResultsPage {
     @Persist
     private String segmentFilterRadioSelectedValue;
 
+    @Persist
     @Property
     private String radioAllDurations;
 
@@ -73,6 +80,7 @@ public class ResultsPage {
     @Persist
     private String durationFilterRadioSelectedValue;
 
+    @Persist
     @Property
     private String radioAllTypes;
 
@@ -662,24 +670,22 @@ public class ResultsPage {
 
     public String getOutSegmentWindowDescription(){
         StringBuffer buffer = new StringBuffer();
-        buffer.append(outSegmentWindowIndex);
-        buffer.append(" - Flight ");
+        buffer.append(NumberHelper.ordinal(outSegmentWindowIndex+1));
+        buffer.append(" segment - Flight ");
         buffer.append(outSegment.getFlightNumber());
         buffer.append(" - ");
-        buffer.append(outSegment.getMarketingCabinTypeCode());
+        buffer.append(WordUtils.capitalize(outSegment.getMarketingCabinTypeCode().toLowerCase()));
+        buffer.append(" - ");
+        buffer.append(outSegment.getOperatingCarrierDescription());
         return buffer.toString();
     }
 
     public String getOutSegmentWindowMoreInfo(){
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("MCTC:"+outSegment.getMarketingCabinTypeCode());
+        return outSegment.getArrivalDescription();
+    }
 
-        buffer.append(" D:"+outSegment.getDuration());
-        buffer.append(" MCC:"+outSegment.getMarketingCarrierCode());
-        buffer.append(" OCC:"+outSegment.getOperatingCarrierCode());
-        buffer.append(" AD:"+outSegment.getArrival().getDate());
-
-        return buffer.toString();
+    public String getOutSegmentDurationInfo(){
+        return outSegment.getDurationDescription();
     }
 
     public Search getSearch() {

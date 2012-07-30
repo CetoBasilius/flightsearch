@@ -124,7 +124,7 @@ public class GMap implements ClientElement
     void afterRender()
     {
         JSONObject configuration = new JSONObject();
-        configuration.put("zoomLevel", 7);
+        configuration.put("zoomLevel", 5);
         configuration.put("smallControl", true);
         configuration.put("largeControl", false);
         configuration.put("typeControl", true);
