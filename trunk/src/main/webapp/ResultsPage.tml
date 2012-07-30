@@ -27,7 +27,7 @@
             <tr>
                 <td valign="top" id="non-printable" style="width:20%;" class="showtd">
                     <div style="height:32px;"/>
-                    <form t:type="form" t:id="typeFilterForm">
+                    <form t:type="form" t:id="filterForm">
 
                         <table style="width:100%;" class="roundedbox">
                             <tr>
@@ -313,7 +313,7 @@
                                                                         <td>
 
                                                                             <div t:id="outboundWindow">
-                                                                                ${staticOutWindowNumber}
+                                                                                <!--${staticOutWindowNumber}-->
                                                                                 <table>
                                                                                     <t:loop source="outSegments" value="outSegment" encoder="outSegmentsValueEncoder" index="outSegmentWindowIndex">
 
@@ -335,6 +335,18 @@
                                                                                                 ${outSegmentLeaveInfo}
                                                                                             </td>
                                                                                         </tr>
+
+                                                                                        <t:if test="outSegmentHasStops">
+                                                                                            <tr>
+                                                                                                <th style="width:10%;">
+                                                                                                    <label>Stops</label>
+                                                                                                </th>
+                                                                                                <td class="showtd">
+                                                                                                    ${outSegmentStopInfo}
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </t:if>
+
                                                                                         <tr>
                                                                                             <th style="width:10%;">
                                                                                                 <label>Arrives</label>
@@ -345,7 +357,9 @@
                                                                                         </tr>
                                                                                     </t:loop>
                                                                                 </table>
-                                                                                <t:actionlink t:id="viewmap" target="_blank">View map in new tab</t:actionlink>
+                                                                                <center>
+                                                                                    <t:actionlink t:id="viewmap" context="OutRouteSegmentInfoCommas" target="_blank">View outbound route in a map</t:actionlink>
+                                                                                </center>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -417,6 +431,7 @@
                                                                                         ${inRouteLeaveInfo}<br/>
                                                                                     </td>
                                                                                 </tr>
+
                                                                                 <tr>
                                                                                     <th style="width:10%;">
                                                                                         <label>Arrives</label>
@@ -475,6 +490,18 @@
                                                                                                             ${inSegmentLeaveInfo}<br/>
                                                                                                         </td>
                                                                                                     </tr>
+
+                                                                                                    <t:if test="inSegmentHasStops">
+                                                                                                        <tr>
+                                                                                                            <th style="width:10%;">
+                                                                                                                <label>Stops</label>
+                                                                                                            </th>
+                                                                                                            <td class="showtd">
+                                                                                                                ${inSegmentStopInfo}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </t:if>
+
                                                                                                     <tr>
                                                                                                         <th style="width:10%;">
                                                                                                             <label>Arrives</label>

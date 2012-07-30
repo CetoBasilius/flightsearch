@@ -2,18 +2,11 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
       xmlns:p="tapestry:parameter">
 
-
-    <div t:type="gmap" lng="lngin" lat="latin" coordlist="coordinatesParameter" style="width: 800px; height: 500px"/>
+    <center>
+    <div t:type="gmap" lng="lngin" lat="latin" desclist="descParameter" coordlist="coordinatesParameter" style="width: 800px; height: 500px"/>
     <div id="plotterError" style="display:none;">
         There was an error loading the Google Map.
     </div>
-
-
-    <p>
-        [
-        <t:actionlink t:id="changeMapTest">Change Map</t:actionlink>
-        ]
-    </p>
-
+    </center>
 
 </html>

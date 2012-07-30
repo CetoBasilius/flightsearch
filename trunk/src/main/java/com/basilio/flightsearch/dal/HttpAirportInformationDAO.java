@@ -1,7 +1,11 @@
 package com.basilio.flightsearch.dal;
 
 import com.basilio.flightsearch.dal.AirportInformationDAO;
+import com.basilio.flightsearch.entities.AirportCreator;
 import com.basilio.flightsearch.entities.AirportStub;
+import com.basilio.flightsearch.entities.ResultCreator;
+import com.basilio.flightsearch.entities.airport.Airports;
+import com.basilio.flightsearch.entities.result.Result;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -16,6 +20,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.zip.GZIPInputStream;
 
 import static com.basilio.flightsearch.dal.DomReader.readTag;
 
@@ -28,18 +35,19 @@ import static com.basilio.flightsearch.dal.DomReader.readTag;
  */
 public class HttpAirportInformationDAO implements AirportInformationDAO {
 
-    public AirportStub getAirportData(String airportCode) {
+    public AirportStub getAirportData(AirportStub airportIn) {
 
-        System.out.println("Searching for "+airportCode);
+        System.out.println("Searching for "+airportIn.getCode());
         AirportStub returnAirportStub = new AirportStub();
-        returnAirportStub.setCode(airportCode);
+        returnAirportStub.setCode(airportIn.getCode());
+        returnAirportStub.setDescriptor(airportIn.getDescriptor());
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
             HttpClient httpclient = new DefaultHttpClient();
 
-            HttpGet httpget = new HttpGet("http://avdata.geekpilot.net/airport/"+airportCode+".xml");
+            HttpGet httpget = new HttpGet("http://avdata.geekpilot.net/airport/"+airportIn.getCode()+".xml");
             System.out.println(httpget.getURI());
             HttpResponse response = httpclient.execute(httpget);
 
@@ -63,5 +71,53 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
             ee.printStackTrace();
         }
         return returnAirportStub;
+    }
+
+    public List<AirportStub> getAirportData(List<AirportStub> airportIn) {
+        List<AirportStub> returnList = new ArrayList<AirportStub>();
+        for(int index = 0; index < airportIn.size();index++){
+            AirportStub newStub = getAirportData(airportIn.get(index));
+            if(newStub.getLatitude()==0){
+                newStub = getAirportDataSecondMethod(newStub.getCode());
+            }
+            returnList.add(newStub);
+        }
+        return returnList;
+    }
+
+    private AirportStub getAirportDataSecondMethod(String code) {
+
+        AirportCreator resultCreator = new AirportCreator();
+        try {
+            HttpClient httpclient = new DefaultHttpClient();
+            HttpGet httpget = new HttpGet("http://api.despegar.com/airports/"+code);
+            HttpResponse response = httpclient.execute(httpget);
+            HttpEntity entity = response.getEntity();
+
+            InputStream instream = entity.getContent();
+
+            //Rest message is Gziped for despegar api
+            GZIPInputStream zippedInputStream =  new GZIPInputStream(instream);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(zippedInputStream));
+
+            resultCreator.setResultString(reader.readLine());
+            System.out.println(resultCreator.getResultString());
+            instream.close();
+            httpclient.getConnectionManager().shutdown();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Airports goodResult = resultCreator.getGoodResult();
+
+        AirportStub stub = new AirportStub();
+        stub.setCode(goodResult.getId());
+        stub.setDescriptor(goodResult.getDescription());
+        stub.setLongitude(goodResult.getGeoLocation().getLongitude().floatValue());
+        stub.setLatitude(goodResult.getGeoLocation().getLatitude().floatValue());
+
+        return stub;
+
     }
 }

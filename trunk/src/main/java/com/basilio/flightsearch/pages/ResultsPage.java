@@ -3,11 +3,11 @@ package com.basilio.flightsearch.pages;
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.components.CustomPagedLoop;
 import com.basilio.flightsearch.components.Window;
-import com.basilio.flightsearch.entities.ResultCreator;
+import com.basilio.flightsearch.dal.AirportInformationDAO;
+import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.*;
 import org.apache.commons.lang.StringUtils;
-import org.apache.tapestry5.Block;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.ValueEncoder;
@@ -22,7 +22,6 @@ import org.apache.commons.lang.WordUtils;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,15 +33,22 @@ import java.util.List;
  * SearchPage results include Origin, Destination, Price, Distance, Estimated Time.
  */
 
+@SupportsInformalParameters
 @GuestAccess
 public class ResultsPage {
+
+
+    @Inject
+    private AirportInformationDAO airportInformationDAO;
+
+    //-------------------------------------------------------
 
     @Property
     private int outSegmentWindowIndex;
 
     //------------------------------------------------------
     @Component
-    private Form typeFilterForm;
+    private Form filterForm;
 
     @Property
     private String radioDirect;
@@ -88,6 +94,7 @@ public class ResultsPage {
     @Property
     private int priceFilterSteps;
 
+    @Persist
     @Property
     private int slider;
 
@@ -281,6 +288,32 @@ public class ResultsPage {
         return outSegment.getDepartureDescription();
     }
 
+    public String getOutSegmentStopInfo(){
+        return outSegment.getStopDescription();
+    }
+
+    public String getInSegmentStopInfo(){
+        return inSegment.getStopDescription();
+    }
+
+
+    public boolean getOutSegmentHasStops(){
+        if(outSegment.getStopovers()!=null){
+            if(outSegment.getStopovers().size()>0){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean getInSegmentHasStops(){
+        if(inSegment.getStopovers()!=null){
+            if(inSegment.getStopovers().size()>0){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
     public String getInSegmentArriveInfo(){
@@ -325,11 +358,20 @@ public class ResultsPage {
 
         return null;
     }
+
     //-----------------------------------------------
 
     @Log
-    @OnEvent(value = EventConstants.SUCCESS, component = "typeFilterForm")
+    @OnEvent(value = "applyfilter")
     public Object filterResults(){
+        this.search.setBudgetDollars(slider);
+
+        return null;
+    }
+
+    @Log
+    @OnEvent(value = "disablefilter")
+    public Object onDisableFilter(){
 
 
         return null;
@@ -437,6 +479,20 @@ public class ResultsPage {
 
     public String[] getOutRouteSegmentInfo(){
         return outboundRoute.getSegmentsDescription();
+    }
+
+    public String getOutRouteSegmentInfoCommas(){
+        StringBuffer buffer = new StringBuffer();
+
+        String[] segmentsDescription = outboundRoute.getSegmentsDescription();
+        int length = segmentsDescription.length;
+        for(int index = 0; index < length; index++){
+            buffer.append(segmentsDescription[index]);
+            if(index < length -1){
+                buffer.append(",");
+            }
+        }
+        return buffer.toString();
     }
 
     public String[] getInRouteSegmentInfo(){
@@ -646,13 +702,28 @@ public class ResultsPage {
     private MapPage mapPage;
 
 
-    public Object onActionFromViewMap(){
+    public Object onActionFromViewMap(String airportCodesString){
+        String[] airportCodes = airportCodesString.split(",");
+
         List<Double> setupList = new ArrayList<Double>();
-        setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
-        mapPage.setupGMap(setupList);
+        List<String> setupDescList = new ArrayList<String>();
+
+        List<AirportStub> airportStubList = new ArrayList<AirportStub>();
+
+        for(int index = 0; index < airportCodes.length;index++){
+            airportStubList.add(new AirportStub(airportCodes[index],""));
+        }
+
+        List<AirportStub> finalAirportStubList = airportInformationDAO.getAirportData(airportStubList);
+
+        for(int index = 0; index < finalAirportStubList.size();index++){
+            AirportStub airportStub = finalAirportStubList.get(index);
+            setupList.add(new Double(airportStub.getLatitude()));
+            setupList.add(new Double(airportStub.getLongitude()));
+            setupDescList.add(airportStub.getDescriptor());
+        }
+        System.out.println(setupDescList);
+        mapPage.setupMapPage(setupList, setupDescList);
         return mapPage;
     }
 

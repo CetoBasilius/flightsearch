@@ -120,4 +120,22 @@ public class Segments{
         StringBuffer buffer = new StringBuffer();
         return buffer.toString();
     }
+
+    public String getStopDescription() {
+        StringBuffer buffer = new StringBuffer();
+        if(this.getStopovers()!=null){
+            if(this.getStopovers().size()>0){
+                buffer.append("The flight will stop at ");
+                Stopovers stopovers1 = this.getStopovers().get(0);
+                buffer.append(stopovers1.getAirportCode());
+                buffer.append(", ");
+                buffer.append(stopovers1.getAirportDescription());
+                buffer.append(" for ");
+                buffer.append(stopovers1.getDuration());
+                buffer.append(" minutes.");
+            }
+        }
+
+        return buffer.toString();
+    }
 }

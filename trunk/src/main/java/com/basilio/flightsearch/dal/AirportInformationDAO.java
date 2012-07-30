@@ -3,6 +3,8 @@ package com.basilio.flightsearch.dal;
 import com.basilio.flightsearch.entities.AirportStub;
 import org.w3c.dom.Document;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Cetobasilius
@@ -12,5 +14,13 @@ import org.w3c.dom.Document;
  */
 public interface AirportInformationDAO {
 
-    public AirportStub getAirportData(String airportCode);
+    /**
+     * Will return a new object that now contains latitude and longitude.
+     */
+    public AirportStub getAirportData(AirportStub airportIn);
+
+    /**
+     * Will return new objects that now contain latitude and longitude.
+     */
+    public List<AirportStub> getAirportData(List<AirportStub> airportIn);
 }
