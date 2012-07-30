@@ -71,6 +71,9 @@ public class GMap implements ClientElement
     @Parameter(defaultPrefix = BindingConstants.PROP)
     private List<Double> coordlist;
 
+    @Parameter(defaultPrefix = BindingConstants.PROP)
+    private List<String> descList;
+
     /**
      * name of a javascript function that acts as error handler.
      */
@@ -81,7 +84,7 @@ public class GMap implements ClientElement
     private String dragendCallbackFunction;
 
     private String assignedClientId;
-    private static final int MAX_POLYLINE_VERTICES = 6;
+    private static final int MAX_POLYLINE_VERTICES = 8;
 
     void setupRender()
     {
@@ -121,7 +124,7 @@ public class GMap implements ClientElement
     void afterRender()
     {
         JSONObject configuration = new JSONObject();
-        configuration.put("zoomLevel", 13);
+        configuration.put("zoomLevel", 7);
         configuration.put("smallControl", true);
         configuration.put("largeControl", false);
         configuration.put("typeControl", true);
@@ -146,13 +149,19 @@ public class GMap implements ClientElement
                     Double getlat = coordlist.get(2 * a);
                     Double getlng = coordlist.get((2 * a) + 1);
 
+                    String descriptor = "";
+                    if(descList!= null){
+                        descriptor = descList.get(a);
+                        System.out.println(descriptor);
+                    }
+
                     latavg+=getlat;
                     lngavg+=getlng;
 
                     Polyline.put("lat"+(a+1), getlat);
                     Polyline.put("lng"+(a+1), getlng);
 
-                    javascriptSupport.addScript("%s.setMarker(%s, %s);", getClientId(), getlat, getlng);
+                    javascriptSupport.addScript("%s.setMarker(%s, %s, '%s');", getClientId(), getlat, getlng, descriptor);
                 } else {
                     //We must fill the list.
                     Double getlat = coordlist.get(2 * (coordinateCount-1));

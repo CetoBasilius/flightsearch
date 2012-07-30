@@ -48,7 +48,9 @@
       		  new GLatLng(Polylinein.lat3,Polylinein.lng3),
       		  new GLatLng(Polylinein.lat4,Polylinein.lng4),
       		  new GLatLng(Polylinein.lat5,Polylinein.lng5),
-      		  new GLatLng(Polylinein.lat6,Polylinein.lng6)
+      		  new GLatLng(Polylinein.lat6,Polylinein.lng6),
+      		  new GLatLng(Polylinein.lat6,Polylinein.lng7),
+      		  new GLatLng(Polylinein.lat6,Polylinein.lng8)
         ], "#ff0000", 10);
         this.map.addOverlay(polyline);
   	},

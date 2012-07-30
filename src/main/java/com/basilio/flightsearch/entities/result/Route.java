@@ -123,7 +123,7 @@ public class Route {
             buffer.append(this.getSegments().size());
             buffer.append(" segments");
         } else {
-            buffer.append(" Non-stop");
+            buffer.append(" Direct");
         }
 
         return buffer.toString();

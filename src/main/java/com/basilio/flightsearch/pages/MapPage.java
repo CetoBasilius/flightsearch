@@ -29,9 +29,14 @@ public class MapPage {
 
     @Persist(PersistenceConstants.SESSION)
     @Property
+    private List<String> descParameter;
+
+    @Persist(PersistenceConstants.SESSION)
+    @Property
     private String visualizingFlight;
 
-    public void setupGMap(List<Double> coordinatesin){
+    public void setupMapPage(List<Double> coordinatesin, List<String> descsin){
         coordinatesParameter = coordinatesin;
+        descParameter = descsin;
     }
 }

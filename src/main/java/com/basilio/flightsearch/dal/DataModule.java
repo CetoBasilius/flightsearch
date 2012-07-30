@@ -16,7 +16,7 @@ import java.util.List;
  * User: Cetobasilius
  * Date: 6/17/12
  * Time: 10:50 AM
- * This is the main Data module. For now, it loads the DEMO users and airports from
+ * This is the main Data module.
  */
 
 public class DataModule {
@@ -30,7 +30,7 @@ public class DataModule {
     @Inject
     private AirportInformationDAO airportInformationDAO;
 
-    private boolean useLocalDemoList = true;
+    private boolean useLocalDemoList = false;
 
     public DataModule(ServiceDAO serviceDAO) {
         super();
