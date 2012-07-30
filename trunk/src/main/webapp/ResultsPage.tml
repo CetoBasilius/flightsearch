@@ -314,52 +314,58 @@
 
                                                                             <div t:id="outboundWindow">
                                                                                 <!--${staticOutWindowNumber}-->
-                                                                                <table>
+
+                                                                                <div class="rounded4" style="width:97%;">
                                                                                     <t:loop source="outSegments" value="outSegment" encoder="outSegmentsValueEncoder" index="outSegmentWindowIndex">
+                                                                                        <center><b><br/>${outSegmentWindowDescription}</b></center>
+                                                                                        <table class="rounded4">
 
-                                                                                        <tr>
-                                                                                            <td class="showtd" colspan="2">
-                                                                                                ${outSegmentWindowMoreInfo}
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <td class="showtd" colspan="2">
-                                                                                                ${outSegmentWindowDescription}
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                        <tr>
-                                                                                            <th style="width:10%;">
-                                                                                                <label>Leaves</label>
-                                                                                            </th>
-                                                                                            <td class="showtd">
-                                                                                                ${outSegmentLeaveInfo}
-                                                                                            </td>
-                                                                                        </tr>
-
-                                                                                        <t:if test="outSegmentHasStops">
                                                                                             <tr>
                                                                                                 <th style="width:10%;">
-                                                                                                    <label>Stops</label>
+                                                                                                    <label>Leaves</label>
                                                                                                 </th>
-                                                                                                <td class="showtd">
-                                                                                                    ${outSegmentStopInfo}
+                                                                                                <td class="rounded5">
+                                                                                                    ${outSegmentLeaveInfo}
                                                                                                 </td>
                                                                                             </tr>
-                                                                                        </t:if>
 
-                                                                                        <tr>
-                                                                                            <th style="width:10%;">
-                                                                                                <label>Arrives</label>
-                                                                                            </th>
-                                                                                            <td class="showtd">
-                                                                                                ${outSegmentArriveInfo}<br/>
-                                                                                            </td>
-                                                                                        </tr>
+                                                                                            <t:if test="outSegmentHasStops">
+                                                                                                <tr>
+                                                                                                    <th style="width:10%;">
+                                                                                                        <label>Stops</label>
+                                                                                                    </th>
+                                                                                                    <td class="rounded5">
+                                                                                                        ${outSegmentStopInfo}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </t:if>
+
+                                                                                            <tr>
+                                                                                                <th style="width:10%;">
+                                                                                                    <label>Arrives</label>
+                                                                                                </th>
+                                                                                                <td class="rounded5">
+                                                                                                    ${outSegmentArriveInfo}<br/>
+                                                                                                </td>
+                                                                                            </tr>
+
+                                                                                            <tr>
+                                                                                                <th style="width:10%;">
+                                                                                                    <label>Duration</label>
+                                                                                                </th>
+                                                                                                <td class="rounded5">
+                                                                                                    ${outSegmentDurationInfo}<br/>
+                                                                                                </td>
+                                                                                            </tr>
+
+                                                                                        </table>
                                                                                     </t:loop>
-                                                                                </table>
-                                                                                <center>
-                                                                                    <t:actionlink t:id="viewmap" context="OutRouteSegmentInfoCommas" target="_blank">View outbound route in a map</t:actionlink>
-                                                                                </center>
+                                                                                    <center>
+                                                                                        <t:actionlink t:id="viewmap" context="OutRouteSegmentInfoCommas" target="_blank">View outbound route in a map</t:actionlink>
+                                                                                    </center>
+                                                                                </div>
+
+
                                                                             </div>
                                                                         </td>
                                                                     </tr>
