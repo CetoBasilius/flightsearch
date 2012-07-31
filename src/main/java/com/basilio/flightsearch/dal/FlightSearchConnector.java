@@ -1,10 +1,7 @@
 package com.basilio.flightsearch.dal;
 
-import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.Result;
-
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

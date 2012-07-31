@@ -5,7 +5,6 @@ import com.basilio.flightsearch.dal.FlightSearchConnector;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportString;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.Result;
 import org.apache.tapestry5.EventConstants;

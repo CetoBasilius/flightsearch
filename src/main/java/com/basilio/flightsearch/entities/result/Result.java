@@ -12,7 +12,7 @@ import java.util.List;
  * Base result class
  */
 
-public class Result{
+public class Result implements Cloneable{
    	private List<Flights> flights;
    	private Meta meta;
     private int searchedPrice;
@@ -65,6 +65,10 @@ public class Result{
             }
         }
         return returnFlights;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
 

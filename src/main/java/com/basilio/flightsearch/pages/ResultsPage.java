@@ -3,6 +3,8 @@ package com.basilio.flightsearch.pages;
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.components.CustomPagedLoop;
 import com.basilio.flightsearch.components.Window;
+import com.basilio.flightsearch.core.ResultFilter;
+import com.basilio.flightsearch.core.ResultFilterImpl;
 import com.basilio.flightsearch.core.helpers.NumberHelper;
 import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.entities.AirportStub;
@@ -46,6 +48,9 @@ public class ResultsPage {
 
     @Property
     private int outSegmentWindowIndex;
+
+    @Property
+    private int inSegmentWindowIndex;
 
     //------------------------------------------------------
 
@@ -134,7 +139,16 @@ public class ResultsPage {
     private CustomPagedLoop customPagedLoop;
 
     @Persist(PersistenceConstants.SESSION)
+    private ResultFilter resultFilter;
+
+    @Persist(PersistenceConstants.SESSION)
     private Result result;
+
+    @Persist(PersistenceConstants.SESSION)
+    private Result showingResult;
+
+    @Persist(PersistenceConstants.SESSION)
+    private Result filteredResult;
 
     @Persist(PersistenceConstants.SESSION)
     private Search search;
@@ -204,8 +218,10 @@ public class ResultsPage {
     {
         customPagedLoop.setCurrentPage(1);
         this.result = result;
-        this.search = search;
+        this.filteredResult = result;
+        this.showingResult = result;
 
+        this.search = search;
     }
 
     void setupRender()
@@ -214,13 +230,17 @@ public class ResultsPage {
         customTrackCSS = "slider-track-custom";
         customValueCSS = "slider-value-custom";
 
-        if(result!=null){
-            Facets minmaxFacet = result.getMeta().getFacets().get(2);
+        if(showingResult!=null){
+            Facets minmaxFacet = showingResult.getMeta().getFacets().get(2);
             minPriceFilter = minmaxFacet.getMin().intValue()-(minmaxFacet.getMin().intValue()%100);
             maxPriceFilter = minmaxFacet.getMax().intValue()+(100-(minmaxFacet.getMax().intValue()%100));
             priceFilterSteps = (maxPriceFilter-minPriceFilter)/100;
 
             slider = search.getBudgetDollars();
+        }
+
+        if(resultFilter == null){
+            resultFilter = new ResultFilterImpl();
         }
 
 
@@ -266,8 +286,8 @@ public class ResultsPage {
 
     public String getNumFlights(){
         int numFlights = 0;
-        if(result != null){
-            numFlights = result.getFlights().size();
+        if(showingResult != null){
+            numFlights = showingResult.getFlights().size();
         }
         return Integer.toString(numFlights);
     }
@@ -374,14 +394,24 @@ public class ResultsPage {
     public Object filterResults(){
         this.search.setBudgetDollars(slider);
 
+
+        /*radio1Segment;
+        radio2SegmentMore;
+        radioAllSegments;*/
+
+        filteredResult = resultFilter.filterSearch(result,slider,-1);
+
+        showingResult = filteredResult;
+
+        customPagedLoop.setCurrentPage(1);
         return null;
     }
 
     @Log
     @OnEvent(value = "disablefilter")
     public Object onDisableFilter(){
-
-
+        resultFilter.setWasResultFiltered(false);
+        showingResult = result;
         return null;
     }
 
@@ -404,7 +434,7 @@ public class ResultsPage {
         public InboundRoutes toValue(String str) {
             if(StringUtils.isNotBlank(str)){
                 int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return result.getFlights().get(numberOfFlightsBeforeThisOne+1+flightIndex).getInboundRoutes().get(Integer.parseInt(str));
+                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne+1+flightIndex).getInboundRoutes().get(Integer.parseInt(str));
             }else{
                 return null;
             }
@@ -422,7 +452,7 @@ public class ResultsPage {
         public Segments toValue(String str) {
             if(StringUtils.isNotBlank(str)){
                 int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return result.getFlights().get(numberOfFlightsBeforeThisOne + 1 + flightIndex).getInboundRoutes().get(inBoundIndex).getSegments().get(Integer.parseInt(str));
+                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne + 1 + flightIndex).getInboundRoutes().get(inBoundIndex).getSegments().get(Integer.parseInt(str));
             }else{
                 return null;
             }
@@ -440,7 +470,7 @@ public class ResultsPage {
         public OutboundRoutes toValue(String str) {
             if(StringUtils.isNotBlank(str)){
                 int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return result.getFlights().get(numberOfFlightsBeforeThisOne+flightIndex).getOutboundRoutes().get(Integer.parseInt(str));
+                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne+flightIndex).getOutboundRoutes().get(Integer.parseInt(str));
             }else{
                 return null;
             }
@@ -458,7 +488,7 @@ public class ResultsPage {
         public Segments toValue(String str) {
             if(StringUtils.isNotBlank(str)){
                 int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return result.getFlights().get(numberOfFlightsBeforeThisOne + flightIndex).getOutboundRoutes().get(outBoundIndex).getSegments().get(Integer.parseInt(str));
+                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne + flightIndex).getOutboundRoutes().get(outBoundIndex).getSegments().get(Integer.parseInt(str));
             }else{
                 return null;
             }
@@ -490,9 +520,17 @@ public class ResultsPage {
     }
 
     public String getOutRouteSegmentInfoCommas(){
+        return routeSegmentInfoCommas(outboundRoute);
+    }
+
+    public String getInRouteSegmentInfoCommas(){
+        return routeSegmentInfoCommas(inboundRoute);
+    }
+
+    private String routeSegmentInfoCommas(Route route) {
         StringBuffer buffer = new StringBuffer();
 
-        String[] segmentsDescription = outboundRoute.getSegmentsDescription();
+        String[] segmentsDescription = route.getSegmentsDescription();
         int length = segmentsDescription.length;
         for(int index = 0; index < length; index++){
             buffer.append(segmentsDescription[index]);
@@ -560,7 +598,7 @@ public class ResultsPage {
     }
 
     public String getResultDescription(){
-        return result.getDescription();
+        return showingResult.getDescription();
     }
 
     @Persist
@@ -634,13 +672,13 @@ public class ResultsPage {
     {
         int numFlights = 0;
         Flights[] resultArray = null;
-        if(result != null){
+        if(showingResult != null){
             if(search.isDirectFlight()){
-                if(result.getFlights()!=null){
+                if(showingResult.getFlights()!=null){
                     numFlights = result.getDirectFlights().size();
                     resultArray = new Flights[numFlights];
                     for(int a = 0;a<numFlights;a++){
-                        resultArray[a] = result.getDirectFlights().get(a);
+                        resultArray[a] = showingResult.getDirectFlights().get(a);
                     }
                 }else{
                     resultArray = new Flights[1];
@@ -648,11 +686,11 @@ public class ResultsPage {
                     emptyResult=true;
                 }
             }else{
-                if(result.getFlights()!=null){
-                    numFlights = result.getFlights().size();
+                if(showingResult.getFlights()!=null){
+                    numFlights = showingResult.getFlights().size();
                     resultArray = new Flights[numFlights];
                     for(int a = 0;a<numFlights;a++){
-                        resultArray[a] = result.getFlights().get(a);
+                        resultArray[a] = showingResult.getFlights().get(a);
                     }
                 }else{
                     resultArray = new Flights[1];
@@ -669,8 +707,16 @@ public class ResultsPage {
     }
 
     public String getOutSegmentWindowDescription(){
+        return segmentWindowDescription();
+    }
+
+    public String getInSegmentWindowDescription(){
+        return segmentWindowDescription();
+    }
+
+    private String segmentWindowDescription() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append(NumberHelper.ordinal(outSegmentWindowIndex+1));
+        buffer.append(NumberHelper.ordinal(outSegmentWindowIndex + 1));
         buffer.append(" segment - Flight ");
         buffer.append(outSegment.getFlightNumber());
         buffer.append(" - ");
@@ -688,6 +734,10 @@ public class ResultsPage {
         return outSegment.getDurationDescription();
     }
 
+    public String getInSegmentDurationInfo(){
+        return inSegment.getDurationDescription();
+    }
+
     public Search getSearch() {
         return search;
     }
@@ -697,18 +747,31 @@ public class ResultsPage {
     }
 
     public Result getResult() {
-        return result;
+        return showingResult;
     }
 
     public void setResult(Result result) {
+        this.showingResult = result;
         this.result = result;
+        this.filteredResult = result;
     }
 
     @InjectPage
     private MapPage mapPage;
 
+    public Object onActionFromOutViewMap(String airportCodesString){
+        return viewMap(airportCodesString);
+    }
 
-    public Object onActionFromViewMap(String airportCodesString){
+    public Object onActionFromInViewMap(String airportCodesString){
+        return viewMap(airportCodesString);
+    }
+
+    public String getFilterDescription(){
+        return resultFilter.getDescription();
+    }
+
+    public Object viewMap(String airportCodesString){
         String[] airportCodes = airportCodesString.split(",");
 
         List<Double> setupList = new ArrayList<Double>();

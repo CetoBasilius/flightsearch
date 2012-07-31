@@ -20,6 +20,7 @@ import java.util.List;
  */
 
 public class DataModule {
+
     private static final Logger logger = LoggerFactory.getLogger(DataModule.class);
 
     private final ServiceDAO serviceDAO;
@@ -30,7 +31,7 @@ public class DataModule {
     @Inject
     private AirportInformationDAO airportInformationDAO;
 
-    private boolean useLocalDemoList = false;
+    private boolean useLocalDemoList = true;
 
     public DataModule(ServiceDAO serviceDAO) {
         super();

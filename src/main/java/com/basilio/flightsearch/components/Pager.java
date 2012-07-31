@@ -92,7 +92,7 @@ public class Pager
             return;
 
         writer.element(resources.getContainer().getComponentResources().getElementName(), "class", "paged_loop_pager");
-        writer.element("div", "class", "paged_loop_pager");
+        writer.element("div", "class", "paged_loop_pager","id","non-printable");
         writer.element("label","class", "paged_loop_pagenumber");
         writer.writeRaw("Page: ");
         writer.end();
@@ -126,6 +126,7 @@ public class Pager
             writePageLink(writer, i);
 
         writer.end();
+
         writer.end();
     }
 

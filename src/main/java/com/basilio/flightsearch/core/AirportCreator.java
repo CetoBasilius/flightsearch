@@ -1,7 +1,6 @@
-package com.basilio.flightsearch.entities;
+package com.basilio.flightsearch.core;
 
 import com.basilio.flightsearch.entities.airport.Airports;
-import com.basilio.flightsearch.entities.result.Result;
 import com.google.gson.Gson;
 import org.apache.tapestry5.annotations.Log;
 import org.slf4j.Logger;
