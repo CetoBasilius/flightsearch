@@ -222,6 +222,13 @@ public class ResultsPage {
         this.showingResult = result;
 
         this.search = search;
+
+        if(resultFilter == null){
+            resultFilter = new ResultFilterImpl();
+        } else {
+            resultFilter.setWasResultFiltered(false);
+        }
+
     }
 
     void setupRender()

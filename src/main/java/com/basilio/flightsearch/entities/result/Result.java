@@ -15,7 +15,9 @@ import java.util.List;
 public class Result implements Cloneable{
    	private List<Flights> flights;
    	private Meta meta;
+
     private int searchedPrice;
+    private boolean searchedDirect;
 
     public List<Flights> getDirectFlights(){
         List<Flights> returnFlights = new ArrayList<Flights>();
@@ -42,7 +44,11 @@ public class Result implements Cloneable{
                 buffer.append(this.getFlightsInPriceRange().size());
                 buffer.append(" matched your budget of no more than ");
                 buffer.append(this.getSearchedPrice());
-                buffer.append(" dollars. The most economic flight is ");
+                buffer.append(" dollars");
+                if(this.isSearchedDirect()){
+                    buffer.append(" and are direct flights");
+                }
+                buffer.append(". The most economic flight is ");
                 buffer.append(this.getMeta().getFacets().get(2).getMin());
                 buffer.append(" dollars per adult.");/*, and the most expensive flight is ");
                 buffer.append(this.getMeta().getFacets().get(2).getMax());
@@ -56,7 +62,13 @@ public class Result implements Cloneable{
 
     public List<Flights> getFlightsInPriceRange() {
         List<Flights> returnFlights = new ArrayList<Flights>();
-        List<Flights> flights1 = this.getFlights();
+        List<Flights> flights1;
+        if(this.isSearchedDirect()){
+            flights1 = this.getDirectFlights();
+        } else{
+            flights1 = this.getFlights();
+        }
+
         for(int index = 0; index < flights1.size(); index++){
             Total total = flights1.get(index).getPriceInfo().getTotal();
             Number fare = total.getFare();
@@ -91,5 +103,13 @@ public class Result implements Cloneable{
 
     public void setSearchedPrice(int searchedPrice) {
         this.searchedPrice = searchedPrice;
+    }
+
+    public boolean isSearchedDirect() {
+        return searchedDirect;
+    }
+
+    public void setSearchedDirect(boolean searchedDirect) {
+        this.searchedDirect = searchedDirect;
     }
 }

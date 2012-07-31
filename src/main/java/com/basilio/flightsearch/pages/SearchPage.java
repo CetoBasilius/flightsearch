@@ -131,7 +131,7 @@ public class SearchPage {
             }
         }
 
-        if(slider<500){
+        if(slider<this.getMinSliderValue()){
             searchForm.recordError(messages.get("error.notvalid"));
             logger.error("slider value was " + slider);
             return null;
@@ -165,8 +165,13 @@ public class SearchPage {
         search.setNewBorns(Integer.parseInt(infants));
 
         Result result = flightSearchConnector.searchFlights(search);
+
         resultsPage.setup(search,result);
         return resultsPage;
+    }
+
+    private int getMinSliderValue() {
+        return 200;
     }
 
     public List<AirportStub> getAirportStublist() {
