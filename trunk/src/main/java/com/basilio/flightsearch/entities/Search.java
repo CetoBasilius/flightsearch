@@ -134,7 +134,7 @@ public class Search {
             buffer.append(", ");
         }
         if(this.isDirectFlight()){
-            buffer.append(" including only direct flights, ");
+            buffer.append(" only direct flights, ");
         }else{
             buffer.append(" including segmented and direct flights, ");
         }
