@@ -29,13 +29,11 @@ public class ResultFilterImpl implements ResultFilter{
 
         Result returnResult = new Result();
 
-        System.out.println("cloning");
         try {
             returnResult = (Result)inResult.clone();
         } catch (CloneNotSupportedException e) {
             logger.error("cloning "+this.getClass()+" failed");
         }
-        System.out.println("cloned");
 
         List<Flights> newList = new ArrayList<Flights>();
 
@@ -43,7 +41,6 @@ public class ResultFilterImpl implements ResultFilter{
         for(int index = 0; index < flights.size();index++){
             Flights inFlight = flights.get(index);
             if(inFlight.getPriceInfo().getTotal().getFare().intValue()<budget){
-                System.out.println("adding flight "+index);
                 newList.add(inFlight);
             }
         }

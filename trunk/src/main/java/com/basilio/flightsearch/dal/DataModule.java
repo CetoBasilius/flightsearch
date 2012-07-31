@@ -58,15 +58,7 @@ public class DataModule {
         }else{
             try {
                 List<AirportStub> entities = airportListConnector.GetAirportStubList();
-                /*for(AirportStub airport : entities){
-                    AirportStub stub = airportInformationDAO.getAirportData(airport.getCode());
-                    airport.setLatitude(stub.getLatitude());
-                    airport.setLongitude(stub.getLongitude());
-                    if(airport.getLongitude()==0 || airport.getLatitude()==0){
-                        logger.warn(airport.getCode()+" coordinate information not found");
-                    }
 
-                }*/
                 create(entities);
             } catch (IOException e) {
                 e.printStackTrace();

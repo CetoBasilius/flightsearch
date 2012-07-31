@@ -136,4 +136,124 @@ public class AccountSettings {
         return AccountSettings.class;
     }
 
+    public Messages getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Messages messages) {
+        this.messages = messages;
+    }
+
+    public ServiceDAO getServiceDAO() {
+        return serviceDAO;
+    }
+
+    public void setServiceDAO(ServiceDAO serviceDAO) {
+        this.serviceDAO = serviceDAO;
+    }
+
+    public Authenticator getAuthenticator() {
+        return authenticator;
+    }
+
+    public void setAuthenticator(Authenticator authenticator) {
+        this.authenticator = authenticator;
+    }
+
+    public Form getChangePasswordForm() {
+        return changePasswordForm;
+    }
+
+    public void setChangePasswordForm(Form changePasswordForm) {
+        this.changePasswordForm = changePasswordForm;
+    }
+
+    public String getVerifyNewPassword1() {
+        return verifyNewPassword1;
+    }
+
+    public void setVerifyNewPassword1(String verifyNewPassword1) {
+        this.verifyNewPassword1 = verifyNewPassword1;
+    }
+
+    public String getVerifyNewPassword2() {
+        return verifyNewPassword2;
+    }
+
+    public void setVerifyNewPassword2(String verifyNewPassword2) {
+        this.verifyNewPassword2 = verifyNewPassword2;
+    }
+
+    public String getMyPassword() {
+        return myPassword;
+    }
+
+    public void setMyPassword(String myPassword) {
+        this.myPassword = myPassword;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Form getRegisterForm() {
+        return registerForm;
+    }
+
+    public void setRegisterForm(Form registerForm) {
+        this.registerForm = registerForm;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getVerifyPassword() {
+        return verifyPassword;
+    }
+
+    public void setVerifyPassword(String verifyPassword) {
+        this.verifyPassword = verifyPassword;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
 }
