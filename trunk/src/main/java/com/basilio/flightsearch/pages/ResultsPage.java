@@ -283,11 +283,11 @@ public class ResultsPage {
 
     public String getOutboundRouteShort(){
         //TODO: this method gives me the correct value
-        return flightIndex+","+outBoundIndex+","+(this.getNumFlightsBeforeCurrentPage()+flightIndex);
+        return "FLIGHT:"+(this.getNumFlightsBeforeCurrentPage()+flightIndex)+" OUT:"+outBoundIndex;
     }
 
     public String getInboundRouteShort(){
-        return flightIndex+","+inBoundIndex+","+(this.getNumFlightsBeforeCurrentPage()+flightIndex);
+        return " IN:"+inBoundIndex;
     }
 
 
@@ -377,14 +377,15 @@ public class ResultsPage {
     @OnEvent(value = EventConstants.SUCCESS, component = "buyForm")
     public Object buyTicket(){
         if(StringUtils.isNotBlank(outRadioSelectedValue)){
-            bought = "SVO:"+this.outRadioSelectedValue;
+
+            bought = this.outRadioSelectedValue;
         } else {
             errorForm.recordError(messages.get("error.mustselectoutboundroute"));
             return null;
         }
         if(search.isRoundTrip()){
             if(StringUtils.isNotBlank(inRadioSelectedValue)){
-                bought += " SVI:"+inRadioSelectedValue;
+                bought += this.inRadioSelectedValue;
             } else {
                 errorForm.recordError(messages.get("error.mustselectinboundroute"));
                 return null;
@@ -439,12 +440,7 @@ public class ResultsPage {
         }
 
         public InboundRoutes toValue(String str) {
-            if(StringUtils.isNotBlank(str)){
-                int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne+flightIndex).getInboundRoutes().get(Integer.parseInt(str));
-            }else{
-                return null;
-            }
+            return null;
         }
     };
 
@@ -457,12 +453,7 @@ public class ResultsPage {
         }
 
         public Segments toValue(String str) {
-            if(StringUtils.isNotBlank(str)){
-                int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne + flightIndex).getInboundRoutes().get(inBoundIndex).getSegments().get(Integer.parseInt(str));
-            }else{
-                return null;
-            }
+            return null;
         }
     };
 //-----------------------------------------------------
@@ -475,12 +466,7 @@ public class ResultsPage {
         }
 
         public OutboundRoutes toValue(String str) {
-            if(StringUtils.isNotBlank(str)){
-                int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne+flightIndex).getOutboundRoutes().get(Integer.parseInt(str));
-            }else{
-                return null;
-            }
+            return null;
         }
     };
 
@@ -493,12 +479,7 @@ public class ResultsPage {
         }
 
         public Segments toValue(String str) {
-            if(StringUtils.isNotBlank(str)){
-                int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne + flightIndex).getOutboundRoutes().get(outBoundIndex).getSegments().get(Integer.parseInt(str));
-            }else{
-                return null;
-            }
+            return null;
         }
     };
 //-----------------------------------------------------
