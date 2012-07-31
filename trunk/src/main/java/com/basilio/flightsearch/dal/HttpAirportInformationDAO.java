@@ -1,18 +1,13 @@
 package com.basilio.flightsearch.dal;
 
-import com.basilio.flightsearch.dal.AirportInformationDAO;
-import com.basilio.flightsearch.entities.AirportCreator;
+import com.basilio.flightsearch.core.AirportCreator;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.ResultCreator;
 import com.basilio.flightsearch.entities.airport.Airports;
-import com.basilio.flightsearch.entities.result.Result;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.tapestry5.annotations.Log;
-import org.mozilla.javascript.tools.shell.Global;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 

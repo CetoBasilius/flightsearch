@@ -7,17 +7,22 @@
                 <td colspan="3" class="showtd">
                     <table class="full" style="width:100%">
                         <tr>
-                            <td>
+                            <td class="rounded4">
                                 ${searchDescription}
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="rounded4">
                                 ${resultDescription}
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="rounded4" id="non-printable">
+                                ${filterDescription}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td >
                                 ${boughtItem}
                             </td>
                         </tr>
@@ -325,7 +330,7 @@
                                                                                                     <label>Leaves</label>
                                                                                                 </th>
                                                                                                 <td class="rounded5">
-                                                                                                    ${outSegmentLeaveInfo}
+                                                                                                    &nbsp;${outSegmentLeaveInfo}
                                                                                                 </td>
                                                                                             </tr>
 
@@ -335,7 +340,7 @@
                                                                                                         <label>Stops</label>
                                                                                                     </th>
                                                                                                     <td class="rounded5">
-                                                                                                        ${outSegmentStopInfo}
+                                                                                                        &nbsp;${outSegmentStopInfo}
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </t:if>
@@ -345,7 +350,7 @@
                                                                                                     <label>Arrives</label>
                                                                                                 </th>
                                                                                                 <td class="rounded5">
-                                                                                                    ${outSegmentArriveInfo}<br/>
+                                                                                                    &nbsp;${outSegmentArriveInfo}<br/>
                                                                                                 </td>
                                                                                             </tr>
 
@@ -354,14 +359,14 @@
                                                                                                     <label>Duration</label>
                                                                                                 </th>
                                                                                                 <td class="rounded5">
-                                                                                                    ${outSegmentDurationInfo}<br/>
+                                                                                                    &nbsp;${outSegmentDurationInfo}<br/>
                                                                                                 </td>
                                                                                             </tr>
 
                                                                                         </table>
                                                                                     </t:loop>
                                                                                     <center>
-                                                                                        <t:actionlink t:id="viewmap" context="OutRouteSegmentInfoCommas" target="_blank">View outbound route in a map</t:actionlink>
+                                                                                        <t:actionlink t:id="outviewmap" context="OutRouteSegmentInfoCommas" target="_blank">View outbound route in a map</t:actionlink>
                                                                                     </center>
                                                                                 </div>
 
@@ -482,46 +487,61 @@
                                                                     <tr>
                                                                         <td>
                                                                             <div t:id="inboundWindow">
-                                                                                <p>${staticInWindowNumber}</p>
-                                                                                <table>
-                                                                                    <t:loop source="inSegments" value="inSegment" encoder="inSegmentsValueEncoder">
-                                                                                        <tr>
-                                                                                            <td class="showtd">
-                                                                                                <table>
-                                                                                                    <tr>
-                                                                                                        <th style="width:10%;">
-                                                                                                            <label>Leaves</label>
-                                                                                                        </th>
-                                                                                                        <td class="showtd">
-                                                                                                            ${inSegmentLeaveInfo}<br/>
-                                                                                                        </td>
-                                                                                                    </tr>
+                                                                                <!--${staticOutWindowNumber}-->
 
-                                                                                                    <t:if test="inSegmentHasStops">
-                                                                                                        <tr>
-                                                                                                            <th style="width:10%;">
-                                                                                                                <label>Stops</label>
-                                                                                                            </th>
-                                                                                                            <td class="showtd">
-                                                                                                                ${inSegmentStopInfo}
-                                                                                                            </td>
-                                                                                                        </tr>
-                                                                                                    </t:if>
+                                                                                <div class="rounded4" style="width:97%;">
+                                                                                    <t:loop source="inSegments" value="inSegment" encoder="inSegmentsValueEncoder" index="inSegmentWindowIndex">
+                                                                                        <center><b><br/>${inSegmentWindowDescription}</b></center>
+                                                                                        <table class="rounded4">
 
-                                                                                                    <tr>
-                                                                                                        <th style="width:10%;">
-                                                                                                            <label>Arrives</label>
-                                                                                                        </th>
-                                                                                                        <td class="showtd">
-                                                                                                            ${inSegmentArriveInfo}<br/>
-                                                                                                        </td>
-                                                                                                    </tr>
-                                                                                                </table>
-                                                                                            </td>
-                                                                                        </tr>
+                                                                                            <tr>
+                                                                                                <th style="width:10%;">
+                                                                                                    <label>Leaves</label>
+                                                                                                </th>
+                                                                                                <td class="rounded5">
+                                                                                                    ${inSegmentLeaveInfo}
+                                                                                                </td>
+                                                                                            </tr>
+
+                                                                                            <t:if test="outSegmentHasStops">
+                                                                                                <tr>
+                                                                                                    <th style="width:10%;">
+                                                                                                        <label>Stops</label>
+                                                                                                    </th>
+                                                                                                    <td class="rounded5">
+                                                                                                        ${inSegmentStopInfo}
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </t:if>
+
+                                                                                            <tr>
+                                                                                                <th style="width:10%;">
+                                                                                                    <label>Arrives</label>
+                                                                                                </th>
+                                                                                                <td class="rounded5">
+                                                                                                    ${inSegmentArriveInfo}<br/>
+                                                                                                </td>
+                                                                                            </tr>
+
+                                                                                            <tr>
+                                                                                                <th style="width:10%;">
+                                                                                                    <label>Duration</label>
+                                                                                                </th>
+                                                                                                <td class="rounded5">
+                                                                                                    ${inSegmentDurationInfo}<br/>
+                                                                                                </td>
+                                                                                            </tr>
+
+                                                                                        </table>
                                                                                     </t:loop>
-                                                                                </table>
+                                                                                    <center>
+                                                                                        <t:actionlink t:id="inviewmap" context="inRouteSegmentInfoCommas" target="_blank">View inbound route in a map</t:actionlink>
+                                                                                    </center>
+                                                                                </div>
+
+
                                                                             </div>
+
                                                                         </td>
                                                                     </tr>
                                                                 </table>

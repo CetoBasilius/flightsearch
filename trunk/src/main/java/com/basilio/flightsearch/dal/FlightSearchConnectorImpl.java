@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.dal;
 
-import com.basilio.flightsearch.entities.ResultCreator;
+import com.basilio.flightsearch.core.ResultCreator;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.Result;
 import org.apache.http.HttpEntity;
@@ -8,13 +8,10 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.tapestry5.annotations.Log;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.zip.GZIPInputStream;
 
 /**

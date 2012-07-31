@@ -1,7 +1,7 @@
 package com.basilio.flightsearch.entities;
 
+import com.basilio.flightsearch.core.ResultCreator;
 import com.basilio.flightsearch.entities.result.Result;
-import com.google.gson.Gson;
 import org.testng.annotations.Test;
 
 import static org.easymock.EasyMock.createNiceMock;

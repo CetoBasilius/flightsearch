@@ -418,8 +418,7 @@ table.blueflightchooser {
     border-style:solid; border-width:4px;
     border-color:#009ACD;
     background-color: #FFFFFF;
-    padding: 5px;
-    margin-top: 10px;
+    padding-right: 6px;
     margin-right: 20px;
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -429,8 +428,7 @@ table.redflightchooser {
     border-style:solid; border-width:4px;
     border-color:#FFC125;
     background-color: #FFFFFF;
-    padding: 5px;
-    margin-top: 10px;
+    padding-right: 6px;
     margin-right: 20px;
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -446,7 +444,7 @@ table.pricetable {
 }
 
 table td.showtd {
-    border-style:solid; border-width:1px;
+    #border-style:solid; border-width:1px;
 }
 
 
@@ -498,7 +496,7 @@ table td.returningbox {
     width:100%;
     border-style:solid; border-width:1px;
     background-color: #FAFAFA;
-    padding: 5px;
+    padding: 2px;
     margin-top: 10px;
     margin-right: 20px;
     border-radius: 10px;
@@ -509,10 +507,10 @@ table td.returningbox {
     width:100%;
     border-style:solid; border-width:1px;
     background-color: #FFFFFF;
-	padding: 5px;
+	padding: 2px;
 	margin-top: 10px;
 	margin-right: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     -moz-border-radius: 5px;
 }
 
