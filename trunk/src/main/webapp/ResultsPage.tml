@@ -31,160 +31,162 @@
             </tr>
             <tr>
                 <td valign="top" id="non-printable" style="width:20%;" class="showtd">
-                    <div style="height:32px;"/>
-                    <form t:type="form" t:id="filterForm">
+                    <t:if test="!emptyResult">
+                        <div style="height:32px;"/>
+                        <form t:type="form" t:id="filterForm">
 
-                        <table style="width:100%;" class="roundedbox">
-                            <tr>
-                                <td class="roundedbox">
-                                    <center>Filter Results</center>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="showtd">
+                            <table style="width:100%;" class="roundedbox">
+                                <tr>
+                                    <td class="roundedbox">
+                                        <center>Filter Results</center>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="showtd">
 
-                                    <table style="width:100%;" class="rounded4">
-                                        <tr>
-                                            <td class="showtd">
-                                                <center>Price</center>
-                                            </td>
-                                        </tr>
+                                        <table style="width:100%;" class="rounded4">
+                                            <tr>
+                                                <td class="showtd">
+                                                    <center>Price</center>
+                                                </td>
+                                            </tr>
 
-                                        <tr>
-                                            <td  class="resultfilterslider">
+                                            <tr>
+                                                <td  class="resultfilterslider">
 
-                                                <t:slider value="slider" id="slider" t:min="minPriceFilter" t:max="maxPriceFilter" t:steps="priceFilterSteps"
-                                                          t:customHandleCSS="customHandleCSS" t:customTrackCSS="customTrackCSS" t:customValueCSS="customValueCSS"/>
-                                            </td>
-                                        </tr>
+                                                    <t:slider value="slider" id="slider" t:min="minPriceFilter" t:max="maxPriceFilter" t:steps="priceFilterSteps"
+                                                              t:customHandleCSS="customHandleCSS" t:customTrackCSS="customTrackCSS" t:customValueCSS="customValueCSS"/>
+                                                </td>
+                                            </tr>
 
-                                    </table>
+                                        </table>
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="showtd">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="showtd">
 
-                                    <table style="width:100%;" class="rounded4">
-                                        <tr>
-                                            <td class="showtd">
-                                                <center>Duration</center>
-                                            </td>
-                                        </tr>
+                                        <table style="width:100%;" class="rounded4">
+                                            <tr>
+                                                <td class="showtd">
+                                                    <center>Duration</center>
+                                                </td>
+                                            </tr>
 
-                                        <tr>
-                                            <td>
-                                                <table>
-                                                    <t:radiogroup t:id="durationFilterRadios" value="durationFilterRadioSelectedValue">
+                                            <tr>
+                                                <td>
+                                                    <table>
+                                                        <t:radiogroup t:id="durationFilterRadios" value="durationFilterRadioSelectedValue">
+
+                                                            <tr>
+                                                                <td>
+                                                                    <t:radio t:id="radioAllDurations" value="radioAllDurations" style="cursor:pointer;"/>
+                                                                    <t:label for="radioAllDurations">Any duration</t:label>
+                                                                </td>
+                                                            </tr>
+
+                                                        </t:radiogroup>
+                                                    </table>
+
+                                                </td>
+                                            </tr>
+
+                                        </table>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="showtd">
+
+                                        <table style="width:100%;" class="rounded4">
+                                            <tr>
+                                                <td class="showtd">
+                                                    <center>Segments</center>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <table>
+                                                        <t:radiogroup t:id="segmentFilterRadios" value="segmentFilterRadioSelectedValue">
+                                                            <tr>
+                                                                <td>
+                                                                    <t:radio t:id="radioDirect" value="radioDirect" style="cursor:pointer;"/>
+                                                                    <t:label for="radioDirect">Direct flights</t:label>
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <t:radio t:id="radio1segment" value="radio1segment" style="cursor:pointer;"/>
+                                                                    <t:label for="radio1segment">One segment</t:label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <t:radio t:id="radio2segmentMore" value="radio2segmentMore" style="cursor:pointer;"/>
+                                                                    <t:label for="radio2segmentMore">Two or more segments</t:label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <t:radio t:id="radioAllSegments" value="radioAllSegments" style="cursor:pointer;"/>
+                                                                    <t:label for="radioAllSegments">Any segments</t:label>
+                                                                </td>
+                                                            </tr>
+
+                                                        </t:radiogroup>
+                                                    </table>
+
+                                                </td>
+                                            </tr>
+
+                                        </table>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="showtd">
+
+                                        <table style="width:100%;" class="rounded4">
+                                            <tr>
+                                                <td class="showtd">
+                                                    <center>Type</center>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+
+                                                    <t:radiogroup t:id="typeFilterRadios" value="typeFilterRadioSelectedValue">
 
                                                         <tr>
                                                             <td>
-                                                                <t:radio t:id="radioAllDurations" value="radioAllDurations" style="cursor:pointer;"/>
-                                                                <t:label for="radioAllDurations">Any duration</t:label>
+                                                                <t:radio t:id="radioAllTypes" value="radioAllTypes" style="cursor:pointer;"/>
+                                                                <t:label for="radioAllTypes">Any Type</t:label>
                                                             </td>
                                                         </tr>
 
                                                     </t:radiogroup>
-                                                </table>
+                                                </td>
+                                            </tr>
 
-                                            </td>
-                                        </tr>
+                                        </table>
 
-                                    </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="showtd">
+                                        <center>
+                                            <input type="submit" t:type="submit" value="Filter results" t:id="applyfilter" t:event="applyfilter"/>&nbsp;
+                                            <input type="submit" t:type="submit" value="Disable filter" t:id="disablefilter" t:event="disablefilter"/>
+                                        </center>
+                                    </td>
 
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="showtd">
-
-                                    <table style="width:100%;" class="rounded4">
-                                        <tr>
-                                            <td class="showtd">
-                                                <center>Segments</center>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <table>
-                                                    <t:radiogroup t:id="segmentFilterRadios" value="segmentFilterRadioSelectedValue">
-                                                        <tr>
-                                                            <td>
-                                                                <t:radio t:id="radioDirect" value="radioDirect" style="cursor:pointer;"/>
-                                                                <t:label for="radioDirect">Direct flights</t:label>
-                                                            </td>
-
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <t:radio t:id="radio1segment" value="radio1segment" style="cursor:pointer;"/>
-                                                                <t:label for="radio1segment">One segment</t:label>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <t:radio t:id="radio2segmentMore" value="radio2segmentMore" style="cursor:pointer;"/>
-                                                                <t:label for="radio2segmentMore">Two or more segments</t:label>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <t:radio t:id="radioAllSegments" value="radioAllSegments" style="cursor:pointer;"/>
-                                                                <t:label for="radioAllSegments">Any segments</t:label>
-                                                            </td>
-                                                        </tr>
-
-                                                    </t:radiogroup>
-                                                </table>
-
-                                            </td>
-                                        </tr>
-
-                                    </table>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="showtd">
-
-                                    <table style="width:100%;" class="rounded4">
-                                        <tr>
-                                            <td class="showtd">
-                                                <center>Type</center>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-
-                                                <t:radiogroup t:id="typeFilterRadios" value="typeFilterRadioSelectedValue">
-
-                                                    <tr>
-                                                        <td>
-                                                            <t:radio t:id="radioAllTypes" value="radioAllTypes" style="cursor:pointer;"/>
-                                                            <t:label for="radioAllTypes">Any Type</t:label>
-                                                        </td>
-                                                    </tr>
-
-                                                </t:radiogroup>
-                                            </td>
-                                        </tr>
-
-                                    </table>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="showtd">
-                                    <center>
-                                        <input type="submit" t:type="submit" value="Filter results" t:id="applyfilter" t:event="applyfilter"/>&nbsp;
-                                        <input type="submit" t:type="submit" value="Disable filter" t:id="disablefilter" t:event="disablefilter"/>
-                                    </center>
-                                </td>
-
-                            </tr>
-                        </table>
-                    </form>
+                                </tr>
+                            </table>
+                        </form>
+                    </t:if>
                 </td>
 
                 <td valign="top" style="width:50%;" class="showtd">
