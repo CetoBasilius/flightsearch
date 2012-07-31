@@ -231,12 +231,19 @@ public class ResultsPage {
         customValueCSS = "slider-value-custom";
 
         if(showingResult!=null){
-            Facets minmaxFacet = showingResult.getMeta().getFacets().get(2);
-            minPriceFilter = minmaxFacet.getMin().intValue()-(minmaxFacet.getMin().intValue()%100);
-            maxPriceFilter = minmaxFacet.getMax().intValue()+(100-(minmaxFacet.getMax().intValue()%100));
-            priceFilterSteps = (maxPriceFilter-minPriceFilter)/100;
+            List<Facets> facets = showingResult.getMeta().getFacets();
+            if(facets!=null){
+                Facets minmaxFacet = facets.get(2);
+                minPriceFilter = minmaxFacet.getMin().intValue()-(minmaxFacet.getMin().intValue()%100);
+                maxPriceFilter = minmaxFacet.getMax().intValue()+(100-(minmaxFacet.getMax().intValue()%100));
+                priceFilterSteps = (maxPriceFilter-minPriceFilter)/100;
 
-            slider = search.getBudgetDollars();
+                slider = search.getBudgetDollars();
+                emptyResult=false;
+            } else {
+                emptyResult=true;
+            }
+
         }
 
         if(resultFilter == null){
@@ -434,7 +441,7 @@ public class ResultsPage {
         public InboundRoutes toValue(String str) {
             if(StringUtils.isNotBlank(str)){
                 int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne+1+flightIndex).getInboundRoutes().get(Integer.parseInt(str));
+                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne+flightIndex).getInboundRoutes().get(Integer.parseInt(str));
             }else{
                 return null;
             }
@@ -452,7 +459,7 @@ public class ResultsPage {
         public Segments toValue(String str) {
             if(StringUtils.isNotBlank(str)){
                 int numberOfFlightsBeforeThisOne = getNumFlightsBeforeCurrentPage();
-                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne + 1 + flightIndex).getInboundRoutes().get(inBoundIndex).getSegments().get(Integer.parseInt(str));
+                return showingResult.getFlights().get(numberOfFlightsBeforeThisOne + flightIndex).getInboundRoutes().get(inBoundIndex).getSegments().get(Integer.parseInt(str));
             }else{
                 return null;
             }
