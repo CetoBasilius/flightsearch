@@ -152,7 +152,6 @@ public class GMap implements ClientElement
                     String descriptor = "";
                     if(descList!= null){
                         descriptor = descList.get(a);
-                        System.out.println(descriptor);
                     }
 
                     latavg+=getlat;
