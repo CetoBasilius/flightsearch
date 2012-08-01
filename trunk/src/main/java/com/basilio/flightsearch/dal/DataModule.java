@@ -42,14 +42,14 @@ public class DataModule {
     public void initialize() {
         String loadingString = "Loading initial demo data";
         logger.info(loadingString);
-        System.out.println(loadingString);
+
         try{
             createDemoUsers();
             createDemoAirportStubs();
         }catch(Exception e){}
         String loadedCompleteString = "Data Loaded...";
         logger.info(loadedCompleteString);
-        System.out.println(loadedCompleteString);
+
     }
 
     private void createDemoAirportStubs() {
@@ -79,7 +79,7 @@ public class DataModule {
             try{
                 String attemptString = "Attempting to create " + thisEntity.toString();
                 logger.info(attemptString);
-                System.out.println(attemptString);
+
                 serviceDAO.create(thisEntity);
             }catch(Exception e){
                 logger.error("Could not create "+thisEntity.toString());

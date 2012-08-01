@@ -87,7 +87,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
         //{from}/{to}/{departureDate}/{adults}/{children}/{infants}
         //Date on yyyy-MM-dd format
         String resultString = ApiTemplateOneWayFlightAddress+from+"/"+to+"/"+sdf.format(departureDate)+"/"+adults+"/"+children+"/"+infants+"?pagesize=50";
-        System.out.println(resultString);
+
         return resultString;
     }
 
@@ -95,7 +95,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
         //{from}/{to}/{departureDate}/{returningDate}/{adults}/{children}/{infants}
         //"http://api.despegar.com/availability/flights/roundTrip/HMO/MEX/2012-07-23/2012-07-27/1/0/0"
         String s = ApiTemplateRoundFlightAddress + from + "/" + to + "/" + sdf.format(departureDate) + "/" + sdf.format(returnDate) + "/" + adults + "/" + children + "/" + infants  + "?pagesize=50";
-        System.out.println(s);
+
         return s;
     }
 

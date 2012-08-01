@@ -34,7 +34,7 @@ public class HibernateServiceDAO implements ServiceDAO {
     public <T> T create(T t) {
         String createString = "Creating " + t.toString();
         logger.info(createString);
-        System.out.println(createString);
+
         session.persist(t);
         session.flush();
         session.refresh(t);
@@ -78,7 +78,7 @@ public class HibernateServiceDAO implements ServiceDAO {
 
     @SuppressWarnings("unchecked")
     public <T> T findUniqueWithNamedQuery(String queryName) {
-        System.out.println(queryName);
+
         T t = (T) session.getNamedQuery(queryName).uniqueResult();
         if (t == null) {
             logger.error("There was no Object using "+queryName);
