@@ -24,9 +24,9 @@ public class Segment {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private SimpleDateFormat outDateFormat = new SimpleDateFormat("H:mm', 'MMMM d"  );
 
-   	private Arrival arrival;
+   	private Location arrival;
    	private String delayInfo;
-   	private Departure departure;
+   	private Location departure;
    	private String duration;
    	private Number flightNumber;
    	private String marketingCabinTypeCode;
@@ -39,10 +39,10 @@ public class Segment {
 
     private SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm");
 
-    public Arrival getArrival(){
+    public Location getArrival(){
 		return this.arrival;
 	}
-	public void setArrival(Arrival arrival){
+	public void setArrival(Location arrival){
 		this.arrival = arrival;
 	}
  	public String getDelayInfo(){
@@ -51,10 +51,10 @@ public class Segment {
 	public void setDelayInfo(String delayInfo){
 		this.delayInfo = delayInfo;
 	}
- 	public Departure getDeparture(){
+ 	public Location getDeparture(){
 		return this.departure;
 	}
-	public void setDeparture(Departure departure){
+	public void setDeparture(Location departure){
 		this.departure = departure;
 	}
  	public String getDuration(){
@@ -114,7 +114,7 @@ public class Segment {
 
     public String getDepartureDescription(){
         StringBuffer buffer = new StringBuffer();
-        Departure departure1 = this.getDeparture();
+        Location departure1 = this.getDeparture();
         buffer.append(departure1.getLocation());
         buffer.append(", ");
         buffer.append(departure1.getLocationDescription());
@@ -123,7 +123,7 @@ public class Segment {
 
     public String getArrivalDescription(){
         StringBuffer buffer = new StringBuffer();
-        Arrival arrival1 = this.getArrival();
+        Location arrival1 = this.getArrival();
         buffer.append(arrival1.getLocation());
         buffer.append(", ");
         buffer.append(arrival1.getLocationDescription());

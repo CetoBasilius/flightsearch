@@ -34,9 +34,9 @@ public class ResultTest {
         mockFlightList.add(mockedFlight1);
         result.setFlights(mockFlightList);
 
-        List<OutboundRoute> mockedOutboundRoutes = createNiceMock(ArrayList.class);
+        List<Route> mockedOutboundRoutes = createNiceMock(ArrayList.class);
         List<Segment> mockedSegments = createNiceMock(ArrayList.class);
-        OutboundRoute mockedOutboundRoute = createNiceMock(OutboundRoute.class);
+        Route mockedOutboundRoute = createNiceMock(Route.class);
 
         expect(mockedFlight1.getOutboundRoutes()).andReturn(mockedOutboundRoutes).anyTimes();
         expect(mockedOutboundRoutes.size()).andReturn(1).anyTimes();

@@ -23,7 +23,7 @@ public class Result implements Cloneable{
         List<Flight> returnFlights = new ArrayList<Flight>();
         List<Flight> flights1 = this.getFlights();
         for(int index = 0; index < flights1.size(); index++){
-            List<OutboundRoute> outboundRoutes = flights1.get(index).getOutboundRoutes();
+            List<Route> outboundRoutes = flights1.get(index).getOutboundRoutes();
             for(int routeIndex = 0; routeIndex < outboundRoutes.size(); routeIndex++){
                 if(outboundRoutes.get(routeIndex).getSegments().size()==1){
                     returnFlights.add(flights1.get(index));

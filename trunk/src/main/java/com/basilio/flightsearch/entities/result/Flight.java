@@ -11,9 +11,9 @@ import java.util.List;
  */
 public class Flight {
    	private String id;
-   	private List<InboundRoute> inboundRoutes;
+   	private List<Route> inboundRoutes;
    	private List<ItineraryInfos> itineraryInfos;
-   	private List<OutboundRoute> outboundRoutes;
+   	private List<Route> outboundRoutes;
    	private PaymentInfo paymentInfo;
    	private PriceInfo priceInfo;
     private boolean returnDirectFlights;
@@ -32,10 +32,10 @@ public class Flight {
 	public void setId(String id){
 		this.id = id;
 	}
- 	public List<InboundRoute> getInboundRoutes(){
+ 	public List<Route> getInboundRoutes(){
 		return this.inboundRoutes;
 	}
-	public void setInboundRoutes(List<InboundRoute> inboundRoutes){
+	public void setInboundRoutes(List<Route> inboundRoutes){
 		this.inboundRoutes = inboundRoutes;
 	}
  	public List<ItineraryInfos> getItineraryInfos(){
@@ -44,10 +44,10 @@ public class Flight {
 	public void setItineraryInfos(List<ItineraryInfos> itineraryInfos){
 		this.itineraryInfos = itineraryInfos;
 	}
- 	public List<OutboundRoute> getOutboundRoutes(){
+ 	public List<Route> getOutboundRoutes(){
 		return this.outboundRoutes;
 	}
-	public void setOutboundRoutes(List<OutboundRoute> outboundRoutes){
+	public void setOutboundRoutes(List<Route> outboundRoutes){
 		this.outboundRoutes = outboundRoutes;
 	}
  	public PaymentInfo getPaymentInfo(){

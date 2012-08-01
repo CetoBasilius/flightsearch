@@ -56,12 +56,12 @@ public class Route {
     }
 
     public String getFinalDestination(){
-        Arrival arrival = this.getSegments().get(this.getSegments().size() - 1).getArrival();
+        Location arrival = this.getSegments().get(this.getSegments().size() - 1).getArrival();
         return arrival.getLocation()+", "+arrival.getLocationDescription();
     }
 
     public String getDeparturePlace(){
-        Departure departure = this.getSegments().get(0).getDeparture();
+        Location departure = this.getSegments().get(0).getDeparture();
         return departure.getLocation()+", "+departure.getLocationDescription();
     }
 
@@ -131,7 +131,7 @@ public class Route {
         String[] segmentsDesc = new String[size+1];
         for(int index = 0; index < size;index++){
             Segment segments1 = this.getSegments().get(index);
-            Departure departure = segments1.getDeparture();
+            Location departure = segments1.getDeparture();
             segmentsDesc[index] = departure.getLocation();
         }
         segmentsDesc[size] = this.getSegments().get(size-1).getArrival().getLocation();

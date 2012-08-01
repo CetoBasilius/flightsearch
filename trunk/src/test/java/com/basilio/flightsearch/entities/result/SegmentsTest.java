@@ -17,8 +17,8 @@ public class SegmentsTest {
     public void getDescriptionsTest(){
         Segment segment = new Segment();
 
-        Arrival arrival = new Arrival("Arrival");
-        Departure departure = new Departure("Departure");
+        Location arrival = new Location("Arrival");
+        Location departure = new Location("Departure");
 
         segment.setArrival(arrival);
         segment.setDeparture(departure);
