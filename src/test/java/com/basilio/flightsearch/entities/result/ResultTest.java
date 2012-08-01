@@ -27,16 +27,16 @@ public class ResultTest {
     @Test
     public void testGetDirectFlights() throws Exception {
         Result result = new Result();
-        List<Flights> mockFlightList = new ArrayList<Flights>();
+        List<Flight> mockFlightList = new ArrayList<Flight>();
 
-        Flights mockedFlight1 = createNiceMock(Flights.class);
+        Flight mockedFlight1 = createNiceMock(Flight.class);
 
         mockFlightList.add(mockedFlight1);
         result.setFlights(mockFlightList);
 
-        List<OutboundRoutes> mockedOutboundRoutes = createNiceMock(ArrayList.class);
-        List<Segments> mockedSegments = createNiceMock(ArrayList.class);
-        OutboundRoutes mockedOutboundRoute = createNiceMock(OutboundRoutes.class);
+        List<OutboundRoute> mockedOutboundRoutes = createNiceMock(ArrayList.class);
+        List<Segment> mockedSegments = createNiceMock(ArrayList.class);
+        OutboundRoute mockedOutboundRoute = createNiceMock(OutboundRoute.class);
 
         expect(mockedFlight1.getOutboundRoutes()).andReturn(mockedOutboundRoutes).anyTimes();
         expect(mockedOutboundRoutes.size()).andReturn(1).anyTimes();
@@ -62,8 +62,8 @@ public class ResultTest {
         assertNotNull(result.getDescription());
         assertEquals(String.class, result.getDescription().getClass());
 
-        List<Flights> flightList = new ArrayList<Flights>();
-        Flights flight1 = new Flights();
+        List<Flight> flightList = new ArrayList<Flight>();
+        Flight flight1 = new Flight();
         PriceInfo priceInfo = new PriceInfo();
         Total total = new Total();
         total.setFare(new Integer(500));
@@ -73,8 +73,8 @@ public class ResultTest {
         result.setFlights(flightList);
 
         Meta meta = new Meta();
-        Facets facet = new Facets();
-        List<Facets> facets = new ArrayList<Facets>();
+        Facet facet = new Facet();
+        List<Facet> facets = new ArrayList<Facet>();
         facets.add(facet);
         facets.add(facet);
         facets.add(facet);
@@ -91,8 +91,8 @@ public class ResultTest {
         Result result = new Result();
         result.setSearchedPrice(600);
 
-        List<Flights> mockFlightList = new ArrayList<Flights>();
-        Flights mockedFlight1 = createNiceMock(Flights.class);
+        List<Flight> mockFlightList = new ArrayList<Flight>();
+        Flight mockedFlight1 = createNiceMock(Flight.class);
         mockFlightList.add(mockedFlight1);
         mockFlightList.add(mockedFlight1);
         result.setFlights(mockFlightList);

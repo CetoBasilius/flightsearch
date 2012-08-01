@@ -9,11 +9,11 @@ import java.util.List;
  * Time: 11:22 AM
  * Actual flight result.
  */
-public class Flights{
+public class Flight {
    	private String id;
-   	private List<InboundRoutes> inboundRoutes;
+   	private List<InboundRoute> inboundRoutes;
    	private List<ItineraryInfos> itineraryInfos;
-   	private List<OutboundRoutes> outboundRoutes;
+   	private List<OutboundRoute> outboundRoutes;
    	private PaymentInfo paymentInfo;
    	private PriceInfo priceInfo;
     private boolean returnDirectFlights;
@@ -32,10 +32,10 @@ public class Flights{
 	public void setId(String id){
 		this.id = id;
 	}
- 	public List<InboundRoutes> getInboundRoutes(){
+ 	public List<InboundRoute> getInboundRoutes(){
 		return this.inboundRoutes;
 	}
-	public void setInboundRoutes(List<InboundRoutes> inboundRoutes){
+	public void setInboundRoutes(List<InboundRoute> inboundRoutes){
 		this.inboundRoutes = inboundRoutes;
 	}
  	public List<ItineraryInfos> getItineraryInfos(){
@@ -44,10 +44,10 @@ public class Flights{
 	public void setItineraryInfos(List<ItineraryInfos> itineraryInfos){
 		this.itineraryInfos = itineraryInfos;
 	}
- 	public List<OutboundRoutes> getOutboundRoutes(){
+ 	public List<OutboundRoute> getOutboundRoutes(){
 		return this.outboundRoutes;
 	}
-	public void setOutboundRoutes(List<OutboundRoutes> outboundRoutes){
+	public void setOutboundRoutes(List<OutboundRoute> outboundRoutes){
 		this.outboundRoutes = outboundRoutes;
 	}
  	public PaymentInfo getPaymentInfo(){

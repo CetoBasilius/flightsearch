@@ -13,17 +13,17 @@ import java.util.List;
  */
 
 public class Result implements Cloneable{
-   	private List<Flights> flights;
+   	private List<Flight> flights;
    	private Meta meta;
 
     private int searchedPrice;
     private boolean searchedDirect;
 
-    public List<Flights> getDirectFlights(){
-        List<Flights> returnFlights = new ArrayList<Flights>();
-        List<Flights> flights1 = this.getFlights();
+    public List<Flight> getDirectFlights(){
+        List<Flight> returnFlights = new ArrayList<Flight>();
+        List<Flight> flights1 = this.getFlights();
         for(int index = 0; index < flights1.size(); index++){
-            List<OutboundRoutes> outboundRoutes = flights1.get(index).getOutboundRoutes();
+            List<OutboundRoute> outboundRoutes = flights1.get(index).getOutboundRoutes();
             for(int routeIndex = 0; routeIndex < outboundRoutes.size(); routeIndex++){
                 if(outboundRoutes.get(routeIndex).getSegments().size()==1){
                     returnFlights.add(flights1.get(index));
@@ -60,9 +60,9 @@ public class Result implements Cloneable{
         return buffer.toString();
     }
 
-    public List<Flights> getFlightsInPriceRange() {
-        List<Flights> returnFlights = new ArrayList<Flights>();
-        List<Flights> flights1;
+    public List<Flight> getFlightsInPriceRange() {
+        List<Flight> returnFlights = new ArrayList<Flight>();
+        List<Flight> flights1;
         if(this.isSearchedDirect()){
             flights1 = this.getDirectFlights();
         } else{
@@ -84,10 +84,10 @@ public class Result implements Cloneable{
     }
 
 
-    public List<Flights> getFlights(){
+    public List<Flight> getFlights(){
         return this.flights;
     }
-    public void setFlights(List<Flights> flights){
+    public void setFlights(List<Flight> flights){
         this.flights = flights;
     }
     public Meta getMeta(){

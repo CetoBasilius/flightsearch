@@ -15,7 +15,7 @@ import static org.testng.Assert.assertNotNull;
 public class SegmentsTest {
     @Test
     public void getDescriptionsTest(){
-        Segments segment = new Segments();
+        Segment segment = new Segment();
 
         Arrival arrival = new Arrival("Arrival");
         Departure departure = new Departure("Departure");

@@ -9,7 +9,7 @@ package com.basilio.flightsearch.entities.result;
  * To change this template use File | Settings | File Templates.
  */
 
-public class Installments{
+public class Installment {
    	private Number first;
    	private Number others;
    	private Number quantity;

@@ -12,12 +12,12 @@ import java.util.List;
  */
 
 public class PaymentInfo{
-   	private List<Payments> payments;
+   	private List<Payment> payments;
 
- 	public List<Payments> getPayments(){
+ 	public List<Payment> getPayments(){
 		return this.payments;
 	}
-	public void setPayments(List<Payments> payments){
+	public void setPayments(List<Payment> payments){
 		this.payments = payments;
 	}
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Meta{
    	private String currencyCode;
-   	private List<Facets> facets;
+   	private List<Facet> facets;
    	private Number pageCount;
    	private String reference;
    	private String ticket;
@@ -26,10 +26,10 @@ public class Meta{
 	public void setCurrencyCode(String currencyCode){
 		this.currencyCode = currencyCode;
 	}
- 	public List<Facets> getFacets(){
+ 	public List<Facet> getFacets(){
 		return this.facets;
 	}
-	public void setFacets(List<Facets> facets){
+	public void setFacets(List<Facet> facets){
 		this.facets = facets;
 	}
  	public Number getPageCount(){

@@ -17,9 +17,9 @@ import java.util.List;
  * Air flight route segment
  */
 
-public class Segments{
+public class Segment {
 
-    private static final Logger logger = LoggerFactory.getLogger(Segments.class);
+    private static final Logger logger = LoggerFactory.getLogger(Segment.class);
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
     private SimpleDateFormat outDateFormat = new SimpleDateFormat("H:mm', 'MMMM d"  );
@@ -35,7 +35,7 @@ public class Segments{
    	private String marketingCarrierDescription;
    	private String operatingCarrierCode;
    	private String operatingCarrierDescription;
-    private List<Stopovers> stopovers;
+    private List<Stopover> stopovers;
 
     private SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm");
 
@@ -105,10 +105,10 @@ public class Segments{
 	public void setOperatingCarrierDescription(String operatingCarrierDescription){
 		this.operatingCarrierDescription = operatingCarrierDescription;
 	}
- 	public List<Stopovers> getStopovers(){
+ 	public List<Stopover> getStopovers(){
 		return this.stopovers;
 	}
-	public void setStopovers(List<Stopovers> stopovers){
+	public void setStopovers(List<Stopover> stopovers){
 		this.stopovers = stopovers;
 	}
 
@@ -139,7 +139,7 @@ public class Segments{
         if(this.getStopovers()!=null){
             if(this.getStopovers().size()>0){
                 buffer.append("The flight will stop at ");
-                Stopovers stopovers1 = this.getStopovers().get(0);
+                Stopover stopovers1 = this.getStopovers().get(0);
                 buffer.append(stopovers1.getAirportCode());
                 buffer.append(", ");
                 buffer.append(stopovers1.getAirportDescription());

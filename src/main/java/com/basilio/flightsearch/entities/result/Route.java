@@ -22,7 +22,7 @@ public class Route {
 
     private String duration;
     private boolean hasAirportChange;
-    private List<Segments> segments;
+    private List<Segment> segments;
     private String type;
 
     private SimpleDateFormat inDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -42,10 +42,10 @@ public class Route {
     public void setHasAirportChange(boolean hasAirportChange){
         this.hasAirportChange = hasAirportChange;
     }
-    public List<Segments> getSegments(){
+    public List<Segment> getSegments(){
         return this.segments;
     }
-    public void setSegments(List<Segments> segments){
+    public void setSegments(List<Segment> segments){
         this.segments = segments;
     }
     public String getType(){
@@ -130,7 +130,7 @@ public class Route {
         int size = this.getSegments().size();
         String[] segmentsDesc = new String[size+1];
         for(int index = 0; index < size;index++){
-            Segments segments1 = this.getSegments().get(index);
+            Segment segments1 = this.getSegments().get(index);
             Departure departure = segments1.getDeparture();
             segmentsDesc[index] = departure.getLocation();
         }
@@ -141,8 +141,8 @@ public class Route {
     public String getWaitDescription(int segmentIndex1, int segmentIndex2) {
         StringBuffer buffer = new StringBuffer();
 
-        Segments segment1 = this.getSegments().get(segmentIndex1);
-        Segments segment2 = this.getSegments().get(segmentIndex2);
+        Segment segment1 = this.getSegments().get(segmentIndex1);
+        Segment segment2 = this.getSegments().get(segmentIndex2);
 
         Date date1 = new Date();
         Date date2 = new Date();

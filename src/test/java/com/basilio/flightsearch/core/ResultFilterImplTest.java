@@ -1,10 +1,10 @@
 package com.basilio.flightsearch.core;
 
 
-import com.basilio.flightsearch.entities.result.Flights;
-import com.basilio.flightsearch.entities.result.OutboundRoutes;
+import com.basilio.flightsearch.entities.result.Flight;
+import com.basilio.flightsearch.entities.result.OutboundRoute;
 import com.basilio.flightsearch.entities.result.Result;
-import com.basilio.flightsearch.entities.result.Segments;
+import com.basilio.flightsearch.entities.result.Segment;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -26,11 +26,11 @@ public class ResultFilterImplTest {
 
         Result result = new Result();
 
-        Flights directFlight = new Flights();
-        List<OutboundRoutes> outRoutes1 = new ArrayList<OutboundRoutes>();
-        OutboundRoutes outboundRoute1 = new OutboundRoutes();
-        List<Segments> segments1 = new ArrayList<Segments>();
-        Segments segment1 = new Segments();
+        Flight directFlight = new Flight();
+        List<OutboundRoute> outRoutes1 = new ArrayList<OutboundRoute>();
+        OutboundRoute outboundRoute1 = new OutboundRoute();
+        List<Segment> segments1 = new ArrayList<Segment>();
+        Segment segment1 = new Segment();
 
         segments1.add(segment1);
         segments1.add(segment1);
@@ -42,11 +42,11 @@ public class ResultFilterImplTest {
         assertEquals(2,directFlight.getOutboundRoutes().get(0).getSegments().size());
 
 
-        Flights segmentedFlight = new Flights();
-        List<OutboundRoutes> outRoutes2 = new ArrayList<OutboundRoutes>();
-        OutboundRoutes outboundRoute2 = new OutboundRoutes();
-        List<Segments> segments2 = new ArrayList<Segments>();
-        Segments segment2 = new Segments();
+        Flight segmentedFlight = new Flight();
+        List<OutboundRoute> outRoutes2 = new ArrayList<OutboundRoute>();
+        OutboundRoute outboundRoute2 = new OutboundRoute();
+        List<Segment> segments2 = new ArrayList<Segment>();
+        Segment segment2 = new Segment();
 
         segments2.add(segment2);
         segments2.add(segment2);
@@ -58,7 +58,7 @@ public class ResultFilterImplTest {
         assertEquals(1,segmentedFlight.getOutboundRoutes().size());
         assertEquals(3,segmentedFlight.getOutboundRoutes().get(0).getSegments().size());
 
-        List<Flights> flights = new ArrayList<Flights>();
+        List<Flight> flights = new ArrayList<Flight>();
         flights.add(directFlight);
         flights.add(segmentedFlight);
 

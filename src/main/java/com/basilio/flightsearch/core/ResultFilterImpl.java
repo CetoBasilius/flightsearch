@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.core;
 
-import com.basilio.flightsearch.entities.result.Flights;
+import com.basilio.flightsearch.entities.result.Flight;
 import com.basilio.flightsearch.entities.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,11 +35,11 @@ public class ResultFilterImpl implements ResultFilter{
             logger.error("cloning "+this.getClass()+" failed");
         }
 
-        List<Flights> newList = new ArrayList<Flights>();
+        List<Flight> newList = new ArrayList<Flight>();
 
-        List<Flights> flights = inResult.getFlights();
+        List<Flight> flights = inResult.getFlights();
         for(int index = 0; index < flights.size();index++){
-            Flights inFlight = flights.get(index);
+            Flight inFlight = flights.get(index);
             if(inFlight.getPriceInfo().getTotal().getFare().intValue()<budget){
                 newList.add(inFlight);
             }
