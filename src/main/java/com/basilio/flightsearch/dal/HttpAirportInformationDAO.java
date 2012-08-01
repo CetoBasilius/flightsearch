@@ -35,7 +35,7 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
 
     public AirportStub getAirportData(AirportStub airportIn) {
 
-        System.out.println("Searching for "+airportIn.getCode());
+
         AirportStub returnAirportStub = new AirportStub();
         returnAirportStub.setCode(airportIn.getCode());
         returnAirportStub.setDescriptor(airportIn.getDescriptor());
@@ -46,7 +46,7 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
             HttpClient httpclient = new DefaultHttpClient();
 
             HttpGet httpget = new HttpGet("http://avdata.geekpilot.net/airport/"+airportIn.getCode()+".xml");
-            System.out.println(httpget.getURI());
+
             HttpResponse response = httpclient.execute(httpget);
 
             HttpEntity entity = response.getEntity();
@@ -99,7 +99,7 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
             BufferedReader reader = new BufferedReader(new InputStreamReader(zippedInputStream));
 
             resultCreator.setResultString(reader.readLine());
-            System.out.println(resultCreator.getResultString());
+
             instream.close();
             httpclient.getConnectionManager().shutdown();
 

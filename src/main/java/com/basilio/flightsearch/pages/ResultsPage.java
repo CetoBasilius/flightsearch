@@ -823,7 +823,7 @@ public class ResultsPage {
             setupList.add(new Double(airportStub.getLongitude()));
             setupDescList.add(airportStub.getDescriptor());
         }
-        System.out.println(setupDescList);
+
         mapPage.setupMapPage(setupList, setupDescList);
         return mapPage;
     }

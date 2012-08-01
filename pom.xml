@@ -198,6 +198,7 @@ of testing facilities designed for use with TestNG (http://testng.org/), so it's
                                 <move todir="${project.build.directory}/${project.artifactId}">
                                     <fileset dir="${project.build.directory}/classes/">
                                         <include name="JettyStandaloneMain.class" />
+                                        <include name="log4j.properties" />
                                     </fileset>
                                 </move>
                             </tasks>

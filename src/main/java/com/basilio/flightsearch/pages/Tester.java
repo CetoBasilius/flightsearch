@@ -46,7 +46,7 @@ public class Tester {
 
     public void setup(List<Double> coordinatesin){
         coordinatesParameter = coordinatesin;
-        System.out.println(coordinatesParameter);
+
     }
 
     Object onActionFromChangeMapTest()
