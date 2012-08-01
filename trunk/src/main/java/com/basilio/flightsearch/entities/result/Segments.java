@@ -1,6 +1,9 @@
 
 package com.basilio.flightsearch.entities.result;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,6 +18,12 @@ import java.util.List;
  */
 
 public class Segments{
+
+    private static final Logger logger = LoggerFactory.getLogger(Segments.class);
+
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+    private SimpleDateFormat outDateFormat = new SimpleDateFormat("H:mm', 'MMMM d"  );
+
    	private Arrival arrival;
    	private String delayInfo;
    	private Departure departure;
@@ -157,5 +166,25 @@ public class Segments{
         buffer.append(duration.getMinutes());
         buffer.append(" minutes.");
         return buffer.toString();
+    }
+
+    public String getDepartureHourDescription() {
+        Date departureHour = new Date();
+        try {
+            departureHour = dateFormat.parse(this.getDeparture().getDate()) ;
+        } catch (ParseException e) {
+            logger.error("departure date was unparseable!");
+        }
+        return "at "+outDateFormat.format(departureHour);
+    }
+
+    public String getArrivalHourDescription() {
+        Date arriveHour = new Date();
+        try {
+            arriveHour = dateFormat.parse(this.getArrival().getDate()) ;
+        } catch (ParseException e) {
+            logger.error("arrive date was unparseable!");
+        }
+        return "at "+outDateFormat.format(arriveHour);
     }
 }
