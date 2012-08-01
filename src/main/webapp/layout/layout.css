@@ -407,7 +407,29 @@ table.buytable {
     width:100px;
     font-size: 1.2em;
     font-weight: bold;
-    background: url(images/img02.png) no-repeat  center
+    background-color: #83F52C;
+    order-style:solid; border-width:0px;
+    border-radius: 10px;
+
+    #background: url(images/img02.png) no-repeat  center
+}
+
+table.pricetable {
+
+    border-spacing:0px;
+    height:37px;
+    width:120px;
+    font-size: 1.2em;
+    font-weight: bold;
+    background-color: #0099CC;
+    order-style:solid; border-width:0px;
+    border-radius: 10px;
+
+    #background: url(images/img03.png) no-repeat  center
+}
+
+td.pricetdcenter {
+    color:#FFFFFF;
 }
 
 table.buytable td.buytdcenter {
@@ -434,14 +456,7 @@ table.redflightchooser {
     -moz-border-radius: 10px;
 }
 
-table.pricetable {
 
-    border-spacing:3px;
-    width:130px;
-    font-size: 1.2em;
-    font-weight: bold;
-    background: url(images/img03.png) no-repeat  center
-}
 
 table td.showtd {
     #border-style:solid; border-width:1px;
@@ -474,22 +489,22 @@ table td.goingbox {
     width:100%;
     #border-style:solid; border-width:1px;
     background-color: #E0EEEE;
-	padding: 10px;
+	padding: 5px;
 	margin-top: 10px;
 	margin-right: 20px;
-    border-radius: 25px;
-    -moz-border-radius: 25px;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
 }
 
 table td.returningbox {
     width:100%;
     #border-style:solid; border-width:1px;
     background-color: #E0EEEE;
-	padding: 10px;
+	padding: 5px;
 	margin-top: 10px;
 	margin-right: 20px;
-    border-radius: 25px;
-    -moz-border-radius: 25px;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
 }
 
 .rounded4 {
@@ -520,10 +535,6 @@ table td.resultfilterslider {
 
 label.outofrangelabel {
     color: #FFFFFF;
-}
-
-td.pricetdcenter {
-    color:#FFFFFF;
 }
 
 label.routelabel {

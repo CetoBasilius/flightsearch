@@ -329,12 +329,25 @@
 
                                                                                             <tr>
                                                                                                 <th style="width:10%;">
-                                                                                                    <label>Leaves</label>
+                                                                                                    <label>Departure</label>
                                                                                                 </th>
                                                                                                 <td class="rounded5">
-                                                                                                    &nbsp;${outSegmentLeaveInfo}
+                                                                                                    <table>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                &nbsp;${outSegmentLeaveInfo}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                &nbsp;${outSegmentLeaveHourInfo}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </table>
+
                                                                                                 </td>
                                                                                             </tr>
+
 
                                                                                             <t:if test="outSegmentHasStops">
                                                                                                 <tr>
@@ -349,10 +362,22 @@
 
                                                                                             <tr>
                                                                                                 <th style="width:10%;">
-                                                                                                    <label>Arrives</label>
+                                                                                                    <label>Arrival</label>
                                                                                                 </th>
                                                                                                 <td class="rounded5">
-                                                                                                    &nbsp;${outSegmentArriveInfo}<br/>
+                                                                                                    <table>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                &nbsp;${outSegmentArriveInfo}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                &nbsp;${outSegmentArriveHourInfo}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </table>
+
                                                                                                 </td>
                                                                                             </tr>
 
@@ -366,7 +391,33 @@
                                                                                             </tr>
 
                                                                                         </table>
+                                                                                        <t:if test="isThereNextOutSegment">
+                                                                                            <table class="rounded4">
+                                                                                                <tr>
+
+                                                                                                    <td class="rounded5">
+                                                                                                        <center>
+
+                                                                                                            ${outSegmentWaitDesc}
+                                                                                                        </center>
+
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                        </t:if>
                                                                                     </t:loop>
+
+                                                                                    <table class="rounded4">
+                                                                                        <tr>
+                                                                                            <th style="width:50%;" align="right">
+                                                                                                <label>Total duration:</label>
+                                                                                            </th>
+                                                                                            <td>
+                                                                                                ${outRouteDurationInfo}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+
                                                                                     <center>
                                                                                         <t:actionlink t:id="outviewmap" context="OutRouteSegmentInfoCommas" target="_blank">View outbound route in a map</t:actionlink>
                                                                                     </center>
@@ -501,7 +552,19 @@
                                                                                                     <label>Leaves</label>
                                                                                                 </th>
                                                                                                 <td class="rounded5">
-                                                                                                    ${inSegmentLeaveInfo}
+                                                                                                    <table>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                &nbsp;${inSegmentLeaveInfo}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                &nbsp;${inSegmentLeaveHourInfo}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </table>
+
                                                                                                 </td>
                                                                                             </tr>
 
@@ -521,7 +584,19 @@
                                                                                                     <label>Arrives</label>
                                                                                                 </th>
                                                                                                 <td class="rounded5">
-                                                                                                    ${inSegmentArriveInfo}<br/>
+                                                                                                    <table>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                &nbsp;${inSegmentArriveInfo}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                        <tr>
+                                                                                                            <td>
+                                                                                                                &nbsp;${inSegmentArriveHourInfo}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </table>
+
                                                                                                 </td>
                                                                                             </tr>
 
@@ -535,12 +610,38 @@
                                                                                             </tr>
 
                                                                                         </table>
+                                                                                        <t:if test="isThereNextInSegment">
+                                                                                            <table class="rounded4">
+                                                                                                <tr>
+
+                                                                                                    <td class="rounded5">
+                                                                                                        <center>
+
+                                                                                                            ${inSegmentWaitDesc}
+                                                                                                        </center>
+
+                                                                                                    </td>
+                                                                                                </tr>
+                                                                                            </table>
+                                                                                        </t:if>
                                                                                     </t:loop>
+
+                                                                                    <table class="rounded4">
+                                                                                        <tr>
+                                                                                            <th style="width:50%;" align="right">
+                                                                                                <label>Total duration:</label>
+                                                                                            </th>
+                                                                                            <td>
+                                                                                                ${inRouteDurationInfo}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+
                                                                                     <center>
+                                                                                        <br/>
                                                                                         <t:actionlink t:id="inviewmap" context="inRouteSegmentInfoCommas" target="_blank">View inbound route in a map</t:actionlink>
                                                                                     </center>
                                                                                 </div>
-
 
                                                                             </div>
 

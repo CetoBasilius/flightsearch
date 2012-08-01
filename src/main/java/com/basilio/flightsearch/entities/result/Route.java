@@ -17,6 +17,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 public class Route {
+
     private static final Logger logger = LoggerFactory.getLogger(Route.class);
 
     private String duration;
@@ -95,10 +96,8 @@ public class Route {
 
     public String getDurationDescription() {
         StringBuffer buffer = new StringBuffer();
-        Date departureDate = new Date();
         Date duration = new Date();
         try {
-            departureDate = inDateFormat.parse(this.getDepartureTime());
             duration = inHourFormat.parse(this.getDuration());
         } catch (ParseException e) {
             logger.error("Date was unparseable!");
@@ -139,5 +138,31 @@ public class Route {
         }
         segmentsDesc[size] = this.getSegments().get(size-1).getArrival().getLocation();
         return  segmentsDesc;
+    }
+
+    public String getWaitDescription(int segmentIndex1, int segmentIndex2) {
+        StringBuffer buffer = new StringBuffer();
+
+        Segments segment1 = this.getSegments().get(segmentIndex1);
+        Segments segment2 = this.getSegments().get(segmentIndex2);
+
+        Date date1 = new Date();
+        Date date2 = new Date();
+
+        Date date3 = new Date();
+
+
+        date3.setTime(date2.getTime() - date1.getTime());
+
+        try {
+            date1 = inDateFormat.parse(segment1.getArrival().getDate());
+            date2 = inDateFormat.parse(segment2.getDeparture().getDate());
+            logger.info(date1.toString()+","+date2.toString());
+        } catch (ParseException e) {
+            logger.error("date was unparseable.");
+        }
+
+        //TODO finish this
+        return "this feature is not yet available" /*outHourFormat.format(date3)*/;
     }
 }

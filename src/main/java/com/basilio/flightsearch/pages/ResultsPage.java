@@ -286,7 +286,33 @@ public class ResultsPage {
     }
 
 
+    public boolean getIsThereNextOutSegment(){
+        if(outSegmentWindowIndex<outboundRoute.getSegments().size()-1){
+            return true;
+        }
+        return false;
+    }
 
+    public boolean getIsThereNextInSegment(){
+        if(inSegmentWindowIndex<inboundRoute.getSegments().size()-1){
+            return true;
+        }
+        return false;
+    }
+
+    public String getInSegmentWaitDesc(){
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("There will be a wait of ");
+        buffer.append(inboundRoute.getWaitDescription(inSegmentWindowIndex,inSegmentWindowIndex+1));
+        return buffer.toString();
+    }
+
+    public String getOutSegmentWaitDesc(){
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("There will be a wait of ");
+        buffer.append(outboundRoute.getWaitDescription(inSegmentWindowIndex,inSegmentWindowIndex+1));
+        return buffer.toString();
+    }
 
     public String getOutboundRouteShort(){
         //TODO: this method gives me the correct value
@@ -328,6 +354,22 @@ public class ResultsPage {
 
     public String getOutSegmentLeaveInfo(){
         return outSegment.getDepartureDescription();
+    }
+
+    public String getOutSegmentLeaveHourInfo(){
+        return outSegment.getDepartureHourDescription();
+    }
+
+    public String getInSegmentLeaveHourInfo(){
+        return inSegment.getDepartureHourDescription();
+    }
+
+    public String getOutSegmentArriveHourInfo(){
+        return outSegment.getArrivalHourDescription();
+    }
+
+    public String getInSegmentArriveHourInfo(){
+        return inSegment.getArrivalHourDescription();
     }
 
     public String getOutSegmentStopInfo(){
