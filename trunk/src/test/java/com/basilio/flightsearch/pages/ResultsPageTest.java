@@ -2,20 +2,11 @@ package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.entities.Search;
-import com.basilio.flightsearch.entities.result.Flights;
 import com.basilio.flightsearch.entities.result.Result;
-import com.basilio.flightsearch.services.Authenticator;
-import org.apache.tapestry5.services.ComponentSource;
-import org.apache.tapestry5.services.PageRenderLinkSource;
-import org.apache.tapestry5.services.Response;
 import org.junit.Before;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.easymock.EasyMock.*;
-import static org.junit.Assert.assertEquals;
+import static org.easymock.EasyMock.createNiceMock;
 import static org.junit.Assert.assertTrue;
 
 /**

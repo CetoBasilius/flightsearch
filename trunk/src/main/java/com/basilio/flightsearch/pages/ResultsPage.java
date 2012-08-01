@@ -11,6 +11,7 @@ import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.*;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.ValueEncoder;
@@ -19,9 +20,6 @@ import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
-import org.apache.commons.lang.WordUtils;
-
-
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -279,10 +277,7 @@ public class ResultsPage {
     public boolean getIsOnPriceRangeBoolean(){
         DecimalFormat df = new DecimalFormat("#.00");
 
-        if(flight.getPriceInfo().getTotal().getFare().floatValue()>search.getBudgetDollars()){
-            return false;
-        }
-        return true;
+        return flight.getPriceInfo().getTotal().getFare().floatValue() <= search.getBudgetDollars();
     }
 
 
@@ -310,7 +305,7 @@ public class ResultsPage {
     public String getOutSegmentWaitDesc(){
         StringBuffer buffer = new StringBuffer();
         buffer.append("There will be a wait of ");
-        buffer.append(outboundRoute.getWaitDescription(inSegmentWindowIndex,inSegmentWindowIndex+1));
+        buffer.append(outboundRoute.getWaitDescription(inSegmentWindowIndex,inSegmentWindowIndex));
         return buffer.toString();
     }
 

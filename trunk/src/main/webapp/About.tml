@@ -1,6 +1,6 @@
 <html t:type="layout" title="About"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:p="tapestry:parameter">
+        >
 
     <p>Ever wanted to find a flight that adjusts to your budget? That's what Flightsearch is all about. finding flights from several dealers and travel sites with an easy to use and intuitive user interface. </p>
     <t:security.notAuthenticated>

@@ -1,15 +1,12 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.entities.AirportStub;
-import org.apache.tapestry5.annotations.InjectPage;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.

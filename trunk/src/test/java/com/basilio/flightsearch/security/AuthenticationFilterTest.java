@@ -6,18 +6,13 @@ import org.apache.tapestry5.Link;
 import org.apache.tapestry5.services.ComponentSource;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Response;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
 
 import java.io.IOException;
 
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.easymock.EasyMock.*;
-import static org.easymock.EasyMock.createNiceMock;
 
 /**
  * Created with IntelliJ IDEA.

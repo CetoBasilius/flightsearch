@@ -1,6 +1,5 @@
 package com.basilio.flightsearch.entities.result;
 
-import com.basilio.flightsearch.entities.Search;
 import org.junit.Before;
 import org.testng.annotations.Test;
 

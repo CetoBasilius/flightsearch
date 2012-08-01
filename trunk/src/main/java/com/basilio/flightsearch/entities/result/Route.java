@@ -57,14 +57,12 @@ public class Route {
 
     public String getFinalDestination(){
         Arrival arrival = this.getSegments().get(this.getSegments().size() - 1).getArrival();
-        String returnString = arrival.getLocation()+", "+arrival.getLocationDescription();
-        return returnString;
+        return arrival.getLocation()+", "+arrival.getLocationDescription();
     }
 
     public String getDeparturePlace(){
         Departure departure = this.getSegments().get(0).getDeparture();
-        String returnString = departure.getLocation()+", "+departure.getLocationDescription();
-        return returnString;
+        return departure.getLocation()+", "+departure.getLocationDescription();
     }
 
     public String getDepartureTime(){

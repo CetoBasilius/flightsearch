@@ -1,10 +1,10 @@
-import java.net.URL;
-import java.security.ProtectionDomain;
-
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.webapp.WebAppContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.net.URL;
+import java.security.ProtectionDomain;
 
 /**
  * Created with IntelliJ IDEA.

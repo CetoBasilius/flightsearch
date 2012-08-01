@@ -1,16 +1,11 @@
 package com.basilio.flightsearch.components;
 
-import org.apache.tapestry5.BindingConstants;
-import org.apache.tapestry5.ComponentResources;
-import org.apache.tapestry5.EventConstants;
-import org.apache.tapestry5.Link;
-import org.apache.tapestry5.MarkupWriter;
+import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.runtime.Component;
-
 import org.chenillekit.tapestry.core.internal.PagedSource;
 
 /**

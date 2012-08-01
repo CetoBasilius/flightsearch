@@ -1,7 +1,5 @@
 package com.basilio.flightsearch.validators;
 
-import java.util.Date;
-
 import org.apache.commons.lang.time.DateUtils;
 import org.apache.tapestry5.Field;
 import org.apache.tapestry5.MarkupWriter;
@@ -10,6 +8,8 @@ import org.apache.tapestry5.annotations.Log;
 import org.apache.tapestry5.ioc.MessageFormatter;
 import org.apache.tapestry5.services.FormSupport;
 import org.apache.tapestry5.validator.AbstractValidator;
+
+import java.util.Date;
 
 
 /**
