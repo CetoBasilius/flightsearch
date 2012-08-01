@@ -5,7 +5,9 @@ import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.PersistenceConstants;
-import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.annotations.InjectComponent;
+import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 

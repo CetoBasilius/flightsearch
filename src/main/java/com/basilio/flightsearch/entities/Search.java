@@ -125,12 +125,12 @@ public class Search {
         buffer.append(", ");
         if(this.isRoundTrip()){
             buffer.append("from ");
-            buffer.append(sdf.format(this.getDepartureDate()).toString());
+            buffer.append(sdf.format(this.getDepartureDate()));
             buffer.append(" to ");
-            buffer.append(sdf.format(this.getReturnDate()).toString());
+            buffer.append(sdf.format(this.getReturnDate()));
         }else{
             buffer.append("on ");
-            buffer.append(sdf.format(this.getDepartureDate()).toString());
+            buffer.append(sdf.format(this.getDepartureDate()));
             buffer.append(", ");
         }
         if(this.isDirectFlight()){

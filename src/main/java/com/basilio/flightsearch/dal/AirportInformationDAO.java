@@ -1,7 +1,6 @@
 package com.basilio.flightsearch.dal;
 
 import com.basilio.flightsearch.entities.AirportStub;
-import org.w3c.dom.Document;
 
 import java.util.List;
 

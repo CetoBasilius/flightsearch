@@ -1,7 +1,5 @@
 package com.basilio.flightsearch.entities;
 
-import org.hibernate.annotations.NaturalId;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

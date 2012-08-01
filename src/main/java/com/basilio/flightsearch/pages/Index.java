@@ -1,8 +1,6 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.services.Authenticator;
-import org.apache.tapestry5.ioc.annotations.Inject;
 
 /**
  * Created with IntelliJ IDEA.

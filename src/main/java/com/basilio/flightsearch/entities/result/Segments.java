@@ -131,8 +131,7 @@ public class Segments{
     }
 
     public String getDescription() {
-        StringBuffer buffer = new StringBuffer();
-        return buffer.toString();
+        return "";
     }
 
     public String getStopDescription() {

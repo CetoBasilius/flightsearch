@@ -9,11 +9,7 @@ package com.basilio.flightsearch.components;
  * creates a window based on jvascript <a href="http://prototype-window.xilinus.com/">window</a> library.
  */
 
-import org.apache.tapestry5.Asset;
-import org.apache.tapestry5.BindingConstants;
-import org.apache.tapestry5.ClientElement;
-import org.apache.tapestry5.ComponentResources;
-import org.apache.tapestry5.MarkupWriter;
+import org.apache.tapestry5.*;
 import org.apache.tapestry5.annotations.Environmental;
 import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;

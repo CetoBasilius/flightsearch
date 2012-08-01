@@ -7,17 +7,20 @@ import com.basilio.flightsearch.entities.AirportString;
 import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.Search;
 import com.basilio.flightsearch.entities.result.Result;
+import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.apache.commons.lang.StringUtils;
 import org.chenillekit.tapestry.core.components.DateTimeField;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Basilio
@@ -123,7 +126,7 @@ public class SearchPage {
         destinationAirport.setCode(destinationCode);
 
         if(endDate!=null){
-            if(this.showRoundTrip==true){
+            if(this.showRoundTrip){
                 if(endDate.before(startDate) || endDate.equals(startDate)){
                     searchForm.recordError(messages.get("error.validateenddate"));
                     return null;
@@ -175,8 +178,7 @@ public class SearchPage {
     }
 
     public List<AirportStub> getAirportStublist() {
-        List<AirportStub> airportList = serviceDAO.findWithNamedQuery(AirportStub.ALL);
-        return airportList;
+        return serviceDAO.findWithNamedQuery(AirportStub.ALL);
     }
 
     @Log

@@ -1,8 +1,6 @@
 
 package com.basilio.flightsearch.entities.result;
 
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: bgerman

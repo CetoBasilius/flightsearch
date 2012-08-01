@@ -6,7 +6,6 @@ import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Session;
-import org.junit.Before;
 import org.testng.annotations.Test;
 
 import static org.easymock.EasyMock.*;
@@ -28,11 +27,11 @@ public class AuthenticatorImplTest {
 
     @Test
     public void loginShouldLoginUser() throws AuthenticationException {
-        Authenticator authenticator = new AuthenticatorImpl();;
-        Request request = createNiceMock(Request.class);;
-        ServiceDAO serviceDAO = createNiceMock(ServiceDAO.class);;
-        User user = createNiceMock(User.class);;
-        Session session = createNiceMock(Session.class);;
+        Authenticator authenticator = new AuthenticatorImpl();
+        Request request = createNiceMock(Request.class);
+        ServiceDAO serviceDAO = createNiceMock(ServiceDAO.class);
+        User user = createNiceMock(User.class);
+        Session session = createNiceMock(Session.class);
 
         authenticator.setRequest(request);
         authenticator.setService(serviceDAO);
@@ -55,11 +54,11 @@ public class AuthenticatorImplTest {
 
     @Test
     public void getLoggedUserShouldReturnLoggedUser() throws AuthenticationException {
-        Authenticator authenticator = new AuthenticatorImpl();;
-        Request request = createNiceMock(Request.class);;
-        ServiceDAO serviceDAO = createNiceMock(ServiceDAO.class);;
-        User user = createNiceMock(User.class);;
-        Session session = createNiceMock(Session.class);;
+        Authenticator authenticator = new AuthenticatorImpl();
+        Request request = createNiceMock(Request.class);
+        ServiceDAO serviceDAO = createNiceMock(ServiceDAO.class);
+        User user = createNiceMock(User.class);
+        Session session = createNiceMock(Session.class);
 
         authenticator.setRequest(request);
         authenticator.setService(serviceDAO);
@@ -79,11 +78,11 @@ public class AuthenticatorImplTest {
 
     @Test
     public void getLoggedUserShouldBeAdmin() throws AuthenticationException {
-        Authenticator authenticator = new AuthenticatorImpl();;
-        Request request = createNiceMock(Request.class);;
-        ServiceDAO serviceDAO = createNiceMock(ServiceDAO.class);;
-        User user = createNiceMock(User.class);;
-        Session session = createNiceMock(Session.class);;
+        Authenticator authenticator = new AuthenticatorImpl();
+        Request request = createNiceMock(Request.class);
+        ServiceDAO serviceDAO = createNiceMock(ServiceDAO.class);
+        User user = createNiceMock(User.class);
+        Session session = createNiceMock(Session.class);
 
         authenticator.setRequest(request);
         authenticator.setService(serviceDAO);

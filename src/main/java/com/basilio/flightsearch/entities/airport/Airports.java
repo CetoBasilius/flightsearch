@@ -1,8 +1,6 @@
 
 package com.basilio.flightsearch.entities.airport;
 
-import java.util.List;
-
 public class Airports{
    	private String description;
    	private GeoLocation geoLocation;

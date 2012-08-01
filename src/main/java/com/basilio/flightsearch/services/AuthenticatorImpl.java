@@ -9,8 +9,6 @@ import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Session;
 
-import java.util.List;
-
 /**
  * Created with IntelliJ IDEA.
  * User: Cetobasilius
@@ -32,8 +30,6 @@ public class AuthenticatorImpl implements Authenticator {
         User user = serviceDAO.findUniqueWithNamedQuery(User.BY_CREDENTIALS, QueryParameters.with(
                 "username",
                 username).and("password", password).parameters());
-
-        List<User> userList = serviceDAO.findWithNamedQuery(User.ALL);
 
         if (user == null) {
             throw new AuthenticationException("The user doesn't exist");

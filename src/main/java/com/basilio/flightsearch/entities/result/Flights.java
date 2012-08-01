@@ -1,7 +1,6 @@
 
 package com.basilio.flightsearch.entities.result;
 
-import java.util.ArrayList;
 import java.util.List;
 /**
  * Created with IntelliJ IDEA.
@@ -65,8 +64,6 @@ public class Flights{
 	}
 
     public String getDescription() {
-        //"This flight is from somewhere to somewhere, on some date, the following are available:"
-        StringBuffer buffer = new StringBuffer();
-        return buffer.toString();
+        return "";
     }
 }

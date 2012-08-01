@@ -4,10 +4,7 @@ import com.basilio.flightsearch.core.ResultCreator;
 import com.basilio.flightsearch.entities.result.Result;
 import org.testng.annotations.Test;
 
-import static org.easymock.EasyMock.createNiceMock;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.

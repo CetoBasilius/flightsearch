@@ -84,8 +84,7 @@ public class AccountSettings {
     //-------------------------------------------------
 
     public List<User> getUserlist() {
-        List<User> userList = serviceDAO.findWithNamedQuery(User.ALL);
-        return userList;
+        return serviceDAO.findWithNamedQuery(User.ALL);
     }
 
     public Object onActionFromDelete(long userId) {

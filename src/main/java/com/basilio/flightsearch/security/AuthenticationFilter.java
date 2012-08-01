@@ -111,7 +111,7 @@ public class AuthenticationFilter implements ComponentRequestFilter {
     }
 
     private boolean hasGuestAnnotation(Class aClass) {
-        return aClass.isAnnotationPresent(GuestAccess.class) ? true : false;
+        return aClass.isAnnotationPresent(GuestAccess.class);
     }
 
     public String getDefaultPage() {
