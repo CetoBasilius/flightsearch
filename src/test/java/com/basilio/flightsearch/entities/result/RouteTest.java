@@ -17,17 +17,17 @@ import static org.junit.Assert.assertEquals;
 public class RouteTest {
     @Test
     public void testGetSegmentsDescription() throws Exception {
-        OutboundRoute outboundRoutes = new OutboundRoute();
+        Route outboundRoutes = new Route();
 
         List<Segment> insertedList = new ArrayList<Segment>();
 
         Segment segment1 = new Segment();
-        segment1.setArrival(new Arrival("BBB"));
-        segment1.setDeparture(new Departure("AAA"));
+        segment1.setArrival(new Location("BBB"));
+        segment1.setDeparture(new Location("AAA"));
 
         Segment segment2 = new Segment();
-        segment2.setArrival(new Arrival("CCC"));
-        segment2.setDeparture(new Departure("BBB"));
+        segment2.setArrival(new Location("CCC"));
+        segment2.setDeparture(new Location("BBB"));
 
         insertedList.add(segment1);
         insertedList.add(segment2);

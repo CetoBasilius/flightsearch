@@ -159,10 +159,10 @@ public class ResultsPage {
     private int flightIndex;
 
     @Property
-    private OutboundRoute outboundRoute;
+    private Route outboundRoute;
 
     @Property
-    private InboundRoute inboundRoute;
+    private Route inboundRoute;
 
     @Property
     private Segment outSegment;
@@ -475,14 +475,14 @@ public class ResultsPage {
     }
 //-----------------------------------------------------
     @Property
-    private final ValueEncoder<InboundRoute> inboundRoutesValueEncoder = new ValueEncoder<InboundRoute>() {
+    private final ValueEncoder<Route> inboundRoutesValueEncoder = new ValueEncoder<Route>() {
 
-        public String toClient(InboundRoute answer) {
+        public String toClient(Route answer) {
             int in = flight.getInboundRoutes().indexOf(answer);
             return String.valueOf(in);
         }
 
-        public InboundRoute toValue(String str) {
+        public Route toValue(String str) {
             return null;
         }
     };
@@ -501,14 +501,14 @@ public class ResultsPage {
     };
 //-----------------------------------------------------
     @Property
-    private final ValueEncoder<OutboundRoute> outboundRoutesValueEncoder = new ValueEncoder<OutboundRoute>() {
+    private final ValueEncoder<Route> outboundRoutesValueEncoder = new ValueEncoder<Route>() {
 
-        public String toClient(OutboundRoute answer) {
+        public String toClient(Route answer) {
             int in = flight.getOutboundRoutes().indexOf(answer);
             return String.valueOf(in);
         }
 
-        public OutboundRoute toValue(String str) {
+        public Route toValue(String str) {
             return null;
         }
     };
@@ -676,9 +676,9 @@ public class ResultsPage {
     }
 
     @Log
-    public OutboundRoute[] getOutRoutes(){
-        List<OutboundRoute> outRoutesList = flight.getOutboundRoutes();
-        OutboundRoute outRoutes[] = new OutboundRoute[outRoutesList.size()];
+    public Route[] getOutRoutes(){
+        List<Route> outRoutesList = flight.getOutboundRoutes();
+        Route outRoutes[] = new Route[outRoutesList.size()];
         for(int index = 0; index<outRoutesList.size();index++){
             outRoutes[index] = outRoutesList.get(index);
         }
@@ -686,9 +686,9 @@ public class ResultsPage {
     }
 
     @Log
-    public InboundRoute[] getInRoutes(){
-        List<InboundRoute> inRoutesList = flight.getInboundRoutes();
-        InboundRoute inRoutes[] = new InboundRoute[inRoutesList.size()];
+    public Route[] getInRoutes(){
+        List<Route> inRoutesList = flight.getInboundRoutes();
+        Route inRoutes[] = new Route[inRoutesList.size()];
         for(int index = 0; index<inRoutesList.size();index++){
             inRoutes[index] = inRoutesList.get(index);
         }

@@ -2,7 +2,7 @@ package com.basilio.flightsearch.core;
 
 
 import com.basilio.flightsearch.entities.result.Flight;
-import com.basilio.flightsearch.entities.result.OutboundRoute;
+import com.basilio.flightsearch.entities.result.Route;
 import com.basilio.flightsearch.entities.result.Result;
 import com.basilio.flightsearch.entities.result.Segment;
 import org.testng.annotations.Test;
@@ -27,8 +27,8 @@ public class ResultFilterImplTest {
         Result result = new Result();
 
         Flight directFlight = new Flight();
-        List<OutboundRoute> outRoutes1 = new ArrayList<OutboundRoute>();
-        OutboundRoute outboundRoute1 = new OutboundRoute();
+        List<Route> outRoutes1 = new ArrayList<Route>();
+        Route outboundRoute1 = new Route();
         List<Segment> segments1 = new ArrayList<Segment>();
         Segment segment1 = new Segment();
 
@@ -43,8 +43,8 @@ public class ResultFilterImplTest {
 
 
         Flight segmentedFlight = new Flight();
-        List<OutboundRoute> outRoutes2 = new ArrayList<OutboundRoute>();
-        OutboundRoute outboundRoute2 = new OutboundRoute();
+        List<Route> outRoutes2 = new ArrayList<Route>();
+        Route outboundRoute2 = new Route();
         List<Segment> segments2 = new ArrayList<Segment>();
         Segment segment2 = new Segment();
 
