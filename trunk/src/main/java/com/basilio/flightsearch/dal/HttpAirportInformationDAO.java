@@ -2,7 +2,7 @@ package com.basilio.flightsearch.dal;
 
 import com.basilio.flightsearch.core.AirportCreator;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.airport.Airports;
+import com.basilio.flightsearch.entities.airport.Airport;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -107,7 +107,7 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
             e.printStackTrace();
         }
 
-        Airports goodResult = resultCreator.getGoodResult();
+        Airport goodResult = resultCreator.getGoodResult();
 
         AirportStub stub = new AirportStub();
         stub.setCode(goodResult.getId());

@@ -9,6 +9,6 @@ package com.basilio.flightsearch.entities.result;
  * Outbound routes, duration and segments of total route.
  */
 
-public class OutboundRoutes extends Route{
+public class OutboundRoute extends Route{
 
 }

@@ -7,7 +7,7 @@ package com.basilio.flightsearch.entities.result;
  * Time: 4:26 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Stopovers {
+public class Stopover {
 
     private String duration;
     private String airportCode;

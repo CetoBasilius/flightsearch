@@ -153,22 +153,22 @@ public class ResultsPage {
 
     @Property
     @Persist
-    private Flights flight;
+    private Flight flight;
 
     @Property
     private int flightIndex;
 
     @Property
-    private OutboundRoutes outboundRoute;
+    private OutboundRoute outboundRoute;
 
     @Property
-    private InboundRoutes inboundRoute;
+    private InboundRoute inboundRoute;
 
     @Property
-    private Segments outSegment;
+    private Segment outSegment;
 
     @Property
-    private Segments inSegment;
+    private Segment inSegment;
 
     @Property
     private boolean emptyResult;
@@ -236,9 +236,9 @@ public class ResultsPage {
         customValueCSS = "slider-value-custom";
 
         if(showingResult!=null){
-            List<Facets> facets = showingResult.getMeta().getFacets();
+            List<Facet> facets = showingResult.getMeta().getFacets();
             if(facets!=null){
-                Facets minmaxFacet = facets.get(2);
+                Facet minmaxFacet = facets.get(2);
                 minPriceFilter = minmaxFacet.getMin().intValue()-(minmaxFacet.getMin().intValue()%100);
                 maxPriceFilter = minmaxFacet.getMax().intValue()+(100-(minmaxFacet.getMax().intValue()%100));
                 priceFilterSteps = (maxPriceFilter-minPriceFilter)/100;
@@ -446,7 +446,6 @@ public class ResultsPage {
     public Object filterResults(){
         this.search.setBudgetDollars(slider);
 
-
         /*radio1Segment;
         radio2SegmentMore;
         radioAllSegments;*/
@@ -476,53 +475,53 @@ public class ResultsPage {
     }
 //-----------------------------------------------------
     @Property
-    private final ValueEncoder<InboundRoutes> inboundRoutesValueEncoder = new ValueEncoder<InboundRoutes>() {
+    private final ValueEncoder<InboundRoute> inboundRoutesValueEncoder = new ValueEncoder<InboundRoute>() {
 
-        public String toClient(InboundRoutes answer) {
+        public String toClient(InboundRoute answer) {
             int in = flight.getInboundRoutes().indexOf(answer);
             return String.valueOf(in);
         }
 
-        public InboundRoutes toValue(String str) {
+        public InboundRoute toValue(String str) {
             return null;
         }
     };
 
     @Property
-    private final ValueEncoder<Segments> inSegmentsValueEncoder = new ValueEncoder<Segments>() {
+    private final ValueEncoder<Segment> inSegmentsValueEncoder = new ValueEncoder<Segment>() {
 
-        public String toClient(Segments answer) {
+        public String toClient(Segment answer) {
             int in = inboundRoute.getSegments().indexOf(answer);
             return String.valueOf(in);
         }
 
-        public Segments toValue(String str) {
+        public Segment toValue(String str) {
             return null;
         }
     };
 //-----------------------------------------------------
     @Property
-    private final ValueEncoder<OutboundRoutes> outboundRoutesValueEncoder = new ValueEncoder<OutboundRoutes>() {
+    private final ValueEncoder<OutboundRoute> outboundRoutesValueEncoder = new ValueEncoder<OutboundRoute>() {
 
-        public String toClient(OutboundRoutes answer) {
+        public String toClient(OutboundRoute answer) {
             int in = flight.getOutboundRoutes().indexOf(answer);
             return String.valueOf(in);
         }
 
-        public OutboundRoutes toValue(String str) {
+        public OutboundRoute toValue(String str) {
             return null;
         }
     };
 
     @Property
-    private final ValueEncoder<Segments> outSegmentsValueEncoder = new ValueEncoder<Segments>() {
+    private final ValueEncoder<Segment> outSegmentsValueEncoder = new ValueEncoder<Segment>() {
 
-        public String toClient(Segments answer) {
+        public String toClient(Segment answer) {
             int in = outboundRoute.getSegments().indexOf(answer);
             return String.valueOf(in);
         }
 
-        public Segments toValue(String str) {
+        public Segment toValue(String str) {
             return null;
         }
     };
@@ -601,8 +600,6 @@ public class ResultsPage {
         return inboundRoute.getLeaveDescription();
     }
 
-
-
     //-------------------------------------------
 
     public String getOutRouteScheduleInfo(){
@@ -659,9 +656,9 @@ public class ResultsPage {
     }
 
     @Log
-    public Segments[] getOutSegments(){
-        List<Segments> outSegmentsList = outboundRoute.getSegments();
-        Segments outSegments[] = new Segments[outSegmentsList.size()];
+    public Segment[] getOutSegments(){
+        List<Segment> outSegmentsList = outboundRoute.getSegments();
+        Segment outSegments[] = new Segment[outSegmentsList.size()];
         for(int index = 0; index<outSegmentsList.size();index++){
             outSegments[index] = outSegmentsList.get(index);
         }
@@ -669,9 +666,9 @@ public class ResultsPage {
     }
 
     @Log
-    public Segments[] getInSegments(){
-        List<Segments> inSegmentsList = inboundRoute.getSegments();
-        Segments inSegments[] = new Segments[inSegmentsList.size()];
+    public Segment[] getInSegments(){
+        List<Segment> inSegmentsList = inboundRoute.getSegments();
+        Segment inSegments[] = new Segment[inSegmentsList.size()];
         for(int index = 0; index<inSegmentsList.size();index++){
             inSegments[index] = inSegmentsList.get(index);
         }
@@ -679,9 +676,9 @@ public class ResultsPage {
     }
 
     @Log
-    public OutboundRoutes[] getOutRoutes(){
-        List<OutboundRoutes> outRoutesList = flight.getOutboundRoutes();
-        OutboundRoutes outRoutes[] = new OutboundRoutes[outRoutesList.size()];
+    public OutboundRoute[] getOutRoutes(){
+        List<OutboundRoute> outRoutesList = flight.getOutboundRoutes();
+        OutboundRoute outRoutes[] = new OutboundRoute[outRoutesList.size()];
         for(int index = 0; index<outRoutesList.size();index++){
             outRoutes[index] = outRoutesList.get(index);
         }
@@ -689,9 +686,9 @@ public class ResultsPage {
     }
 
     @Log
-    public InboundRoutes[] getInRoutes(){
-        List<InboundRoutes> inRoutesList = flight.getInboundRoutes();
-        InboundRoutes inRoutes[] = new InboundRoutes[inRoutesList.size()];
+    public InboundRoute[] getInRoutes(){
+        List<InboundRoute> inRoutesList = flight.getInboundRoutes();
+        InboundRoute inRoutes[] = new InboundRoute[inRoutesList.size()];
         for(int index = 0; index<inRoutesList.size();index++){
             inRoutes[index] = inRoutesList.get(index);
         }
@@ -700,39 +697,39 @@ public class ResultsPage {
 
 
     @Log
-    public Flights[] getFlights()
+    public Flight[] getFlights()
     {
         int numFlights = 0;
-        Flights[] resultArray = null;
+        Flight[] resultArray = null;
         if(showingResult != null){
             if(search.isDirectFlight()){
                 if(showingResult.getFlights()!=null){
                     numFlights = result.getDirectFlights().size();
-                    resultArray = new Flights[numFlights];
+                    resultArray = new Flight[numFlights];
                     for(int a = 0;a<numFlights;a++){
                         resultArray[a] = showingResult.getDirectFlights().get(a);
                     }
                 }else{
-                    resultArray = new Flights[1];
-                    resultArray[0] = new Flights();
+                    resultArray = new Flight[1];
+                    resultArray[0] = new Flight();
                     emptyResult=true;
                 }
             }else{
                 if(showingResult.getFlights()!=null){
                     numFlights = showingResult.getFlights().size();
-                    resultArray = new Flights[numFlights];
+                    resultArray = new Flight[numFlights];
                     for(int a = 0;a<numFlights;a++){
                         resultArray[a] = showingResult.getFlights().get(a);
                     }
                 }else{
-                    resultArray = new Flights[1];
-                    resultArray[0] = new Flights();
+                    resultArray = new Flight[1];
+                    resultArray[0] = new Flight();
                     emptyResult=true;
                 }
             }
         } else {
-            resultArray = new Flights[1];
-            resultArray[0] = new Flights();
+            resultArray = new Flight[1];
+            resultArray[0] = new Flight();
             emptyResult=true;
         }
         return resultArray;

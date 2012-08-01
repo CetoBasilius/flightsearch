@@ -62,7 +62,7 @@ public class JettyStandaloneMain {
     }
 
     private void initLogger() {
-        URL properties = JettyStandaloneMain.class.getResource("log4j.properties");
+        URL properties = JettyStandaloneMain.class.getResource("log4jStandalone.properties");
         PropertyConfigurator.configure(properties);
         Logger.getLogger(JettyStandaloneMain.class).info("Logger started");
     }

@@ -11,7 +11,7 @@ import java.util.List;
  * Stores airlines, stops, and price ranges.
  */
 
-public class Facets{
+public class Facet {
    	private String key;
    	private String subType;
    	private String type;

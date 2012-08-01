@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.core;
 
-import com.basilio.flightsearch.entities.airport.Airports;
+import com.basilio.flightsearch.entities.airport.Airport;
 import com.google.gson.Gson;
 import org.apache.tapestry5.annotations.Log;
 import org.slf4j.Logger;
@@ -28,10 +28,10 @@ public class AirportCreator {
     }
 
     @Log
-    public Airports getGoodResult(){
-        Airports goodResult = null;
+    public Airport getGoodResult(){
+        Airport goodResult = null;
         try{
-            goodResult = gson.fromJson(getAllResultString(),Airports.class);
+            goodResult = gson.fromJson(getAllResultString(),Airport.class);
         } catch(Exception e){
             logger.error("Could not create good result object.");
         }

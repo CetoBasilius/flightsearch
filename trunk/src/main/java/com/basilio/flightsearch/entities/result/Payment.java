@@ -9,10 +9,10 @@ package com.basilio.flightsearch.entities.result;
  * Credit card payments
  */
 
-public class Payments{
+public class Payment {
    	private String cardCode;
    	private String cardDescription;
-   	private Installments installments;
+   	private Installment installments;
 
  	public String getCardCode(){
 		return this.cardCode;
@@ -26,10 +26,10 @@ public class Payments{
 	public void setCardDescription(String cardDescription){
 		this.cardDescription = cardDescription;
 	}
- 	public Installments getInstallments(){
+ 	public Installment getInstallments(){
 		return this.installments;
 	}
-	public void setInstallments(Installments installments){
+	public void setInstallments(Installment installments){
 		this.installments = installments;
 	}
 }
