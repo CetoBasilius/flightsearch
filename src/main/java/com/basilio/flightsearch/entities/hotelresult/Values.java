@@ -1,13 +1,7 @@
 
-package com.basilio.flightsearch.entities.result;
+package com.basilio.flightsearch.entities.hotelresult;
 
-/**
- * Created with IntelliJ IDEA.
- * User: bgerman
- * Date: 7/11/12
- * Time: 1:32 PM
- * Basic value container for facets.
- */
+import java.util.List;
 
 public class Values{
    	private Number count;

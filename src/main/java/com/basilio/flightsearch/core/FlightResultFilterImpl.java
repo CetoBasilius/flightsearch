@@ -1,7 +1,7 @@
 package com.basilio.flightsearch.core;
 
-import com.basilio.flightsearch.entities.result.Flight;
-import com.basilio.flightsearch.entities.result.Result;
+import com.basilio.flightsearch.entities.flightresult.Flight;
+import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,9 +15,9 @@ import java.util.List;
  * Time: 8:00 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ResultFilterImpl implements ResultFilter{
+public class FlightResultFilterImpl implements FlightResultFilter {
 
-    private static final Logger logger = LoggerFactory.getLogger(ResultFilterImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(FlightResultFilterImpl.class);
 
     private boolean wasResultFiltered = false;
 
@@ -25,29 +25,30 @@ public class ResultFilterImpl implements ResultFilter{
     private int filterSegments;
 
 
-    public Result filterSearch(Result inResult, int budget, int segments) {
+    public FlightResult filterSearch(FlightResult inFlightResult, int budget, int segments) {
 
-        Result returnResult = new Result();
+        FlightResult returnFlightResult = new FlightResult();
 
         try {
-            returnResult = (Result)inResult.clone();
+            returnFlightResult = (FlightResult) inFlightResult.clone();
         } catch (CloneNotSupportedException e) {
             logger.error("cloning "+this.getClass()+" failed");
         }
 
         List<Flight> newList = new ArrayList<Flight>();
 
-        List<Flight> flights = inResult.getFlights();
+        List<Flight> flights = inFlightResult.getFlights();
         for(int index = 0; index < flights.size();index++){
             Flight inFlight = flights.get(index);
             if(inFlight.getPriceInfo().getTotal().getFare().intValue()<budget){
                 newList.add(inFlight);
             }
         }
-        returnResult.setFlights(newList);
+        returnFlightResult.setSearchedPrice(budget);
+        returnFlightResult.setFlights(newList);
 
         wasResultFiltered = true;
-        return returnResult;
+        return returnFlightResult;
     }
 
     public String getDescription() {

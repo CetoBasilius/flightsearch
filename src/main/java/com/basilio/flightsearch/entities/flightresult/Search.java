@@ -1,4 +1,6 @@
-package com.basilio.flightsearch.entities;
+package com.basilio.flightsearch.entities.flightresult;
+
+import com.basilio.flightsearch.entities.AirportStub;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

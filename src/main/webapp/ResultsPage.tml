@@ -192,7 +192,7 @@
                                                                     <img src="${request.contextPath}/layout/images/going.png" />
                                                                 </td>
                                                                 <td style="width:95%;">
-                                                                    <label class="routelabel">${flightOutLabelDesc}</label>
+                                                                    <label class="routelabel">Outbound ${flightOutLabelDesc}</label>
                                                                 </td>
                                                             </tr>
                                                         </table>

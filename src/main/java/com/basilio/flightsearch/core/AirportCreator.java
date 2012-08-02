@@ -16,34 +16,34 @@ import org.slf4j.LoggerFactory;
 public class AirportCreator {
 
     private static final Logger logger = LoggerFactory.getLogger(AirportCreator.class);
-    private String resultString;
+    private String airportString;
     private Gson gson;
 
     public AirportCreator() {
         gson = new Gson();
     }
 
-    public String getResultString() {
-        return resultString;
+    public String getAirportString() {
+        return airportString;
     }
 
     @Log
-    public Airport getGoodResult(){
-        Airport goodResult = null;
+    public Airport getGoodAirport(){
+        Airport goodAirport = null;
         try{
-            goodResult = gson.fromJson(getAllResultString(),Airport.class);
+            goodAirport = gson.fromJson(getAllResultString(),Airport.class);
         } catch(Exception e){
-            logger.error("Could not create good result object.");
+            logger.error("Could not create good airport object.");
         }
-        return goodResult;
+        return goodAirport;
     }
 
     public String getAllResultString(){
-        return resultString;
+        return airportString;
     }
 
-    public void setResultString(String resultString) {
-        this.resultString = resultString;
+    public void setAirportString(String airportString) {
+        this.airportString = airportString;
     }
 
     public Gson getGson() {
