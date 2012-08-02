@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.entities.result;
+package com.basilio.flightsearch.entities.flightresult;
 
 import org.junit.Before;
 import org.testng.annotations.Test;
@@ -17,7 +17,7 @@ import static org.junit.Assert.assertNotNull;
  * Time: 4:01 AM
  * To change this template use File | Settings | File Templates.
  */
-public class ResultTest {
+public class FlightResultTest {
 
     @Before
     public void setupTests(){
@@ -26,13 +26,13 @@ public class ResultTest {
 
     @Test
     public void testGetDirectFlights() throws Exception {
-        Result result = new Result();
+        FlightResult flightResult = new FlightResult();
         List<Flight> mockFlightList = new ArrayList<Flight>();
 
         Flight mockedFlight1 = createNiceMock(Flight.class);
 
         mockFlightList.add(mockedFlight1);
-        result.setFlights(mockFlightList);
+        flightResult.setFlights(mockFlightList);
 
         List<Route> mockedOutboundRoutes = createNiceMock(ArrayList.class);
         List<Segment> mockedSegments = createNiceMock(ArrayList.class);
@@ -48,19 +48,19 @@ public class ResultTest {
 
         replay(mockedFlight1,mockedOutboundRoutes,mockedSegments,mockedOutboundRoute);
 
-        assertEquals(0, result.getDirectFlights().size());
-        assertEquals(1, result.getDirectFlights().size());
-        assertEquals(0, result.getDirectFlights().size());
+        assertEquals(0, flightResult.getDirectFlights().size());
+        assertEquals(1, flightResult.getDirectFlights().size());
+        assertEquals(0, flightResult.getDirectFlights().size());
 
         verify(mockedFlight1,mockedOutboundRoutes,mockedSegments,mockedOutboundRoute);
     }
 
     @Test
     public void testGetDescription(){
-        Result result = new Result();
-        result.setSearchedPrice(600);
-        assertNotNull(result.getDescription());
-        assertEquals(String.class, result.getDescription().getClass());
+        FlightResult flightResult = new FlightResult();
+        flightResult.setSearchedPrice(600);
+        assertNotNull(flightResult.getDescription());
+        assertEquals(String.class, flightResult.getDescription().getClass());
 
         List<Flight> flightList = new ArrayList<Flight>();
         Flight flight1 = new Flight();
@@ -70,7 +70,7 @@ public class ResultTest {
         priceInfo.setTotal(total);
         flight1.setPriceInfo(priceInfo);
         flightList.add(flight1);
-        result.setFlights(flightList);
+        flightResult.setFlights(flightList);
 
         Meta meta = new Meta();
         Facet facet = new Facet();
@@ -79,23 +79,23 @@ public class ResultTest {
         facets.add(facet);
         facets.add(facet);
         meta.setFacets(facets);
-        result.setMeta(meta);
+        flightResult.setMeta(meta);
 
-        assertNotNull(result.getDescription());
-        assertEquals(String.class, result.getDescription().getClass());
+        assertNotNull(flightResult.getDescription());
+        assertEquals(String.class, flightResult.getDescription().getClass());
 
     }
 
     @Test
     public void testGetFlightsInPriceRange(){
-        Result result = new Result();
-        result.setSearchedPrice(600);
+        FlightResult flightResult = new FlightResult();
+        flightResult.setSearchedPrice(600);
 
         List<Flight> mockFlightList = new ArrayList<Flight>();
         Flight mockedFlight1 = createNiceMock(Flight.class);
         mockFlightList.add(mockedFlight1);
         mockFlightList.add(mockedFlight1);
-        result.setFlights(mockFlightList);
+        flightResult.setFlights(mockFlightList);
 
         Total mockedTotal = createNiceMock(Total.class);
         PriceInfo mockedPriceInfo = createNiceMock(PriceInfo.class);
@@ -110,8 +110,8 @@ public class ResultTest {
 
         replay(mockedFlight1, mockedPriceInfo,mockedTotal);
 
-        assertEquals(2,result.getFlightsInPriceRange().size());
-        assertEquals(1,result.getFlightsInPriceRange().size());
+        assertEquals(2, flightResult.getFlightsInPriceRange().size());
+        assertEquals(1, flightResult.getFlightsInPriceRange().size());
 
         verify(mockedFlight1, mockedPriceInfo,mockedTotal);
 

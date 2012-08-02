@@ -1,8 +1,8 @@
 package com.basilio.flightsearch.dal;
 
 import com.basilio.flightsearch.core.ResultCreator;
-import com.basilio.flightsearch.entities.Search;
-import com.basilio.flightsearch.entities.result.Result;
+import com.basilio.flightsearch.entities.flightresult.FlightResult;
+import com.basilio.flightsearch.entities.flightresult.Search;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -32,7 +32,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
 
     private Search search;
 
-    private Result getFlightSearchResult(String statement) {
+    private FlightResult getFlightSearchResult(String statement) {
         ResultCreator resultCreator = new ResultCreator();
         try {
             HttpClient httpclient = new DefaultHttpClient();
@@ -54,13 +54,13 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
             e.printStackTrace();
         }
 
-        Result goodResult = resultCreator.getGoodResult();
-        goodResult.setSearchedPrice(this.search.getBudgetDollars());
-        goodResult.setSearchedDirect(this.search.isDirectFlight());
-        return goodResult;
+        FlightResult goodFlightResult = resultCreator.getGoodResult();
+        goodFlightResult.setSearchedPrice(this.search.getBudgetDollars());
+        goodFlightResult.setSearchedDirect(this.search.isDirectFlight());
+        return goodFlightResult;
     }
 
-    public Result searchFlights(Search search) {
+    public FlightResult searchFlights(Search search) {
         this.search = search;
         String statement = "";
         if(search.isRoundTrip()){

@@ -5,8 +5,8 @@ import com.basilio.flightsearch.dal.FlightSearchConnector;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportString;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.Search;
-import com.basilio.flightsearch.entities.result.Result;
+import com.basilio.flightsearch.entities.flightresult.Search;
+import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
@@ -75,15 +75,19 @@ public class SearchPage {
     private List<AirportStub> allAirportStubs;
 
     @Property
+    @Persist
     private String adults;
 
     @Property
+    @Persist
     private String children;
 
     @Property
+    @Persist
     private String infants;
 
     @Property
+    @Persist
     private boolean direct;
 
     //----------------- Slider ------------
@@ -110,9 +114,6 @@ public class SearchPage {
     //---------------------------------------
     @InjectPage
     private ResultsPage resultsPage;
-
-    @InjectPage
-    private SearchPage searchPage;
 
     @Log
     @OnEvent(value = EventConstants.SUCCESS, component = "SearchForm")
@@ -167,9 +168,9 @@ public class SearchPage {
         search.setNumberChildren(Integer.parseInt(children));
         search.setNewBorns(Integer.parseInt(infants));
 
-        Result result = flightSearchConnector.searchFlights(search);
+        FlightResult flightResult = flightSearchConnector.searchFlights(search);
 
-        resultsPage.setup(search,result);
+        resultsPage.setup(search, flightResult);
         return resultsPage;
     }
 
@@ -195,15 +196,13 @@ public class SearchPage {
     @Log
     public Object onActionFromClicker1(){
         toggleRoundTrip();
-        searchPage.setTheOrigin(origin);
-        return searchPage;
+        return null;
     }
 
     @Log
     public Object onActionFromClicker2(){
         toggleRoundTrip();
-        searchPage.setTheOrigin(origin);
-        return searchPage;
+        return null;
     }
 
     void toggleRoundTrip() {

@@ -98,7 +98,7 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
             GZIPInputStream zippedInputStream =  new GZIPInputStream(instream);
             BufferedReader reader = new BufferedReader(new InputStreamReader(zippedInputStream));
 
-            resultCreator.setResultString(reader.readLine());
+            resultCreator.setAirportString(reader.readLine());
 
             instream.close();
             httpclient.getConnectionManager().shutdown();
@@ -107,7 +107,7 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
             e.printStackTrace();
         }
 
-        Airport goodResult = resultCreator.getGoodResult();
+        Airport goodResult = resultCreator.getGoodAirport();
 
         AirportStub stub = new AirportStub();
         stub.setCode(goodResult.getId());

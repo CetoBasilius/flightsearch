@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.entities.result;
+package com.basilio.flightsearch.entities.flightresult;
 
 import com.basilio.flightsearch.core.helpers.DateHelper;
 import org.apache.commons.lang.time.DateUtils;

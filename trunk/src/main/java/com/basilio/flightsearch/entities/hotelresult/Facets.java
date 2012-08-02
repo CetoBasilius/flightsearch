@@ -1,23 +1,13 @@
 
-package com.basilio.flightsearch.entities.result;
+package com.basilio.flightsearch.entities.hotelresult;
 
 import java.util.List;
 
-/**
- * Created with IntelliJ IDEA.
- * User: bgerman
- * Date: 7/11/12
- * Time: 10:21 AM
- * Stores airlines, stops, and price ranges.
- */
-
-public class Facet {
+public class Facets{
    	private String key;
    	private String subType;
    	private String type;
    	private List<Values> values;
-    private Number min;
-    private Number max;
 
  	public String getKey(){
 		return this.key;
@@ -37,26 +27,10 @@ public class Facet {
 	public void setType(String type){
 		this.type = type;
 	}
- 	public List getValues(){
+ 	public List<Values> getValues(){
 		return this.values;
 	}
 	public void setValues(List<Values> values){
 		this.values = values;
 	}
-
-    public Number getMax() {
-        return max;
-    }
-
-    public void setMax(Number max) {
-        this.max = max;
-    }
-
-    public Number getMin() {
-        return min;
-    }
-
-    public void setMin(Number min) {
-        this.min = min;
-    }
 }

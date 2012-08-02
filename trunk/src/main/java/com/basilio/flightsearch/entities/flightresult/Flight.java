@@ -1,9 +1,7 @@
 
-package com.basilio.flightsearch.entities.result;
+package com.basilio.flightsearch.entities.flightresult;
 
 import java.util.List;
-import java.util.logging.Logger;
-
 /**
  * Created with IntelliJ IDEA.
  * User: bgerman

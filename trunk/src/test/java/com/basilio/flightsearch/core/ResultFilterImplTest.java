@@ -1,10 +1,10 @@
 package com.basilio.flightsearch.core;
 
 
-import com.basilio.flightsearch.entities.result.Flight;
-import com.basilio.flightsearch.entities.result.Route;
-import com.basilio.flightsearch.entities.result.Result;
-import com.basilio.flightsearch.entities.result.Segment;
+import com.basilio.flightsearch.entities.flightresult.Flight;
+import com.basilio.flightsearch.entities.flightresult.Route;
+import com.basilio.flightsearch.entities.flightresult.FlightResult;
+import com.basilio.flightsearch.entities.flightresult.Segment;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -22,9 +22,9 @@ import static org.junit.Assert.assertEquals;
 public class ResultFilterImplTest {
     @Test
     public void testFilterSearch() throws Exception {
-        ResultFilter filter = new ResultFilterImpl();
+        FlightResultFilter filterFlight = new FlightResultFilterImpl();
 
-        Result result = new Result();
+        FlightResult flightResult = new FlightResult();
 
         Flight directFlight = new Flight();
         List<Route> outRoutes1 = new ArrayList<Route>();
@@ -62,9 +62,9 @@ public class ResultFilterImplTest {
         flights.add(directFlight);
         flights.add(segmentedFlight);
 
-        result.setFlights(flights);
+        flightResult.setFlights(flights);
 
-        assertEquals(2,result.getFlights().size());
+        assertEquals(2, flightResult.getFlights().size());
 
 
     }

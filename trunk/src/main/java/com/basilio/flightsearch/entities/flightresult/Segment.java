@@ -1,5 +1,5 @@
 
-package com.basilio.flightsearch.entities.result;
+package com.basilio.flightsearch.entities.flightresult;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

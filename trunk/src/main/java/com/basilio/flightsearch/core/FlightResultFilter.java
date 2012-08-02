@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.core;
 
-import com.basilio.flightsearch.entities.result.Result;
+import com.basilio.flightsearch.entities.flightresult.FlightResult;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,9 +9,9 @@ import com.basilio.flightsearch.entities.result.Result;
  * Time: 8:30 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface ResultFilter {
+public interface FlightResultFilter {
 
-    Result filterSearch(Result inResult, int budget, int segments);
+    FlightResult filterSearch(FlightResult inFlightResult, int budget, int segments);
 
     String getDescription();
 

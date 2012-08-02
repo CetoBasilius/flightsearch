@@ -1,7 +1,7 @@
 package com.basilio.flightsearch.dal;
 
-import com.basilio.flightsearch.entities.Search;
-import com.basilio.flightsearch.entities.result.Result;
+import com.basilio.flightsearch.entities.flightresult.Search;
+import com.basilio.flightsearch.entities.flightresult.FlightResult;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +17,7 @@ public interface FlightSearchConnector {
      * @param search
      * @return
      */
-    public Result searchFlights(Search search);
+    public FlightResult searchFlights(Search search);
 
 
 }

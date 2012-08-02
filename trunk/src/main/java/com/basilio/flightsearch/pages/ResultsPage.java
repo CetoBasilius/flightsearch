@@ -3,13 +3,13 @@ package com.basilio.flightsearch.pages;
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.components.CustomPagedLoop;
 import com.basilio.flightsearch.components.Window;
-import com.basilio.flightsearch.core.ResultFilter;
-import com.basilio.flightsearch.core.ResultFilterImpl;
+import com.basilio.flightsearch.core.FlightResultFilter;
+import com.basilio.flightsearch.core.FlightResultFilterImpl;
 import com.basilio.flightsearch.core.helpers.NumberHelper;
 import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.Search;
-import com.basilio.flightsearch.entities.result.*;
+import com.basilio.flightsearch.entities.flightresult.Search;
+import com.basilio.flightsearch.entities.flightresult.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.tapestry5.EventConstants;
@@ -137,16 +137,16 @@ public class ResultsPage {
     private CustomPagedLoop customPagedLoop;
 
     @Persist(PersistenceConstants.SESSION)
-    private ResultFilter resultFilter;
+    private FlightResultFilter flightResultFilter;
 
     @Persist(PersistenceConstants.SESSION)
-    private Result result;
+    private FlightResult flightResult;
 
     @Persist(PersistenceConstants.SESSION)
-    private Result showingResult;
+    private FlightResult showingFlightResult;
 
     @Persist(PersistenceConstants.SESSION)
-    private Result filteredResult;
+    private FlightResult filteredFlightResult;
 
     @Persist(PersistenceConstants.SESSION)
     private Search search;
@@ -210,21 +210,23 @@ public class ResultsPage {
             "title=literal:Inbound flight details"})
     private Window inboundWindow;
 
+    @InjectPage
+    private SuggestPage suggestPage;
 
 
-    public void setup(Search search,Result result)
+    public void setup(Search search,FlightResult flightResult)
     {
         customPagedLoop.setCurrentPage(1);
-        this.result = result;
-        this.filteredResult = result;
-        this.showingResult = result;
+        this.flightResult = flightResult;
+        this.filteredFlightResult = flightResult;
+        this.showingFlightResult = flightResult;
 
         this.search = search;
 
-        if(resultFilter == null){
-            resultFilter = new ResultFilterImpl();
+        if(flightResultFilter == null){
+            flightResultFilter = new FlightResultFilterImpl();
         } else {
-            resultFilter.setWasResultFiltered(false);
+            flightResultFilter.setWasResultFiltered(false);
         }
 
     }
@@ -235,8 +237,8 @@ public class ResultsPage {
         customTrackCSS = "slider-track-custom";
         customValueCSS = "slider-value-custom";
 
-        if(showingResult!=null){
-            List<Facet> facets = showingResult.getMeta().getFacets();
+        if(showingFlightResult !=null){
+            List<Facet> facets = showingFlightResult.getMeta().getFacets();
             if(facets!=null){
                 Facet minmaxFacet = facets.get(2);
                 minPriceFilter = minmaxFacet.getMin().intValue()-(minmaxFacet.getMin().intValue()%100);
@@ -249,10 +251,14 @@ public class ResultsPage {
                 emptyResult=true;
             }
 
+            radioAllDurations="";
+            radioAllSegments="";
+            radioAllTypes="";
+
         }
 
-        if(resultFilter == null){
-            resultFilter = new ResultFilterImpl();
+        if(flightResultFilter == null){
+            flightResultFilter = new FlightResultFilterImpl();
         }
 
 
@@ -325,8 +331,8 @@ public class ResultsPage {
 
     public String getNumFlights(){
         int numFlights = 0;
-        if(showingResult != null){
-            numFlights = showingResult.getFlights().size();
+        if(showingFlightResult != null){
+            numFlights = showingFlightResult.getFlights().size();
         }
         return Integer.toString(numFlights);
     }
@@ -440,7 +446,11 @@ public class ResultsPage {
             }
         }
 
-        return null;
+
+
+        suggestPage.setup(this.flightResult.getFlights().get(0));
+
+        return suggestPage;
     }
 
     //-----------------------------------------------
@@ -454,9 +464,9 @@ public class ResultsPage {
         radio2SegmentMore;
         radioAllSegments;*/
 
-        filteredResult = resultFilter.filterSearch(result,slider,-1);
+        filteredFlightResult = flightResultFilter.filterSearch(flightResult,slider,-1);
 
-        showingResult = filteredResult;
+        showingFlightResult = filteredFlightResult;
 
         customPagedLoop.setCurrentPage(1);
         return null;
@@ -465,8 +475,8 @@ public class ResultsPage {
     @Log
     @OnEvent(value = "disablefilter")
     public Object onDisableFilter(){
-        resultFilter.setWasResultFiltered(false);
-        showingResult = result;
+        flightResultFilter.setWasResultFiltered(false);
+        showingFlightResult = flightResult;
         return null;
     }
 
@@ -618,7 +628,7 @@ public class ResultsPage {
     }
 
     public String getResultDescription(){
-        return showingResult.getDescription();
+        return showingFlightResult.getDescription();
     }
 
     @Persist
@@ -694,13 +704,13 @@ public class ResultsPage {
     {
         int numFlights = 0;
         Flight[] resultArray = null;
-        if(showingResult != null){
+        if(showingFlightResult != null){
             if(search.isDirectFlight()){
-                if(showingResult.getFlights()!=null){
-                    numFlights = result.getDirectFlights().size();
+                if(showingFlightResult.getFlights()!=null){
+                    numFlights = flightResult.getDirectFlights().size();
                     resultArray = new Flight[numFlights];
                     for(int a = 0;a<numFlights;a++){
-                        resultArray[a] = showingResult.getDirectFlights().get(a);
+                        resultArray[a] = showingFlightResult.getDirectFlights().get(a);
                     }
                 }else{
                     resultArray = new Flight[1];
@@ -708,11 +718,11 @@ public class ResultsPage {
                     emptyResult=true;
                 }
             }else{
-                if(showingResult.getFlights()!=null){
-                    numFlights = showingResult.getFlights().size();
+                if(showingFlightResult.getFlights()!=null){
+                    numFlights = showingFlightResult.getFlights().size();
                     resultArray = new Flight[numFlights];
                     for(int a = 0;a<numFlights;a++){
-                        resultArray[a] = showingResult.getFlights().get(a);
+                        resultArray[a] = showingFlightResult.getFlights().get(a);
                     }
                 }else{
                     resultArray = new Flight[1];
@@ -776,14 +786,14 @@ public class ResultsPage {
         this.search = search;
     }
 
-    public Result getResult() {
-        return showingResult;
+    public FlightResult getFlightResult() {
+        return showingFlightResult;
     }
 
-    public void setResult(Result result) {
-        this.showingResult = result;
-        this.result = result;
-        this.filteredResult = result;
+    public void setFlightResult(FlightResult flightResult) {
+        this.showingFlightResult = flightResult;
+        this.flightResult = flightResult;
+        this.filteredFlightResult = flightResult;
     }
 
     @InjectPage
@@ -798,7 +808,7 @@ public class ResultsPage {
     }
 
     public String getFilterDescription(){
-        return resultFilter.getDescription();
+        return flightResultFilter.getDescription();
     }
 
     public Object viewMap(String airportCodesString){

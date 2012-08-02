@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.entities.result;
+package com.basilio.flightsearch.entities.flightresult;
 
 import org.testng.annotations.Test;
 

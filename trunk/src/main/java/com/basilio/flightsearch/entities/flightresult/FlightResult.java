@@ -1,5 +1,5 @@
 
-package com.basilio.flightsearch.entities.result;
+package com.basilio.flightsearch.entities.flightresult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * Base result class
  */
 
-public class Result implements Cloneable{
+public class FlightResult implements Cloneable{
    	private List<Flight> flights;
    	private Meta meta;
 
