@@ -1,11 +1,13 @@
 package com.basilio.flightsearch.entities.result;
 
+import com.basilio.flightsearch.core.helpers.DateHelper;
 import org.apache.commons.lang.time.DateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -57,12 +59,12 @@ public class Route {
 
     public String getFinalDestination(){
         Location arrival = this.getSegments().get(this.getSegments().size() - 1).getArrival();
-        return arrival.getLocation()+", "+arrival.getLocationDescription();
+        return arrival.getLocation();
     }
 
     public String getDeparturePlace(){
         Location departure = this.getSegments().get(0).getDeparture();
-        return departure.getLocation()+", "+departure.getLocationDescription();
+        return departure.getLocation();
     }
 
     public String getDepartureTime(){
@@ -147,10 +149,7 @@ public class Route {
         Date date1 = new Date();
         Date date2 = new Date();
 
-        Date date3 = new Date();
-
-
-        date3.setTime(date2.getTime() - date1.getTime());
+        Date dateDifference = new Date();
 
         try {
             date1 = inDateFormat.parse(segment1.getArrival().getDate());
@@ -159,8 +158,13 @@ public class Route {
         } catch (ParseException e) {
             logger.error("date was unparseable.");
         }
+        dateDifference.setTime(date2.getTime()-date1.getTime());
+        String returnString = DateHelper.getHoursMinutes(dateDifference);
+        return returnString;
 
-        //TODO finish this
-        return "this feature is not yet available" /*outHourFormat.format(date3)*/;
+    }
+
+    public String getDescription() {
+        return "from "+this.getLeaveDescription()+" to "+this.getArriveDescription();
     }
 }

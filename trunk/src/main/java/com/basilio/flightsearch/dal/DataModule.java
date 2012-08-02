@@ -58,10 +58,9 @@ public class DataModule {
         }else{
             try {
                 List<AirportStub> entities = airportListConnector.GetAirportStubList();
-
                 create(entities);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Could not retrieve airport list, make sure there is an active internet connection.");
             }
         }
     }

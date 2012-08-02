@@ -256,7 +256,7 @@ public class ResultsPage {
         }
 
 
-        rowsPerPage = 2;
+        rowsPerPage = 6;
         windowNumber = 0;
         //TODO: rowsperpage must be retrieved from user settings.
     }
@@ -305,7 +305,7 @@ public class ResultsPage {
     public String getOutSegmentWaitDesc(){
         StringBuffer buffer = new StringBuffer();
         buffer.append("There will be a wait of ");
-        buffer.append(outboundRoute.getWaitDescription(inSegmentWindowIndex,inSegmentWindowIndex));
+        buffer.append(outboundRoute.getWaitDescription(outSegmentWindowIndex,outSegmentWindowIndex+1));
         return buffer.toString();
     }
 
@@ -550,6 +550,10 @@ public class ResultsPage {
         return outboundRoute.getSegmentsDescription();
     }
 
+    public String[] getInRouteSegmentInfo(){
+        return inboundRoute.getSegmentsDescription();
+    }
+
     public String getOutRouteSegmentInfoCommas(){
         return routeSegmentInfoCommas(outboundRoute);
     }
@@ -572,10 +576,6 @@ public class ResultsPage {
         return buffer.toString();
     }
 
-    public String[] getInRouteSegmentInfo(){
-        return inboundRoute.getSegmentsDescription();
-    }
-
     public String getOutRouteDurationInfo(){
         return outboundRoute.getDurationDescription();
     }
@@ -584,17 +584,6 @@ public class ResultsPage {
         return inboundRoute.getDurationDescription();
     }
 
-    public String getOutRouteArriveInfo(){
-        return outboundRoute.getArriveDescription();
-    }
-
-    public String getInRouteArriveInfo(){
-        return inboundRoute.getArriveDescription();
-    }
-
-    public String getOutRouteLeaveInfo(){
-        return outboundRoute.getLeaveDescription();
-    }
 
     public String getInRouteLeaveInfo(){
         return inboundRoute.getLeaveDescription();
@@ -610,9 +599,7 @@ public class ResultsPage {
         return inboundRoute.getScheduleDescription();
     }
 
-    public String getOutRouteType(){
-        return WordUtils.capitalize(outboundRoute.getSegments().get(0).getMarketingCabinTypeCode().toLowerCase());
-    }
+
 
     public String getInRouteType(){
         return WordUtils.capitalize(inboundRoute.getSegments().get(0).getMarketingCabinTypeCode().toLowerCase());
@@ -736,23 +723,31 @@ public class ResultsPage {
     }
 
     public String getOutSegmentWindowDescription(){
-        return segmentWindowDescription();
+        return segmentWindowDescription(outSegment,outSegmentWindowIndex);
     }
 
     public String getInSegmentWindowDescription(){
-        return segmentWindowDescription();
+        return segmentWindowDescription(inSegment,inSegmentWindowIndex);
     }
 
-    private String segmentWindowDescription() {
+    private String segmentWindowDescription(Segment segment, int index) {
         StringBuffer buffer = new StringBuffer();
-        buffer.append(NumberHelper.ordinal(outSegmentWindowIndex + 1));
+        buffer.append(NumberHelper.ordinal(index + 1));
         buffer.append(" segment - Flight ");
-        buffer.append(outSegment.getFlightNumber());
+        buffer.append(segment.getFlightNumber());
         buffer.append(" - ");
-        buffer.append(WordUtils.capitalize(outSegment.getMarketingCabinTypeCode().toLowerCase()));
+        buffer.append(WordUtils.capitalize(segment.getMarketingCabinTypeCode().toLowerCase()));
         buffer.append(" - ");
-        buffer.append(outSegment.getOperatingCarrierDescription());
+        buffer.append(segment.getOperatingCarrierDescription());
         return buffer.toString();
+    }
+
+    public String getFlightOutLabelDesc(){
+        return flight.getOutDescription();
+    }
+
+    public String getFlightInLabelDesc(){
+        return flight.getInDescription();
     }
 
     public String getOutSegmentWindowMoreInfo(){

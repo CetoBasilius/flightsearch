@@ -4,7 +4,7 @@ body {
     padding-bottom:40px;   /* Height of the footer */
     background: #FFFFFF url(images/img01.jpg) repeat-x;
     text-align: justify;
-    font: 15px Arial, Helvetica, sans-serif;
+    font: 14px Arial, Helvetica, sans-serif;
     color: #222222;
     height:100%;
 }
@@ -437,6 +437,7 @@ table.buytable td.buytdcenter {
 }
 
 table.blueflightchooser {
+    width:100%;
     border-style:solid; border-width:4px;
     border-color:#009ACD;
     background-color: #FFFFFF;
@@ -447,6 +448,7 @@ table.blueflightchooser {
 }
 
 table.redflightchooser {
+    width:100%;
     border-style:solid; border-width:4px;
     border-color:#FFC125;
     background-color: #FFFFFF;
@@ -470,8 +472,8 @@ table td.showtd {
 	padding: 5px;
 	margin-top: 10px;
 	margin-right: 20px;
-    border-radius: 25px;
-    -moz-border-radius: 25px;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
 }
 
 table td.flightboxnotinrange {
@@ -480,8 +482,8 @@ table td.flightboxnotinrange {
 	padding: 5px;
 	margin-top: 10px;
 	margin-right: 20px;
-    border-radius: 25px;
-    -moz-border-radius: 25px;
+    border-radius: 15px;
+    -moz-border-radius: 15px;
 }
 
 
@@ -489,22 +491,22 @@ table td.goingbox {
     width:100%;
     #border-style:solid; border-width:1px;
     background-color: #E0EEEE;
-	padding: 5px;
+	padding: 0px;
 	margin-top: 10px;
 	margin-right: 20px;
-    border-radius: 15px;
-    -moz-border-radius: 15px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
 }
 
-table td.returningbox {
+.returningbox {
     width:100%;
     #border-style:solid; border-width:1px;
     background-color: #E0EEEE;
-	padding: 5px;
-	margin-top: 10px;
-	margin-right: 20px;
-    border-radius: 15px;
-    -moz-border-radius: 15px;
+    padding: 0px;
+    margin-top: 10px;
+    margin-right: 20px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
 }
 
 .rounded4 {
