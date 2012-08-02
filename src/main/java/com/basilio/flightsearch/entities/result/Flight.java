@@ -2,6 +2,8 @@
 package com.basilio.flightsearch.entities.result;
 
 import java.util.List;
+import java.util.logging.Logger;
+
 /**
  * Created with IntelliJ IDEA.
  * User: bgerman
@@ -65,5 +67,33 @@ public class Flight {
 
     public String getDescription() {
         return "";
+    }
+
+    public String getOutDescription() {
+        StringBuffer buffer = new StringBuffer();
+        if(outboundRoutes!=null){
+            if(outboundRoutes.size()>0){
+                buffer.append(outboundRoutes.get(0).getDescription());
+            }else{
+                buffer.append("Outbound routes was empty");
+            }
+        }else{
+            buffer.append("Outbound routes was null");
+        }
+        return buffer.toString();
+    }
+
+    public String getInDescription() {
+        StringBuffer buffer = new StringBuffer();
+        if(inboundRoutes!=null){
+            if(inboundRoutes.size()>0){
+                buffer.append(inboundRoutes.get(0).getDescription());
+            }else{
+                buffer.append("Inbound routes was empty");
+            }
+        }else{
+            buffer.append("Inbound routes was null");
+        }
+        return buffer.toString();
     }
 }
