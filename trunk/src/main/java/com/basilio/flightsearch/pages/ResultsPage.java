@@ -274,6 +274,10 @@ public class ResultsPage {
         return "roundedbox";
     }
 
+    public boolean getIsFlightRound(){
+        return search.isRoundTrip();
+    }
+
     public boolean getIsOnPriceRangeBoolean(){
         DecimalFormat df = new DecimalFormat("#.00");
 
@@ -681,6 +685,8 @@ public class ResultsPage {
         }
         return inRoutes;
     }
+
+
 
 
     @Log

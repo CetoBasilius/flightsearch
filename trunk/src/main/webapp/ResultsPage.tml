@@ -391,23 +391,25 @@
                                                 </t:loop>
                                             </t:radiogroup>
 
-                                            <table class="redflightchooser">
-                                                <tr>
-                                                    <td>
-                                                        <table style="width:100%;">
-                                                            <tr>
+                                            <t:if test="IsFlightRound">
+                                                <table class="redflightchooser">
+                                                    <tr>
+                                                        <td>
+                                                            <table style="width:100%;">
+                                                                <tr>
 
-                                                                <td style="width:5%;">
-                                                                    <img src="${request.contextPath}/layout/images/returning.png" />
-                                                                </td>
-                                                                <td style="width:95%;">
-                                                                    <label class="routelabel">${flightInLabelDesc}</label>
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                                                    <td style="width:5%;">
+                                                                        <img src="${request.contextPath}/layout/images/returning.png" />
+                                                                    </td>
+                                                                    <td style="width:95%;">
+                                                                        <label class="routelabel">${flightInLabelDesc}</label>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </t:if>
 
                                             <t:radiogroup t:id="inBoundRadios" value="inRadioSelectedValue">
                                                 <t:loop source="inRoutes" value="inboundRoute" index="inBoundIndex" encoder="inboundRoutesValueEncoder">

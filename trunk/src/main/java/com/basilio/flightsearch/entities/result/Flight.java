@@ -18,15 +18,6 @@ public class Flight {
    	private List<Route> outboundRoutes;
    	private PaymentInfo paymentInfo;
    	private PriceInfo priceInfo;
-    private boolean returnDirectFlights;
-
-    public boolean isReturnDirectFlights() {
-        return returnDirectFlights;
-    }
-
-    public void setReturnDirectFlights(boolean returnDirectFlights) {
-        this.returnDirectFlights = returnDirectFlights;
-    }
 
  	public String getId(){
 		return this.id;
