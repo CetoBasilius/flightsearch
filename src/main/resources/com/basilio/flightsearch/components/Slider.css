@@ -39,6 +39,7 @@ div.slider-track-custom {
 }
 
 div.slider-value-custom {
+    width: 170px;
     position: relative;
     top: 6px;
     left: 70px;
