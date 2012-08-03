@@ -1,6 +1,5 @@
 package com.basilio.flightsearch.entities.flightresult;
 
-import org.junit.Before;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -19,13 +18,8 @@ import static org.junit.Assert.assertNotNull;
  */
 public class FlightResultTest {
 
-    @Before
-    public void setupTests(){
-
-    }
-
     @Test
-    public void testGetDirectFlights() throws Exception {
+    public void testGetDirectFlights(){
         FlightResult flightResult = new FlightResult();
         List<Flight> mockFlightList = new ArrayList<Flight>();
 
@@ -102,6 +96,7 @@ public class FlightResultTest {
 
         expect(mockedFlight1.getPriceInfo()).andReturn(mockedPriceInfo).anyTimes();
         expect(mockedPriceInfo.getTotal()).andReturn(mockedTotal).anyTimes();
+
         expect(mockedTotal.getFare()).andReturn(new Integer(20)).once();
         expect(mockedTotal.getFare()).andReturn(new Integer(30)).once();
 
@@ -114,6 +109,95 @@ public class FlightResultTest {
         assertEquals(1, flightResult.getFlightsInPriceRange().size());
 
         verify(mockedFlight1, mockedPriceInfo,mockedTotal);
+
+    }
+
+    @Test
+    public void testIsOutboundDirect(){
+
+        Flight flight = new Flight();
+
+        List<Route> outboundList = createNiceMock(ArrayList.class);
+        List<Segment> segmentList = createNiceMock(ArrayList.class);
+        Route outboundRoute = createNiceMock(Route.class);
+
+        flight.setOutboundRoutes(outboundList);
+
+        expect(outboundList.size()).andReturn(1).anyTimes();
+        expect(outboundList.get(0)).andReturn(outboundRoute).anyTimes();
+        expect(outboundRoute.getSegments()).andReturn(segmentList).anyTimes();
+
+        expect(segmentList.size()).andReturn(20).once();
+        expect(segmentList.size()).andReturn(1).once();
+        expect(segmentList.size()).andReturn(2).once();
+
+        expect(segmentList.size()).andReturn(20).once();
+        expect(segmentList.size()).andReturn(1).once();
+        expect(segmentList.size()).andReturn(2).once();
+
+        expect(segmentList.size()).andReturn(20).once();
+        expect(segmentList.size()).andReturn(1).once();
+        expect(segmentList.size()).andReturn(2).once();
+
+        replay(outboundList, segmentList, outboundRoute);
+
+        assertEquals(false, flight.outboundHasSegments(Flight.ONE_SEGMENT));
+        assertEquals(true,flight.outboundHasSegments(Flight.ONE_SEGMENT));
+        assertEquals(false,flight.outboundHasSegments(Flight.ONE_SEGMENT));
+
+        assertEquals(true, flight.outboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+        assertEquals(false,flight.outboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+        assertEquals(true,flight.outboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+
+        assertEquals(true, flight.outboundHasSegments(Flight.ANY_SEGMENTS));
+        assertEquals(true,flight.outboundHasSegments(Flight.ANY_SEGMENTS));
+        assertEquals(true,flight.outboundHasSegments(Flight.ANY_SEGMENTS));
+
+        verify(outboundList, segmentList, outboundRoute);
+    }
+
+    @Test
+    public void testIsInboundDirect(){
+
+        Flight flight = new Flight();
+
+        List<Route> inboundList = createNiceMock(ArrayList.class);
+        List<Segment> segmentList = createNiceMock(ArrayList.class);
+        Route inboundRoute = createNiceMock(Route.class);
+
+        flight.setInboundRoutes(inboundList);
+
+        expect(inboundList.size()).andReturn(1).anyTimes();
+        expect(inboundList.get(0)).andReturn(inboundRoute).anyTimes();
+        expect(inboundRoute.getSegments()).andReturn(segmentList).anyTimes();
+
+        expect(segmentList.size()).andReturn(20).once();
+        expect(segmentList.size()).andReturn(1).once();
+        expect(segmentList.size()).andReturn(2).once();
+
+        expect(segmentList.size()).andReturn(20).once();
+        expect(segmentList.size()).andReturn(1).once();
+        expect(segmentList.size()).andReturn(2).once();
+
+        expect(segmentList.size()).andReturn(20).once();
+        expect(segmentList.size()).andReturn(1).once();
+        expect(segmentList.size()).andReturn(2).once();
+
+        replay(inboundList, segmentList, inboundRoute);
+
+        assertEquals(false, flight.inboundHasSegments(Flight.ONE_SEGMENT));
+        assertEquals(true,flight.inboundHasSegments(Flight.ONE_SEGMENT));
+        assertEquals(false,flight.inboundHasSegments(Flight.ONE_SEGMENT));
+
+        assertEquals(true, flight.inboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+        assertEquals(false,flight.inboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+        assertEquals(true,flight.inboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+
+        assertEquals(true, flight.inboundHasSegments(Flight.ANY_SEGMENTS));
+        assertEquals(true,flight.inboundHasSegments(Flight.ANY_SEGMENTS));
+        assertEquals(true,flight.inboundHasSegments(Flight.ANY_SEGMENTS));
+
+        verify(inboundList, segmentList, inboundRoute);
 
     }
 }

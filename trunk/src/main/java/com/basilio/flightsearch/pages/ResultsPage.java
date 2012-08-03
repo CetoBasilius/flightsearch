@@ -38,7 +38,6 @@ import java.util.List;
 @GuestAccess
 public class ResultsPage {
 
-
     @Inject
     private AirportInformationDAO airportInformationDAO;
 
@@ -55,25 +54,23 @@ public class ResultsPage {
     @Component
     private Form filterForm;
 
-    @Persist
-    @Property
-    private String radioDirect;
-
-    @Persist
-    @Property
-    private String radio1Segment;
-
-    @Persist
-    @Property
-    private String radio2SegmentMore;
-
-    @Persist
-    @Property
-    private String radioAllSegments;
 
     @Property
     @Persist
     private String segmentFilterRadioSelectedValue;
+
+    @Persist
+    @Property
+    private String segmentFilterRadioOne;
+    @Persist
+    @Property
+    private String segmentFilterRadioTwoPlus;
+    @Persist
+    @Property
+    private String segmentFilterRadioAny;
+
+
+
 
     @Persist
     @Property
@@ -225,6 +222,7 @@ public class ResultsPage {
 
         if(flightResultFilter == null){
             flightResultFilter = new FlightResultFilterImpl();
+            segmentFilterRadioSelectedValue = Integer.toString(Flight.ANY_SEGMENTS);
         } else {
             flightResultFilter.setWasResultFiltered(false);
         }
@@ -252,13 +250,19 @@ public class ResultsPage {
             }
 
             radioAllDurations="";
-            radioAllSegments="";
+
+            segmentFilterRadioAny = Integer.toString(Flight.ANY_SEGMENTS);
+            segmentFilterRadioOne = Integer.toString(Flight.ONE_SEGMENT);
+            segmentFilterRadioTwoPlus = Integer.toString(Flight.TWO_OR_MORE_SEGMENTS);
+
             radioAllTypes="";
 
         }
 
+
         if(flightResultFilter == null){
             flightResultFilter = new FlightResultFilterImpl();
+            segmentFilterRadioSelectedValue = Integer.toString(Flight.ANY_SEGMENTS);
         }
 
 
@@ -460,11 +464,9 @@ public class ResultsPage {
     public Object filterResults(){
         this.search.setBudgetDollars(slider);
 
-        /*radio1Segment;
-        radio2SegmentMore;
-        radioAllSegments;*/
+        int segmentOption = Integer.parseInt(segmentFilterRadioSelectedValue);
 
-        filteredFlightResult = flightResultFilter.filterSearch(flightResult,slider,-1);
+        filteredFlightResult = flightResultFilter.filterSearch(flightResult,slider,segmentOption);
 
         showingFlightResult = filteredFlightResult;
 
@@ -808,7 +810,7 @@ public class ResultsPage {
     }
 
     public String getFilterDescription(){
-        return flightResultFilter.getDescription();
+        return flightResultFilter.getFilterDescription();
     }
 
     public Object viewMap(String airportCodesString){

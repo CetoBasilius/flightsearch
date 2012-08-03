@@ -85,6 +85,7 @@
                                                                 </td>
                                                             </tr>
 
+
                                                         </t:radiogroup>
                                                     </table>
 
@@ -108,11 +109,24 @@
                                                 <td>
                                                     <table>
                                                         <t:radiogroup t:id="segmentFilterRadios" value="segmentFilterRadioSelectedValue">
+                                                            <tr>
+                                                                <td>
+                                                                    <t:radio t:id="segmentFilterRadioAny" value="segmentFilterRadioAny" style="cursor:pointer;"/>
+                                                                    <t:label for="segmentFilterRadioAny">Any segments</t:label>
+                                                                </td>
+                                                            </tr>
 
                                                             <tr>
                                                                 <td>
-                                                                    <t:radio t:id="radioAllSegments" value="radioAllSegments" style="cursor:pointer;"/>
-                                                                    <t:label for="radioAllSegments">Any segments</t:label>
+                                                                    <t:radio t:id="segmentFilterRadioTwoPlus" value="segmentFilterRadioTwoPlus" style="cursor:pointer;"/>
+                                                                    <t:label for="segmentFilterRadioTwoPlus">Two or more</t:label>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td>
+                                                                    <t:radio t:id="segmentFilterRadioOne" value="segmentFilterRadioOne" style="cursor:pointer;"/>
+                                                                    <t:label for="segmentFilterRadioOne">One segment only</t:label>
                                                                 </td>
                                                             </tr>
                                                         </t:radiogroup>
