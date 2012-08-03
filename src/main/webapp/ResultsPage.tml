@@ -732,9 +732,9 @@
                                                                 <td align="left">
 
                                                                     <center>
-                                                                        <label>All of this flights cost</label>
+                                                                        <label>flights in this category cost </label>
                                                                         <b>${flightPrice}</b>
-                                                                        <label>per adult</label>
+                                                                        <label> in total</label>
                                                                     </center>
                                                                 </td>
                                                                 <td>

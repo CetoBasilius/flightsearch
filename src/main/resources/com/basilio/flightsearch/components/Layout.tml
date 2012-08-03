@@ -87,7 +87,8 @@
         <!-- end page -->
 
         <!-- start footer -->
-        <div id="non-printable">
+        <div id="non-printable" >
+
             <div class="footer">
                 <p class="legal">
                     &copy;2012 com.basilio. All Rights Reserved.
