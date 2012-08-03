@@ -50,7 +50,7 @@ public class FlightResult implements Cloneable{
                 }
                 buffer.append(". The most economic flight is ");
                 buffer.append(this.getMeta().getFacets().get(2).getMin());
-                buffer.append(" dollars per adult.");/*, and the most expensive flight is ");
+                buffer.append(" dollars in total.");/*, and the most expensive flight is ");
                 buffer.append(this.getMeta().getFacets().get(2).getMax());
                 buffer.append(" dollars per adult. ");*/
             } else {
