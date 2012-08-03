@@ -5,7 +5,7 @@ import com.basilio.flightsearch.dal.FlightSearchConnector;
 import com.basilio.flightsearch.dal.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportString;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.flightresult.Search;
+import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.EventConstants;
@@ -98,16 +98,34 @@ public class SearchPage {
 
     //---------------------------------------
 
+    @Property
+    private boolean showRoundTrip;
+
     void setupRender()
     {
-        Date tomorrow = new Date();
-        tomorrow.setTime(tomorrow.getTime() + 2*86400000);
-        startDate = tomorrow;
-        endDate = tomorrow;
-        slider = 500;
-        adults = "1";
-        children = "0";
-        infants = "0";
+        showRoundTrip = true;
+        if(startDate==null){
+            Date tomorrow = new Date();
+            tomorrow.setTime(tomorrow.getTime() + 2*86400000);
+            startDate = tomorrow;
+        }
+        if(endDate==null){
+            endDate = startDate;
+        }
+
+        if (slider <= 0) {
+            slider = 500;
+        }
+
+        if (adults == null) {
+            adults = "1";
+        }
+        if (children == null) {
+            children = "0";
+        }
+        if (infants == null) {
+            infants = "0";
+        }
     }
 
 
@@ -118,6 +136,9 @@ public class SearchPage {
     @Log
     @OnEvent(value = EventConstants.SUCCESS, component = "SearchForm")
     private Object startSearch() {
+        System.out.println(this.showRoundTrip);
+
+
         String originCode = origin.substring(1,4);
         String destinationCode = destination.substring(1,4);
 
@@ -155,22 +176,22 @@ public class SearchPage {
             return null;
         }
 
-        Search search = new Search();
+        FlightSearch flightSearch = new FlightSearch();
 
-        search.setBudgetDollars(slider);
-        search.setDirectFlight(direct);
-        search.setRoundTrip(showRoundTrip);
-        search.setDepartureAirport(departureAirport);
-        search.setDestinationAirport(destinationAirport);
-        search.setDepartureDate(startDate);
-        search.setReturnDate(endDate);
-        search.setNumberAdults(Integer.parseInt(adults));
-        search.setNumberChildren(Integer.parseInt(children));
-        search.setNewBorns(Integer.parseInt(infants));
+        flightSearch.setBudgetDollars(slider);
+        flightSearch.setDirectFlight(direct);
+        flightSearch.setRoundTrip(showRoundTrip);
+        flightSearch.setDepartureAirport(departureAirport);
+        flightSearch.setDestinationAirport(destinationAirport);
+        flightSearch.setDepartureDate(startDate);
+        flightSearch.setReturnDate(endDate);
+        flightSearch.setNumberAdults(Integer.parseInt(adults));
+        flightSearch.setNumberChildren(Integer.parseInt(children));
+        flightSearch.setNewBorns(Integer.parseInt(infants));
 
-        FlightResult flightResult = flightSearchConnector.searchFlights(search);
+        FlightResult flightResult = flightSearchConnector.searchFlights(flightSearch);
 
-        resultsPage.setup(search, flightResult);
+        resultsPage.setup(flightSearch, flightResult);
         return resultsPage;
     }
 
@@ -189,28 +210,10 @@ public class SearchPage {
         }
     }
 
-    @Property
-    @Persist
-    private boolean showRoundTrip;
-
-    @Log
-    public Object onActionFromClicker1(){
-        toggleRoundTrip();
-        return null;
-    }
-
-    @Log
-    public Object onActionFromClicker2(){
-        toggleRoundTrip();
-        return null;
-    }
-
     void toggleRoundTrip() {
         if(showRoundTrip){showRoundTrip=false;}
         else{showRoundTrip=true;}
     }
-
-
 
     List<String> onProvideCompletionsFromOrigin(String partial) {
         getAirports();

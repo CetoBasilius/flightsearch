@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.dal;
 
-import com.basilio.flightsearch.entities.flightresult.Search;
+import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
 
 /**
@@ -14,10 +14,10 @@ public interface FlightSearchConnector {
 
     /**
      * Will consult a web service for a list of flights with the given search.
-     * @param search
+     * @param flightSearch
      * @return
      */
-    public FlightResult searchFlights(Search search);
+    public FlightResult searchFlights(FlightSearch flightSearch);
 
 
 }

@@ -2,7 +2,7 @@ package com.basilio.flightsearch.dal;
 
 import com.basilio.flightsearch.core.ResultCreator;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
-import com.basilio.flightsearch.entities.flightresult.Search;
+import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -30,7 +30,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
     private String ApiTemplateRoundFlightAddress =  "http://api.despegar.com/availability/flights/roundTrip/";
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    private Search search;
+    private FlightSearch flightSearch;
 
     private FlightResult getFlightSearchResult(String statement) {
         ResultCreator resultCreator = new ResultCreator();
@@ -55,29 +55,29 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
         }
 
         FlightResult goodFlightResult = resultCreator.getGoodResult();
-        goodFlightResult.setSearchedPrice(this.search.getBudgetDollars());
-        goodFlightResult.setSearchedDirect(this.search.isDirectFlight());
+        goodFlightResult.setSearchedPrice(this.flightSearch.getBudgetDollars());
+        goodFlightResult.setSearchedDirect(this.flightSearch.isDirectFlight());
         return goodFlightResult;
     }
 
-    public FlightResult searchFlights(Search search) {
-        this.search = search;
+    public FlightResult searchFlights(FlightSearch flightSearch) {
+        this.flightSearch = flightSearch;
         String statement = "";
-        if(search.isRoundTrip()){
-            statement = createRoundStatement(search.getDepartureAirport().getCode(),
-                    search.getDestinationAirport().getCode(),
-                    search.getDepartureDate(),
-                    search.getReturnDate(),
-                    search.getNumberAdults(),
-                    search.getNumberChildren(),
-                    search.getNewBorns());
+        if(flightSearch.isRoundTrip()){
+            statement = createRoundStatement(flightSearch.getDepartureAirport().getCode(),
+                    flightSearch.getDestinationAirport().getCode(),
+                    flightSearch.getDepartureDate(),
+                    flightSearch.getReturnDate(),
+                    flightSearch.getNumberAdults(),
+                    flightSearch.getNumberChildren(),
+                    flightSearch.getNewBorns());
         } else {
-            statement = createOnewayStatement(search.getDepartureAirport().getCode(),
-                    search.getDestinationAirport().getCode(),
-                    search.getDepartureDate(),
-                    search.getNumberAdults(),
-                    search.getNumberChildren(),
-                    search.getNewBorns());
+            statement = createOnewayStatement(flightSearch.getDepartureAirport().getCode(),
+                    flightSearch.getDestinationAirport().getCode(),
+                    flightSearch.getDepartureDate(),
+                    flightSearch.getNumberAdults(),
+                    flightSearch.getNumberChildren(),
+                    flightSearch.getNewBorns());
         }
 
         return getFlightSearchResult(statement);

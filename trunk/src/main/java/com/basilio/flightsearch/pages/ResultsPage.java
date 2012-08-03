@@ -8,7 +8,7 @@ import com.basilio.flightsearch.core.FlightResultFilterImpl;
 import com.basilio.flightsearch.core.helpers.NumberHelper;
 import com.basilio.flightsearch.dal.AirportInformationDAO;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.flightresult.Search;
+import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import com.basilio.flightsearch.entities.flightresult.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -146,7 +146,7 @@ public class ResultsPage {
     private FlightResult filteredFlightResult;
 
     @Persist(PersistenceConstants.SESSION)
-    private Search search;
+    private FlightSearch flightSearch;
 
     @Property
     @Persist
@@ -211,14 +211,14 @@ public class ResultsPage {
     private SuggestPage suggestPage;
 
 
-    public void setup(Search search,FlightResult flightResult)
+    public void setup(FlightSearch flightSearch,FlightResult flightResult)
     {
         customPagedLoop.setCurrentPage(1);
         this.flightResult = flightResult;
         this.filteredFlightResult = flightResult;
         this.showingFlightResult = flightResult;
 
-        this.search = search;
+        this.flightSearch = flightSearch;
 
         if(flightResultFilter == null){
             flightResultFilter = new FlightResultFilterImpl();
@@ -243,7 +243,7 @@ public class ResultsPage {
                 maxPriceFilter = minmaxFacet.getMax().intValue()+(100-(minmaxFacet.getMax().intValue()%100));
                 priceFilterSteps = (maxPriceFilter-minPriceFilter)/100;
 
-                slider = search.getBudgetDollars();
+                slider = flightSearch.getBudgetDollars();
                 emptyResult=false;
             } else {
                 emptyResult=true;
@@ -272,26 +272,26 @@ public class ResultsPage {
     }
 
     public String getBudgetDollarsString(){
-        return String.valueOf(search.getBudgetDollars());
+        return String.valueOf(flightSearch.getBudgetDollars());
     }
 
     public String getIsOnPriceRangeCSS(){
         DecimalFormat df = new DecimalFormat("#.00");
 
-        if(flight.getPriceInfo().getTotal().getFare().floatValue()>search.getBudgetDollars()){
+        if(flight.getPriceInfo().getTotal().getFare().floatValue()> flightSearch.getBudgetDollars()){
             return "flightboxnotinrange";
         }
         return "roundedbox";
     }
 
     public boolean getIsFlightRound(){
-        return search.isRoundTrip();
+        return flightSearch.isRoundTrip();
     }
 
     public boolean getIsOnPriceRangeBoolean(){
         DecimalFormat df = new DecimalFormat("#.00");
 
-        return flight.getPriceInfo().getTotal().getFare().floatValue() <= search.getBudgetDollars();
+        return flight.getPriceInfo().getTotal().getFare().floatValue() <= flightSearch.getBudgetDollars();
     }
 
 
@@ -441,7 +441,7 @@ public class ResultsPage {
             errorForm.recordError(messages.get("error.mustselectoutboundroute"));
             return null;
         }
-        if(search.isRoundTrip()){
+        if(flightSearch.isRoundTrip()){
             if(StringUtils.isNotBlank(inRadioSelectedValue)){
                 bought += this.inRadioSelectedValue;
             } else {
@@ -462,7 +462,7 @@ public class ResultsPage {
     @Log
     @OnEvent(value = "applyfilter")
     public Object filterResults(){
-        this.search.setBudgetDollars(slider);
+        this.flightSearch.setBudgetDollars(slider);
 
         int segmentOption = Integer.parseInt(segmentFilterRadioSelectedValue);
 
@@ -623,8 +623,8 @@ public class ResultsPage {
 
     //-------------------------------------------
     public String getSearchDescription(){
-        if(search!=null){
-            return search.getDescription();
+        if(flightSearch !=null){
+            return flightSearch.getDescription();
         }
         return "No search was made.";
     }
@@ -707,7 +707,7 @@ public class ResultsPage {
         int numFlights = 0;
         Flight[] resultArray = null;
         if(showingFlightResult != null){
-            if(search.isDirectFlight()){
+            if(flightSearch.isDirectFlight()){
                 if(showingFlightResult.getFlights()!=null){
                     numFlights = flightResult.getDirectFlights().size();
                     resultArray = new Flight[numFlights];
@@ -780,12 +780,12 @@ public class ResultsPage {
         return inSegment.getDurationDescription();
     }
 
-    public Search getSearch() {
-        return search;
+    public FlightSearch getFlightSearch() {
+        return flightSearch;
     }
 
-    public void setSearch(Search search) {
-        this.search = search;
+    public void setFlightSearch(FlightSearch flightSearch) {
+        this.flightSearch = flightSearch;
     }
 
     public FlightResult getFlightResult() {
