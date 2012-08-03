@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal;
+package com.basilio.flightsearch.dal.persistence;
 
 import java.util.HashMap;
 import java.util.Map;

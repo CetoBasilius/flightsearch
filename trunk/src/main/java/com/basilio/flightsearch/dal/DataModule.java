@@ -1,5 +1,8 @@
 package com.basilio.flightsearch.dal;
 
+import com.basilio.flightsearch.dal.air.AirportInformationDAO;
+import com.basilio.flightsearch.dal.air.AirportListConnector;
+import com.basilio.flightsearch.dal.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.User;
 import org.apache.tapestry5.ioc.annotations.Inject;

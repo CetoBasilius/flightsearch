@@ -2,7 +2,7 @@ package com.basilio.flightsearch.pages;
 
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.dal.ServiceDAO;
+import com.basilio.flightsearch.dal.persistence.ServiceDAO;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.annotations.InjectComponent;
@@ -54,8 +54,6 @@ public class Tester {
         List<Double> setupList = new ArrayList<Double>();
         setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
         setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-179.0+(Math.random()*20));
 
         this.setup(setupList);
         return zone;

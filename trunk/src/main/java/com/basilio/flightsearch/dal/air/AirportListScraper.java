@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal;
+package com.basilio.flightsearch.dal.air;
 
 import com.basilio.flightsearch.entities.AirportStub;
 import org.apache.commons.lang3.StringUtils;
