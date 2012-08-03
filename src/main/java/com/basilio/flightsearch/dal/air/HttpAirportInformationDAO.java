@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal;
+package com.basilio.flightsearch.dal.air;
 
 import com.basilio.flightsearch.core.AirportCreator;
 import com.basilio.flightsearch.entities.AirportStub;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
-import static com.basilio.flightsearch.dal.DomReader.readTag;
+import static com.basilio.flightsearch.dal.air.DomReader.readTag;
 
 /**
  * Created with IntelliJ IDEA.

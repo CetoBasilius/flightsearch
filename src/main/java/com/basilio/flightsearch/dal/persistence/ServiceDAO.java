@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal;
+package com.basilio.flightsearch.dal.persistence;
 
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 

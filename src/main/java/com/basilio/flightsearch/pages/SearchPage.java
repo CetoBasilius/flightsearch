@@ -1,8 +1,8 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.dal.FlightSearchConnector;
-import com.basilio.flightsearch.dal.ServiceDAO;
+import com.basilio.flightsearch.dal.air.FlightSearchConnector;
+import com.basilio.flightsearch.dal.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportString;
 import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.flightresult.FlightSearch;

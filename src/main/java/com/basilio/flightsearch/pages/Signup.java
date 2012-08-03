@@ -2,8 +2,8 @@ package com.basilio.flightsearch.pages;
 
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.dal.QueryParameters;
-import com.basilio.flightsearch.dal.ServiceDAO;
+import com.basilio.flightsearch.dal.persistence.QueryParameters;
+import com.basilio.flightsearch.dal.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
 import com.basilio.flightsearch.services.Authenticator;

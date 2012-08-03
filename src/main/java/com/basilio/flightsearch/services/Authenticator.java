@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.services;
 
-import com.basilio.flightsearch.dal.ServiceDAO;
+import com.basilio.flightsearch.dal.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
 import org.apache.tapestry5.services.Request;

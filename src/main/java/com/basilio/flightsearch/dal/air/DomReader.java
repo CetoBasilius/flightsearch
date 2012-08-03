@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal;
+package com.basilio.flightsearch.dal.air;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

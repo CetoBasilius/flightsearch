@@ -129,6 +129,7 @@ public class GMap implements ClientElement
         configuration.put("largeControl", false);
         configuration.put("typeControl", true);
         configuration.put("label", "location");
+        configuration.put("geodesic",true);
         configure(configuration);
 
         javascriptSupport.addScript("var %s = new Hb.GMap('%s_map', '%s', '%s', '%s', %s);",
@@ -143,31 +144,31 @@ public class GMap implements ClientElement
             double latavg = 0.0;
             double lngavg = 0.0;
             int coordinateCount = coordlist.size()/2;
-            for(int a = 0; a<MAX_POLYLINE_VERTICES;a++){
+            for(int vertexIndex = 0; vertexIndex<MAX_POLYLINE_VERTICES;vertexIndex++){
 
-                if(a<coordinateCount){
-                    Double getlat = coordlist.get(2 * a);
-                    Double getlng = coordlist.get((2 * a) + 1);
+                if(vertexIndex<coordinateCount){
+                    Double getlat = coordlist.get(2 * vertexIndex);
+                    Double getlng = coordlist.get((2 * vertexIndex) + 1);
 
                     String descriptor = "";
                     if(descList!= null){
-                        descriptor = descList.get(a);
+                        descriptor = descList.get(vertexIndex);
                     }
 
                     latavg+=getlat;
                     lngavg+=getlng;
 
-                    Polyline.put("lat"+(a+1), getlat);
-                    Polyline.put("lng"+(a+1), getlng);
+                    Polyline.put("lat"+(vertexIndex+1), getlat);
+                    Polyline.put("lng"+(vertexIndex+1), getlng);
 
-                    javascriptSupport.addScript("%s.setMarker(%s, %s, '%s');", getClientId(), getlat, getlng, descriptor);
+                    javascriptSupport.addScript("%s.setMarker(%s, %s, '%s', %s);", getClientId(), getlat, getlng, descriptor,vertexIndex);
                 } else {
                     //We must fill the list.
                     Double getlat = coordlist.get(2 * (coordinateCount-1));
                     Double getlng = coordlist.get((2 * (coordinateCount-1)) + 1);
 
-                    Polyline.put("lat"+(a+1), getlat);
-                    Polyline.put("lng"+(a+1), getlng);
+                    Polyline.put("lat"+(vertexIndex+1), getlat);
+                    Polyline.put("lng"+(vertexIndex+1), getlng);
                 }
             }
 

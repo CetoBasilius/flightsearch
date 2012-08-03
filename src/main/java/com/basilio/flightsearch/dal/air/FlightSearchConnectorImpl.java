@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal;
+package com.basilio.flightsearch.dal.air;
 
 import com.basilio.flightsearch.core.ResultCreator;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;

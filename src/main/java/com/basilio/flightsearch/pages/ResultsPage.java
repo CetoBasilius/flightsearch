@@ -6,7 +6,7 @@ import com.basilio.flightsearch.components.Window;
 import com.basilio.flightsearch.core.FlightResultFilter;
 import com.basilio.flightsearch.core.FlightResultFilterImpl;
 import com.basilio.flightsearch.core.helpers.NumberHelper;
-import com.basilio.flightsearch.dal.AirportInformationDAO;
+import com.basilio.flightsearch.dal.air.AirportInformationDAO;
 import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import com.basilio.flightsearch.entities.flightresult.*;
@@ -36,6 +36,7 @@ import java.util.List;
 
 @SupportsInformalParameters
 @GuestAccess
+@Import(library = "customelements.js")
 public class ResultsPage {
 
     @Inject
@@ -193,14 +194,14 @@ public class ResultsPage {
     @SuppressWarnings("unused")
     private String inRadioSelectedValue;
 
-    @Component(parameters = {"style=bluelighting",
+    @Component(parameters = {"style=greylighting",
             "show=false",
             "modal=true",
             "width=500",
             "title=literal:Outbound flight details"})
     private Window outboundWindow;
 
-    @Component(parameters = {"style=bluelighting",
+    @Component(parameters = {"style=greylighting",
             "show=false",
             "modal=true",
             "width=500",
