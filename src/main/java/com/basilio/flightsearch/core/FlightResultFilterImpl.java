@@ -35,23 +35,45 @@ public class FlightResultFilterImpl implements FlightResultFilter {
             logger.error("cloning "+this.getClass()+" failed");
         }
 
-        List<Flight> newList = new ArrayList<Flight>();
-
         List<Flight> flights = inFlightResult.getFlights();
-        for(int index = 0; index < flights.size();index++){
-            Flight inFlight = flights.get(index);
-            if(inFlight.getPriceInfo().getTotal().getFare().intValue()<budget){
-                newList.add(inFlight);
-            }
-        }
+
+        flights = filterFLightListByBudget(flights, budget);
+        flights = filterFLightListBySegments(flights, segments);
+
+
         returnFlightResult.setSearchedPrice(budget);
-        returnFlightResult.setFlights(newList);
+        returnFlightResult.setFlights(flights);
 
         wasResultFiltered = true;
         return returnFlightResult;
     }
 
-    public String getDescription() {
+    private List<Flight> filterFLightListBySegments(List<Flight> flightList, int segments) {
+        List<Flight> newList = new ArrayList<Flight>();
+
+        for(int index = 0; index < flightList.size();index++){
+            Flight inFlight = flightList.get(index);
+            if(inFlight.outboundHasSegments(segments) && inFlight.inboundHasSegments(segments)){
+                newList.add(inFlight);
+            }
+        }
+        return newList;
+
+    }
+
+    private List<Flight> filterFLightListByBudget(List<Flight> flightList, int budget) {
+        List<Flight> newList = new ArrayList<Flight>();
+
+        for(int index = 0; index < flightList.size();index++){
+            Flight inFlight = flightList.get(index);
+            if(inFlight.getPriceInfo().getTotal().getFare().intValue()<budget){
+                newList.add(inFlight);
+            }
+        }
+        return newList;
+    }
+
+    public String getFilterDescription() {
         StringBuffer buffer = new StringBuffer();
 
         if(!wasResultFiltered){

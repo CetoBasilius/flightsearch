@@ -10,7 +10,12 @@ import java.util.List;
  * Actual flight result.
  */
 public class Flight {
-   	private String id;
+
+    public final static int ANY_SEGMENTS = 1;
+    public final static int ONE_SEGMENT = 2;
+    public final static int TWO_OR_MORE_SEGMENTS = 3;
+
+    private String id;
    	private List<Route> inboundRoutes;
    	private List<ItineraryInfos> itineraryInfos;
    	private List<Route> outboundRoutes;
@@ -84,5 +89,68 @@ public class Flight {
             buffer.append("Inbound routes was null");
         }
         return buffer.toString();
+    }
+
+    public boolean outboundHasSegments(int segmentNumber) {
+        if(outboundRoutes!=null){
+            for(int index = 0; index<outboundRoutes.size();index++){
+                int size = outboundRoutes.get(index).getSegments().size();
+                switch(segmentNumber){
+                    case ANY_SEGMENTS:{
+                        return true;
+                    }
+                    case TWO_OR_MORE_SEGMENTS:{
+                        if(size>1){
+                            return true;
+                        }else {
+                            return false;
+                        }
+                    }
+
+                    case ONE_SEGMENT:{
+                        if(size==1){
+                            return true;
+                        }else {
+                            return false;
+                        }
+                    }
+                }
+
+            }
+        } return true;
+    }
+
+    /**
+     *
+     * @param segmentNumber
+     * @return  will return true if inbound route has the specified segment rule or if inbound is empty or null
+     */
+    public boolean inboundHasSegments(int segmentNumber) {
+        if(inboundRoutes!=null){
+            for(int index = 0; index<inboundRoutes.size();index++){
+                int size = inboundRoutes.get(index).getSegments().size();
+                switch(segmentNumber){
+                    case ANY_SEGMENTS:{
+                        return true;
+                    }
+                    case TWO_OR_MORE_SEGMENTS:{
+                        if(size>1){
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+
+                    case ONE_SEGMENT:{
+                        if(size==1){
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

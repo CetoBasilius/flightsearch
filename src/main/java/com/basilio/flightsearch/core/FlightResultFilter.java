@@ -13,7 +13,7 @@ public interface FlightResultFilter {
 
     FlightResult filterSearch(FlightResult inFlightResult, int budget, int segments);
 
-    String getDescription();
+    String getFilterDescription();
 
     boolean wasResultFiltered();
     void setWasResultFiltered(boolean option);

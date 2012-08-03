@@ -15,6 +15,7 @@ div.slider-track {
 }
 
 div.slider-value {
+width: 170px;
     position: relative;
     top: 0px;
     left: 310px;
