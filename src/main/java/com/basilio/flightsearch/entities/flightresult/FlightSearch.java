@@ -12,7 +12,7 @@ import java.util.Date;
  * Time: 4:50 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Search {
+public class FlightSearch {
 
     private boolean isRoundTrip;
 

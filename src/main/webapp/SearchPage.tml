@@ -30,23 +30,17 @@
                 <td>
                     <input t:id="startDateTimeField" t:value="startDate" t:validate="required,aftertomorrow"/>
                     &nbsp;&nbsp;
-                    <t:if test="!showRoundTrip">
-                        <t:actionlink t:id="clicker1" t:event="clicker">Set round trip</t:actionlink>
-                        <p:else>
-                            <t:actionlink t:id="clicker2" t:event="clicker">Set one way</t:actionlink>
-                        </p:else>
-                    </t:if>
+                    <t:checkbox t:id="roundTrip" check="checked" value="showRoundTrip" onclick="!$('returnbox').toggle();"/>
+                    <t:label for="roundTrip" value="Round Trip"/>
                 </td>
             </tr>
-            <tr>
-                <t:if test="showRoundTrip">
-                    <th>
-                        <label t:type="label" t:for="endDateTimeField">Return date</label>
-                    </th>
-                    <td>
-                        <input t:id="endDateTimeField" t:value="endDate" t:validate="required,aftertomorrow"/>
-                    </td>
-                </t:if>
+            <tr id="returnbox">
+                <th>
+                    <label t:type="label" t:for="endDateTimeField">Return date</label>
+                </th>
+                <td>
+                    <input t:id="endDateTimeField" t:value="endDate" t:validate="required,aftertomorrow"/>
+                </td>
             </tr>
             <tr>
                 <th>

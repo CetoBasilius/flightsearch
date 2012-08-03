@@ -2,7 +2,7 @@ package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
-import com.basilio.flightsearch.entities.flightresult.Search;
+import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import org.junit.Before;
 import org.testng.annotations.Test;
 
@@ -18,13 +18,13 @@ import static org.junit.Assert.assertTrue;
  */
 public class ResultsPageTest {
 
-    private Search search;
+    private FlightSearch flightSearch;
     private FlightResult flightResult;
     private ResultsPage resultsPage;
 
     @Before
     public void setupTests(){
-        search = createNiceMock(Search.class);
+        flightSearch = createNiceMock(FlightSearch.class);
         flightResult = createNiceMock(FlightResult.class);
 
     }
