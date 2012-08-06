@@ -2,16 +2,24 @@ package com.basilio.flightsearch.pages;
 
 
 import com.basilio.flightsearch.annotations.GuestAccess;
+import com.basilio.flightsearch.dal.hotel.HotelSearchConnector;
 import com.basilio.flightsearch.dal.persistence.ServiceDAO;
+import com.basilio.flightsearch.entities.flightresult.Route;
+import com.basilio.flightsearch.entities.hotelresult.Hotel;
+import com.basilio.flightsearch.entities.hotelresult.HotelResult;
+import com.basilio.flightsearch.entities.hotelresult.HotelSearch;
 import com.basilio.flightsearch.services.Authenticator;
+import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.PersistenceConstants;
-import org.apache.tapestry5.annotations.InjectComponent;
-import org.apache.tapestry5.annotations.Persist;
-import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.ValueEncoder;
+import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.chenillekit.tapestry.core.components.DateTimeField;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,38 +33,72 @@ import java.util.List;
 
 @GuestAccess
 public class Tester {
-    @Inject
-    private Authenticator authenticator;
 
     @Inject
-    private ServiceDAO serviceDAO;
+    private HotelSearchConnector hotelSearchConnector;
 
     @InjectComponent
-    private Zone zone;
+    private Form testForm;
 
     @Property
-    private double latin = 29.0958995819;
+    @Persist
+    private String city;
 
     @Property
-    private double lngin = -111.047996521;
+    private Hotel hotel;
 
-    @Persist(PersistenceConstants.FLASH)
     @Property
-    private List<Double> coordinatesParameter;
+    @Persist
+    private List<Hotel> hotels;
 
-    public void setup(List<Double> coordinatesin){
-        coordinatesParameter = coordinatesin;
+    @Property
+    @Persist
+    private Date inDate;
 
+    @Property
+    @Persist
+    private Date outDate;
+
+    @Component
+    private DateTimeField endDateTimeField;
+
+    @Component
+    private DateTimeField startDateTimeField;
+
+
+    @Log
+    @OnEvent(value = EventConstants.SUCCESS, component = "testForm")
+    public Object searchHotelsOnCity(){
+        HotelSearch hotelSearch = new HotelSearch();
+
+
+        hotelSearch.setCheckInDate(inDate);
+        hotelSearch.setCheckOutDate(outDate);
+        hotelSearch.setDistribution("1");
+        hotelSearch.setCityCode(city);
+
+        HotelResult hotelResult = hotelSearchConnector.hotelSearch(hotelSearch);
+
+        return null;
     }
 
-    Object onActionFromChangeMapTest()
-    {
-        List<Double> setupList = new ArrayList<Double>();
-        setupList.add(-90.0+(Math.random()*180));setupList.add(20.0+(Math.random()*20));
-        setupList.add(-90.0+(Math.random()*180));setupList.add(-50.0+(Math.random()*20));
 
-        this.setup(setupList);
-        return zone;
+    public Object onActionFromTester(){
+
+        return null;
     }
+
+    @Property
+    private final ValueEncoder<Hotel> hotelValueEncoder = new ValueEncoder<Hotel>() {
+
+        public String toClient(Hotel answer) {
+            return hotel.getProvider().getHotelId();
+        }
+
+        public Hotel toValue(String str) {
+            return null;
+        }
+    };
+
 
 }

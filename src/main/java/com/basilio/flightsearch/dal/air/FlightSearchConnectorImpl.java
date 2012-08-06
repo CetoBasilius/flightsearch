@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.dal.air;
 
-import com.basilio.flightsearch.core.ResultCreator;
+import com.basilio.flightsearch.core.FlightResultCreator;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import org.apache.http.HttpEntity;
@@ -33,7 +33,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
     private FlightSearch flightSearch;
 
     private FlightResult getFlightSearchResult(String statement) {
-        ResultCreator resultCreator = new ResultCreator();
+        FlightResultCreator flightResultCreator = new FlightResultCreator();
         try {
             HttpClient httpclient = new DefaultHttpClient();
             HttpGet httpget = new HttpGet(statement);
@@ -46,7 +46,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
             GZIPInputStream zippedInputStream =  new GZIPInputStream(instream);
             BufferedReader reader = new BufferedReader(new InputStreamReader(zippedInputStream));
 
-            resultCreator.setResultString(reader.readLine());
+            flightResultCreator.setResultString(reader.readLine());
             instream.close();
             httpclient.getConnectionManager().shutdown();
 
@@ -54,7 +54,7 @@ public class FlightSearchConnectorImpl implements  FlightSearchConnector {
             e.printStackTrace();
         }
 
-        FlightResult goodFlightResult = resultCreator.getGoodResult();
+        FlightResult goodFlightResult = flightResultCreator.getGoodResult();
         goodFlightResult.setSearchedPrice(this.flightSearch.getBudgetDollars());
         goodFlightResult.setSearchedDirect(this.flightSearch.isDirectFlight());
         return goodFlightResult;

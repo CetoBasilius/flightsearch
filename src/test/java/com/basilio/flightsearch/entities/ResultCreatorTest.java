@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.entities;
 
-import com.basilio.flightsearch.core.ResultCreator;
+import com.basilio.flightsearch.core.FlightResultCreator;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import org.testng.annotations.Test;
 
@@ -16,10 +16,10 @@ import static org.junit.Assert.*;
 public class ResultCreatorTest {
     @Test
     public void testGetGoodResult() throws Exception {
-        ResultCreator resultCreator = new ResultCreator();
-        assertNull(resultCreator.getGoodResult());
-        resultCreator.setResultString("{}");
-        assertNotNull(resultCreator.getGoodResult());
-        assertEquals(FlightResult.class,resultCreator.getGoodResult().getClass());
+        FlightResultCreator flightResultCreator = new FlightResultCreator();
+        assertNull(flightResultCreator.getGoodResult());
+        flightResultCreator.setResultString("{}");
+        assertNotNull(flightResultCreator.getGoodResult());
+        assertEquals(FlightResult.class, flightResultCreator.getGoodResult().getClass());
     }
 }

@@ -13,13 +13,13 @@ import org.slf4j.LoggerFactory;
  * Time: 8:55 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ResultCreator {
+public class FlightResultCreator {
 
-    private static final Logger logger = LoggerFactory.getLogger(ResultCreator.class);
+    private static final Logger logger = LoggerFactory.getLogger(FlightResultCreator.class);
     private String resultString;
     private Gson gson;
 
-    public ResultCreator() {
+    public FlightResultCreator() {
         gson = new Gson();
     }
 
