@@ -66,6 +66,8 @@ public class HotelSearchConnectorImpl implements HotelSearchConnector {
         //Date format 2012-12-20
         //http://api.despegar.com/availability/cities/CITY/hotels?checkin=DATEIN&checkout=DATEOUT&distribution=DISTRIBUTION&pagesize=50;
 
-        return apiTemplateHotelAddress+City+"hotels?checkin="+sdf.format(dateIn)+"&checkout="+sdf.format(dateOut)+"&distribution="+distribution+"&pagesize=50";
+        String statement = apiTemplateHotelAddress + City + "/hotels?checkin=" + sdf.format(dateIn) + "&checkout=" + sdf.format(dateOut) + "&distribution=" + distribution + "&pagesize=50";
+        System.out.println(statement);
+        return statement;
     }
 }
