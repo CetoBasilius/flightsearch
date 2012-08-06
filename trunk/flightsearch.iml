@@ -143,6 +143,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.beust:jcommander:1.12" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tapestry:tapestry-javadoc:5.3.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat:catalina:6.0.30" level="project" />
   </component>
 </module>
 

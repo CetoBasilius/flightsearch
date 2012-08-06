@@ -3,6 +3,8 @@ package com.basilio.flightsearch.services;
 
 import com.basilio.flightsearch.dal.*;
 import com.basilio.flightsearch.dal.air.*;
+import com.basilio.flightsearch.dal.hotel.HotelSearchConnector;
+import com.basilio.flightsearch.dal.hotel.HotelSearchConnectorImpl;
 import com.basilio.flightsearch.dal.persistence.HibernateModule;
 import com.basilio.flightsearch.security.AuthenticationFilter;
 import com.basilio.flightsearch.validators.AutoCompleteIATACodeValidator;
@@ -38,6 +40,7 @@ public class AppModule {
         binder.bind(AirportListConnector.class,AirportListScraper.class);
         binder.bind(FlightSearchConnector.class,FlightSearchConnectorImpl.class);
         binder.bind(AirportInformationDAO.class,HttpAirportInformationDAO.class);
+        binder.bind(HotelSearchConnector.class, HotelSearchConnectorImpl.class);
 
 
         // Make bind() calls on the binder object to define most IoC services.

@@ -1,6 +1,5 @@
 package com.basilio.flightsearch.core;
 
-import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import com.basilio.flightsearch.entities.hotelresult.HotelResult;
 import com.google.gson.Gson;
 import org.apache.tapestry5.annotations.Log;
@@ -14,12 +13,12 @@ import org.slf4j.LoggerFactory;
  * Time: 9:32 AM
  * To change this template use File | Settings | File Templates.
  */
-public class HotelCreator {
-    private static final Logger logger = LoggerFactory.getLogger(HotelCreator.class);
+public class HotelResultCreator {
+    private static final Logger logger = LoggerFactory.getLogger(HotelResultCreator.class);
     private String resultString;
     private Gson gson;
 
-    public HotelCreator() {
+    public HotelResultCreator() {
         gson = new Gson();
     }
 
@@ -33,7 +32,7 @@ public class HotelCreator {
         try{
             goodHotelResult = gson.fromJson(getAllResultString(),HotelResult.class);
         } catch(Exception e){
-            logger.error("Could not create good hotel object.");
+            logger.error("Could not create good hotel result object.");
         }
         return goodHotelResult;
     }
