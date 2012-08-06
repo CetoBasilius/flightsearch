@@ -79,6 +79,8 @@ public class Tester {
 
         HotelResult hotelResult = hotelSearchConnector.hotelSearch(hotelSearch);
 
+        hotels = hotelResult.getAvailability();
+
         return null;
     }
 
@@ -99,6 +101,10 @@ public class Tester {
             return null;
         }
     };
+
+    public String getHotelName(){
+        return hotel.getProvider().getId();
+    }
 
 
 }

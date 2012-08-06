@@ -15,9 +15,8 @@
         <input type="submit" t:type="submit" value="Search" t:id="search" t:event="search" />
     </form>
 
-    <t:loop source="hotels" value="hotel"
-            encoder="hotelValueEncoder">
-
+    <t:loop source="hotels" value="hotel" encoder="hotelValueEncoder">
+            ${hotelname}<br/>
     </t:loop>
 
 
