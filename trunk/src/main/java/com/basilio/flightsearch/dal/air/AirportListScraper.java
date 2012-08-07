@@ -32,7 +32,6 @@ public class AirportListScraper implements AirportListConnector {
 
     private final static String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
 
-    @Log
     public List<AirportStub> GetAirportStubList() throws IOException {
 
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
@@ -97,7 +96,6 @@ public class AirportListScraper implements AirportListConnector {
         return airportGet;
     }
 
-    @Log
     public List<AirportStub> GetAirportStubListLocal() {
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
 

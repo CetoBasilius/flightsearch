@@ -42,7 +42,6 @@ public class Signin {
     @Inject
     private Messages messages;
 
-    @Log
     public Object onSubmitFromLoginForm() {
         try {
             authenticator.login(username, password);

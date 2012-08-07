@@ -1,0 +1,7 @@
+<html t:type="layout" title="Confirm your booking"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+        >
+
+    content
+
+</html>

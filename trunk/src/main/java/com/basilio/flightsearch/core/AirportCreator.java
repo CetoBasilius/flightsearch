@@ -27,7 +27,6 @@ public class AirportCreator {
         return airportString;
     }
 
-    @Log
     public Airport getGoodAirport(){
         Airport goodAirport = null;
         try{
