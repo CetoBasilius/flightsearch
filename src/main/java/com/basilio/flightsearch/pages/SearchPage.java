@@ -133,7 +133,6 @@ public class SearchPage {
     @InjectPage
     private ResultsPage resultsPage;
 
-    @Log
     @OnEvent(value = EventConstants.SUCCESS, component = "SearchForm")
     private Object startSearch() {
         System.out.println(this.showRoundTrip);
@@ -203,7 +202,6 @@ public class SearchPage {
         return serviceDAO.findWithNamedQuery(AirportStub.ALL);
     }
 
-    @Log
     public void getAirports() {
         if (allAirportStubs == null) {
             allAirportStubs = serviceDAO.findWithNamedQuery(AirportStub.ALL);

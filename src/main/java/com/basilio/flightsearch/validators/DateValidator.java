@@ -30,7 +30,6 @@ public class DateValidator extends AbstractValidator<Void, Date> {
                        FormSupport formSupport) {
     }
 
-    @Log
     public void validate(Field field, Void constraintValue,
                          MessageFormatter formatter, Date value) throws
             ValidationException {

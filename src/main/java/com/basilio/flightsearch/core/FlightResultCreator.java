@@ -27,7 +27,6 @@ public class FlightResultCreator {
         return resultString;
     }
 
-    @Log
     public FlightResult getGoodResult(){
         FlightResult goodFlightResult = null;
         try{

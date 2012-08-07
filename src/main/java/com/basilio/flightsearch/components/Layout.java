@@ -62,28 +62,23 @@ public class Layout {
         return authenticator.isLoggedIn() ? authenticator.getLoggedUser() : null;
     }
 
-    @Log
     public Object onActionFromLogout() {
         authenticator.logout();
         return Index.class;
     }
 
-    @Log
     public Object onActionFromAccountSettings() {
         return AccountSettings.class;
     }
 
-    @Log
     public Object onActionFromSearch() {
         return SearchPage.class;
     }
 
-    @Log
     public Object onActionFromSignIn() {
         return Signin.class;
     }
 
-    @Log
     public Object onActionFromAbout() {
         return About.class;
     }

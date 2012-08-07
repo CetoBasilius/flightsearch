@@ -65,8 +65,6 @@ public class Tester {
     @Component
     private DateTimeField startDateTimeField;
 
-
-    @Log
     @OnEvent(value = EventConstants.SUCCESS, component = "testForm")
     public Object searchHotelsOnCity(){
         HotelSearch hotelSearch = new HotelSearch();

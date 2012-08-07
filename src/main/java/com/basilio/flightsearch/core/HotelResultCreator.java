@@ -26,7 +26,6 @@ public class HotelResultCreator {
         return resultString;
     }
 
-    @Log
     public HotelResult getGoodHotelResult(){
         HotelResult goodHotelResult = null;
         try{

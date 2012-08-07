@@ -432,7 +432,6 @@ public class ResultsPage {
         return false;
     }
 
-    @Log
     @OnEvent(value = EventConstants.SUCCESS, component = "buyForm")
     public Object buyTicket(){
         if(StringUtils.isNotBlank(outRadioSelectedValue)){
@@ -460,7 +459,6 @@ public class ResultsPage {
 
     //-----------------------------------------------
 
-    @Log
     @OnEvent(value = "applyfilter")
     public Object filterResults(){
         this.flightSearch.setBudgetDollars(slider);
@@ -475,7 +473,6 @@ public class ResultsPage {
         return null;
     }
 
-    @Log
     @OnEvent(value = "disablefilter")
     public Object onDisableFilter(){
         flightResultFilter.setWasResultFiltered(false);
@@ -659,7 +656,6 @@ public class ResultsPage {
         return ""+returnNumber;
     }
 
-    @Log
     public Segment[] getOutSegments(){
         List<Segment> outSegmentsList = outboundRoute.getSegments();
         Segment outSegments[] = new Segment[outSegmentsList.size()];
@@ -669,7 +665,6 @@ public class ResultsPage {
         return outSegments;
     }
 
-    @Log
     public Segment[] getInSegments(){
         List<Segment> inSegmentsList = inboundRoute.getSegments();
         Segment inSegments[] = new Segment[inSegmentsList.size()];
@@ -679,7 +674,6 @@ public class ResultsPage {
         return inSegments;
     }
 
-    @Log
     public Route[] getOutRoutes(){
         List<Route> outRoutesList = flight.getOutboundRoutes();
         Route outRoutes[] = new Route[outRoutesList.size()];
@@ -689,7 +683,6 @@ public class ResultsPage {
         return outRoutes;
     }
 
-    @Log
     public Route[] getInRoutes(){
         List<Route> inRoutesList = flight.getInboundRoutes();
         Route inRoutes[] = new Route[inRoutesList.size()];
@@ -699,10 +692,6 @@ public class ResultsPage {
         return inRoutes;
     }
 
-
-
-
-    @Log
     public Flight[] getFlights()
     {
         int numFlights = 0;
