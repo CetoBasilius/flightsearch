@@ -6,7 +6,7 @@ import org.apache.tapestry5.Link;
 import org.apache.tapestry5.services.ComponentSource;
 import org.apache.tapestry5.services.PageRenderLinkSource;
 import org.apache.tapestry5.services.Response;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.io.IOException;
 

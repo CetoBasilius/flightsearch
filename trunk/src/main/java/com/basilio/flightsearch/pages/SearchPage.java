@@ -61,10 +61,12 @@ public class SearchPage {
 
     @Persist
     @Property
+    @ActivationRequestParameter("origin")
     private String origin;
 
     @Persist
     @Property
+    @ActivationRequestParameter("destination")
     private String destination;
 
     @Property
@@ -94,11 +96,13 @@ public class SearchPage {
 
     @Persist
     @Property
+    @ActivationRequestParameter("budget")
     private int slider;
 
     //---------------------------------------
 
     @Property
+    @ActivationRequestParameter("round")
     private boolean showRoundTrip;
 
     void setupRender()
@@ -134,7 +138,7 @@ public class SearchPage {
     private ResultsPage resultsPage;
 
     @OnEvent(value = EventConstants.SUCCESS, component = "SearchForm")
-    private Object startSearch() {
+    private Object onSearch() {
         System.out.println(this.showRoundTrip);
 
 

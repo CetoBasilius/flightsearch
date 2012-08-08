@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.entities.flightresult;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -73,6 +73,7 @@ public class ResultsPage {
 
 
 
+
     @Persist
     @Property
     private String radioAllDurations;
@@ -456,6 +457,7 @@ public class ResultsPage {
 
         return suggestPage;
     }
+
 
     //-----------------------------------------------
 

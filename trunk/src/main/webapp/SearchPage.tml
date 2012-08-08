@@ -28,7 +28,7 @@
                     <label t:type="label" t:for="startDateTimeField">Start date&nbsp;</label>
                 </th>
                 <td>
-                    <input t:id="startDateTimeField" t:value="startDate" t:validate="required,aftertomorrow"/>
+                    <input t:id="startDateTimeField" t:value="startDate" autocomplete="false" t:validate="required,aftertomorrow"/>
                     &nbsp;&nbsp;
                     <t:checkbox t:id="roundTrip" check="checked" value="showRoundTrip" onclick="!$('returnbox').toggle();"/>
                     <t:label for="roundTrip" value="Round Trip"/>
@@ -39,7 +39,7 @@
                     <label t:type="label" t:for="endDateTimeField">Return date</label>
                 </th>
                 <td>
-                    <input t:id="endDateTimeField" t:value="endDate" t:validate="required,aftertomorrow"/>
+                    <input t:id="endDateTimeField" t:value="endDate" autocomplete="false" t:validate="required,aftertomorrow"/>
                 </td>
             </tr>
             <tr>

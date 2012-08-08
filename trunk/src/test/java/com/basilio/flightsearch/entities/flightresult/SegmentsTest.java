@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.entities.flightresult;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
