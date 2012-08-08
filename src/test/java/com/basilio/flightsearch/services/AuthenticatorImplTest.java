@@ -6,7 +6,7 @@ import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
 import org.apache.tapestry5.services.Request;
 import org.apache.tapestry5.services.Session;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;

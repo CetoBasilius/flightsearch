@@ -64,28 +64,22 @@ public class Window extends AbstractWindow
     @AfterRender
     void afterRender(MarkupWriter writer)
     {
+        JSONObject windowOptions = new JSONObject();
+
+        windowOptions.put("className", getClassName());
+        windowOptions.put("width", getWidth());
+        windowOptions.put("height", getHeight());
+        windowOptions.put("id", getClientId());
+        windowOptions.put("title", getTitle());
+
         JSONObject options = new JSONObject();
+        options.put("windowoptions", windowOptions);
+        options.put("hasbody", hasBody);
+        options.put("show", isShow());
+        options.put("modal", isModal());
+        options.put("clientid", getClientId());
+        options.put("contentid", contentDivId);
 
-        options.put("className", getClassName());
-        options.put("width", getWidth());
-        options.put("height", getHeight());
-        options.put("id", getClientId());
-        options.put("title", getTitle());
-
-        //
-        // Let subclasses do more.
-        //
-        configure(options);
-
-        JSONObject ckOptions = new JSONObject();
-        ckOptions.put("windowoptions", options);
-        ckOptions.put("hasbody", hasBody);
-        ckOptions.put("show", isShow());
-        //ckOptions.put("center", isCenter());
-        ckOptions.put("modal", isModal());
-        ckOptions.put("clientid", getClientId());
-        ckOptions.put("contentid", contentDivId);
-
-        javascriptSupport.addInitializerCall("ckwindow", ckOptions);
+        javascriptSupport.addInitializerCall("ckwindow", options);
     }
 }

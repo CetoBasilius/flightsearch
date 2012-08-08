@@ -4,7 +4,7 @@ import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import org.junit.Before;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import static org.easymock.EasyMock.createNiceMock;
 import static org.junit.Assert.assertTrue;

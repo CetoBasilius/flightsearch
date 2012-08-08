@@ -45,12 +45,4 @@ public class FlightResultCreator {
         this.resultString = resultString;
     }
 
-    public Gson getGson() {
-        return gson;
-    }
-
-    public void setGson(Gson gson) {
-        this.gson = gson;
-    }
-
 }

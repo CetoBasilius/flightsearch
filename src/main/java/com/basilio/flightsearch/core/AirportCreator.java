@@ -45,11 +45,4 @@ public class AirportCreator {
         this.airportString = airportString;
     }
 
-    public Gson getGson() {
-        return gson;
-    }
-
-    public void setGson(Gson gson) {
-        this.gson = gson;
-    }
 }

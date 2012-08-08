@@ -19,7 +19,7 @@ public class FlightResultFilterImpl implements FlightResultFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(FlightResultFilterImpl.class);
 
-    private boolean wasResultFiltered = false;
+    private boolean wasResultFiltered;
 
     private int filterBudget;
     private int filterSegments;
@@ -39,7 +39,6 @@ public class FlightResultFilterImpl implements FlightResultFilter {
 
         flights = filterFLightListByBudget(flights, budget);
         flights = filterFLightListBySegments(flights, segments);
-
 
         returnFlightResult.setSearchedPrice(budget);
         returnFlightResult.setFlights(flights);

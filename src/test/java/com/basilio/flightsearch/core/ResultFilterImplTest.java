@@ -2,10 +2,10 @@ package com.basilio.flightsearch.core;
 
 
 import com.basilio.flightsearch.entities.flightresult.Flight;
-import com.basilio.flightsearch.entities.flightresult.Route;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
+import com.basilio.flightsearch.entities.flightresult.Route;
 import com.basilio.flightsearch.entities.flightresult.Segment;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;

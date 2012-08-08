@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.validators;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * Created with IntelliJ IDEA.

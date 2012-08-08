@@ -24,6 +24,7 @@ import org.apache.tapestry5.services.javascript.JavaScriptSupport;
         "../components/window/window_effects.js", "../components/window.js"}, stylesheet = {"../components/window/themes/default.css"})
 abstract public class AbstractWindow implements ClientElement
 {
+
     /**
      * The id used to generate a page-unique client-side identifier for the component. If a component renders multiple
      * times, a suffix will be appended to the to id to ensure uniqueness. The uniqued value may be accessed via the
@@ -31,6 +32,10 @@ abstract public class AbstractWindow implements ClientElement
      */
     @Parameter(value = "prop:componentResources.id", defaultPrefix = BindingConstants.LITERAL)
     private String clientId;
+
+    public void setGeneralClientId(String id){
+        this.clientId = id;
+    }
 
     /**
      * style name for the window.
@@ -144,20 +149,10 @@ abstract public class AbstractWindow implements ClientElement
             cssStyleFile = className + ".css";
 
         Asset cssAsset = assetSource.getClasspathAsset(scriptPathSymbolValue + "/" + cssStyleFile);
-        javaScriptSupport.importStylesheet(cssAsset);
-    }
+        if(cssAsset!=null){
+            javaScriptSupport.importStylesheet(cssAsset);
+        }
 
-    /**
-     * Invoked to allow subclasses to further configure the parameters passed to this component's javascript
-     * options. Subclasses may override this method to configure additional features of the Window.
-     * <p/>
-     * This implementation does nothing. For more information about window options look at
-     * this <a href="http://prototype-window.xilinus.com/documentation.html#initialize">page</a>.
-     *
-     * @param options windows option object
-     */
-    protected void configure(JSONObject options)
-    {
     }
 
     /**
@@ -169,6 +164,7 @@ abstract public class AbstractWindow implements ClientElement
     {
         return assignedClientId;
     }
+
 
     public boolean isShow()
     {
@@ -190,6 +186,11 @@ abstract public class AbstractWindow implements ClientElement
         return className;
     }
 
+    public void setClassName(String name)
+    {
+        this.className = name;
+    }
+
     public int getWidth()
     {
         return width;
@@ -203,5 +204,53 @@ abstract public class AbstractWindow implements ClientElement
     public String getTitle()
     {
         return title;
+    }
+
+    public String getAssignedClientId() {
+        return assignedClientId;
+    }
+
+    public void setAssignedClientId(String assignedClientId) {
+        this.assignedClientId = assignedClientId;
+    }
+
+    public JavaScriptSupport getJavascriptSupport() {
+        return javascriptSupport;
+    }
+
+    public void setJavascriptSupport(JavaScriptSupport javascriptSupport) {
+        this.javascriptSupport = javascriptSupport;
+    }
+
+    public JavaScriptSupport getJavaScriptSupport() {
+        return javaScriptSupport;
+    }
+
+    public void setJavaScriptSupport(JavaScriptSupport javaScriptSupport) {
+        this.javaScriptSupport = javaScriptSupport;
+    }
+
+    public ComponentResources getResources() {
+        return resources;
+    }
+
+    public void setResources(ComponentResources resources) {
+        this.resources = resources;
+    }
+
+    public AssetSource getAssetSource() {
+        return assetSource;
+    }
+
+    public void setAssetSource(AssetSource assetSource) {
+        this.assetSource = assetSource;
+    }
+
+    public SymbolSource getSymbolSource() {
+        return symbolSource;
+    }
+
+    public void setSymbolSource(SymbolSource symbolSource) {
+        this.symbolSource = symbolSource;
     }
 }

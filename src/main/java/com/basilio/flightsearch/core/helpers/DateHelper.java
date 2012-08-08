@@ -18,12 +18,19 @@ public class DateHelper {
         int minutes = totalMinutes%60;
 
         String hourString = "";
-        if(hours>1){
+        if(hours!=1){
             hourString = " hours, ";
         } else {
             hourString = " hour, ";
         }
 
-        return hours+hourString+minutes+" minutes.";
+        String minutesString = "";
+        if(minutes!=1){
+            minutesString = " minutes";
+        } else {
+            minutesString = " minute";
+        }
+
+        return hours+hourString+minutes+minutesString;
     }
 }

@@ -3,7 +3,7 @@ package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.dal.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;

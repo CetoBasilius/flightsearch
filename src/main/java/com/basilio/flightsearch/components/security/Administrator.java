@@ -13,6 +13,7 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  */
 
 public class Administrator extends AbstractConditional {
+
     @Inject
     private Authenticator authenticator;
 
@@ -20,4 +21,13 @@ public class Administrator extends AbstractConditional {
     protected boolean test() {
         return authenticator.isUserAdmin();
     }
+
+    public Authenticator getAuthenticator() {
+        return authenticator;
+    }
+
+    public void setAuthenticator(Authenticator authenticator) {
+        this.authenticator = authenticator;
+    }
+
 }
