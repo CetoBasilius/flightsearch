@@ -214,7 +214,6 @@
                                     <td class="${IsOnPriceRangeCSS}">
                                         <form t:type="form" t:id="buyForm">
                                             <t:errors/>
-                                            <!--${flightDescription}<br/> -->
                                             <t:if test="!isOnPriceRangeBoolean">
                                                 <center>
                                                     <label class="outofrangelabel">This flight is out of your

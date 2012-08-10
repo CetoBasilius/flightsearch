@@ -9,7 +9,7 @@ package com.basilio.flightsearch.entities.flightresult;
  * Contains itinerary information
  */
 
-public class ItineraryInfos{
+public class ItineraryInfo {
    	private boolean canUseAutomaticBooking;
    	private String commercialPolicyDescription;
    	private Number id;

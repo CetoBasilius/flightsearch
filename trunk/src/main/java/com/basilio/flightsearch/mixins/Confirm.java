@@ -23,10 +23,8 @@ public class Confirm {
     //Default message
     @Parameter(value = "Are you sure?", defaultPrefix = BindingConstants.LITERAL)
     private String message;
-
     @Inject
     private JavaScriptSupport javaScriptSupport;
-
     @InjectContainer
     private ClientElement element;
 
@@ -35,4 +33,23 @@ public class Confirm {
         javaScriptSupport.addScript("new Confirm('%s', '%s');", element.getClientId(), message);
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public JavaScriptSupport getJavaScriptSupport() {
+        return javaScriptSupport;
+    }
+
+    public void setJavaScriptSupport(JavaScriptSupport javaScriptSupport) {
+        this.javaScriptSupport = javaScriptSupport;
+    }
+
+    public void setElement(ClientElement element) {
+        this.element = element;
+    }
 }

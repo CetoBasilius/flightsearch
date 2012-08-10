@@ -17,28 +17,40 @@ public class JettyStandaloneMain {
 
     private static final String WEB_XML_PATH = "/WEB-INF/web.xml";
     private static final String DEF_PORT = "8089";
+    private WebAppContext webApp;
 
-    public static void main(String[] args)
-    {
-        new JettyStandaloneMain();
+    public void setWebApp(WebAppContext webApp) {
+        this.webApp = webApp;
+    }
+
+    public void setServer(Server server) {
+        this.server = server;
+    }
+
+    private Server server;
+
+    public static void main(String[] args){
+        int port = Integer.parseInt(System.getProperty("port", DEF_PORT));
+        new JettyStandaloneMain(new Server(port),new WebAppContext());
     }
 
     public JettyStandaloneMain(){
         initLogger();
+    }
+
+    public JettyStandaloneMain(Server server,WebAppContext webApp){
+        this.webApp = webApp;
+        this.server = server;
+        initLogger();
         initWebApp();
     }
 
-    private void initWebApp(){
-
-        int port = Integer.parseInt(System.getProperty("port", DEF_PORT));
-        Server server = new Server(port);
+    public void initWebApp(){
 
         ProtectionDomain domain = JettyStandaloneMain.class.getProtectionDomain();
         URL location = domain.getCodeSource().getLocation();
 
-        WebAppContext webApp = new WebAppContext();
         webApp.setContextPath("/");
-
         webApp.setDescriptor(location.toExternalForm() + WEB_XML_PATH);
         webApp.setServer(server);
         webApp.setWar(location.toExternalForm());
@@ -61,7 +73,7 @@ public class JettyStandaloneMain {
         }
     }
 
-    private void initLogger() {
+    private static void initLogger() {
         URL properties = JettyStandaloneMain.class.getResource("log4jStandalone.properties");
         PropertyConfigurator.configure(properties);
         Logger.getLogger(JettyStandaloneMain.class).info("Logger started");
