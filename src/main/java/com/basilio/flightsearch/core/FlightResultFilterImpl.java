@@ -84,7 +84,7 @@ public class FlightResultFilterImpl implements FlightResultFilter {
         return buffer.toString();
     }
 
-    public boolean wasResultFiltered() {
+    public boolean getIsResultFiltered() {
         return wasResultFiltered;
     }
 

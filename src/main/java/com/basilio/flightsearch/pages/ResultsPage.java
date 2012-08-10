@@ -16,11 +16,13 @@ import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.*;
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 
+import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,27 +41,25 @@ import java.util.List;
 @Import(library = "customelements.js")
 public class ResultsPage {
 
+    @Property
+    @Inject
+    private Request request;
     @Inject
     private AirportInformationDAO airportInformationDAO;
-
     //-------------------------------------------------------
-
     @Property
     private int outSegmentWindowIndex;
-
     @Property
     private int inSegmentWindowIndex;
-
     //------------------------------------------------------
-
     @Component
     private Form filterForm;
-
-
-    @Property
     @Persist
+    @Property
+    private int budgetFilterSlider;
+    @Persist
+    @Property
     private String segmentFilterRadioSelectedValue;
-
     @Persist
     @Property
     private String segmentFilterRadioOne;
@@ -69,131 +69,91 @@ public class ResultsPage {
     @Persist
     @Property
     private String segmentFilterRadioAny;
-
-
-
-
-
     @Persist
     @Property
     private String radioAllDurations;
-
-    @Property
     @Persist
+    @Property
     private String durationFilterRadioSelectedValue;
-
     @Persist
     @Property
     private String radioAllTypes;
-
-    @Property
     @Persist
+    @Property
     private String typeFilterRadioSelectedValue;
-
-    //-----------------------------------------
-
+    //----------------------------------------------
     @Persist
     @Property
     private int minPriceFilter;
-
     @Persist
     @Property
     private int maxPriceFilter;
-
     @Persist
     @Property
     private int priceFilterSteps;
-
-    @Persist
-    @Property
-    private int slider;
-
+    //-----------------------------------------
     @Persist
     @Property
     private String customHandleCSS;
-
     @Persist
     @Property
     private String customTrackCSS;
-
     @Persist
     @Property
     private String customValueCSS;
 
     //---------------------------------------
-
     @Component
     private Form buyForm;
-
     @Component
     private Form errorForm;
-
-    @Property
-    @Inject
-    private Request request;
 
     @Component
     private CustomPagedLoop customPagedLoop;
 
     @Persist(PersistenceConstants.SESSION)
     private FlightResultFilter flightResultFilter;
-
     @Persist(PersistenceConstants.SESSION)
     private FlightResult flightResult;
-
     @Persist(PersistenceConstants.SESSION)
     private FlightResult showingFlightResult;
-
     @Persist(PersistenceConstants.SESSION)
     private FlightResult filteredFlightResult;
-
     @Persist(PersistenceConstants.SESSION)
     private FlightSearch flightSearch;
 
     @Property
     @Persist
     private Flight flight;
-
     @Property
     private int flightIndex;
-
     @Property
     private Route outboundRoute;
-
     @Property
     private Route inboundRoute;
-
     @Property
     private Segment outSegment;
-
     @Property
     private Segment inSegment;
-
     @Property
     private boolean emptyResult;
-
     @Inject
     private Messages messages;
-
     @Property
     @Persist
     private int rowsPerPage;
-
     @Property
     private int outBoundIndex;
-
     @Property
     private int inBoundIndex;
-
     @Property
     @Persist
-    @SuppressWarnings("unused")
     private String outRadioSelectedValue;
-
     @Property
     @Persist
-    @SuppressWarnings("unused")
     private String inRadioSelectedValue;
+    @Persist
+    private String bought;
 
     @Component(parameters = {"style=greylighting",
             "show=false",
@@ -211,7 +171,6 @@ public class ResultsPage {
 
     @InjectPage
     private SuggestPage suggestPage;
-
 
     public void setup(FlightSearch flightSearch,FlightResult flightResult)
     {
@@ -245,7 +204,7 @@ public class ResultsPage {
                 maxPriceFilter = minmaxFacet.getMax().intValue()+(100-(minmaxFacet.getMax().intValue()%100));
                 priceFilterSteps = (maxPriceFilter-minPriceFilter)/100;
 
-                slider = flightSearch.getBudgetDollars();
+                budgetFilterSlider = flightSearch.getBudgetDollars();
                 emptyResult=false;
             } else {
                 emptyResult=true;
@@ -348,9 +307,6 @@ public class ResultsPage {
         return df.format(flight.getPriceInfo().getTotal().getFare().floatValue())+" USD";
     }
 
-    @Persist
-    private String bought;
-
     public String getBoughtItem(){
         return bought;
     }
@@ -451,8 +407,6 @@ public class ResultsPage {
             }
         }
 
-
-
         suggestPage.setup(this.flightResult.getFlights().get(0));
 
         return suggestPage;
@@ -463,12 +417,11 @@ public class ResultsPage {
 
     @OnEvent(value = "applyfilter")
     public Object filterResults(){
-        this.flightSearch.setBudgetDollars(slider);
+        this.flightSearch.setBudgetDollars(budgetFilterSlider);
 
         int segmentOption = Integer.parseInt(segmentFilterRadioSelectedValue);
 
-        filteredFlightResult = flightResultFilter.filterSearch(flightResult,slider,segmentOption);
-
+        filteredFlightResult = flightResultFilter.filterSearch(flightResult, budgetFilterSlider,segmentOption);
         showingFlightResult = filteredFlightResult;
 
         customPagedLoop.setCurrentPage(1);
@@ -482,14 +435,13 @@ public class ResultsPage {
         return null;
     }
 
-
     private int getNumFlightsBeforeCurrentPage() {
         if(customPagedLoop.getCurrentPage()<1){
             customPagedLoop.setCurrentPage(1);
         }
         return (customPagedLoop.getCurrentPage()-1)*rowsPerPage;
     }
-//-----------------------------------------------------
+
     @Property
     private final ValueEncoder<Route> inboundRoutesValueEncoder = new ValueEncoder<Route>() {
 
@@ -515,7 +467,7 @@ public class ResultsPage {
             return null;
         }
     };
-//-----------------------------------------------------
+
     @Property
     private final ValueEncoder<Route> outboundRoutesValueEncoder = new ValueEncoder<Route>() {
 
@@ -619,6 +571,7 @@ public class ResultsPage {
 
     public String getInRouteType(){
         return WordUtils.capitalize(inboundRoute.getSegments().get(0).getMarketingCabinTypeCode().toLowerCase());
+
     }
 
     //-------------------------------------------
@@ -740,7 +693,7 @@ public class ResultsPage {
         return segmentWindowDescription(inSegment,inSegmentWindowIndex);
     }
 
-    private String segmentWindowDescription(Segment segment, int index) {
+    public String segmentWindowDescription(Segment segment, int index) {
         StringBuffer buffer = new StringBuffer();
         buffer.append(NumberHelper.ordinal(index + 1));
         buffer.append(" segment - Flight ");
@@ -806,12 +759,10 @@ public class ResultsPage {
     }
 
     public Object viewMap(String airportCodesString){
-        String[] airportCodes = airportCodesString.split(",");
-
-        List<Double> setupList = new ArrayList<Double>();
-        List<String> setupDescList = new ArrayList<String>();
-
-        List<AirportStub> airportStubList = new ArrayList<AirportStub>();
+        final String[] airportCodes = airportCodesString.split(",");
+        final List<Double> setupList = new ArrayList<Double>();
+        final List<String> setupDescList = new ArrayList<String>();
+        final List<AirportStub> airportStubList = new ArrayList<AirportStub>();
 
         for(int index = 0; index < airportCodes.length;index++){
             airportStubList.add(new AirportStub(airportCodes[index],""));
@@ -829,5 +780,55 @@ public class ResultsPage {
         mapPage.setupMapPage(setupList, setupDescList);
         return mapPage;
     }
+
+    public AirportInformationDAO getAirportInformationDAO() {
+        return airportInformationDAO;
+    }
+
+    public void setAirportInformationDAO(AirportInformationDAO airportInformationDAO) {
+        this.airportInformationDAO = airportInformationDAO;
+    }
+
+    public MapPage getMapPage() {
+        return mapPage;
+    }
+
+    public void setMapPage(MapPage mapPage) {
+        this.mapPage = mapPage;
+    }
+
+    public FlightResult getFilteredFlightResult() {
+        return filteredFlightResult;
+    }
+
+    public FlightResult getShowingFlightResult() {
+        return showingFlightResult;
+    }
+
+    public CustomPagedLoop getCustomPagedLoop() {
+        return customPagedLoop;
+    }
+
+    public void setCustomPagedLoop(CustomPagedLoop customPagedLoop) {
+        this.customPagedLoop = customPagedLoop;
+    }
+
+    public FlightResultFilter getFlightResultFilter() {
+        return flightResultFilter;
+    }
+
+    public void setFlightResultFilter(FlightResultFilter flightResultFilter) {
+        this.flightResultFilter = flightResultFilter;
+    }
+
+    public String getSegmentFilterRadioSelectedValue() {
+        return segmentFilterRadioSelectedValue;
+    }
+
+    public void setSegmentFilterRadioSelectedValue(String segmentFilterRadioSelectedValue) {
+        this.segmentFilterRadioSelectedValue = segmentFilterRadioSelectedValue;
+    }
+
+
 
 }

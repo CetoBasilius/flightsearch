@@ -15,7 +15,7 @@ public interface FlightResultFilter {
 
     String getFilterDescription();
 
-    boolean wasResultFiltered();
+    boolean getIsResultFiltered();
 
     void setWasResultFiltered(boolean option);
 }

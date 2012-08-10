@@ -19,6 +19,10 @@ public class FlightResult implements Cloneable{
     private int searchedPrice;
     private boolean searchedDirect;
 
+    public FlightResult(){
+        this.flights = new ArrayList<Flight>();
+    }
+
     public List<Flight> getDirectFlights(){
         List<Flight> returnFlights = new ArrayList<Flight>();
         List<Flight> flights1 = this.getFlights();
