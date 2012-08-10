@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,10 @@ public class Route {
     private SimpleDateFormat outDateFormat = new SimpleDateFormat("MMMM d', 'H:mm");
     private SimpleDateFormat inHourFormat = new SimpleDateFormat("H:mm");
     private SimpleDateFormat outHourFormat = new SimpleDateFormat("H' hours and 'mm' minutes'");
+
+    public Route(){
+        this.segments = new ArrayList<Segment>();
+    }
 
     public String getDuration(){
         return this.duration;

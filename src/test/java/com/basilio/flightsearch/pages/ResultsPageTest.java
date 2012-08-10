@@ -5,12 +5,10 @@ import com.basilio.flightsearch.components.CustomPagedLoop;
 import com.basilio.flightsearch.core.FlightResultFilterImpl;
 import com.basilio.flightsearch.dal.air.AirportInformationDAO;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.flightresult.Flight;
-import com.basilio.flightsearch.entities.flightresult.FlightResult;
-import com.basilio.flightsearch.entities.flightresult.FlightSearch;
-import com.basilio.flightsearch.entities.flightresult.Segment;
+import com.basilio.flightsearch.entities.flightresult.*;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,6 +109,7 @@ public class ResultsPageTest {
         FlightResultFilterImpl flightResultFilter = new FlightResultFilterImpl();
         resultsPage.setFlightResultFilter(flightResultFilter);
         resultsPage.setSegmentFilterRadioSelectedValue(String.valueOf(Flight.ANY_SEGMENTS));
+        assertEquals(String.valueOf(Flight.ANY_SEGMENTS),resultsPage.getSegmentFilterRadioSelectedValue());
         resultsPage.setFlightResult(new FlightResult());
 
         FlightSearch flightSearch = new FlightSearch();
@@ -124,6 +123,63 @@ public class ResultsPageTest {
         assertTrue(resultsPage.getFlightResultFilter().getIsResultFiltered());
         resultsPage.onDisableFilter();
         assertFalse(resultsPage.getFlightResultFilter().getIsResultFiltered());
+    }
+
+    @Test
+    public void testGetFlightArray(){
+        ResultsPage resultsPage = new ResultsPage();
+        FlightResult flightResult = new FlightResult();
+        FlightSearch flightSearch = new FlightSearch();
+
+        assertNotNull(resultsPage.getFlights());
+        assertEquals(Flight[].class,resultsPage.getFlights().getClass());
+        assertTrue(resultsPage.isEmptyResult());
+
+        resultsPage.setFlightResult(flightResult);
+        resultsPage.setFlightSearch(flightSearch);
+        assertEquals(flightSearch,resultsPage.getFlightSearch());
+
+        List<Flight> flights = resultsPage.getFlightResult().getFlights();
+
+        flights.add(new Flight());
+        flights.get(0).getOutboundRoutes().add(new Route());
+        flights.get(0).getOutboundRoutes().get(0).getSegments().add(new Segment());
+
+
+        assertNotNull(resultsPage.getFlights());
+        resultsPage.getFlightSearch().setDirectFlight(true);
+        assertNotNull(resultsPage.getFlights());
+
+    }
+
+    @Test
+    public void testGetWindowNumbers(){
+        ResultsPage resultsPage = new ResultsPage();
+
+        int number = 0;
+        resultsPage.setWindowNumber(number);
+
+        assertEquals(String.valueOf(number-1),resultsPage.getStaticInWindowNumber());
+        assertEquals(String.valueOf(number-1),resultsPage.getStaticOutWindowNumber());
+
+        assertEquals(String.valueOf(number),resultsPage.getOutWindowNumber());
+
+        assertEquals(String.valueOf(number),resultsPage.getStaticInWindowNumber());
+        assertEquals(String.valueOf(number),resultsPage.getStaticOutWindowNumber());
+
+        assertEquals(String.valueOf(number+1),resultsPage.getInWindowNumber());
+
+        assertEquals(String.valueOf(number+1),resultsPage.getStaticInWindowNumber());
+        assertEquals(String.valueOf(number+1),resultsPage.getStaticOutWindowNumber());
+
+        assertEquals(String.valueOf(number+2),resultsPage.getOutWindowNumber());
+
+        assertEquals(String.valueOf(number+2),resultsPage.getStaticInWindowNumber());
+        assertEquals(String.valueOf(number+2),resultsPage.getStaticOutWindowNumber());
+
+        assertEquals(String.valueOf(number+3),resultsPage.getOutWindowNumber());
+        assertEquals(String.valueOf(number+4),resultsPage.getOutWindowNumber());
+        assertEquals(String.valueOf(number+5),resultsPage.getOutWindowNumber());
     }
 
 

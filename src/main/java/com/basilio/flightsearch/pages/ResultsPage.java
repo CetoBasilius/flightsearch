@@ -311,10 +311,6 @@ public class ResultsPage {
         return bought;
     }
 
-    public String getFlightDescription(){
-        return flight.getDescription();
-    }
-
     public String getOutSegmentArriveInfo(){
         return outSegment.getArrivalDescription();
     }
@@ -653,34 +649,22 @@ public class ResultsPage {
         Flight[] resultArray = null;
         if(showingFlightResult != null){
             if(flightSearch.isDirectFlight()){
-                if(showingFlightResult.getFlights()!=null){
-                    numFlights = flightResult.getDirectFlights().size();
-                    resultArray = new Flight[numFlights];
-                    for(int a = 0;a<numFlights;a++){
-                        resultArray[a] = showingFlightResult.getDirectFlights().get(a);
-                    }
-                }else{
-                    resultArray = new Flight[1];
-                    resultArray[0] = new Flight();
-                    emptyResult=true;
+                numFlights = flightResult.getDirectFlights().size();
+                resultArray = new Flight[numFlights];
+                for(int a = 0;a<numFlights;a++){
+                    resultArray[a] = showingFlightResult.getDirectFlights().get(a);
                 }
             }else{
-                if(showingFlightResult.getFlights()!=null){
-                    numFlights = showingFlightResult.getFlights().size();
-                    resultArray = new Flight[numFlights];
-                    for(int a = 0;a<numFlights;a++){
-                        resultArray[a] = showingFlightResult.getFlights().get(a);
-                    }
-                }else{
-                    resultArray = new Flight[1];
-                    resultArray[0] = new Flight();
-                    emptyResult=true;
+                numFlights = showingFlightResult.getFlights().size();
+                resultArray = new Flight[numFlights];
+                for(int a = 0;a<numFlights;a++){
+                    resultArray[a] = showingFlightResult.getFlights().get(a);
                 }
             }
         } else {
             resultArray = new Flight[1];
             resultArray[0] = new Flight();
-            emptyResult=true;
+            setEmptyResult(true);
         }
         return resultArray;
     }
@@ -829,6 +813,15 @@ public class ResultsPage {
         this.segmentFilterRadioSelectedValue = segmentFilterRadioSelectedValue;
     }
 
+    public boolean isEmptyResult() {
+        return emptyResult;
+    }
 
+    public void setEmptyResult(boolean emptyResult) {
+        this.emptyResult = emptyResult;
+    }
 
+    public void setWindowNumber(int windowNumber) {
+        this.windowNumber = windowNumber;
+    }
 }
