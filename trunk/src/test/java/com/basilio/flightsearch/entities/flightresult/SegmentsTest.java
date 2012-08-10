@@ -2,8 +2,12 @@ package com.basilio.flightsearch.entities.flightresult;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,6 +21,57 @@ public class SegmentsTest {
     public void getDescriptionsTest(){
         Segment segment = new Segment();
 
+        createSegment(segment);
+
+        assertNotNull(segment.getArrivalDescription());
+        assertNotNull(segment.getDepartureDescription());
+        assertNotNull(segment.getDurationDescription());
+
+        assertNotNull(segment.getStopDescription());
+        assertNotNull(segment.getDescription());
+
+        assertEquals(String.class,segment.getArrivalDescription().getClass());
+        assertEquals(String.class,segment.getDepartureDescription().getClass());
+        assertEquals(String.class,segment.getDurationDescription().getClass());
+    }
+
+    @Test
+    public void testGetHourDescriptions(){
+        Segment segment = new Segment();
+        createSegment(segment);
+
+        Location arrival = new Location("Arrival");
+        Location departure = new Location("Departure");
+
+        arrival.setLocationDescription("This is an arrival description");
+        departure.setLocationDescription("This is a departure description");
+
+        arrival.setDate("");
+        departure.setDate("");
+
+        segment.setArrival(arrival);
+        segment.setDeparture(departure);
+
+        assertNotNull(segment.getDepartureHourDescription());
+        assertNotNull(segment.getArrivalHourDescription());
+    }
+
+    @Test
+    public void testGetStopDescription(){
+        Segment segment = new Segment();
+        createSegment(segment);
+
+        ArrayList<Stopover> stopovers = new ArrayList<Stopover>();
+        segment.setStopovers(stopovers);
+
+        assertTrue(segment.getStopDescription().length() == 0);
+
+        stopovers.add(new Stopover());
+
+        assertTrue(segment.getStopDescription().length() > 0);
+    }
+
+    private void createSegment(Segment segment) {
         Location arrival = new Location("Arrival");
         Location departure = new Location("Departure");
 
@@ -30,14 +85,5 @@ public class SegmentsTest {
         segment.setMarketingCarrierDescription("MCD");
         segment.setOperatingCarrierCode("OCC");
         segment.setOperatingCarrierDescription("OCD");
-
-        assertNotNull(segment.getArrivalDescription());
-        assertNotNull(segment.getDepartureDescription());
-        assertNotNull(segment.getDurationDescription());
-
-        assertEquals(String.class,segment.getArrivalDescription().getClass());
-        assertEquals(String.class,segment.getDepartureDescription().getClass());
-        assertEquals(String.class,segment.getDurationDescription().getClass());
-
     }
 }

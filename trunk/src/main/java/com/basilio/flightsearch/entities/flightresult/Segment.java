@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +39,21 @@ public class Segment {
     private List<Stopover> stopovers;
 
     private SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm");
+
+    public Segment(){
+        arrival = new Location("");
+        delayInfo = "";
+        departure = new Location("");
+        duration = "0";
+        flightNumber = 0;
+        marketingCabinTypeCode = "";
+        marketingCabinTypeDescription = "";
+        marketingCarrierCode = "";
+        marketingCarrierDescription = "";
+        operatingCarrierCode = "";
+        operatingCarrierDescription = "";
+        stopovers = new ArrayList<Stopover>();
+    }
 
     public Location getArrival(){
 		return this.arrival;
