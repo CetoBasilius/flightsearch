@@ -148,7 +148,8 @@ abstract public class AbstractWindow implements ClientElement
         else
             cssStyleFile = className + ".css";
 
-        Asset cssAsset = assetSource.getClasspathAsset(scriptPathSymbolValue + "/" + cssStyleFile);
+        String assetString = scriptPathSymbolValue + "/" + cssStyleFile;
+        Asset cssAsset = assetSource.getClasspathAsset(assetString);
         if(cssAsset!=null){
             javaScriptSupport.importStylesheet(cssAsset);
         }
@@ -252,5 +253,9 @@ abstract public class AbstractWindow implements ClientElement
 
     public void setSymbolSource(SymbolSource symbolSource) {
         this.symbolSource = symbolSource;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

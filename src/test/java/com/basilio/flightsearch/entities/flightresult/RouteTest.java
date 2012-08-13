@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,5 +43,75 @@ public class RouteTest {
         assertEquals("CCC",outboundRoutes.getSegmentsDescription()[2]);
 
 
+    }
+
+    @Test
+    public void testGetSegmentNumberString(){
+        Route route = new Route();
+        List<Segment> segments = new ArrayList<Segment>();
+        segments.add(new Segment());
+        route.setSegments(segments);
+
+        assertEquals(segments,route.getSegments());
+
+        assertTrue(route.getSegmentsNumber().contains("Direct"));
+        segments.add(new Segment());
+        assertTrue(route.getSegmentsNumber().contains("2"));
+        segments.add(new Segment());
+        assertTrue(route.getSegmentsNumber().contains("3"));
+        segments.add(new Segment());
+        assertTrue(route.getSegmentsNumber().contains("4"));
+
+    }
+
+    @Test
+    public void testGetScheduleDescription(){
+        Route route = new Route();
+        List<Segment> segments = new ArrayList<Segment>();
+        Segment testSegment = new Segment();
+        testSegment.setArrival(new Location("Arrival"));
+        testSegment.setDeparture(new Location("Departure"));
+        segments.add(testSegment);
+
+        route.setSegments(segments);
+
+        route.getSegments().get(0).getDeparture().setDate("2012-12-21T16:16:16");
+        route.setDuration("2:30");
+        assertEquals("2:30",route.getDuration());
+
+        assertTrue(route.getScheduleDescription().contains("Dec"));
+        assertTrue(route.getScheduleDescription().contains("21"));
+        assertTrue(route.getScheduleDescription().contains("16"));
+
+        assertTrue(route.getDurationDescription().contains("2 hours"));
+        assertTrue(route.getDurationDescription().contains("30 minutes"));
+    }
+
+    @Test
+    public void testOtherMethods(){
+        Route route = new Route();
+
+        route.setType("test type");
+        assertEquals("test type",route.getType());
+
+        route.setHasAirportChange(true);
+        assertTrue(route.getHasAirportChange());
+    }
+
+    @Test
+    public void testGetWaitDescription(){
+        Route route = new Route();
+        List<Segment> segments = new ArrayList<Segment>();
+        Segment testSegment1 = new Segment();
+        testSegment1.setArrival(new Location("Arrival"));
+        testSegment1.setDeparture(new Location("Departure"));
+        Segment testSegment2 = new Segment();
+        testSegment2.setArrival(new Location("Arrival"));
+        testSegment2.setDeparture(new Location("Departure"));
+
+        segments.add(testSegment1);
+        segments.add(testSegment2);
+
+        route.getWaitDescription(0,1);
     }
 }
