@@ -105,13 +105,20 @@ public class RouteTest {
         Segment testSegment1 = new Segment();
         testSegment1.setArrival(new Location("Arrival"));
         testSegment1.setDeparture(new Location("Departure"));
+        testSegment1.getArrival().setDate("2012-12-21T16:16:16");
+        testSegment1.getDeparture().setDate("2012-12-21T16:16:16");
+
         Segment testSegment2 = new Segment();
         testSegment2.setArrival(new Location("Arrival"));
         testSegment2.setDeparture(new Location("Departure"));
+        testSegment2.getArrival().setDate("2012-12-21T16:16:16");
+        testSegment2.getDeparture().setDate("2012-12-21T16:16:16");
 
         segments.add(testSegment1);
         segments.add(testSegment2);
 
-        route.getWaitDescription(0,1);
+        route.setSegments(segments);
+
+        assertTrue(route.getWaitDescription(0,1).contains("0"));
     }
 }

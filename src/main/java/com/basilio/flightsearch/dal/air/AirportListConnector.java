@@ -19,12 +19,12 @@ public interface AirportListConnector {
      * @return An airportStub list
      * @throws IOException If there was a problem getting the list
      */
-    public List<AirportStub> GetAirportStubList() throws IOException;
+    public List<AirportStub> getAirportStubList() throws IOException;
 
     /**
      * Fetches a list of demo airports created on the fly.
      * @return an incomplete list or demo list of AirportStubs.
      */
-    public List<AirportStub> GetAirportStubListLocal();
+    public List<AirportStub> getAirportStubListLocal();
 
 }
