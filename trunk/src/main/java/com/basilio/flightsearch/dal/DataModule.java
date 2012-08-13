@@ -57,10 +57,10 @@ public class DataModule {
 
     private void createDemoAirportStubs() {
         if(useLocalDemoList){
-            create(airportListConnector.GetAirportStubListLocal());
+            create(airportListConnector.getAirportStubListLocal());
         }else{
             try {
-                List<AirportStub> entities = airportListConnector.GetAirportStubList();
+                List<AirportStub> entities = airportListConnector.getAirportStubList();
                 create(entities);
             } catch (IOException e) {
                 logger.error("Could not retrieve airport list, make sure there is an active internet connection.");

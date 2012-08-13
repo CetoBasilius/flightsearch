@@ -29,28 +29,32 @@ import java.util.List;
 public class AirportListScraper implements AirportListConnector {
 
     private static final Logger logger = LoggerFactory.getLogger(AirportListScraper.class);
+    private static final String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
 
-    private final static String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
-
-    public List<AirportStub> GetAirportStubList() throws IOException {
+    public List<AirportStub> getAirportStubList(){
 
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
 
         HttpClient httpclient = new DefaultHttpClient();
         HttpGet httpget = new HttpGet(airportListURL);
-        HttpResponse response = httpclient.execute(httpget);
-        HttpEntity entity = response.getEntity();
+        HttpResponse response = null;
+        try {
+            response = httpclient.execute(httpget);
+            HttpEntity entity = response.getEntity();
 
-        if (entity != null) {
-            List<String> airportGet = parseHtml(httpget, entity);
-            airportStubs = createAirportStubList(airportGet);
+            if (entity != null) {
+                List<String> airportGet = parseHtml(httpget, entity);
+                airportStubs = createAirportStubList(airportGet);
+            }
+        } catch (IOException e) {
+            logger.error("There was an error connecting to the list server.");
         }
 
         httpclient.getConnectionManager().shutdown();
         return airportStubs;
     }
 
-    List<AirportStub> createAirportStubList( List<String> airportGet) {
+    public List<AirportStub> createAirportStubList( List<String> airportGet) {
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
         for (String string : airportGet) {
             if(string.length()>6){
@@ -96,7 +100,7 @@ public class AirportListScraper implements AirportListConnector {
         return airportGet;
     }
 
-    public List<AirportStub> GetAirportStubListLocal() {
+    public List<AirportStub> getAirportStubListLocal() {
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
 
         airportStubs.add(new AirportStub("HMO", "Mexico - Hermosillo Sonora"));
