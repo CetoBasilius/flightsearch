@@ -33,49 +33,6 @@ public class Route {
     private SimpleDateFormat inHourFormat = new SimpleDateFormat("H:mm");
     private SimpleDateFormat outHourFormat = new SimpleDateFormat("H' hours and 'mm' minutes'");
 
-    public Route(){
-        this.segments = new ArrayList<Segment>();
-    }
-
-    public String getDuration(){
-        return this.duration;
-    }
-    public void setDuration(String duration){
-        this.duration = duration;
-    }
-    public boolean getHasAirportChange(){
-        return this.hasAirportChange;
-    }
-    public void setHasAirportChange(boolean hasAirportChange){
-        this.hasAirportChange = hasAirportChange;
-    }
-    public List<Segment> getSegments(){
-        return this.segments;
-    }
-    public void setSegments(List<Segment> segments){
-        this.segments = segments;
-    }
-    public String getType(){
-        return this.type;
-    }
-    public void setType(String type){
-        this.type = type;
-    }
-
-    public String getFinalDestination(){
-        Location arrival = this.getSegments().get(this.getSegments().size() - 1).getArrival();
-        return arrival.getLocation();
-    }
-
-    public String getDeparturePlace(){
-        Location departure = this.getSegments().get(0).getDeparture();
-        return departure.getLocation();
-    }
-
-    public String getDepartureTime(){
-        return this.getSegments().get(0).getDeparture().getDate();
-    }
-
     public String getScheduleDescription() {
         StringBuffer buffer = new StringBuffer();
         Date departureDate = new Date();
@@ -171,5 +128,48 @@ public class Route {
 
     public String getDescription() {
         return "from "+this.getLeaveDescription()+" to "+this.getArriveDescription();
+    }
+
+    public Route(){
+        this.segments = new ArrayList<Segment>();
+    }
+
+    public String getDuration(){
+        return this.duration;
+    }
+    public void setDuration(String duration){
+        this.duration = duration;
+    }
+    public boolean getHasAirportChange(){
+        return this.hasAirportChange;
+    }
+    public void setHasAirportChange(boolean hasAirportChange){
+        this.hasAirportChange = hasAirportChange;
+    }
+    public List<Segment> getSegments(){
+        return this.segments;
+    }
+    public void setSegments(List<Segment> segments){
+        this.segments = segments;
+    }
+    public String getType(){
+        return this.type;
+    }
+    public void setType(String type){
+        this.type = type;
+    }
+
+    public String getFinalDestination(){
+        Location arrival = this.getSegments().get(this.getSegments().size() - 1).getArrival();
+        return arrival.getLocation();
+    }
+
+    public String getDeparturePlace(){
+        Location departure = this.getSegments().get(0).getDeparture();
+        return departure.getLocation();
+    }
+
+    public String getDepartureTime(){
+        return this.getSegments().get(0).getDeparture().getDate();
     }
 }
