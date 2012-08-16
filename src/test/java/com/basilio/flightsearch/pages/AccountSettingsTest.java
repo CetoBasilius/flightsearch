@@ -1,7 +1,7 @@
 package com.basilio.flightsearch.pages;
 
 
-import com.basilio.flightsearch.dal.persistence.ServiceDAO;
+import com.basilio.flightsearch.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
 import org.junit.Test;
 

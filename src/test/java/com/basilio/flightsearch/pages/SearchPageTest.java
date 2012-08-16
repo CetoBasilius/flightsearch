@@ -34,36 +34,36 @@ public class SearchPageTest {
     }
 
     @Test
-    public void testSetupRender(){
+    public void testSetupRender() {
         SearchPage searchPage = new SearchPage();
         searchPage.setupRender();
 
-        assertEquals("1",searchPage.getNumberOfAdults());
-        assertEquals("0",searchPage.getNumberOfChildren());
-        assertEquals("0",searchPage.getNumberOfInfants());
+        assertEquals("1", searchPage.getNumberOfAdults());
+        assertEquals("0", searchPage.getNumberOfChildren());
+        assertEquals("0", searchPage.getNumberOfInfants());
 
-        assertEquals((Object) new Integer(500),searchPage.getSliderValue());
+        assertEquals((Object) new Integer(500), searchPage.getSliderValue());
     }
 
     @Test
-    public void testAutoCompleteAlgorithm(){
+    public void testAutoCompleteAlgorithm() {
         SearchPage searchPage = new SearchPage();
 
         List<AirportStub> allAirportStubs = new ArrayList<AirportStub>();
-        allAirportStubs.add(new AirportStub("AAA","aabbb aaa"));
-        allAirportStubs.add(new AirportStub("BBB","CCC"));
-        allAirportStubs.add(new AirportStub("CCC","aaA aaa aaa"));
-        allAirportStubs.add(new AirportStub("DDD","aaa bbb aAa ccc aaa"));
-        allAirportStubs.add(new AirportStub("EEE","cchhh ssscc bbhhh bbb "));
+        allAirportStubs.add(new AirportStub("AAA", "aabbb aaa"));
+        allAirportStubs.add(new AirportStub("BBB", "CCC"));
+        allAirportStubs.add(new AirportStub("CCC", "aaA aaa aaa"));
+        allAirportStubs.add(new AirportStub("DDD", "aaa bbb aAa ccc aaa"));
+        allAirportStubs.add(new AirportStub("EEE", "cchhh ssscc bbhhh bbb "));
 
         searchPage.setAllTheAirportStubs(allAirportStubs);
 
-        assertEquals(ArrayList.class,searchPage.getAutoCompleteList("a").getClass());
+        assertEquals(ArrayList.class, searchPage.getAutoCompleteList("a").getClass());
 
-        assertEquals("(AAA) aabbb aaa",searchPage.getAutoCompleteList("aaa").get(0));
+        assertEquals("(AAA) aabbb aaa", searchPage.getAutoCompleteList("aaa").get(0));
 
-        assertEquals("(AAA) aabbb aaa",searchPage.getAutoCompleteList("aaa").get(0));
-        assertEquals("(CCC) aaA aaa aaa",searchPage.getAutoCompleteList("aa").get(1));
-        assertEquals("(DDD) aaa bbb aAa ccc aaa",searchPage.getAutoCompleteList("aa").get(2));
+        assertEquals("(AAA) aabbb aaa", searchPage.getAutoCompleteList("aaa").get(0));
+        assertEquals("(CCC) aaA aaa aaa", searchPage.getAutoCompleteList("aa").get(1));
+        assertEquals("(DDD) aaa bbb aAa ccc aaa", searchPage.getAutoCompleteList("aa").get(2));
     }
 }

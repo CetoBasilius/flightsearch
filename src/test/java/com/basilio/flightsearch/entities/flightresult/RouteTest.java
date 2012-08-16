@@ -37,22 +37,22 @@ public class RouteTest {
 
         assertEquals(2, outboundRoutes.getSegments().size());
 
-        assertEquals(3,outboundRoutes.getSegmentsDescription().length);
-        assertEquals("AAA",outboundRoutes.getSegmentsDescription()[0]);
-        assertEquals("BBB",outboundRoutes.getSegmentsDescription()[1]);
-        assertEquals("CCC",outboundRoutes.getSegmentsDescription()[2]);
+        assertEquals(3, outboundRoutes.getSegmentsDescription().length);
+        assertEquals("AAA", outboundRoutes.getSegmentsDescription()[0]);
+        assertEquals("BBB", outboundRoutes.getSegmentsDescription()[1]);
+        assertEquals("CCC", outboundRoutes.getSegmentsDescription()[2]);
 
 
     }
 
     @Test
-    public void testGetSegmentNumberString(){
+    public void testGetSegmentNumberString() {
         Route route = new Route();
         List<Segment> segments = new ArrayList<Segment>();
         segments.add(new Segment());
         route.setSegments(segments);
 
-        assertEquals(segments,route.getSegments());
+        assertEquals(segments, route.getSegments());
 
         assertTrue(route.getSegmentsNumber().contains("Direct"));
         segments.add(new Segment());
@@ -65,7 +65,7 @@ public class RouteTest {
     }
 
     @Test
-    public void testGetScheduleDescription(){
+    public void testGetScheduleDescription() {
         Route route = new Route();
         List<Segment> segments = new ArrayList<Segment>();
         Segment testSegment = new Segment();
@@ -77,7 +77,7 @@ public class RouteTest {
 
         route.getSegments().get(0).getDeparture().setDate("2012-12-21T16:16:16");
         route.setDuration("2:30");
-        assertEquals("2:30",route.getDuration());
+        assertEquals("2:30", route.getDuration());
 
         assertTrue(route.getScheduleDescription().contains("Dec"));
         assertTrue(route.getScheduleDescription().contains("21"));
@@ -88,18 +88,18 @@ public class RouteTest {
     }
 
     @Test
-    public void testOtherMethods(){
+    public void testOtherMethods() {
         Route route = new Route();
 
         route.setType("test type");
-        assertEquals("test type",route.getType());
+        assertEquals("test type", route.getType());
 
         route.setHasAirportChange(true);
         assertTrue(route.getHasAirportChange());
     }
 
     @Test
-    public void testGetWaitDescription(){
+    public void testGetWaitDescription() {
         Route route = new Route();
         List<Segment> segments = new ArrayList<Segment>();
         Segment testSegment1 = new Segment();
@@ -119,6 +119,6 @@ public class RouteTest {
 
         route.setSegments(segments);
 
-        assertTrue(route.getWaitDescription(0,1).contains("0"));
+        assertTrue(route.getWaitDescription(0, 1).contains("0"));
     }
 }

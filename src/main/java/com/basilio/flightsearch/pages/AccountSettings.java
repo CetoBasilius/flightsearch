@@ -1,7 +1,7 @@
 package com.basilio.flightsearch.pages;
 
-import com.basilio.flightsearch.dal.persistence.QueryParameters;
-import com.basilio.flightsearch.dal.persistence.ServiceDAO;
+import com.basilio.flightsearch.persistence.QueryParameters;
+import com.basilio.flightsearch.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.EventConstants;

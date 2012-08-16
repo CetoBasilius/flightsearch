@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal;
+package com.basilio.flightsearch.connectors.air;
 
 import org.junit.Test;
 

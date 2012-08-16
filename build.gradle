@@ -57,6 +57,7 @@ dependencies {
 }
 
 test {
+
     useTestNG()
 
     options.suites("src/test/conf/testng.xml")
@@ -71,4 +72,4 @@ test {
     enableAssertions = true
 }
 
-// TODO: Configure execution mode for jettyRun task
+

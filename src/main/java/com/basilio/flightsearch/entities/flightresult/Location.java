@@ -17,28 +17,35 @@ public class Location {
         this.location = location;
     }
 
-    public String getDate(){
+    public String getDate() {
         return this.date;
     }
-    public void setDate(String date){
+
+    public void setDate(String date) {
         this.date = date;
     }
-    public String getLocation(){
+
+    public String getLocation() {
         return this.location;
     }
-    public void setLocation(String location){
+
+    public void setLocation(String location) {
         this.location = location;
     }
-    public String getLocationDescription(){
+
+    public String getLocationDescription() {
         return this.locationDescription;
     }
-    public void setLocationDescription(String locationDescription){
+
+    public void setLocationDescription(String locationDescription) {
         this.locationDescription = locationDescription;
     }
-    public Number getTimezone(){
+
+    public Number getTimezone() {
         return this.timezone;
     }
-    public void setTimezone(Number timezone){
+
+    public void setTimezone(Number timezone) {
         this.timezone = timezone;
     }
 }

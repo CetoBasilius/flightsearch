@@ -14,15 +14,6 @@
     <orderEntry type="library" name="Clover IDEA Plugin" level="application" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.jetty:jetty-webapp:7.0.0.v20091005" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.jetty:jetty-xml:7.0.0.v20091005" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.jetty:jetty-util:7.0.0.v20091005" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.jetty:jetty-servlet:7.0.0.v20091005" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.jetty:jetty-security:7.0.0.v20091005" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.jetty:jetty-server:7.0.0.v20091005" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.jetty:jetty-continuation:7.0.0.v20091005" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.jetty:jetty-http:7.0.0.v20091005" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.jetty:jetty-io:7.0.0.v20091005" level="project" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:1.7.1" level="project" />
     <orderEntry type="library" name="Maven: org.chenillekit:chenillekit-tapestry:1.3.3" level="project" />
     <orderEntry type="library" name="Maven: org.chenillekit:chenillekit-core:1.3.3" level="project" />
@@ -145,7 +136,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: aopalliance:aopalliance:1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.beust:jcommander:1.12" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.tapestry:tapestry-javadoc:5.3.3" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.tomcat:catalina:6.0.30" level="project" />
   </component>
 </module>
 

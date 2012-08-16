@@ -35,7 +35,7 @@ public class MapPage {
     @Property
     private String visualizingFlight;
 
-    public void setupMapPage(List<Double> coordinatesin, List<String> descsin){
+    public void setupMapPage(List<Double> coordinatesin, List<String> descsin) {
         coordinatesParameter = coordinatesin;
         descParameter = descsin;
     }

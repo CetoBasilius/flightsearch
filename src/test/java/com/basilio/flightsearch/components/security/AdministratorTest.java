@@ -16,7 +16,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class AdministratorTest {
     @Test
-    public void testTest(){
+    public void testTest() {
         Administrator admin = new Administrator();
         Authenticator authenticator = createNiceMock(Authenticator.class);
         admin.setAuthenticator(authenticator);
@@ -26,7 +26,7 @@ public class AdministratorTest {
         replay(authenticator);
 
         assertTrue(admin.test());
-        assertEquals(authenticator,admin.getAuthenticator());
+        assertEquals(authenticator, admin.getAuthenticator());
 
         verify(authenticator);
     }

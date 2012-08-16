@@ -6,9 +6,8 @@ import com.basilio.flightsearch.components.Window;
 import com.basilio.flightsearch.core.FlightResultFilter;
 import com.basilio.flightsearch.core.FlightResultFilterImpl;
 import com.basilio.flightsearch.core.helpers.NumberHelper;
-import com.basilio.flightsearch.dal.air.AirportInformationDAO;
+import com.basilio.flightsearch.connectors.air.AirportInformationConnector;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import com.basilio.flightsearch.entities.flightresult.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -16,13 +15,11 @@ import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.*;
-import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 
-import java.awt.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +42,7 @@ public class ResultsPage {
     @Inject
     private Request request;
     @Inject
-    private AirportInformationDAO airportInformationDAO;
+    private AirportInformationConnector airportInformationConnector;
     //-------------------------------------------------------
     @Property
     private int outSegmentWindowIndex;
@@ -172,8 +169,7 @@ public class ResultsPage {
     @InjectPage
     private SuggestPage suggestPage;
 
-    public void setup(FlightSearch flightSearch,FlightResult flightResult)
-    {
+    public void setup(FlightSearch flightSearch, FlightResult flightResult) {
         customPagedLoop.setCurrentPage(1);
         this.flightResult = flightResult;
         this.filteredFlightResult = flightResult;
@@ -181,7 +177,7 @@ public class ResultsPage {
 
         this.flightSearch = flightSearch;
 
-        if(flightResultFilter == null){
+        if (flightResultFilter == null) {
             flightResultFilter = new FlightResultFilterImpl();
             segmentFilterRadioSelectedValue = Integer.toString(Flight.ANY_SEGMENTS);
         } else {
@@ -190,38 +186,39 @@ public class ResultsPage {
 
     }
 
-    void setupRender()
-    {
+    void setupRender() {
         customHandleCSS = "slider-handle-custom";
         customTrackCSS = "slider-track-custom";
         customValueCSS = "slider-value-custom";
 
-        if(showingFlightResult !=null){
+        if (showingFlightResult != null) {
             List<Facet> facets = showingFlightResult.getMeta().getFacets();
-            if(facets!=null){
-                Facet minmaxFacet = facets.get(2);
-                minPriceFilter = minmaxFacet.getMin().intValue()-(minmaxFacet.getMin().intValue()%100);
-                maxPriceFilter = minmaxFacet.getMax().intValue()+(100-(minmaxFacet.getMax().intValue()%100));
-                priceFilterSteps = (maxPriceFilter-minPriceFilter)/100;
+            if (facets != null) {
+                if(facets.size() > 0){
+                    Facet minmaxFacet = facets.get(2);
+                    minPriceFilter = minmaxFacet.getMin().intValue() - (minmaxFacet.getMin().intValue() % 100);
+                    maxPriceFilter = minmaxFacet.getMax().intValue() + (100 - (minmaxFacet.getMax().intValue() % 100));
+                    priceFilterSteps = (maxPriceFilter - minPriceFilter) / 100;
 
-                budgetFilterSlider = flightSearch.getBudgetDollars();
-                emptyResult=false;
+                    budgetFilterSlider = flightSearch.getBudgetDollars();
+                    emptyResult = false;
+                }
             } else {
-                emptyResult=true;
+                emptyResult = true;
             }
 
-            radioAllDurations="";
+            radioAllDurations = "";
 
             segmentFilterRadioAny = Integer.toString(Flight.ANY_SEGMENTS);
             segmentFilterRadioOne = Integer.toString(Flight.ONE_SEGMENT);
             segmentFilterRadioTwoPlus = Integer.toString(Flight.TWO_OR_MORE_SEGMENTS);
 
-            radioAllTypes="";
+            radioAllTypes = "";
 
         }
 
 
-        if(flightResultFilter == null){
+        if (flightResultFilter == null) {
             flightResultFilter = new FlightResultFilterImpl();
             segmentFilterRadioSelectedValue = Integer.toString(Flight.ANY_SEGMENTS);
         }
@@ -232,170 +229,162 @@ public class ResultsPage {
         //TODO: rowsperpage must be retrieved from user settings.
     }
 
-    public String getBudgetDollarsString(){
+    public String getBudgetDollarsString() {
         return String.valueOf(flightSearch.getBudgetDollars());
     }
 
-    public String getIsOnPriceRangeCSS(){
+    public String getIsOnPriceRangeCSS() {
         DecimalFormat df = new DecimalFormat("#.00");
 
-        if(flight.getPriceInfo().getTotal().getFare().floatValue()> flightSearch.getBudgetDollars()){
+        if (flight.getPriceInfo().getTotal().getFare().floatValue() > flightSearch.getBudgetDollars()) {
             return "flightboxnotinrange";
         }
         return "roundedbox";
     }
 
-    public boolean getIsFlightRound(){
+    public boolean getIsFlightRound() {
         return flightSearch.isRoundTrip();
     }
 
-    public boolean getIsOnPriceRangeBoolean(){
+    public boolean getIsOnPriceRangeBoolean() {
         DecimalFormat df = new DecimalFormat("#.00");
 
         return flight.getPriceInfo().getTotal().getFare().floatValue() <= flightSearch.getBudgetDollars();
     }
 
 
-    public boolean getIsThereNextOutSegment(){
-        if(outSegmentWindowIndex<outboundRoute.getSegments().size()-1){
+    public boolean getIsThereNextOutSegment() {
+        if (outSegmentWindowIndex < outboundRoute.getSegments().size() - 1) {
             return true;
         }
         return false;
     }
 
-    public boolean getIsThereNextInSegment(){
-        if(inSegmentWindowIndex<inboundRoute.getSegments().size()-1){
+    public boolean getIsThereNextInSegment() {
+        if (inSegmentWindowIndex < inboundRoute.getSegments().size() - 1) {
             return true;
         }
         return false;
     }
 
-    public String getInSegmentWaitDesc(){
+    public String getInSegmentWaitDesc() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("There will be a wait of ");
-        buffer.append(inboundRoute.getWaitDescription(inSegmentWindowIndex,inSegmentWindowIndex+1));
+        buffer.append(inboundRoute.getWaitDescription(inSegmentWindowIndex, inSegmentWindowIndex + 1));
         return buffer.toString();
     }
 
-    public String getOutSegmentWaitDesc(){
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("There will be a wait of ");
-        buffer.append(outboundRoute.getWaitDescription(outSegmentWindowIndex,outSegmentWindowIndex+1));
-        return buffer.toString();
+    public String getOutSegmentWaitDesc() {
+        return String.format("There will be a wait of  %s", outboundRoute.getWaitDescription(outSegmentWindowIndex, outSegmentWindowIndex + 1));
     }
 
-    public String getOutboundRouteShort(){
+    public String getOutboundRouteShort() {
         //TODO: this method gives me the correct value
-        return "FLIGHT:"+(this.getNumFlightsBeforeCurrentPage()+flightIndex)+" OUT:"+outBoundIndex;
+        return "FLIGHT:" + (this.getNumFlightsBeforeCurrentPage() + flightIndex) + " OUT:" + outBoundIndex;
     }
 
-    public String getInboundRouteShort(){
-        return " IN:"+inBoundIndex;
+    public String getInboundRouteShort() {
+        return " IN:" + inBoundIndex;
     }
 
 
-    public String getNumFlights(){
+    public String getNumFlights() {
         int numFlights = 0;
-        if(showingFlightResult != null){
+        if (showingFlightResult != null) {
             numFlights = showingFlightResult.getFlights().size();
         }
         return Integer.toString(numFlights);
     }
 
-    public String getFlightPrice(){
+    public String getFlightPrice() {
         DecimalFormat df = new DecimalFormat("#.00");
-        return df.format(flight.getPriceInfo().getTotal().getFare().floatValue())+" USD";
+        return df.format(flight.getPriceInfo().getTotal().getFare().floatValue()) + " USD";
     }
 
-    public String getBoughtItem(){
+    public String getBoughtItem() {
         return bought;
     }
 
-    public String getOutSegmentArriveInfo(){
+    public String getOutSegmentArriveInfo() {
         return outSegment.getArrivalDescription();
     }
 
-    public String getOutSegmentLeaveInfo(){
+    public String getOutSegmentLeaveInfo() {
         return outSegment.getDepartureDescription();
     }
 
-    public String getOutSegmentLeaveHourInfo(){
+    public String getOutSegmentLeaveHourInfo() {
         return outSegment.getDepartureHourDescription();
     }
 
-    public String getInSegmentLeaveHourInfo(){
+    public String getInSegmentLeaveHourInfo() {
         return inSegment.getDepartureHourDescription();
     }
 
-    public String getOutSegmentArriveHourInfo(){
+    public String getOutSegmentArriveHourInfo() {
         return outSegment.getArrivalHourDescription();
     }
 
-    public String getInSegmentArriveHourInfo(){
+    public String getInSegmentArriveHourInfo() {
         return inSegment.getArrivalHourDescription();
     }
 
-    public String getOutSegmentStopInfo(){
+    public String getOutSegmentStopInfo() {
         return outSegment.getStopDescription();
     }
 
-    public String getInSegmentStopInfo(){
+    public String getInSegmentStopInfo() {
         return inSegment.getStopDescription();
     }
 
 
-    public boolean getOutSegmentHasStops(){
-        if(outSegment.getStopovers()!=null){
-            if(outSegment.getStopovers().size()>0){
+    public boolean getOutSegmentHasStops() {
+        return outSegment.getStopovers() != null && outSegment.getStopovers().size() > 0;
+    }
+
+    public boolean getInSegmentHasStops() {
+        if (inSegment.getStopovers() != null) {
+            if (inSegment.getStopovers().size() > 0) {
                 return true;
             }
         }
         return false;
     }
 
-    public boolean getInSegmentHasStops(){
-        if(inSegment.getStopovers()!=null){
-            if(inSegment.getStopovers().size()>0){
-                return true;
-            }
-        }
-        return false;
-    }
 
-
-    public String getInSegmentArriveInfo(){
+    public String getInSegmentArriveInfo() {
         return inSegment.getArrivalDescription();
     }
 
-    public String getInSegmentLeaveInfo(){
+    public String getInSegmentLeaveInfo() {
         return inSegment.getDepartureDescription();
     }
 
-    public boolean getInContinueRenderingArrow(){
-        if(inRouteSegmentInfoIndex<inboundRoute.getSegments().size()){
+    public boolean getInContinueRenderingArrow() {
+        if (inRouteSegmentInfoIndex < inboundRoute.getSegments().size()) {
             return true;
         }
         return false;
     }
 
-    public boolean getOutContinueRenderingArrow(){
-        if(outRouteSegmentInfoIndex<outboundRoute.getSegments().size()){
+    public boolean getOutContinueRenderingArrow() {
+        if (outRouteSegmentInfoIndex < outboundRoute.getSegments().size()) {
             return true;
         }
         return false;
     }
 
     @OnEvent(value = EventConstants.SUCCESS, component = "buyForm")
-    public Object buyTicket(){
-        if(StringUtils.isNotBlank(outRadioSelectedValue)){
+    public Object buyTicket() {
+        if (StringUtils.isNotBlank(outRadioSelectedValue)) {
 
             bought = this.outRadioSelectedValue;
         } else {
             errorForm.recordError(messages.get("error.mustselectoutboundroute"));
             return null;
         }
-        if(flightSearch.isRoundTrip()){
-            if(StringUtils.isNotBlank(inRadioSelectedValue)){
+        if (flightSearch.isRoundTrip()) {
+            if (StringUtils.isNotBlank(inRadioSelectedValue)) {
                 bought += this.inRadioSelectedValue;
             } else {
                 errorForm.recordError(messages.get("error.mustselectinboundroute"));
@@ -412,12 +401,12 @@ public class ResultsPage {
     //-----------------------------------------------
 
     @OnEvent(value = "applyfilter")
-    public Object filterResults(){
+    public Object filterResults() {
         this.flightSearch.setBudgetDollars(budgetFilterSlider);
 
         int segmentOption = Integer.parseInt(segmentFilterRadioSelectedValue);
 
-        filteredFlightResult = flightResultFilter.filterSearch(flightResult, budgetFilterSlider,segmentOption);
+        filteredFlightResult = flightResultFilter.filterSearch(flightResult, budgetFilterSlider, segmentOption);
         showingFlightResult = filteredFlightResult;
 
         customPagedLoop.setCurrentPage(1);
@@ -425,17 +414,17 @@ public class ResultsPage {
     }
 
     @OnEvent(value = "disablefilter")
-    public Object onDisableFilter(){
+    public Object onDisableFilter() {
         flightResultFilter.setWasResultFiltered(false);
         showingFlightResult = flightResult;
         return null;
     }
 
     private int getNumFlightsBeforeCurrentPage() {
-        if(customPagedLoop.getCurrentPage()<1){
+        if (customPagedLoop.getCurrentPage() < 1) {
             customPagedLoop.setCurrentPage(1);
         }
-        return (customPagedLoop.getCurrentPage()-1)*rowsPerPage;
+        return (customPagedLoop.getCurrentPage() - 1) * rowsPerPage;
     }
 
     @Property
@@ -489,12 +478,13 @@ public class ResultsPage {
             return null;
         }
     };
-//-----------------------------------------------------
-    public String getOutRouteSegmentNumber(){
+
+    //-----------------------------------------------------
+    public String getOutRouteSegmentNumber() {
         return outboundRoute.getSegmentsNumber();
     }
 
-    public String getInRouteSegmentNumber(){
+    public String getInRouteSegmentNumber() {
         return inboundRoute.getSegmentsNumber();
     }
 
@@ -510,19 +500,19 @@ public class ResultsPage {
     @Property
     private String inSegmentInfo;
 
-    public String[] getOutRouteSegmentInfo(){
+    public String[] getOutRouteSegmentInfo() {
         return outboundRoute.getSegmentsDescription();
     }
 
-    public String[] getInRouteSegmentInfo(){
+    public String[] getInRouteSegmentInfo() {
         return inboundRoute.getSegmentsDescription();
     }
 
-    public String getOutRouteSegmentInfoCommas(){
+    public String getOutRouteSegmentInfoCommas() {
         return routeSegmentInfoCommas(outboundRoute);
     }
 
-    public String getInRouteSegmentInfoCommas(){
+    public String getInRouteSegmentInfoCommas() {
         return routeSegmentInfoCommas(inboundRoute);
     }
 
@@ -531,150 +521,117 @@ public class ResultsPage {
 
         String[] segmentsDescription = route.getSegmentsDescription();
         int length = segmentsDescription.length;
-        for(int index = 0; index < length; index++){
+        for (int index = 0; index < length; index++) {
             buffer.append(segmentsDescription[index]);
-            if(index < length -1){
+            if (index < length - 1) {
                 buffer.append(",");
             }
         }
         return buffer.toString();
     }
 
-    public String getOutRouteDurationInfo(){
+    public String getOutRouteDurationInfo() {
         return outboundRoute.getDurationDescription();
     }
 
-    public String getInRouteDurationInfo(){
+    public String getInRouteDurationInfo() {
         return inboundRoute.getDurationDescription();
     }
 
 
-    public String getInRouteLeaveInfo(){
+    public String getInRouteLeaveInfo() {
         return inboundRoute.getLeaveDescription();
     }
 
     //-------------------------------------------
 
-    public String getOutRouteScheduleInfo(){
+    public String getOutRouteScheduleInfo() {
         return outboundRoute.getScheduleDescription();
     }
 
-    public String getInRouteScheduleInfo(){
+    public String getInRouteScheduleInfo() {
         return inboundRoute.getScheduleDescription();
     }
 
 
-
-    public String getInRouteType(){
+    public String getInRouteType() {
         return WordUtils.capitalize(inboundRoute.getSegments().get(0).getMarketingCabinTypeCode().toLowerCase());
 
     }
 
     //-------------------------------------------
-    public String getSearchDescription(){
-        if(flightSearch !=null){
-            return flightSearch.getDescription();
-        }
-        return "No search was made.";
+    public String getSearchDescription() {
+        return flightSearch != null ? flightSearch.getDescription() : "No search was made.";
     }
 
-    public String getResultDescription(){
+    public String getResultDescription() {
         return showingFlightResult.getDescription();
     }
 
     @Persist
     private int windowNumber;
 
-    public String getOutWindowNumber(){
+    public String getOutWindowNumber() {
         int returnNumber = windowNumber;
         windowNumber++;
-        return ""+returnNumber;
+        return String.valueOf(returnNumber);
     }
 
-    public String getInWindowNumber(){
+    public String getInWindowNumber() {
         int returnNumber = windowNumber;
         windowNumber++;
-        return ""+returnNumber;
+        return "" + returnNumber;
     }
 
-    public String getStaticOutWindowNumber(){
-        int returnNumber = windowNumber-1;
-        return ""+returnNumber;
+    public String getStaticOutWindowNumber() {
+        int returnNumber = windowNumber - 1;
+        return "" + returnNumber;
     }
 
-    public String getStaticInWindowNumber(){
-        int returnNumber = windowNumber-1;
-        return ""+returnNumber;
+    public String getStaticInWindowNumber() {
+        int returnNumber = windowNumber - 1;
+        return "" + returnNumber;
     }
 
-    public Segment[] getOutSegments(){
-        List<Segment> outSegmentsList = outboundRoute.getSegments();
-        Segment outSegments[] = new Segment[outSegmentsList.size()];
-        for(int index = 0; index<outSegmentsList.size();index++){
-            outSegments[index] = outSegmentsList.get(index);
-        }
-        return outSegments;
+    public Segment[] getOutSegments() {
+        return outboundRoute.getSegments().toArray(new Segment[0]);
     }
 
-    public Segment[] getInSegments(){
-        List<Segment> inSegmentsList = inboundRoute.getSegments();
-        Segment inSegments[] = new Segment[inSegmentsList.size()];
-        for(int index = 0; index<inSegmentsList.size();index++){
-            inSegments[index] = inSegmentsList.get(index);
-        }
-        return inSegments;
+
+    public Segment[] getInSegments() {
+        return inboundRoute.getSegments().toArray(new Segment[0]);
     }
 
-    public Route[] getOutRoutes(){
-        List<Route> outRoutesList = flight.getOutboundRoutes();
-        Route outRoutes[] = new Route[outRoutesList.size()];
-        for(int index = 0; index<outRoutesList.size();index++){
-            outRoutes[index] = outRoutesList.get(index);
-        }
-        return outRoutes;
+    public Route[] getOutRoutes() {
+        return flight.getOutboundRoutes().toArray(new Route[0]);
     }
 
-    public Route[] getInRoutes(){
-        List<Route> inRoutesList = flight.getInboundRoutes();
-        Route inRoutes[] = new Route[inRoutesList.size()];
-        for(int index = 0; index<inRoutesList.size();index++){
-            inRoutes[index] = inRoutesList.get(index);
-        }
-        return inRoutes;
+    public Route[] getInRoutes() {
+        return flight.getInboundRoutes().toArray(new Route[0]);
     }
 
-    public Flight[] getFlights()
-    {
-        int numFlights = 0;
-        Flight[] resultArray = null;
-        if(showingFlightResult != null){
-            if(flightSearch.isDirectFlight()){
-                numFlights = flightResult.getDirectFlights().size();
-                resultArray = new Flight[numFlights];
-                for(int a = 0;a<numFlights;a++){
-                    resultArray[a] = showingFlightResult.getDirectFlights().get(a);
-                }
-            }else{
-                numFlights = showingFlightResult.getFlights().size();
-                resultArray = new Flight[numFlights];
-                for(int a = 0;a<numFlights;a++){
-                    resultArray[a] = showingFlightResult.getFlights().get(a);
-                }
+    public Flight[] getFlights() {
+        if (showingFlightResult != null) {
+            if (flightSearch.isDirectFlight()) {
+                return showingFlightResult.getDirectFlights().toArray(new Flight[0]);
+            } else {
+
+                return showingFlightResult.getFlights().toArray(new Flight[0]);
             }
-        } else {
-            resultArray = new Flight[1];
-            resultArray[0] = new Flight();
-            setEmptyResult(true);
         }
+
+        Flight[] resultArray = new Flight[1];
+        resultArray[0] = new Flight();
+        emptyResult = true;
         return resultArray;
     }
 
-    public String getOutSegmentWindowDescription(){
-        return segmentWindowDescription(outSegment,outSegmentWindowIndex);
+    public String getOutSegmentWindowDescription() {
+        return segmentWindowDescription(outSegment, outSegmentWindowIndex);
     }
 
-    public String getInSegmentWindowDescription(){
-        return segmentWindowDescription(inSegment,inSegmentWindowIndex);
+    public String getInSegmentWindowDescription() {
+        return segmentWindowDescription(inSegment, inSegmentWindowIndex);
     }
 
     public String segmentWindowDescription(Segment segment, int index) {
@@ -689,23 +646,23 @@ public class ResultsPage {
         return buffer.toString();
     }
 
-    public String getFlightOutLabelDesc(){
+    public String getFlightOutLabelDesc() {
         return flight.getOutDescription();
     }
 
-    public String getFlightInLabelDesc(){
+    public String getFlightInLabelDesc() {
         return flight.getInDescription();
     }
 
-    public String getOutSegmentWindowMoreInfo(){
+    public String getOutSegmentWindowMoreInfo() {
         return outSegment.getArrivalDescription();
     }
 
-    public String getOutSegmentDurationInfo(){
+    public String getOutSegmentDurationInfo() {
         return outSegment.getDurationDescription();
     }
 
-    public String getInSegmentDurationInfo(){
+    public String getInSegmentDurationInfo() {
         return inSegment.getDurationDescription();
     }
 
@@ -730,31 +687,31 @@ public class ResultsPage {
     @InjectPage
     private MapPage mapPage;
 
-    public Object onActionFromOutViewMap(String airportCodesString){
+    public Object onActionFromOutViewMap(String airportCodesString) {
         return viewMap(airportCodesString);
     }
 
-    public Object onActionFromInViewMap(String airportCodesString){
+    public Object onActionFromInViewMap(String airportCodesString) {
         return viewMap(airportCodesString);
     }
 
-    public String getFilterDescription(){
+    public String getFilterDescription() {
         return flightResultFilter.getFilterDescription();
     }
 
-    public Object viewMap(String airportCodesString){
+    public Object viewMap(String airportCodesString) {
         final String[] airportCodes = airportCodesString.split(",");
         final List<Double> setupList = new ArrayList<Double>();
         final List<String> setupDescList = new ArrayList<String>();
         final List<AirportStub> airportStubList = new ArrayList<AirportStub>();
 
-        for(int index = 0; index < airportCodes.length;index++){
-            airportStubList.add(new AirportStub(airportCodes[index],""));
+        for (int index = 0; index < airportCodes.length; index++) {
+            airportStubList.add(new AirportStub(airportCodes[index], ""));
         }
 
-        List<AirportStub> finalAirportStubList = airportInformationDAO.getAirportData(airportStubList);
+        List<AirportStub> finalAirportStubList = airportInformationConnector.getAirportData(airportStubList);
 
-        for(int index = 0; index < finalAirportStubList.size();index++){
+        for (int index = 0; index < finalAirportStubList.size(); index++) {
             AirportStub airportStub = finalAirportStubList.get(index);
             setupList.add(new Double(airportStub.getLatitude()));
             setupList.add(new Double(airportStub.getLongitude()));
@@ -765,12 +722,12 @@ public class ResultsPage {
         return mapPage;
     }
 
-    public AirportInformationDAO getAirportInformationDAO() {
-        return airportInformationDAO;
+    public AirportInformationConnector getAirportInformationConnector() {
+        return airportInformationConnector;
     }
 
-    public void setAirportInformationDAO(AirportInformationDAO airportInformationDAO) {
-        this.airportInformationDAO = airportInformationDAO;
+    public void setAirportInformationConnector(AirportInformationConnector airportInformationConnector) {
+        this.airportInformationConnector = airportInformationConnector;
     }
 
     public MapPage getMapPage() {
@@ -805,20 +762,12 @@ public class ResultsPage {
         this.flightResultFilter = flightResultFilter;
     }
 
-    public String getSegmentFilterRadioSelectedValue() {
+    public String getSegmentFilterRadioSelectedValueString() {
         return segmentFilterRadioSelectedValue;
     }
 
-    public void setSegmentFilterRadioSelectedValue(String segmentFilterRadioSelectedValue) {
+    public void setSegmentFilterRadioSelectedValueString(String segmentFilterRadioSelectedValue) {
         this.segmentFilterRadioSelectedValue = segmentFilterRadioSelectedValue;
-    }
-
-    public boolean isEmptyResult() {
-        return emptyResult;
-    }
-
-    public void setEmptyResult(boolean emptyResult) {
-        this.emptyResult = emptyResult;
     }
 
     public void setWindowNumber(int windowNumber) {

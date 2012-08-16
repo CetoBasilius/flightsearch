@@ -1,4 +1,3 @@
-
 package com.basilio.flightsearch.entities.flightresult;
 
 import java.util.ArrayList;
@@ -12,24 +11,25 @@ import java.util.List;
  * Base result class
  */
 
-public class FlightResult implements Cloneable{
-   	private List<Flight> flights;
-   	private Meta meta;
+public class FlightResult implements Cloneable {
+    private List<Flight> flights;
+    private Meta meta;
 
     private int searchedPrice;
     private boolean searchedDirect;
 
-    public FlightResult(){
+    public FlightResult() {
         this.flights = new ArrayList<Flight>();
+        this.meta = new Meta();
     }
 
-    public List<Flight> getDirectFlights(){
+    public List<Flight> getDirectFlights() {
         List<Flight> returnFlights = new ArrayList<Flight>();
         List<Flight> flights1 = this.getFlights();
-        for(int index = 0; index < flights1.size(); index++){
+        for (int index = 0; index < flights1.size(); index++) {
             List<Route> outboundRoutes = flights1.get(index).getOutboundRoutes();
-            for(int routeIndex = 0; routeIndex < outboundRoutes.size(); routeIndex++){
-                if(outboundRoutes.get(routeIndex).getSegments().size()==1){
+            for (int routeIndex = 0; routeIndex < outboundRoutes.size(); routeIndex++) {
+                if (outboundRoutes.get(routeIndex).getSegments().size() == 1) {
                     returnFlights.add(flights1.get(index));
                     break;
                 }
@@ -40,8 +40,8 @@ public class FlightResult implements Cloneable{
 
     public String getDescription() {
         StringBuffer buffer = new StringBuffer();
-        if(flights!=null){
-            if(flights.size()>0){
+        if (flights != null) {
+            if (flights.size() > 0) {
                 buffer.append("We found ");
                 buffer.append(this.getFlights().size());
                 buffer.append(" flights matching your search, of which ");
@@ -49,7 +49,7 @@ public class FlightResult implements Cloneable{
                 buffer.append(" matched your budget of no more than ");
                 buffer.append(this.getSearchedPrice());
                 buffer.append(" dollars");
-                if(this.isSearchedDirect()){
+                if (this.isSearchedDirect()) {
                     buffer.append(" and are direct flights");
                 }
                 buffer.append(". The most economic flight is ");
@@ -67,16 +67,16 @@ public class FlightResult implements Cloneable{
     public List<Flight> getFlightsInPriceRange() {
         List<Flight> returnFlights = new ArrayList<Flight>();
         List<Flight> flights1;
-        if(this.isSearchedDirect()){
+        if (this.isSearchedDirect()) {
             flights1 = this.getDirectFlights();
-        } else{
+        } else {
             flights1 = this.getFlights();
         }
 
-        for(int index = 0; index < flights1.size(); index++){
+        for (int index = 0; index < flights1.size(); index++) {
             Total total = flights1.get(index).getPriceInfo().getTotal();
             Number fare = total.getFare();
-            if((fare.intValue())<this.getSearchedPrice()){
+            if ((fare.intValue()) < this.getSearchedPrice()) {
                 returnFlights.add(flights1.get(index));
             }
         }
@@ -88,16 +88,19 @@ public class FlightResult implements Cloneable{
     }
 
 
-    public List<Flight> getFlights(){
+    public List<Flight> getFlights() {
         return this.flights;
     }
-    public void setFlights(List<Flight> flights){
+
+    public void setFlights(List<Flight> flights) {
         this.flights = flights;
     }
-    public Meta getMeta(){
+
+    public Meta getMeta() {
         return this.meta;
     }
-    public void setMeta(Meta meta){
+
+    public void setMeta(Meta meta) {
         this.meta = meta;
     }
 

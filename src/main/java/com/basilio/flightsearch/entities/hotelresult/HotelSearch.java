@@ -19,11 +19,11 @@ public class HotelSearch {
     private Date checkInDate;
     private String distribution;
 
-    public HotelSearch(){
+    public HotelSearch() {
 
     }
 
-    public HotelSearch(String city, Date checkIn, Date checkOut){
+    public HotelSearch(String city, Date checkIn, Date checkOut) {
 
         this.cityCode = city;
         this.checkInDate = checkIn;

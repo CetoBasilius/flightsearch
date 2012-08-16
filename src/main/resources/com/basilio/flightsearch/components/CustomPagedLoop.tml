@@ -1,9 +1,10 @@
-
 <t:container xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
 
     <div t:id="pagerTop"/>
 
-    <t:loop t:id="loop"><t:body/></t:loop>
+    <t:loop t:id="loop">
+        <t:body/>
+    </t:loop>
 
     <div t:id="pagerBottom"/>
 

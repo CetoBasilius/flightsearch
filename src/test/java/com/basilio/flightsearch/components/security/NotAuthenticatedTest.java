@@ -6,7 +6,6 @@ import org.junit.Test;
 import static org.easymock.EasyMock.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class NotAuthenticatedTest {
 
     @Test
-    public void testTest(){
+    public void testTest() {
         NotAuthenticated notAuthenticated = new NotAuthenticated();
         Authenticator authenticator = createNiceMock(Authenticator.class);
 
@@ -29,7 +28,7 @@ public class NotAuthenticatedTest {
         replay(authenticator);
 
         assertFalse(notAuthenticated.test());
-        assertEquals(authenticator,notAuthenticated.getAuthenticator());
+        assertEquals(authenticator, notAuthenticated.getAuthenticator());
 
         verify(authenticator);
     }

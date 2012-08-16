@@ -4,7 +4,6 @@ import org.apache.commons.lang.time.DateUtils;
 import org.apache.tapestry5.Field;
 import org.apache.tapestry5.MarkupWriter;
 import org.apache.tapestry5.ValidationException;
-import org.apache.tapestry5.annotations.Log;
 import org.apache.tapestry5.ioc.MessageFormatter;
 import org.apache.tapestry5.services.FormSupport;
 import org.apache.tapestry5.validator.AbstractValidator;
@@ -35,7 +34,7 @@ public class DateValidator extends AbstractValidator<Void, Date> {
             ValidationException {
 
         Date tomorrow = new Date();
-        tomorrow = DateUtils.addDays(tomorrow,1);
+        tomorrow = DateUtils.addDays(tomorrow, 1);
         if (value.before(tomorrow)) {
             throw new ValidationException(buildMessage(formatter, field));
         }

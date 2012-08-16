@@ -14,7 +14,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class SignupTest {
     @Test
-    public void AboutShouldHaveGuestAccess(){
+    public void AboutShouldHaveGuestAccess() {
         assertTrue(About.class.isAnnotationPresent(GuestAccess.class));
     }
 }

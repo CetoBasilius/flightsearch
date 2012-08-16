@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal.air;
+package com.basilio.flightsearch.connectors.air;
 
 import com.basilio.flightsearch.entities.AirportStub;
 
@@ -16,6 +16,7 @@ public interface AirportListConnector {
 
     /**
      * Fetches a list with AirportStubs, which contains only a small description and the 3 letter IATA Code for each airport.
+     *
      * @return An airportStub list
      * @throws IOException If there was a problem getting the list
      */
@@ -23,6 +24,7 @@ public interface AirportListConnector {
 
     /**
      * Fetches a list of demo airports created on the fly.
+     *
      * @return an incomplete list or demo list of AirportStubs.
      */
     public List<AirportStub> getAirportStubListLocal();

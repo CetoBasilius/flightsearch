@@ -1,8 +1,8 @@
 package com.basilio.flightsearch.services;
 
 
-import com.basilio.flightsearch.dal.persistence.QueryParameters;
-import com.basilio.flightsearch.dal.persistence.ServiceDAO;
+import com.basilio.flightsearch.persistence.QueryParameters;
+import com.basilio.flightsearch.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -15,7 +15,6 @@ import org.apache.tapestry5.services.Session;
  * Date: 6/15/12
  * Time: 9:27 AM
  * Basic Security implementation.
- *
  */
 public class AuthenticatorImpl implements Authenticator {
     public static final String AUTHORIZATION_TOKEN = "loggedUserToken";
@@ -70,11 +69,10 @@ public class AuthenticatorImpl implements Authenticator {
     public User getLoggedUser() {
         User user = null;
 
-        if (isLoggedIn()) {
-            user = (User) request.getSession(true).getAttribute(AUTHORIZATION_TOKEN);
-        } else {
+        if (!isLoggedIn()) {
             throw new IllegalStateException("The user is not logged ! ");
         }
+        user = (User) request.getSession(true).getAttribute(AUTHORIZATION_TOKEN);
         return user;
     }
 

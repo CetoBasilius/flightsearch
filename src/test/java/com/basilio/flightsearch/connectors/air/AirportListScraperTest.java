@@ -1,14 +1,13 @@
-package com.basilio.flightsearch.dal.air;
+package com.basilio.flightsearch.connectors.air;
 
 import com.basilio.flightsearch.entities.AirportStub;
+import com.basilio.flightsearch.connectors.air.AirportListScraper;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,11 +29,11 @@ public class AirportListScraperTest {
 
         AirportListScraper airportListScraper = new AirportListScraper();
         assertNotNull(airportListScraper.getAirportStubListLocal());
-        assertTrue(airportListScraper.getAirportStubListLocal().size()>0);
+        assertTrue(airportListScraper.getAirportStubListLocal().size() > 0);
     }
 
     @Test
-    public void testCreateAirportStubList(){
+    public void testCreateAirportStubList() {
         AirportListScraper airportListScraper = new AirportListScraper();
 
 
@@ -51,7 +50,7 @@ public class AirportListScraperTest {
 
         assertEquals(6, stubList.size());
 
-        assertEquals("AAA",stubList.get(0).getCode());
-        assertEquals("FFF",stubList.get(5).getCode());
+        assertEquals("AAA", stubList.get(0).getCode());
+        assertEquals("FFF", stubList.get(5).getCode());
     }
 }

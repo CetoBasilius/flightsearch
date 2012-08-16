@@ -15,15 +15,13 @@ import org.apache.tapestry5.annotations.Import;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.ioc.services.SymbolSource;
-import org.apache.tapestry5.json.JSONObject;
 import org.apache.tapestry5.services.AssetSource;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 
 
 @Import(library = {"${tapestry.scriptaculous}/effects.js", "../components/window/window.js",
         "../components/window/window_effects.js", "../components/window.js"}, stylesheet = {"../components/window/themes/default.css"})
-abstract public class AbstractWindow implements ClientElement
-{
+abstract public class AbstractWindow implements ClientElement {
 
     /**
      * The id used to generate a page-unique client-side identifier for the component. If a component renders multiple
@@ -33,7 +31,7 @@ abstract public class AbstractWindow implements ClientElement
     @Parameter(value = "prop:componentResources.id", defaultPrefix = BindingConstants.LITERAL)
     private String clientId;
 
-    public void setGeneralClientId(String id){
+    public void setGeneralClientId(String id) {
         this.clientId = id;
     }
 
@@ -119,8 +117,7 @@ abstract public class AbstractWindow implements ClientElement
      * Tapestry render phase method.
      * Initialize temporary instance variables here.
      */
-    void setupRender()
-    {
+    void setupRender() {
         // By default, use the component id as the (base) client id. If the clientid
         // parameter is bound, then that is the value to use.
         // Often, these controlName and clientId will end up as the same value. There are many
@@ -133,8 +130,7 @@ abstract public class AbstractWindow implements ClientElement
      * Tapestry render phase method.
      * Start a tag here, end it in afterRender
      */
-    void beginRender(MarkupWriter writer)
-    {
+    void beginRender(MarkupWriter writer) {
         String cssStyleFile;
 
         String scriptPathSymbolValue = symbolSource.expandSymbols("${ck.components}") + "/window/themes";
@@ -150,7 +146,7 @@ abstract public class AbstractWindow implements ClientElement
 
         String assetString = scriptPathSymbolValue + "/" + cssStyleFile;
         Asset cssAsset = assetSource.getClasspathAsset(assetString);
-        if(cssAsset!=null){
+        if (cssAsset != null) {
             javaScriptSupport.importStylesheet(cssAsset);
         }
 
@@ -161,49 +157,40 @@ abstract public class AbstractWindow implements ClientElement
      * page. This value is intended for use as the id attribute of the client-side element, and will
      * be used with any DHTML/Ajax related JavaScript.
      */
-    public String getClientId()
-    {
+    public String getClientId() {
         return assignedClientId;
     }
 
 
-    public boolean isShow()
-    {
+    public boolean isShow() {
         return show;
     }
 
-    public boolean isCenter()
-    {
+    public boolean isCenter() {
         return center;
     }
 
-    public boolean isModal()
-    {
+    public boolean isModal() {
         return modal;
     }
 
-    public String getClassName()
-    {
+    public String getClassName() {
         return className;
     }
 
-    public void setClassName(String name)
-    {
+    public void setClassName(String name) {
         this.className = name;
     }
 
-    public int getWidth()
-    {
+    public int getWidth() {
         return width;
     }
 
-    public int getHeight()
-    {
+    public int getHeight() {
         return height;
     }
 
-    public String getTitle()
-    {
+    public String getTitle() {
         return title;
     }
 

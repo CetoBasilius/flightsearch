@@ -1,4 +1,3 @@
-
 package com.basilio.flightsearch.entities.flightresult;
 
 import org.slf4j.Logger;
@@ -23,24 +22,24 @@ public class Segment {
     private static final Logger logger = LoggerFactory.getLogger(Segment.class);
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-    private SimpleDateFormat outDateFormat = new SimpleDateFormat("H:mm', 'MMMM d"  );
+    private SimpleDateFormat outDateFormat = new SimpleDateFormat("H:mm', 'MMMM d");
 
-   	private Location arrival;
-   	private String delayInfo;
-   	private Location departure;
-   	private String duration;
-   	private Number flightNumber;
-   	private String marketingCabinTypeCode;
-   	private String marketingCabinTypeDescription;
-   	private String marketingCarrierCode;
-   	private String marketingCarrierDescription;
-   	private String operatingCarrierCode;
-   	private String operatingCarrierDescription;
+    private Location arrival;
+    private String delayInfo;
+    private Location departure;
+    private String duration;
+    private Number flightNumber;
+    private String marketingCabinTypeCode;
+    private String marketingCabinTypeDescription;
+    private String marketingCarrierCode;
+    private String marketingCarrierDescription;
+    private String operatingCarrierCode;
+    private String operatingCarrierDescription;
     private List<Stopover> stopovers;
 
     private SimpleDateFormat hourFormat = new SimpleDateFormat("H:mm");
 
-    public Segment(){
+    public Segment() {
         arrival = new Location("");
         delayInfo = "";
         departure = new Location("");
@@ -55,80 +54,103 @@ public class Segment {
         stopovers = new ArrayList<Stopover>();
     }
 
-    public Location getArrival(){
-		return this.arrival;
-	}
-	public void setArrival(Location arrival){
-		this.arrival = arrival;
-	}
- 	public String getDelayInfo(){
-		return this.delayInfo;
-	}
-	public void setDelayInfo(String delayInfo){
-		this.delayInfo = delayInfo;
-	}
- 	public Location getDeparture(){
-		return this.departure;
-	}
-	public void setDeparture(Location departure){
-		this.departure = departure;
-	}
- 	public String getDuration(){
-		return this.duration;
-	}
-	public void setDuration(String duration){
-		this.duration = duration;
-	}
- 	public Number getFlightNumber(){
-		return this.flightNumber;
-	}
-	public void setFlightNumber(Number flightNumber){
-		this.flightNumber = flightNumber;
-	}
- 	public String getMarketingCabinTypeCode(){
-		return this.marketingCabinTypeCode;
-	}
-	public void setMarketingCabinTypeCode(String marketingCabinTypeCode){
-		this.marketingCabinTypeCode = marketingCabinTypeCode;
-	}
- 	public String getMarketingCabinTypeDescription(){
-		return this.marketingCabinTypeDescription;
-	}
-	public void setMarketingCabinTypeDescription(String marketingCabinTypeDescription){
-		this.marketingCabinTypeDescription = marketingCabinTypeDescription;
-	}
- 	public String getMarketingCarrierCode(){
-		return this.marketingCarrierCode;
-	}
-	public void setMarketingCarrierCode(String marketingCarrierCode){
-		this.marketingCarrierCode = marketingCarrierCode;
-	}
- 	public String getMarketingCarrierDescription(){
-		return this.marketingCarrierDescription;
-	}
-	public void setMarketingCarrierDescription(String marketingCarrierDescription){
-		this.marketingCarrierDescription = marketingCarrierDescription;
-	}
- 	public String getOperatingCarrierCode(){
-		return this.operatingCarrierCode;
-	}
-	public void setOperatingCarrierCode(String operatingCarrierCode){
-		this.operatingCarrierCode = operatingCarrierCode;
-	}
- 	public String getOperatingCarrierDescription(){
-		return this.operatingCarrierDescription;
-	}
-	public void setOperatingCarrierDescription(String operatingCarrierDescription){
-		this.operatingCarrierDescription = operatingCarrierDescription;
-	}
- 	public List<Stopover> getStopovers(){
-		return this.stopovers;
-	}
-	public void setStopovers(List<Stopover> stopovers){
-		this.stopovers = stopovers;
-	}
+    public Location getArrival() {
+        return this.arrival;
+    }
 
-    public String getDepartureDescription(){
+    public void setArrival(Location arrival) {
+        this.arrival = arrival;
+    }
+
+    public String getDelayInfo() {
+        return this.delayInfo;
+    }
+
+    public void setDelayInfo(String delayInfo) {
+        this.delayInfo = delayInfo;
+    }
+
+    public Location getDeparture() {
+        return this.departure;
+    }
+
+    public void setDeparture(Location departure) {
+        this.departure = departure;
+    }
+
+    public String getDuration() {
+        return this.duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public Number getFlightNumber() {
+        return this.flightNumber;
+    }
+
+    public void setFlightNumber(Number flightNumber) {
+        this.flightNumber = flightNumber;
+    }
+
+    public String getMarketingCabinTypeCode() {
+        return this.marketingCabinTypeCode;
+    }
+
+    public void setMarketingCabinTypeCode(String marketingCabinTypeCode) {
+        this.marketingCabinTypeCode = marketingCabinTypeCode;
+    }
+
+    public String getMarketingCabinTypeDescription() {
+        return this.marketingCabinTypeDescription;
+    }
+
+    public void setMarketingCabinTypeDescription(String marketingCabinTypeDescription) {
+        this.marketingCabinTypeDescription = marketingCabinTypeDescription;
+    }
+
+    public String getMarketingCarrierCode() {
+        return this.marketingCarrierCode;
+    }
+
+    public void setMarketingCarrierCode(String marketingCarrierCode) {
+        this.marketingCarrierCode = marketingCarrierCode;
+    }
+
+    public String getMarketingCarrierDescription() {
+        return this.marketingCarrierDescription;
+    }
+
+    public void setMarketingCarrierDescription(String marketingCarrierDescription) {
+        this.marketingCarrierDescription = marketingCarrierDescription;
+    }
+
+    public String getOperatingCarrierCode() {
+        return this.operatingCarrierCode;
+    }
+
+    public void setOperatingCarrierCode(String operatingCarrierCode) {
+        this.operatingCarrierCode = operatingCarrierCode;
+    }
+
+    public String getOperatingCarrierDescription() {
+        return this.operatingCarrierDescription;
+    }
+
+    public void setOperatingCarrierDescription(String operatingCarrierDescription) {
+        this.operatingCarrierDescription = operatingCarrierDescription;
+    }
+
+    public List<Stopover> getStopovers() {
+        return this.stopovers;
+    }
+
+    public void setStopovers(List<Stopover> stopovers) {
+        this.stopovers = stopovers;
+    }
+
+    public String getDepartureDescription() {
         StringBuffer buffer = new StringBuffer();
         Location departure1 = this.getDeparture();
         buffer.append(departure1.getLocation());
@@ -137,7 +159,7 @@ public class Segment {
         return buffer.toString();
     }
 
-    public String getArrivalDescription(){
+    public String getArrivalDescription() {
         StringBuffer buffer = new StringBuffer();
         Location arrival1 = this.getArrival();
         buffer.append(arrival1.getLocation());
@@ -152,8 +174,8 @@ public class Segment {
 
     public String getStopDescription() {
         StringBuffer buffer = new StringBuffer();
-        if(this.getStopovers()!=null){
-            if(this.getStopovers().size()>0){
+        if (this.getStopovers() != null) {
+            if (this.getStopovers().size() > 0) {
                 buffer.append("The flight will stop at ");
                 Stopover stopovers1 = this.getStopovers().get(0);
                 buffer.append(stopovers1.getAirportCode());
@@ -186,20 +208,20 @@ public class Segment {
     public String getDepartureHourDescription() {
         Date departureHour = new Date();
         try {
-            departureHour = dateFormat.parse(this.getDeparture().getDate()) ;
+            departureHour = dateFormat.parse(this.getDeparture().getDate());
         } catch (ParseException e) {
             logger.error("departure date was unparseable!");
         }
-        return "at "+outDateFormat.format(departureHour);
+        return "at " + outDateFormat.format(departureHour);
     }
 
     public String getArrivalHourDescription() {
         Date arriveHour = new Date();
         try {
-            arriveHour = dateFormat.parse(this.getArrival().getDate()) ;
+            arriveHour = dateFormat.parse(this.getArrival().getDate());
         } catch (ParseException e) {
             logger.error("arrive date was unparseable!");
         }
-        return "at "+outDateFormat.format(arriveHour);
+        return "at " + outDateFormat.format(arriveHour);
     }
 }

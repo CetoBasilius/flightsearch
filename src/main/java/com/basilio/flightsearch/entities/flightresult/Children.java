@@ -9,20 +9,23 @@ package com.basilio.flightsearch.entities.flightresult;
  */
 
 
-public class Children{
+public class Children {
     private Number baseFare;
     private Number quantity;
 
-    public Number getBaseFare(){
+    public Number getBaseFare() {
         return this.baseFare;
     }
-    public void setBaseFare(Number baseFare){
+
+    public void setBaseFare(Number baseFare) {
         this.baseFare = baseFare;
     }
-    public Number getQuantity(){
+
+    public Number getQuantity() {
         return this.quantity;
     }
-    public void setQuantity(Number quantity){
+
+    public void setQuantity(Number quantity) {
         this.quantity = quantity;
     }
 }

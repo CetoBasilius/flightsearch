@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal.air;
+package com.basilio.flightsearch.connectors.air;
 
 import com.basilio.flightsearch.core.AirportCreator;
 import com.basilio.flightsearch.entities.AirportStub;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
 
-import static com.basilio.flightsearch.dal.air.DomReader.readTag;
+import static com.basilio.flightsearch.core.helpers.DomReaderHelper.readTag;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,7 +31,7 @@ import static com.basilio.flightsearch.dal.air.DomReader.readTag;
  * Time: 4:07 AM
  * To change this template use File | Settings | File Templates.
  */
-public class HttpAirportInformationDAO implements AirportInformationDAO {
+public class HttpAirportInformationConnector implements AirportInformationConnector {
 
     public AirportStub getAirportData(AirportStub airportIn) {
 
@@ -45,7 +45,7 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
 
             HttpClient httpclient = new DefaultHttpClient();
 
-            HttpGet httpget = new HttpGet("http://avdata.geekpilot.net/airport/"+airportIn.getCode()+".xml");
+            HttpGet httpget = new HttpGet("http://avdata.geekpilot.net/airport/" + airportIn.getCode() + ".xml");
 
             HttpResponse response = httpclient.execute(httpget);
 
@@ -55,8 +55,8 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
             Document doc = dBuilder.parse(instream);
             doc.getDocumentElement().normalize();
 
-            returnAirportStub.setDescriptor(readTag(doc,"name"));
-            returnAirportStub.setLatitude(Float.valueOf(readTag(doc,"latitude")).floatValue());
+            returnAirportStub.setDescriptor(readTag(doc, "name"));
+            returnAirportStub.setLatitude(Float.valueOf(readTag(doc, "latitude")).floatValue());
             returnAirportStub.setLongitude(Float.valueOf(readTag(doc, "longitude")).floatValue());
 
             httpclient.getConnectionManager().shutdown();
@@ -73,9 +73,9 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
 
     public List<AirportStub> getAirportData(List<AirportStub> airportIn) {
         List<AirportStub> returnList = new ArrayList<AirportStub>();
-        for(int index = 0; index < airportIn.size();index++){
+        for (int index = 0; index < airportIn.size(); index++) {
             AirportStub newStub = getAirportData(airportIn.get(index));
-            if(newStub.getLatitude()==0){
+            if (newStub.getLatitude() == 0) {
                 newStub = getAirportDataSecondMethod(newStub.getCode());
             }
             returnList.add(newStub);
@@ -88,14 +88,14 @@ public class HttpAirportInformationDAO implements AirportInformationDAO {
         AirportCreator resultCreator = new AirportCreator();
         try {
             HttpClient httpclient = new DefaultHttpClient();
-            HttpGet httpget = new HttpGet("http://api.despegar.com/airports/"+code);
+            HttpGet httpget = new HttpGet("http://api.despegar.com/airports/" + code);
             HttpResponse response = httpclient.execute(httpget);
             HttpEntity entity = response.getEntity();
 
             InputStream instream = entity.getContent();
 
             //Rest message is Gziped for despegar api
-            GZIPInputStream zippedInputStream =  new GZIPInputStream(instream);
+            GZIPInputStream zippedInputStream = new GZIPInputStream(instream);
             BufferedReader reader = new BufferedReader(new InputStreamReader(zippedInputStream));
 
             resultCreator.setAirportString(reader.readLine());

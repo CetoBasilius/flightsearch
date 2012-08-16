@@ -1,8 +1,6 @@
 package com.basilio.flightsearch.core;
 
 import com.basilio.flightsearch.entities.airport.Airport;
-import com.basilio.flightsearch.entities.flightresult.FlightResult;
-import com.basilio.flightsearch.entities.hotelresult.HotelResult;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -22,6 +20,6 @@ public class AirportCreatorTest {
         airportCreator.setAirportString("{}");
         assertNotNull(airportCreator.getGoodAirport());
         assertEquals(Airport.class, airportCreator.getGoodAirport().getClass());
-        assertEquals(airportCreator.getAirportString(),airportCreator.getAllResultString());
+        assertEquals(airportCreator.getAirportString(), airportCreator.getAllResultString());
     }
 }

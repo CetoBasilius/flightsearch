@@ -14,18 +14,18 @@ import static org.junit.Assert.assertEquals;
 public class AirportStubTest {
 
     @Test
-    public void testToString(){
+    public void testToString() {
         AirportStub airportStub1 = new AirportStub();
         airportStub1.setCode("AAA");
         airportStub1.setDescriptor("descriptor");
 
-        assertEquals("(AAA) descriptor",airportStub1.toString());
+        assertEquals("(AAA) descriptor", airportStub1.toString());
 
     }
 
     @Test
-    public void testAirportStub(){
-        AirportStub airportStub2 = new AirportStub("BBB","descriptor2");
-        assertEquals("(BBB) descriptor2",airportStub2.toString());
+    public void testAirportStub() {
+        AirportStub airportStub2 = new AirportStub("BBB", "descriptor2");
+        assertEquals("(BBB) descriptor2", airportStub2.toString());
     }
 }

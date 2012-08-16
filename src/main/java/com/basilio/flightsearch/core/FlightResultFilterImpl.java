@@ -32,7 +32,7 @@ public class FlightResultFilterImpl implements FlightResultFilter {
         try {
             returnFlightResult = (FlightResult) inFlightResult.clone();
         } catch (CloneNotSupportedException e) {
-            logger.error("cloning "+this.getClass()+" failed");
+            logger.error("cloning " + this.getClass() + " failed");
         }
 
         List<Flight> flights = inFlightResult.getFlights();
@@ -50,9 +50,9 @@ public class FlightResultFilterImpl implements FlightResultFilter {
     private List<Flight> filterFLightListBySegments(List<Flight> flightList, int segments) {
         List<Flight> newList = new ArrayList<Flight>();
 
-        for(int index = 0; index < flightList.size();index++){
+        for (int index = 0; index < flightList.size(); index++) {
             Flight inFlight = flightList.get(index);
-            if(inFlight.outboundHasSegments(segments) && inFlight.inboundHasSegments(segments)){
+            if (inFlight.outboundHasSegments(segments) && inFlight.inboundHasSegments(segments)) {
                 newList.add(inFlight);
             }
         }
@@ -63,9 +63,9 @@ public class FlightResultFilterImpl implements FlightResultFilter {
     private List<Flight> filterFLightListByBudget(List<Flight> flightList, int budget) {
         List<Flight> newList = new ArrayList<Flight>();
 
-        for(int index = 0; index < flightList.size();index++){
+        for (int index = 0; index < flightList.size(); index++) {
             Flight inFlight = flightList.get(index);
-            if(inFlight.getPriceInfo().getTotal().getFare().intValue()<budget){
+            if (inFlight.getPriceInfo().getTotal().getFare().intValue() < budget) {
                 newList.add(inFlight);
             }
         }
@@ -75,7 +75,7 @@ public class FlightResultFilterImpl implements FlightResultFilter {
     public String getFilterDescription() {
         StringBuffer buffer = new StringBuffer();
 
-        if(!wasResultFiltered){
+        if (!wasResultFiltered) {
             buffer.append("Currently showing all results.");
         } else {
             buffer.append("Currently filtering results");

@@ -1,8 +1,8 @@
-package com.basilio.flightsearch.dal;
+package com.basilio.flightsearch.services;
 
-import com.basilio.flightsearch.dal.air.AirportInformationDAO;
-import com.basilio.flightsearch.dal.air.AirportListConnector;
-import com.basilio.flightsearch.dal.persistence.ServiceDAO;
+import com.basilio.flightsearch.connectors.air.AirportInformationConnector;
+import com.basilio.flightsearch.connectors.air.AirportListConnector;
+import com.basilio.flightsearch.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportStub;
 import com.basilio.flightsearch.entities.User;
 import org.apache.tapestry5.ioc.annotations.Inject;
@@ -22,9 +22,9 @@ import java.util.List;
  * This is the main Data module.
  */
 
-public class DataModule {
+public class FlightSearchAppInitializer {
 
-    private static final Logger logger = LoggerFactory.getLogger(DataModule.class);
+    private static final Logger logger = LoggerFactory.getLogger(FlightSearchAppInitializer.class);
 
     private final ServiceDAO serviceDAO;
 
@@ -32,11 +32,11 @@ public class DataModule {
     private AirportListConnector airportListConnector;
 
     @Inject
-    private AirportInformationDAO airportInformationDAO;
+    private AirportInformationConnector airportInformationConnector;
 
     private boolean useLocalDemoList = false;
 
-    public DataModule(ServiceDAO serviceDAO) {
+    public FlightSearchAppInitializer(ServiceDAO serviceDAO) {
         super();
         this.serviceDAO = serviceDAO;
     }
@@ -46,19 +46,20 @@ public class DataModule {
         String loadingString = "Loading initial demo data";
         logger.info(loadingString);
 
-        try{
+        try {
             createDemoUsers();
             createDemoAirportStubs();
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
         String loadedCompleteString = "Data Loaded...";
         logger.info(loadedCompleteString);
 
     }
 
     private void createDemoAirportStubs() {
-        if(useLocalDemoList){
+        if (useLocalDemoList) {
             create(airportListConnector.getAirportStubListLocal());
-        }else{
+        } else {
             try {
                 List<AirportStub> entities = airportListConnector.getAirportStubList();
                 create(entities);
@@ -78,13 +79,13 @@ public class DataModule {
 
     private void create(List<?> entities) {
         for (Object thisEntity : entities) {
-            try{
+            try {
                 String attemptString = "Attempting to create " + thisEntity.toString();
                 logger.info(attemptString);
 
                 serviceDAO.create(thisEntity);
-            }catch(Exception e){
-                logger.error("Could not create "+thisEntity.toString());
+            } catch (Exception e) {
+                logger.error("Could not create " + thisEntity.toString());
             }
         }
     }

@@ -115,9 +115,9 @@ public class FlightSearch {
     public String getDescription() {
         StringBuffer buffer = new StringBuffer();
         buffer.append("You searched for a ");
-        if(this.isRoundTrip()){
+        if (this.isRoundTrip()) {
             buffer.append(" round");
-        }else{
+        } else {
             buffer.append(" one-way");
         }
         buffer.append(" flight from ");
@@ -125,46 +125,46 @@ public class FlightSearch {
         buffer.append(" to ");
         buffer.append(this.getDestinationAirport().getCode());
         buffer.append(", ");
-        if(this.isRoundTrip()){
+        if (this.isRoundTrip()) {
             buffer.append("from ");
             buffer.append(sdf.format(this.getDepartureDate()));
             buffer.append(" to ");
             buffer.append(sdf.format(this.getReturnDate()));
-        }else{
+        } else {
             buffer.append("on ");
             buffer.append(sdf.format(this.getDepartureDate()));
             buffer.append(", ");
         }
-        if(this.isDirectFlight()){
+        if (this.isDirectFlight()) {
             buffer.append(" only direct flights, ");
-        }else{
+        } else {
             buffer.append(" including segmented and direct flights, ");
         }
 
-        if(this.getNumberAdults()>0){
+        if (this.getNumberAdults() > 0) {
             buffer.append("for ");
             buffer.append(this.getNumberAdults());
-            if(this.getNumberAdults()>1){
+            if (this.getNumberAdults() > 1) {
                 buffer.append(" adults, ");
-            }else{
+            } else {
                 buffer.append(" adult, ");
             }
         }
-        if(this.getNumberChildren()>0){
+        if (this.getNumberChildren() > 0) {
             buffer.append("for ");
             buffer.append(this.getNumberChildren());
-            if(this.getNumberChildren()>1){
+            if (this.getNumberChildren() > 1) {
                 buffer.append(" children, ");
-            }else{
+            } else {
                 buffer.append(" child, ");
             }
         }
-        if(this.getNewBorns()>0){
+        if (this.getNewBorns() > 0) {
             buffer.append("for ");
             buffer.append(this.getNewBorns());
-            if(this.getNewBorns()>1){
+            if (this.getNewBorns() > 1) {
                 buffer.append(" newborns, ");
-            }else{
+            } else {
                 buffer.append(" newborn, ");
             }
         }

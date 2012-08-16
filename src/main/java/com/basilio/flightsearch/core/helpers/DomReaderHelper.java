@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal.air;
+package com.basilio.flightsearch.core.helpers;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -13,8 +13,8 @@ import org.w3c.dom.NodeList;
  * Time: 4:01 AM
  * To change this template use File | Settings | File Templates.
  */
-public class DomReader {
-    public static String readTag(Document doc,String tag){
+public class DomReaderHelper {
+    public static String readTag(Document doc, String tag) {
         String data = "";
         try {
             NodeList nList = doc.getElementsByTagName("airport");

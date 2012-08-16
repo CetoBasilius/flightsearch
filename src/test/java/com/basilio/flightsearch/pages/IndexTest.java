@@ -16,13 +16,13 @@ import static org.junit.Assert.assertTrue;
 public class IndexTest {
 
     @Test
-    public void testIndexShouldHaveGuestAccess(){
+    public void testIndexShouldHaveGuestAccess() {
         assertTrue(Index.class.isAnnotationPresent(GuestAccess.class));
     }
 
     @Test
-    public void testIndexOnActivateShouldRedirectToSearchPage(){
+    public void testIndexOnActivateShouldRedirectToSearchPage() {
         Index index = new Index();
-        assertEquals(SearchPage.class,index.onActivate());
+        assertEquals(SearchPage.class, index.onActivate());
     }
 }

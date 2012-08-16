@@ -5,9 +5,7 @@ import org.junit.Test;
 
 import java.util.Date;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -36,14 +34,14 @@ public class FlightSearchTest {
         flightSearch.setRoundTrip(false);
 
         assertFalse(flightSearch.isDirectFlight());
-        assertEquals(600,flightSearch.getBudgetDollars());
-        assertEquals(departureAirport1,flightSearch.getDepartureAirport());
-        assertEquals(departureDate,flightSearch.getDepartureDate());
-        assertEquals(destinationAirport1,flightSearch.getDestinationAirport());
-        assertEquals(0,flightSearch.getNewBorns());
-        assertEquals(2,flightSearch.getNumberAdults());
-        assertEquals(1,flightSearch.getNumberChildren());
-        assertEquals(returnDate,flightSearch.getReturnDate());
+        assertEquals(600, flightSearch.getBudgetDollars());
+        assertEquals(departureAirport1, flightSearch.getDepartureAirport());
+        assertEquals(departureDate, flightSearch.getDepartureDate());
+        assertEquals(destinationAirport1, flightSearch.getDestinationAirport());
+        assertEquals(0, flightSearch.getNewBorns());
+        assertEquals(2, flightSearch.getNumberAdults());
+        assertEquals(1, flightSearch.getNumberChildren());
+        assertEquals(returnDate, flightSearch.getReturnDate());
         assertFalse(flightSearch.isRoundTrip());
 
         assertTrue(flightSearch.getDescription().contains("one-way"));

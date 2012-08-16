@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal.air;
+package com.basilio.flightsearch.connectors.air;
 
 import com.basilio.flightsearch.entities.AirportStub;
 import org.apache.commons.lang3.StringUtils;
@@ -7,7 +7,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.tapestry5.annotations.Log;
 import org.jsoup.Jsoup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,7 @@ public class AirportListScraper implements AirportListConnector {
     private static final Logger logger = LoggerFactory.getLogger(AirportListScraper.class);
     private static final String airportListURL = "http://www.photius.com/wfb2001/airport_codes.html";
 
-    public List<AirportStub> getAirportStubList(){
+    public List<AirportStub> getAirportStubList() {
 
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
 
@@ -54,13 +53,13 @@ public class AirportListScraper implements AirportListConnector {
         return airportStubs;
     }
 
-    public List<AirportStub> createAirportStubList( List<String> airportGet) {
+    public List<AirportStub> createAirportStubList(List<String> airportGet) {
         List<AirportStub> airportStubs = new ArrayList<AirportStub>();
         for (String string : airportGet) {
-            if(string.length()>6){
-                String code = string.substring(0,3);
+            if (string.length() > 6) {
+                String code = string.substring(0, 3);
                 String descriptor = string.substring(6);
-                AirportStub stub = new AirportStub(code,descriptor);
+                AirportStub stub = new AirportStub(code, descriptor);
                 airportStubs.add(stub);
             }
         }

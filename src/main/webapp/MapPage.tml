@@ -3,10 +3,11 @@
         >
 
     <center>
-    <div t:type="gmap" lng="lngin" lat="latin" desclist="descParameter" coordlist="coordinatesParameter" style="width: 800px; height: 500px"/>
-    <div id="plotterError" style="display:none;">
-        There was an error loading the Google Map.
-    </div>
+        <div t:type="gmap" lng="lngin" lat="latin" desclist="descParameter" coordlist="coordinatesParameter"
+             style="width: 800px; height: 500px"/>
+        <div id="plotterError" style="display:none;">
+            There was an error loading the Google Map.
+        </div>
     </center>
 
 </html>

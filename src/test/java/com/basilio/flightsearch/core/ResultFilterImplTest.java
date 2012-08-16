@@ -38,8 +38,8 @@ public class ResultFilterImplTest {
         outRoutes1.add(outboundRoute1);
         directFlight.setOutboundRoutes(outRoutes1);
 
-        assertEquals(1,directFlight.getOutboundRoutes().size());
-        assertEquals(2,directFlight.getOutboundRoutes().get(0).getSegments().size());
+        assertEquals(1, directFlight.getOutboundRoutes().size());
+        assertEquals(2, directFlight.getOutboundRoutes().get(0).getSegments().size());
 
 
         Flight segmentedFlight = new Flight();
@@ -55,8 +55,8 @@ public class ResultFilterImplTest {
         outRoutes2.add(outboundRoute2);
         segmentedFlight.setOutboundRoutes(outRoutes2);
 
-        assertEquals(1,segmentedFlight.getOutboundRoutes().size());
-        assertEquals(3,segmentedFlight.getOutboundRoutes().get(0).getSegments().size());
+        assertEquals(1, segmentedFlight.getOutboundRoutes().size());
+        assertEquals(3, segmentedFlight.getOutboundRoutes().get(0).getSegments().size());
 
         List<Flight> flights = new ArrayList<Flight>();
         flights.add(directFlight);

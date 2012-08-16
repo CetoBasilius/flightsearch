@@ -1,8 +1,6 @@
-package com.basilio.flightsearch.dal.hotel;
+package com.basilio.flightsearch.connectors.hotel;
 
-import com.basilio.flightsearch.core.FlightResultCreator;
 import com.basilio.flightsearch.core.HotelResultCreator;
-import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import com.basilio.flightsearch.entities.hotelresult.HotelResult;
 import com.basilio.flightsearch.entities.hotelresult.HotelSearch;
 import org.apache.http.HttpEntity;
@@ -32,7 +30,7 @@ public class HotelSearchConnectorImpl implements HotelSearchConnector {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public HotelResult hotelSearch(HotelSearch hotelSearch) {
-        String Statement = createStatement(hotelSearch.getCityCode(),hotelSearch.getCheckInDate(),hotelSearch.getCheckOutDate(),hotelSearch.getDistribution());
+        String Statement = createStatement(hotelSearch.getCityCode(), hotelSearch.getCheckInDate(), hotelSearch.getCheckOutDate(), hotelSearch.getDistribution());
         return getHotelSearchResult(Statement);
     }
 
@@ -46,7 +44,7 @@ public class HotelSearchConnectorImpl implements HotelSearchConnector {
 
             InputStream instream = entity.getContent();
 
-            GZIPInputStream zippedInputStream =  new GZIPInputStream(instream);
+            GZIPInputStream zippedInputStream = new GZIPInputStream(instream);
             BufferedReader reader = new BufferedReader(new InputStreamReader(zippedInputStream));
 
             hotelResultCreator.setResultString(reader.readLine());
@@ -62,12 +60,10 @@ public class HotelSearchConnectorImpl implements HotelSearchConnector {
         return goodHotelResult;
     }
 
-    private String createStatement(String City, Date dateIn, Date dateOut, String distribution){
+    private String createStatement(String City, Date dateIn, Date dateOut, String distribution) {
         //Date format 2012-12-20
         //http://api.despegar.com/availability/cities/CITY/hotels?checkin=DATEIN&checkout=DATEOUT&distribution=DISTRIBUTION&pagesize=50;
-
         String statement = apiTemplateHotelAddress + City + "/hotels?checkin=" + sdf.format(dateIn) + "&checkout=" + sdf.format(dateOut) + "&distribution=" + distribution + "&pagesize=50";
-        System.out.println(statement);
         return statement;
     }
 }

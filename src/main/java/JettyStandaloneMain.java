@@ -1,8 +1,8 @@
-
-import org.mortbay.jetty.Server;
-import org.mortbay.jetty.webapp.WebAppContext;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
+import org.mortbay.jetty.Server;
+import org.mortbay.jetty.webapp.WebAppContext;
+
 import java.net.URL;
 import java.security.ProtectionDomain;
 
@@ -29,23 +29,23 @@ public class JettyStandaloneMain {
 
     private Server server;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         int port = Integer.parseInt(System.getProperty("port", DEF_PORT));
-        new JettyStandaloneMain(new Server(port),new WebAppContext());
+        new JettyStandaloneMain(new Server(port), new WebAppContext());
     }
 
-    public JettyStandaloneMain(){
+    public JettyStandaloneMain() {
         initLogger();
     }
 
-    public JettyStandaloneMain(Server server,WebAppContext webApp){
+    public JettyStandaloneMain(Server server, WebAppContext webApp) {
         this.webApp = webApp;
         this.server = server;
         initLogger();
         initWebApp();
     }
 
-    public void initWebApp(){
+    public void initWebApp() {
 
         ProtectionDomain domain = JettyStandaloneMain.class.getProtectionDomain();
         URL location = domain.getCodeSource().getLocation();
@@ -61,7 +61,7 @@ public class JettyStandaloneMain {
     }
 
     private void startServer(Server server) {
-        Logger.getLogger(JettyStandaloneMain.class).info("Starting server at port "+DEF_PORT);
+        Logger.getLogger(JettyStandaloneMain.class).info("Starting server at port " + DEF_PORT);
         Logger.getLogger(JettyStandaloneMain.class).info("Please wait a moment while the web application is deploying...");
         try {
             server.start();
@@ -69,7 +69,7 @@ public class JettyStandaloneMain {
         } catch (InterruptedException e) {
             Logger.getLogger(JettyStandaloneMain.class).error("Server could not be joined");
         } catch (Exception e) {
-            Logger.getLogger(JettyStandaloneMain.class).error("Server could not start, port "+DEF_PORT+" may already be in use.");
+            Logger.getLogger(JettyStandaloneMain.class).error("Server could not start, port " + DEF_PORT + " may already be in use.");
         }
     }
 

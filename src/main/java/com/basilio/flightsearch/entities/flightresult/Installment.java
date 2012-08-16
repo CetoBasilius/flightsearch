@@ -1,4 +1,3 @@
-
 package com.basilio.flightsearch.entities.flightresult;
 
 /**
@@ -10,26 +9,31 @@ package com.basilio.flightsearch.entities.flightresult;
  */
 
 public class Installment {
-   	private Number first;
-   	private Number others;
-   	private Number quantity;
+    private Number first;
+    private Number others;
+    private Number quantity;
 
- 	public Number getFirst(){
-		return this.first;
-	}
-	public void setFirst(Number first){
-		this.first = first;
-	}
- 	public Number getOthers(){
-		return this.others;
-	}
-	public void setOthers(Number others){
-		this.others = others;
-	}
- 	public Number getQuantity(){
-		return this.quantity;
-	}
-	public void setQuantity(Number quantity){
-		this.quantity = quantity;
-	}
+    public Number getFirst() {
+        return this.first;
+    }
+
+    public void setFirst(Number first) {
+        this.first = first;
+    }
+
+    public Number getOthers() {
+        return this.others;
+    }
+
+    public void setOthers(Number others) {
+        this.others = others;
+    }
+
+    public Number getQuantity() {
+        return this.quantity;
+    }
+
+    public void setQuantity(Number quantity) {
+        this.quantity = quantity;
+    }
 }

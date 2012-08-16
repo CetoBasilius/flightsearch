@@ -1,12 +1,12 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
-import com.basilio.flightsearch.dal.air.FlightSearchConnector;
-import com.basilio.flightsearch.dal.persistence.ServiceDAO;
+import com.basilio.flightsearch.connectors.air.FlightSearchConnector;
+import com.basilio.flightsearch.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.AirportString;
 import com.basilio.flightsearch.entities.AirportStub;
-import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
+import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.EventConstants;
 import org.apache.tapestry5.annotations.*;
@@ -30,6 +30,9 @@ import java.util.List;
 public class SearchPage {
 
     private static final Logger logger = LoggerFactory.getLogger(SearchPage.class);
+    public static final int MILLISECONDS_IN_ONE_DAY = 86400000;
+    public static final int MIN_SLIDER_VALUE = 0;
+    public static final int DEFAULT_SLIDER_VALUE = 500;
 
     @Inject
     private FlightSearchConnector flightSearchConnector;
@@ -105,20 +108,19 @@ public class SearchPage {
     @ActivationRequestParameter("round")
     private boolean showRoundTrip;
 
-    void setupRender()
-    {
+    void setupRender() {
         showRoundTrip = true;
-        if(startDate==null){
+        if (startDate == null) {
             Date tomorrow = new Date();
-            tomorrow.setTime(tomorrow.getTime() + 2*86400000);
+            tomorrow.setTime(tomorrow.getTime() + 2 * MILLISECONDS_IN_ONE_DAY);
             startDate = tomorrow;
         }
-        if(endDate==null){
+        if (endDate == null) {
             endDate = startDate;
         }
 
-        if (slider <= 0) {
-            slider = 500;
+        if (slider <= MIN_SLIDER_VALUE) {
+            slider = DEFAULT_SLIDER_VALUE;
         }
 
         if (adults == null) {
@@ -139,46 +141,53 @@ public class SearchPage {
 
     @OnEvent(value = EventConstants.SUCCESS, component = "SearchForm")
     private Object onSearch() {
-        System.out.println(this.showRoundTrip);
 
-
-        String originCode = origin.substring(1,4);
-        String destinationCode = destination.substring(1,4);
+        String originCode = origin.substring(1, 4);
+        String destinationCode = destination.substring(1, 4);
 
         AirportStub departureAirport = new AirportStub();
         departureAirport.setCode(originCode);
         AirportStub destinationAirport = new AirportStub();
         destinationAirport.setCode(destinationCode);
 
-        if(endDate!=null){
-            if(this.showRoundTrip){
-                if(endDate.before(startDate) || endDate.equals(startDate)){
+        if (endDate != null) {
+            if (this.showRoundTrip) {
+                if (endDate.before(startDate) || endDate.equals(startDate)) {
                     searchForm.recordError(messages.get("error.validateenddate"));
                     return null;
                 }
             }
         }
 
-        if(slider<this.getMinSliderValue()){
+        if (slider < this.getMinSliderValue()) {
             searchForm.recordError(messages.get("error.notvalid"));
             logger.error("slider value was " + slider);
             return null;
         }
 
-        int numberPersons = Integer.parseInt(adults)+Integer.parseInt(children)+Integer.parseInt(infants);
+        int numberPersons = Integer.parseInt(adults) + Integer.parseInt(children) + Integer.parseInt(infants);
 
-        if(Integer.parseInt(adults)<=0){
+        if (Integer.parseInt(adults) <= 0) {
             searchForm.recordError(messages.get("error.adultmustgo"));
             logger.error("user tried to search for no adults");
             return null;
         }
 
-        if(numberPersons>8){
+        if (numberPersons > 8) {
             searchForm.recordError(messages.get("error.exceedpersons"));
             logger.error("user tried to search for more than 8 persons");
             return null;
         }
 
+        FlightSearch flightSearch = createFlighSearch(departureAirport, destinationAirport);
+
+        FlightResult flightResult = flightSearchConnector.searchFlights(flightSearch);
+
+        resultsPage.setup(flightSearch, flightResult);
+        return resultsPage;
+    }
+
+    private FlightSearch createFlighSearch(AirportStub departureAirport, AirportStub destinationAirport) {
         FlightSearch flightSearch = new FlightSearch();
 
         flightSearch.setBudgetDollars(slider);
@@ -191,11 +200,7 @@ public class SearchPage {
         flightSearch.setNumberAdults(Integer.parseInt(adults));
         flightSearch.setNumberChildren(Integer.parseInt(children));
         flightSearch.setNewBorns(Integer.parseInt(infants));
-
-        FlightResult flightResult = flightSearchConnector.searchFlights(flightSearch);
-
-        resultsPage.setup(flightSearch, flightResult);
-        return resultsPage;
+        return flightSearch;
     }
 
     private int getMinSliderValue() {
@@ -213,14 +218,15 @@ public class SearchPage {
     }
 
     void toggleRoundTrip() {
-        if(showRoundTrip){showRoundTrip=false;}
-        else{showRoundTrip=true;}
+        showRoundTrip = !showRoundTrip;
+
     }
 
     List<String> onProvideCompletionsFromOrigin(String partial) {
         getAirports();
         List<String> result = getAutoCompleteList(partial);
-        if(result!=null && result.size()>0){
+        //CollectionUtils.isEmpty(result)   //TODO
+        if (result != null && result.size() > 0) {
             origin = result.get(0);
         }
         return result;
@@ -229,7 +235,7 @@ public class SearchPage {
     List<String> onProvideCompletionsFromDestination(String partial) {
         getAirports();
         List<String> result = getAutoCompleteList(partial);
-        if(result!=null && result.size()>0){
+        if (result != null && result.size() > 0) {
             destination = result.get(0);
         }
         return result;
@@ -237,30 +243,31 @@ public class SearchPage {
 
     /**
      * Autocomplete algorithm will return the airport with most occurences
+     *
      * @param partial the string provided by the user
-     * @return  a list that matches the partial string
+     * @return a list that matches the partial string
      */
     List<String> getAutoCompleteList(String partial) {
         List<AirportString> orderedResult = new ArrayList<AirportString>();
         List<String> finalResult = new ArrayList<String>();
 
-        if(allAirportStubs!=null){
-            if(partial.length()==3){
+        if (allAirportStubs != null) {
+            if (partial.length() == 3) {
                 for (AirportStub airport : allAirportStubs) {
-                    if(partial.toLowerCase().equals(airport.getCode().toLowerCase())){
-                        orderedResult.add(new AirportString(airport.toString(),1));
+                    if (partial.toLowerCase().equals(airport.getCode().toLowerCase())) {
+                        orderedResult.add(new AirportString(airport.toString(), 1));
                     }
                 }
-            }else{
+            } else {
 
                 for (AirportStub airport : allAirportStubs) {
                     int occurrences = StringUtils.countMatches(airport.toString().toLowerCase(), partial.toLowerCase());
-                    if(occurrences>0){
-                        orderedResult.add(new AirportString(airport.toString(),occurrences));
+                    if (occurrences > 0) {
+                        orderedResult.add(new AirportString(airport.toString(), occurrences));
                     }
                 }
 
-                Collections.sort(orderedResult,Collections.reverseOrder());
+                Collections.sort(orderedResult, Collections.reverseOrder());
             }
 
             for (AirportString airport : orderedResult) {

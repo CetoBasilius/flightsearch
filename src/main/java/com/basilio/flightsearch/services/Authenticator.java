@@ -1,6 +1,6 @@
 package com.basilio.flightsearch.services;
 
-import com.basilio.flightsearch.dal.persistence.ServiceDAO;
+import com.basilio.flightsearch.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
 import org.apache.tapestry5.services.Request;
@@ -11,7 +11,6 @@ import org.apache.tapestry5.services.Request;
  * Date: 6/15/12
  * Time: 9:27 AM
  * Basic authentication interface.
- *
  */
 public interface Authenticator {
 

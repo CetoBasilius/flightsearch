@@ -1,4 +1,3 @@
-
 package com.basilio.flightsearch.entities.flightresult;
 
 import java.util.List;
@@ -11,13 +10,14 @@ import java.util.List;
  * List of payment information.
  */
 
-public class PaymentInfo{
-   	private List<Payment> payments;
+public class PaymentInfo {
+    private List<Payment> payments;
 
- 	public List<Payment> getPayments(){
-		return this.payments;
-	}
-	public void setPayments(List<Payment> payments){
-		this.payments = payments;
-	}
+    public List<Payment> getPayments() {
+        return this.payments;
+    }
+
+    public void setPayments(List<Payment> payments) {
+        this.payments = payments;
+    }
 }
