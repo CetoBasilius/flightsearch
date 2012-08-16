@@ -1,11 +1,9 @@
 package com.basilio.flightsearch.core;
 
-import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import com.basilio.flightsearch.entities.hotelresult.HotelResult;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,6 +20,6 @@ public class HotelResultCreatorTest {
         hotelResultCreator.setResultString("{}");
         assertNotNull(hotelResultCreator.getGoodHotelResult());
         assertEquals(HotelResult.class, hotelResultCreator.getGoodHotelResult().getClass());
-        assertEquals(hotelResultCreator.getResultString(),hotelResultCreator.getAllResultString());
+        assertEquals(hotelResultCreator.getResultString(), hotelResultCreator.getAllResultString());
     }
 }

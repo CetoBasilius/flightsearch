@@ -1,11 +1,9 @@
 package com.basilio.flightsearch.services;
 
-
-import com.basilio.flightsearch.dal.*;
-import com.basilio.flightsearch.dal.air.*;
-import com.basilio.flightsearch.dal.hotel.HotelSearchConnector;
-import com.basilio.flightsearch.dal.hotel.HotelSearchConnectorImpl;
-import com.basilio.flightsearch.dal.persistence.HibernateModule;
+import com.basilio.flightsearch.connectors.air.*;
+import com.basilio.flightsearch.connectors.hotel.HotelSearchConnector;
+import com.basilio.flightsearch.connectors.hotel.HotelSearchConnectorImpl;
+import com.basilio.flightsearch.persistence.HibernateModule;
 import com.basilio.flightsearch.security.AuthenticationFilter;
 import com.basilio.flightsearch.validators.AutoCompleteIATACodeValidator;
 import com.basilio.flightsearch.validators.DateValidator;
@@ -31,15 +29,15 @@ import java.io.IOException;
  */
 
 @SubModule(
-        {HibernateModule.class, DataModule.class})
+        {HibernateModule.class, FlightSearchAppInitializer.class})
 public class AppModule {
 
     public static void bind(ServiceBinder binder) {
 
         binder.bind(Authenticator.class, AuthenticatorImpl.class);
-        binder.bind(AirportListConnector.class,AirportListScraper.class);
-        binder.bind(FlightSearchConnector.class,FlightSearchConnectorImpl.class);
-        binder.bind(AirportInformationDAO.class,HttpAirportInformationDAO.class);
+        binder.bind(AirportListConnector.class, AirportListScraper.class);
+        binder.bind(FlightSearchConnector.class, FlightSearchConnectorImpl.class);
+        binder.bind(AirportInformationConnector.class, HttpAirportInformationConnector.class);
         binder.bind(HotelSearchConnector.class, HotelSearchConnectorImpl.class);
 
 

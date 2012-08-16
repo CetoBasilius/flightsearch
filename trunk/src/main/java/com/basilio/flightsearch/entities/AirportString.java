@@ -7,7 +7,7 @@ package com.basilio.flightsearch.entities;
  * Time: 11:22 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AirportString implements Comparable<AirportString>{
+public class AirportString implements Comparable<AirportString> {
 
     private String string;
     private int occurrences;
@@ -34,6 +34,6 @@ public class AirportString implements Comparable<AirportString>{
     }
 
     public int compareTo(AirportString o) {
-        return this.getOccurrences()-o.getOccurrences();
+        return this.getOccurrences() - o.getOccurrences();
     }
 }

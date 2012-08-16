@@ -16,7 +16,6 @@ import java.io.IOException;
  * Date: 6/19/12
  * Time: 11:11 AM
  * Intercepts the current page to redirect through the requested page or to the authentication page if login is required.
- *
  */
 public class AuthenticationFilter implements ComponentRequestFilter {
 

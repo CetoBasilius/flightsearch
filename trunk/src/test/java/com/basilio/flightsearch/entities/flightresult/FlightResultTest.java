@@ -19,7 +19,7 @@ import static org.junit.Assert.assertNotNull;
 public class FlightResultTest {
 
     @Test
-    public void testGetDirectFlights(){
+    public void testGetDirectFlights() {
         FlightResult flightResult = new FlightResult();
         List<Flight> mockFlightList = new ArrayList<Flight>();
 
@@ -40,17 +40,17 @@ public class FlightResultTest {
         expect(mockedSegments.size()).andReturn(1).once();
         expect(mockedSegments.size()).andReturn(2).once();
 
-        replay(mockedFlight1,mockedOutboundRoutes,mockedSegments,mockedOutboundRoute);
+        replay(mockedFlight1, mockedOutboundRoutes, mockedSegments, mockedOutboundRoute);
 
         assertEquals(0, flightResult.getDirectFlights().size());
         assertEquals(1, flightResult.getDirectFlights().size());
         assertEquals(0, flightResult.getDirectFlights().size());
 
-        verify(mockedFlight1,mockedOutboundRoutes,mockedSegments,mockedOutboundRoute);
+        verify(mockedFlight1, mockedOutboundRoutes, mockedSegments, mockedOutboundRoute);
     }
 
     @Test
-    public void testGetDescription(){
+    public void testGetDescription() {
         FlightResult flightResult = new FlightResult();
         flightResult.setSearchedPrice(600);
         assertNotNull(flightResult.getDescription());
@@ -81,7 +81,7 @@ public class FlightResultTest {
     }
 
     @Test
-    public void testGetFlightsInPriceRange(){
+    public void testGetFlightsInPriceRange() {
         FlightResult flightResult = new FlightResult();
         flightResult.setSearchedPrice(600);
 
@@ -103,12 +103,12 @@ public class FlightResultTest {
         expect(mockedTotal.getFare()).andReturn(new Integer(20)).once();
         expect(mockedTotal.getFare()).andReturn(new Integer(3000)).once();
 
-        replay(mockedFlight1, mockedPriceInfo,mockedTotal);
+        replay(mockedFlight1, mockedPriceInfo, mockedTotal);
 
         assertEquals(2, flightResult.getFlightsInPriceRange().size());
         assertEquals(1, flightResult.getFlightsInPriceRange().size());
 
-        verify(mockedFlight1, mockedPriceInfo,mockedTotal);
+        verify(mockedFlight1, mockedPriceInfo, mockedTotal);
 
     }
 

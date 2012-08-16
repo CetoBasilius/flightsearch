@@ -3,11 +3,8 @@ package com.basilio.flightsearch.entities.flightresult;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Stack;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotNull;
-import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -18,7 +15,7 @@ import static org.testng.Assert.assertTrue;
  */
 public class SegmentsTest {
     @Test
-    public void getDescriptionsTest(){
+    public void getDescriptionsTest() {
         Segment segment = new Segment();
 
         createSegment(segment);
@@ -30,13 +27,13 @@ public class SegmentsTest {
         assertNotNull(segment.getStopDescription());
         assertNotNull(segment.getDescription());
 
-        assertEquals(String.class,segment.getArrivalDescription().getClass());
-        assertEquals(String.class,segment.getDepartureDescription().getClass());
-        assertEquals(String.class,segment.getDurationDescription().getClass());
+        assertEquals(String.class, segment.getArrivalDescription().getClass());
+        assertEquals(String.class, segment.getDepartureDescription().getClass());
+        assertEquals(String.class, segment.getDurationDescription().getClass());
     }
 
     @Test
-    public void testGetHourDescriptions(){
+    public void testGetHourDescriptions() {
         Segment segment = new Segment();
         createSegment(segment);
 
@@ -57,7 +54,7 @@ public class SegmentsTest {
     }
 
     @Test
-    public void testGetStopDescription(){
+    public void testGetStopDescription() {
         Segment segment = new Segment();
         createSegment(segment);
 

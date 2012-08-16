@@ -14,8 +14,7 @@ import org.chenillekit.tapestry.core.internal.PagedSource;
  * @version $Id$
  */
 @Import(stylesheet = {"CustomPager.css"})
-public class Pager
-{
+public class Pager {
     /**
      * The source of the data displayed by the PagedList (this is used to
      * determine
@@ -66,18 +65,15 @@ public class Pager
 
     private CustomPagedLoop pagedLoop;
 
-    void setupRender()
-    {
-        if (forId != null)
-        {
+    void setupRender() {
+        if (forId != null) {
             source = getPagedLoop().getPagedSource();
             rowsPerPage = getPagedLoop().getRowsPerPage();
             currentPage = getPagedLoop().getCurrentPage();
         }
     }
 
-    void beginRender(MarkupWriter writer)
-    {
+    void beginRender(MarkupWriter writer) {
 
         int availableRows = source.getTotalRowCount();
 
@@ -87,8 +83,8 @@ public class Pager
             return;
 
         writer.element(resources.getContainer().getComponentResources().getElementName(), "class", "paged_loop_pager");
-        writer.element("div", "class", "paged_loop_pager","id","non-printable");
-        writer.element("label","class", "paged_loop_pagenumber");
+        writer.element("div", "class", "paged_loop_pager", "id", "non-printable");
+        writer.element("label", "class", "paged_loop_pagenumber");
         writer.writeRaw("Page: ");
         writer.end();
 
@@ -100,15 +96,11 @@ public class Pager
         int low = currentPage - range;
         int high = currentPage + range;
 
-        if (low < 1)
-        {
+        if (low < 1) {
             low = 1;
             high = 2 * range + 1;
-        }
-        else
-        {
-            if (high > maxPages)
-            {
+        } else {
+            if (high > maxPages) {
                 high = maxPages;
                 low = high - 2 * range;
             }
@@ -125,36 +117,31 @@ public class Pager
         writer.end();
     }
 
-    void onAction(int newPage)
-    {
+    void onAction(int newPage) {
         // TODO: Validate newPage in range
         currentPage = newPage;
-        if (forId != null)
-        {
+        if (forId != null) {
             getPagedLoopComponent().getComponentResources().triggerEvent(
                     EventConstants.ACTION, new Integer[]{newPage},
                     null);
         }
     }
 
-    private Component getPagedLoopComponent()
-    {
+    private Component getPagedLoopComponent() {
         if (forId != null && pagedLoopComponent == null)
             pagedLoopComponent = resources.getPage().getComponentResources().getEmbeddedComponent(forId);
 
         return pagedLoopComponent;
     }
 
-    private CustomPagedLoop getPagedLoop()
-    {
+    private CustomPagedLoop getPagedLoop() {
         if (forId != null && pagedLoop == null)
             pagedLoop = (CustomPagedLoop) getPagedLoopComponent();
 
         return pagedLoop;
     }
 
-    private void writePageLink(MarkupWriter writer, int pageIndex)
-    {
+    private void writePageLink(MarkupWriter writer, int pageIndex) {
         if (pageIndex < 1 || pageIndex > maxPages)
             return;
 
@@ -166,8 +153,7 @@ public class Pager
 
         lastIndex = pageIndex;
 
-        if (pageIndex == currentPage)
-        {
+        if (pageIndex == currentPage) {
             writer.element("span", "class", "paged_loop_current");
             writer.write(Integer.toString(pageIndex));
             writer.end();

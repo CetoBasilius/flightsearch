@@ -55,7 +55,8 @@
                                             <tr>
                                                 <td class="resultfilterslider">
 
-                                                    <t:slider value="budgetFilterSlider" id="budgetFilterSlider" t:min="minPriceFilter"
+                                                    <t:slider value="budgetFilterSlider" id="budgetFilterSlider"
+                                                              t:min="minPriceFilter"
                                                               t:max="maxPriceFilter" t:steps="priceFilterSteps"
                                                               t:customHandleCSS="customHandleCSS"
                                                               t:customTrackCSS="customTrackCSS"
@@ -732,9 +733,9 @@
                                                                 <td align="left">
 
                                                                     <center>
-                                                                        <label>flights in this category cost </label>
+                                                                        <label>flights in this category cost</label>
                                                                         <b>${flightPrice}</b>
-                                                                        <label> in total</label>
+                                                                        <label>in total</label>
                                                                     </center>
                                                                 </td>
                                                                 <td>

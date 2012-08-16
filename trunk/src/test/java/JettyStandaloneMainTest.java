@@ -1,6 +1,7 @@
 import org.junit.Test;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.webapp.WebAppContext;
+import com.basilio.flightsearch.*;
 
 import static org.easymock.EasyMock.*;
 
@@ -14,6 +15,7 @@ import static org.easymock.EasyMock.*;
 public class JettyStandaloneMainTest {
     @Test
     public void testJettyStandalone() throws Exception {
+
         JettyStandaloneMain jettyStandalone = new JettyStandaloneMain();
         Server server = createNiceMock(Server.class);
         WebAppContext webApp = createNiceMock(WebAppContext.class);

@@ -17,7 +17,7 @@ public class SuggestPage {
     @Property
     private Flight flight;
 
-    public void setup(Flight flight){
+    public void setup(Flight flight) {
         this.flight = flight;
     }
 }

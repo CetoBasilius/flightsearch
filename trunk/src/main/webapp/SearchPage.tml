@@ -1,18 +1,19 @@
 <html t:type="layout"
-        title="Search flight travel deals"
-        description="Find the best flight adjusting to your budget."
+      title="Search flight travel deals"
+      description="Find the best flight adjusting to your budget."
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
-      xmlns:p="tapestry:parameter">
+        >
 
-    <form t:type="form" t:id="searchForm" class="full-form" >
-    <t:errors/>
+    <form t:type="form" t:id="searchForm" class="full-form">
+        <t:errors/>
         <table>
             <tr>
                 <th>
                     <label t:type="label" t:for="origin">Origin</label>
                 </th>
                 <td>
-                    <t:textfield t:id="origin" t:value="origin" t:mixins="autocomplete" size="70" t:validate="required,codeintextfield"/>
+                    <t:textfield t:id="origin" t:value="origin" t:mixins="autocomplete" size="70"
+                                 t:validate="required,codeintextfield"/>
                 </td>
             </tr>
             <tr>
@@ -20,7 +21,8 @@
                     <label t:type="label" t:for="destination">Destination</label>
                 </th>
                 <td>
-                    <t:textfield t:id="destination" t:mixins="autocomplete" size="70" t:validate="required,codeintextfield"/>
+                    <t:textfield t:id="destination" t:mixins="autocomplete" size="70"
+                                 t:validate="required,codeintextfield"/>
                 </td>
             </tr>
             <tr>
@@ -28,9 +30,11 @@
                     <label t:type="label" t:for="startDateTimeField">Start date&nbsp;</label>
                 </th>
                 <td>
-                    <input t:id="startDateTimeField" t:value="startDate" autocomplete="false" t:validate="required,aftertomorrow"/>
+                    <input t:id="startDateTimeField" t:value="startDate" autocomplete="false"
+                           t:validate="required,aftertomorrow"/>
                     &nbsp;&nbsp;
-                    <t:checkbox t:id="roundTrip" check="checked" value="showRoundTrip" onclick="!$('returnbox').toggle();"/>
+                    <t:checkbox t:id="roundTrip" check="checked" value="showRoundTrip"
+                                onclick="!$('returnbox').toggle();"/>
                     <t:label for="roundTrip" value="Round Trip"/>
                 </td>
             </tr>
@@ -39,7 +43,8 @@
                     <label t:type="label" t:for="endDateTimeField">Return date</label>
                 </th>
                 <td>
-                    <input t:id="endDateTimeField" t:value="endDate" autocomplete="false" t:validate="required,aftertomorrow"/>
+                    <input t:id="endDateTimeField" t:value="endDate" autocomplete="false"
+                           t:validate="required,aftertomorrow"/>
                 </td>
             </tr>
             <tr>
@@ -86,7 +91,7 @@
             <td height="10">&nbsp;</td>
         </table>
         <div class="form-submit">
-            <input type="submit" t:type="submit" value="Search" t:id="search" t:event="search" />
+            <input type="submit" t:type="submit" value="Search" t:id="search" t:event="search"/>
         </div>
     </form>
 </html>

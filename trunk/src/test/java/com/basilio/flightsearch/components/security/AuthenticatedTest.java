@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 public class AuthenticatedTest {
 
     @Test
-    public void testTest(){
+    public void testTest() {
         Authenticated authenticated = new Authenticated();
         Authenticator authenticator = createNiceMock(Authenticator.class);
 
@@ -28,7 +28,7 @@ public class AuthenticatedTest {
         replay(authenticator);
 
         assertTrue(authenticated.test());
-        assertEquals(authenticator,authenticated.getAuthenticator());
+        assertEquals(authenticator, authenticated.getAuthenticator());
 
         verify(authenticator);
     }

@@ -1,7 +1,6 @@
 package com.basilio.flightsearch.mixins;
 
 import org.apache.tapestry5.ClientElement;
-import org.apache.tapestry5.dom.Element;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
 import org.junit.Test;
 
@@ -17,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class ConfirmTest {
     @Test
-    public void testAfterRender(){
+    public void testAfterRender() {
         Confirm confirm = new Confirm();
         String message = "This is a message";
         ClientElement element = createNiceMock(ClientElement.class);
@@ -31,14 +30,14 @@ public class ConfirmTest {
         confirm.setMessage(message);
         confirm.setJavaScriptSupport(javaScriptSupport);
         confirm.setElement(element);
-        assertEquals(message,confirm.getMessage());
-        assertEquals(javaScriptSupport,confirm.getJavaScriptSupport());
+        assertEquals(message, confirm.getMessage());
+        assertEquals(javaScriptSupport, confirm.getJavaScriptSupport());
 
-        replay(element,javaScriptSupport);
+        replay(element, javaScriptSupport);
 
         confirm.afterRender();
 
-        verify(element,javaScriptSupport);
+        verify(element, javaScriptSupport);
 
     }
 }

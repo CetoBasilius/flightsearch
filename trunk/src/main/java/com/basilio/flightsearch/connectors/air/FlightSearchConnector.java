@@ -1,7 +1,7 @@
-package com.basilio.flightsearch.dal.air;
+package com.basilio.flightsearch.connectors.air;
 
-import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
+import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 
 /**
  * Created with IntelliJ IDEA.
@@ -14,6 +14,7 @@ public interface FlightSearchConnector {
 
     /**
      * Will consult a web service for a list of flights with the given search.
+     *
      * @param flightSearch
      * @return
      */

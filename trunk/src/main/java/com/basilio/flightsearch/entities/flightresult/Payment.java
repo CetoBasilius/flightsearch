@@ -1,4 +1,3 @@
-
 package com.basilio.flightsearch.entities.flightresult;
 
 /**
@@ -10,26 +9,31 @@ package com.basilio.flightsearch.entities.flightresult;
  */
 
 public class Payment {
-   	private String cardCode;
-   	private String cardDescription;
-   	private Installment installments;
+    private String cardCode;
+    private String cardDescription;
+    private Installment installments;
 
- 	public String getCardCode(){
-		return this.cardCode;
-	}
-	public void setCardCode(String cardCode){
-		this.cardCode = cardCode;
-	}
- 	public String getCardDescription(){
-		return this.cardDescription;
-	}
-	public void setCardDescription(String cardDescription){
-		this.cardDescription = cardDescription;
-	}
- 	public Installment getInstallments(){
-		return this.installments;
-	}
-	public void setInstallments(Installment installments){
-		this.installments = installments;
-	}
+    public String getCardCode() {
+        return this.cardCode;
+    }
+
+    public void setCardCode(String cardCode) {
+        this.cardCode = cardCode;
+    }
+
+    public String getCardDescription() {
+        return this.cardDescription;
+    }
+
+    public void setCardDescription(String cardDescription) {
+        this.cardDescription = cardDescription;
+    }
+
+    public Installment getInstallments() {
+        return this.installments;
+    }
+
+    public void setInstallments(Installment installments) {
+        this.installments = installments;
+    }
 }

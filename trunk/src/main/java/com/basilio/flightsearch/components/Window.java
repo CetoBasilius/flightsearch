@@ -16,8 +16,7 @@ import org.apache.tapestry5.services.javascript.JavaScriptSupport;
  * creates a window based on javascript <a href="http://prototype-window.xilinus.com/">window</a> library.
  */
 
-public class Window extends AbstractWindow
-{
+public class Window extends AbstractWindow {
     @Environmental
     private JavaScriptSupport javascriptSupport;
 
@@ -33,8 +32,7 @@ public class Window extends AbstractWindow
     private String contentDivId;
 
     @BeforeRenderBody
-    void beforeRenderBody(MarkupWriter writer)
-    {
+    void beforeRenderBody(MarkupWriter writer) {
         contentDivId = javascriptSupport.allocateClientId(getClientId() + "Content");
         hasBody = true;
         writer.element("div",
@@ -50,8 +48,7 @@ public class Window extends AbstractWindow
      * @param writer the markup writer
      */
     @AfterRenderBody
-    void afterRenderBody(MarkupWriter writer)
-    {
+    void afterRenderBody(MarkupWriter writer) {
         writer.end();
     }
 
@@ -62,8 +59,7 @@ public class Window extends AbstractWindow
      * @param writer the markup writer
      */
     @AfterRender
-    void afterRender(MarkupWriter writer)
-    {
+    void afterRender(MarkupWriter writer) {
         JSONObject windowOptions = new JSONObject();
 
         windowOptions.put("className", getClassName());

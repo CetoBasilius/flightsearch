@@ -27,10 +27,10 @@ public class AuthenticationFilterTest {
                                                           ComponentSource componentSource,
                                                           Response response,
                                                           Authenticator authenticator) {
-        return new AuthenticationFilter(renderLinkSource, componentSource, response, authenticator){
+        return new AuthenticationFilter(renderLinkSource, componentSource, response, authenticator) {
             @Override
             Class getPageClass(String pageName) {
-                if (this.getDefaultPage().equalsIgnoreCase(pageName)){
+                if (this.getDefaultPage().equalsIgnoreCase(pageName)) {
                     return this.getDefaultPageClass();
                 }
                 return Object.class;
@@ -44,7 +44,7 @@ public class AuthenticationFilterTest {
         PageRenderLinkSource renderLinkSource = createNiceMock(PageRenderLinkSource.class);
         ComponentSource componentSource = createNiceMock(ComponentSource.class);
         Response response = createNiceMock(Response.class);
-        Authenticator authenticator  = createNiceMock(Authenticator.class);
+        Authenticator authenticator = createNiceMock(Authenticator.class);
         authenticationFilter = createAuthenticateFilter(renderLinkSource, componentSource, response, authenticator);
 
         String pageName = "index";
@@ -56,7 +56,7 @@ public class AuthenticationFilterTest {
         assertFalse(authenticationFilter.dispatchedToLoginPage(pageName));
         assertTrue(authenticationFilter.dispatchedToLoginPage("otherpage"));
 
-        verify(renderLinkSource,componentSource,response,authenticator);
+        verify(renderLinkSource, componentSource, response, authenticator);
 
     }
 
@@ -66,7 +66,7 @@ public class AuthenticationFilterTest {
         PageRenderLinkSource renderLinkSource = createNiceMock(PageRenderLinkSource.class);
         ComponentSource componentSource = createNiceMock(ComponentSource.class);
         Response response = createNiceMock(Response.class);
-        Authenticator authenticator  = createNiceMock(Authenticator.class);
+        Authenticator authenticator = createNiceMock(Authenticator.class);
         authenticationFilter = createAuthenticateFilter(renderLinkSource, componentSource, response, authenticator);
 
         String pageName = authenticationFilter.getDefaultPage();
@@ -78,7 +78,7 @@ public class AuthenticationFilterTest {
         assertFalse(authenticationFilter.dispatchedToLoginPage(pageName));
         assertFalse(authenticationFilter.dispatchedToLoginPage("otherpage"));
 
-        verify(renderLinkSource,componentSource,response,authenticator);
+        verify(renderLinkSource, componentSource, response, authenticator);
 
     }
 
@@ -88,7 +88,7 @@ public class AuthenticationFilterTest {
         PageRenderLinkSource renderLinkSource = createNiceMock(PageRenderLinkSource.class);
         ComponentSource componentSource = createNiceMock(ComponentSource.class);
         Response response = createNiceMock(Response.class);
-        Authenticator authenticator  = createNiceMock(Authenticator.class);
+        Authenticator authenticator = createNiceMock(Authenticator.class);
         authenticationFilter = createAuthenticateFilter(renderLinkSource, componentSource, response, authenticator);
 
         String pageName = authenticationFilter.getSigninPage();
@@ -106,7 +106,7 @@ public class AuthenticationFilterTest {
         assertTrue(authenticationFilter.dispatchedToLoginPage(pageName));
         assertFalse(authenticationFilter.dispatchedToLoginPage("otherpage"));
 
-        verify(renderLinkSource,componentSource,response,authenticator);
+        verify(renderLinkSource, componentSource, response, authenticator);
 
     }
 

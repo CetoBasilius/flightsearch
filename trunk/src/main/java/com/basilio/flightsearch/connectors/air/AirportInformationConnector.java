@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal.air;
+package com.basilio.flightsearch.connectors.air;
 
 import com.basilio.flightsearch.entities.AirportStub;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * Time: 3:58 AM
  * To change this template use File | Settings | File Templates.
  */
-public interface AirportInformationDAO {
+public interface AirportInformationConnector {
 
     /**
      * Will return a new object that now contains latitude and longitude.

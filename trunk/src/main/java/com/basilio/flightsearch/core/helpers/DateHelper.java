@@ -10,27 +10,27 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class DateHelper {
-    public static String getHoursMinutes(Date date){
-        int milliseconds = (int)date.getTime();
-        int seconds = milliseconds/1000;
-        int totalMinutes = seconds/60;
-        int hours = totalMinutes/60;
-        int minutes = totalMinutes%60;
+    public static String getHoursMinutes(Date date) {
+        int milliseconds = (int) date.getTime();
+        int seconds = milliseconds / 1000;
+        int totalMinutes = seconds / 60;
+        int hours = totalMinutes / 60;
+        int minutes = totalMinutes % 60;
 
         String hourString = "";
-        if(hours!=1){
+        if (hours != 1) {
             hourString = " hours, ";
         } else {
             hourString = " hour, ";
         }
 
         String minutesString = "";
-        if(minutes!=1){
+        if (minutes != 1) {
             minutesString = " minutes";
         } else {
             minutesString = " minute";
         }
 
-        return hours+hourString+minutes+minutesString;
+        return hours + hourString + minutes + minutesString;
     }
 }

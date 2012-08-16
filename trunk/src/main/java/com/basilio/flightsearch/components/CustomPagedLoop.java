@@ -1,4 +1,3 @@
-
 package com.basilio.flightsearch.components;
 
 import org.apache.tapestry5.Block;
@@ -23,8 +22,7 @@ import org.chenillekit.tapestry.core.internal.PagerPosition;
  * @version $Id$
  */
 
-public class CustomPagedLoop implements ClientElement
-{
+public class CustomPagedLoop implements ClientElement {
     @Environmental
     private JavaScriptSupport javascriptSupport;
 
@@ -131,54 +129,44 @@ public class CustomPagedLoop implements ClientElement
 
     private String assignedClientId;
 
-    public String getElement()
-    {
+    public String getElement() {
         return element;
     }
 
-    public Object getPagerTop()
-    {
+    public Object getPagerTop() {
         return internalPagerPosition.isMatchTop() ? internalPager : null;
     }
 
-    public Object getPagerBottom()
-    {
+    public Object getPagerBottom() {
         return internalPagerPosition.isMatchBottom() ? internalPager : null;
     }
 
-    public PagedSource<?> getPagedSource()
-    {
+    public PagedSource<?> getPagedSource() {
         return pagedSource;
     }
 
-    public int getRowsPerPage()
-    {
+    public int getRowsPerPage() {
         return rowsPerPage;
     }
 
-    public void setRowsPerPage(int rowsPerPage)
-    {
+    public void setRowsPerPage(int rowsPerPage) {
         this.rowsPerPage = rowsPerPage;
     }
 
-    public int getCurrentPage()
-    {
+    public int getCurrentPage() {
         return currentPage;
     }
 
-    public void setCurrentPage(int currentPage)
-    {
+    public void setCurrentPage(int currentPage) {
         this.currentPage = currentPage;
     }
 
-    ValueEncoder defaultEncoder()
-    {
+    ValueEncoder defaultEncoder() {
         return defaultProvider.defaultValueEncoder("value", resources);
     }
 
     @SuppressWarnings("unchecked")
-    Object setupRender()
-    {
+    Object setupRender() {
         if (currentPage == 0)
             currentPage = 1;
 
@@ -191,8 +179,7 @@ public class CustomPagedLoop implements ClientElement
         int availableRows = pagedSource.getTotalRowCount();
 
         // If there's no rows, display the empty block placeholder.
-        if (availableRows == 0)
-        {
+        if (availableRows == 0) {
             return empty;
         }
 
@@ -206,16 +193,14 @@ public class CustomPagedLoop implements ClientElement
     }
 
     @BeginRender
-    Object begin()
-    {
+    Object begin() {
         // Skip rendering of component (template, body, etc.) when there's
         // nothing to display.
         // The empty placeholder will already have rendered.
         return (pagedSource.getTotalRowCount() != 0);
     }
 
-    void onAction(int newPage)
-    {
+    void onAction(int newPage) {
         // TODO: Validate newPage in range
         currentPage = newPage;
     }
@@ -225,8 +210,7 @@ public class CustomPagedLoop implements ClientElement
      * page. This value is intended for use as the id attribute of the client-side element, and will
      * be used with any DHTML/Ajax related JavaScript.
      */
-    public String getClientId()
-    {
+    public String getClientId() {
         return assignedClientId;
     }
 }

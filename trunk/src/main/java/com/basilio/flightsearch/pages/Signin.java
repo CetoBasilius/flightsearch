@@ -4,7 +4,6 @@ import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.security.AuthenticationException;
 import com.basilio.flightsearch.services.Authenticator;
 import org.apache.tapestry5.annotations.Component;
-import org.apache.tapestry5.annotations.Log;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.corelib.components.Form;
@@ -16,9 +15,8 @@ import org.apache.tapestry5.ioc.annotations.Inject;
  * User: Cetobasilius
  * Date: 6/16/12
  * Time: 2:03 PM
- *
+ * <p/>
  * Login page so that the user can search flights.
- *
  */
 
 @GuestAccess

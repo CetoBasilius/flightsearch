@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal.hotel;
+package com.basilio.flightsearch.connectors.hotel;
 
 import com.basilio.flightsearch.entities.hotelresult.HotelResult;
 import com.basilio.flightsearch.entities.hotelresult.HotelSearch;

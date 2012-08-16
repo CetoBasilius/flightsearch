@@ -2,7 +2,6 @@ package com.basilio.flightsearch.core;
 
 import com.basilio.flightsearch.entities.hotelresult.HotelResult;
 import com.google.gson.Gson;
-import org.apache.tapestry5.annotations.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,17 +25,17 @@ public class HotelResultCreator {
         return resultString;
     }
 
-    public HotelResult getGoodHotelResult(){
+    public HotelResult getGoodHotelResult() {
         HotelResult goodHotelResult = null;
-        try{
-            goodHotelResult = gson.fromJson(getAllResultString(),HotelResult.class);
-        } catch(Exception e){
+        try {
+            goodHotelResult = gson.fromJson(getAllResultString(), HotelResult.class);
+        } catch (Exception e) {
             logger.error("Could not create good hotel result object.");
         }
         return goodHotelResult;
     }
 
-    public String getAllResultString(){
+    public String getAllResultString() {
         return resultString;
     }
 

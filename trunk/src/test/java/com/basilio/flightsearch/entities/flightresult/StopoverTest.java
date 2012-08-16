@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 public class StopoverTest {
 
     @Test
-    public void testStopovers(){
+    public void testStopovers() {
         Stopover stopover = new Stopover();
         String code = "code";
         stopover.setAirportCode(code);
@@ -23,8 +23,8 @@ public class StopoverTest {
         String duration = "duration";
         stopover.setDuration(duration);
 
-        assertEquals(code,stopover.getAirportCode());
-        assertEquals(description,stopover.getAirportDescription());
-        assertEquals(duration,stopover.getDuration());
+        assertEquals(code, stopover.getAirportCode());
+        assertEquals(description, stopover.getAirportDescription());
+        assertEquals(duration, stopover.getDuration());
     }
 }

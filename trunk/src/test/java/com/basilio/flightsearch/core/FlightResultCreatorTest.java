@@ -1,6 +1,5 @@
 package com.basilio.flightsearch.core;
 
-import com.basilio.flightsearch.core.FlightResultCreator;
 import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import org.junit.Test;
 
@@ -21,6 +20,6 @@ public class FlightResultCreatorTest {
         flightResultCreator.setResultString("{}");
         assertNotNull(flightResultCreator.getGoodResult());
         assertEquals(FlightResult.class, flightResultCreator.getGoodResult().getClass());
-        assertEquals(flightResultCreator.getResultString(),flightResultCreator.getAllResultString());
+        assertEquals(flightResultCreator.getResultString(), flightResultCreator.getAllResultString());
     }
 }

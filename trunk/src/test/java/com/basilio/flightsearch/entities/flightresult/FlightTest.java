@@ -6,10 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.easymock.EasyMock.*;
-import static org.easymock.EasyMock.verify;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +17,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class FlightTest {
     @Test
-    public void testIsOutboundDirect(){
+    public void testIsOutboundDirect() {
 
         Flight flight = new Flight();
 
@@ -56,22 +53,22 @@ public class FlightTest {
         replay(outboundList, segmentList, outboundRoute);
 
         assertEquals(false, flight.outboundHasSegments(Flight.ONE_SEGMENT));
-        assertEquals(true,flight.outboundHasSegments(Flight.ONE_SEGMENT));
-        assertEquals(false,flight.outboundHasSegments(Flight.ONE_SEGMENT));
+        assertEquals(true, flight.outboundHasSegments(Flight.ONE_SEGMENT));
+        assertEquals(false, flight.outboundHasSegments(Flight.ONE_SEGMENT));
 
         assertEquals(true, flight.outboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
-        assertEquals(false,flight.outboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
-        assertEquals(true,flight.outboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+        assertEquals(false, flight.outboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+        assertEquals(true, flight.outboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
 
         assertEquals(true, flight.outboundHasSegments(Flight.ANY_SEGMENTS));
-        assertEquals(true,flight.outboundHasSegments(Flight.ANY_SEGMENTS));
-        assertEquals(true,flight.outboundHasSegments(Flight.ANY_SEGMENTS));
+        assertEquals(true, flight.outboundHasSegments(Flight.ANY_SEGMENTS));
+        assertEquals(true, flight.outboundHasSegments(Flight.ANY_SEGMENTS));
 
         verify(outboundList, segmentList, outboundRoute);
     }
 
     @Test
-    public void testIsInboundDirect(){
+    public void testIsInboundDirect() {
 
         Flight flight = new Flight();
 
@@ -100,23 +97,23 @@ public class FlightTest {
         replay(inboundList, segmentList, inboundRoute);
 
         assertEquals(false, flight.inboundHasSegments(Flight.ONE_SEGMENT));
-        assertEquals(true,flight.inboundHasSegments(Flight.ONE_SEGMENT));
-        assertEquals(false,flight.inboundHasSegments(Flight.ONE_SEGMENT));
+        assertEquals(true, flight.inboundHasSegments(Flight.ONE_SEGMENT));
+        assertEquals(false, flight.inboundHasSegments(Flight.ONE_SEGMENT));
 
         assertEquals(true, flight.inboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
-        assertEquals(false,flight.inboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
-        assertEquals(true,flight.inboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+        assertEquals(false, flight.inboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
+        assertEquals(true, flight.inboundHasSegments(Flight.TWO_OR_MORE_SEGMENTS));
 
         assertEquals(true, flight.inboundHasSegments(Flight.ANY_SEGMENTS));
-        assertEquals(true,flight.inboundHasSegments(Flight.ANY_SEGMENTS));
-        assertEquals(true,flight.inboundHasSegments(Flight.ANY_SEGMENTS));
+        assertEquals(true, flight.inboundHasSegments(Flight.ANY_SEGMENTS));
+        assertEquals(true, flight.inboundHasSegments(Flight.ANY_SEGMENTS));
 
         verify(inboundList, segmentList, inboundRoute);
 
     }
 
     @Test
-    public void testRoutesDescriptions(){
+    public void testRoutesDescriptions() {
         Flight flight = new Flight();
 
         List<Route> routeList = new ArrayList<Route>();
@@ -127,11 +124,11 @@ public class FlightTest {
         segmentList.add(segment);
 
         flight.setInboundRoutes(routeList);
-        assertEquals(routeList,flight.getInboundRoutes());
+        assertEquals(routeList, flight.getInboundRoutes());
         assertTrue(flight.getInDescription().contains("empty"));
 
         flight.setOutboundRoutes(routeList);
-        assertEquals(routeList,flight.getOutboundRoutes());
+        assertEquals(routeList, flight.getOutboundRoutes());
         assertTrue(flight.getOutDescription().contains("empty"));
 
         Route route = new Route();
@@ -148,12 +145,12 @@ public class FlightTest {
     }
 
     @Test
-    public void testOtherMethods(){
+    public void testOtherMethods() {
         Flight flight = new Flight();
 
         String idString = "id";
         flight.setId(idString);
-        assertEquals(idString,flight.getId());
+        assertEquals(idString, flight.getId());
 
         PriceInfo priceInfo = new PriceInfo();
         PaymentInfo paymentInfo = new PaymentInfo();
@@ -161,11 +158,11 @@ public class FlightTest {
         flight.setPaymentInfo(paymentInfo);
         flight.setPriceInfo(priceInfo);
 
-        assertEquals(priceInfo,flight.getPriceInfo());
-        assertEquals(paymentInfo,flight.getPaymentInfo());
+        assertEquals(priceInfo, flight.getPriceInfo());
+        assertEquals(paymentInfo, flight.getPaymentInfo());
 
         List<ItineraryInfo> itineraryInfos = new ArrayList<ItineraryInfo>();
         flight.setItineraryInfos(itineraryInfos);
-        assertEquals(itineraryInfos,flight.getItineraryInfos());
+        assertEquals(itineraryInfos, flight.getItineraryInfos());
     }
 }

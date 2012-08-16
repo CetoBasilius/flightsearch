@@ -1,4 +1,4 @@
-package com.basilio.flightsearch.dal.persistence;
+package com.basilio.flightsearch.persistence;
 
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Query;
@@ -17,12 +17,12 @@ import java.util.Set;
  * User: Cetobasilius
  * Date: 6/15/12
  * Time: 7:21 PM
- *
+ * <p/>
  * Hibernate Create, Read, Update, and Delete service data access interface
  * Many of the methods have @SuppressWarnings("unchecked") because Eclipse will complain about illegal behavior, however we know it will be legal.
- *
- *  <T>,  type entity
- *  <PK>, primary key
+ * <p/>
+ * <T>,  type entity
+ * <PK>, primary key
  */
 public class HibernateServiceDAO implements ServiceDAO {
 
@@ -81,7 +81,7 @@ public class HibernateServiceDAO implements ServiceDAO {
 
         T t = (T) session.getNamedQuery(queryName).uniqueResult();
         if (t == null) {
-            logger.error("There was no Object using "+queryName);
+            logger.error("There was no Object using " + queryName);
         }
         return t;
     }

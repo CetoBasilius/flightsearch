@@ -30,23 +30,23 @@ public class AirportStringTest {
         airportStringList.add(airportString3);
         airportStringList.add(airportString4);
 
-        assertEquals(2,airportStringList.get(0).getOccurrences());
-        assertEquals(2,airportStringList.get(1).getOccurrences());
-        assertEquals(4,airportStringList.get(2).getOccurrences());
-        assertEquals(1,airportStringList.get(3).getOccurrences());
+        assertEquals(2, airportStringList.get(0).getOccurrences());
+        assertEquals(2, airportStringList.get(1).getOccurrences());
+        assertEquals(4, airportStringList.get(2).getOccurrences());
+        assertEquals(1, airportStringList.get(3).getOccurrences());
 
         Collections.sort(airportStringList);
 
-        assertEquals(1,airportStringList.get(0).getOccurrences());
-        assertEquals(2,airportStringList.get(1).getOccurrences());
-        assertEquals(2,airportStringList.get(2).getOccurrences());
-        assertEquals(4,airportStringList.get(3).getOccurrences());
+        assertEquals(1, airportStringList.get(0).getOccurrences());
+        assertEquals(2, airportStringList.get(1).getOccurrences());
+        assertEquals(2, airportStringList.get(2).getOccurrences());
+        assertEquals(4, airportStringList.get(3).getOccurrences());
 
-        Collections.sort(airportStringList,Collections.reverseOrder());
+        Collections.sort(airportStringList, Collections.reverseOrder());
 
-        assertEquals(4,airportStringList.get(0).getOccurrences());
-        assertEquals(2,airportStringList.get(1).getOccurrences());
-        assertEquals(2,airportStringList.get(2).getOccurrences());
-        assertEquals(1,airportStringList.get(3).getOccurrences());
+        assertEquals(4, airportStringList.get(0).getOccurrences());
+        assertEquals(2, airportStringList.get(1).getOccurrences());
+        assertEquals(2, airportStringList.get(2).getOccurrences());
+        assertEquals(1, airportStringList.get(3).getOccurrences());
     }
 }

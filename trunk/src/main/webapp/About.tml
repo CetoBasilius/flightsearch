@@ -2,9 +2,14 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
         >
 
-    <p>Ever wanted to find a flight that adjusts to your budget? That's what Flightsearch is all about. finding flights from several dealers and travel sites with an easy to use and intuitive user interface. </p>
+    <p>Ever wanted to find a flight that adjusts to your budget? That's what Flightsearch is all about. finding flights
+        from several dealers and travel sites with an easy to use and intuitive user interface.
+    </p>
     <t:security.notAuthenticated>
-    <p>To save searches and other features you must first <t:pagelink page="SignIn">Login</t:pagelink>, If you are not a member yet, you can <t:pagelink page="SignUp">Register now!</t:pagelink></p>
+        <p>To save searches and other features you must first<t:pagelink page="SignIn">Login</t:pagelink>, If you are
+            not a member yet, you can
+            <t:pagelink page="SignUp">Register now!</t:pagelink>
+        </p>
     </t:security.notAuthenticated>
 
 

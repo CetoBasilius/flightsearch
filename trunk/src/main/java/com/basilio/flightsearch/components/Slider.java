@@ -22,8 +22,7 @@ import java.util.Locale;
 
 @Import(library = {"${tapestry.scriptaculous}/controls.js", "${tapestry.scriptaculous}/slider.js"},
         stylesheet = {"Slider.css"})
-public class Slider implements ClientElement
-{
+public class Slider implements ClientElement {
     private final static String handleCSS = "slider-handle";
     private final static String trackCSS = "slider-track";
     private final static String valueCSS = "slider-value";
@@ -81,43 +80,40 @@ public class Slider implements ClientElement
 
     private String assignedClientId;
 
-    void setupRender()
-    {
+    void setupRender() {
         assignedClientId = javascriptSupport.allocateClientId(clientId);
     }
 
-    void beginRender(MarkupWriter writer)
-    {
+    void beginRender(MarkupWriter writer) {
         handleId = "handle_" + getClientId();
         tackId = "track_" + getClientId();
         ouputId = "ouput_" + getClientId();
 
-        if(StringUtils.isNotBlank(customTrackCSS)){
+        if (StringUtils.isNotBlank(customTrackCSS)) {
             writer.element("div", "id", tackId, "class", customTrackCSS);
-        }else{
+        } else {
             writer.element("div", "id", tackId, "class", trackCSS);
         }
 
-        if(StringUtils.isNotBlank(customHandleCSS)){
-            writer.element("div", "id", handleId,"class", customHandleCSS);
-        }else{
-            writer.element("div", "id", handleId,"class", handleCSS);
+        if (StringUtils.isNotBlank(customHandleCSS)) {
+            writer.element("div", "id", handleId, "class", customHandleCSS);
+        } else {
+            writer.element("div", "id", handleId, "class", handleCSS);
         }
 
         writer.end();
         writer.end();
     }
 
-    void afterRender(MarkupWriter writer)
-    {
-        if(StringUtils.isNotBlank(customValueCSS)){
+    void afterRender(MarkupWriter writer) {
+        if (StringUtils.isNotBlank(customValueCSS)) {
             writer.element("div", "id", ouputId, "class", customValueCSS);
-        }else{
+        } else {
             writer.element("div", "id", ouputId, "class", valueCSS);
         }
 
 
-        if (value == null){
+        if (value == null) {
             value = 0;
         }
         writer.writeRaw("No more than ");
@@ -126,26 +122,26 @@ public class Slider implements ClientElement
         writer.end();
 
 
-        if(steps<=0){
-            steps=1;
+        if (steps <= 0) {
+            steps = 1;
         }
         StringBuffer ticks = new StringBuffer();
-        int range = max-min;
-        float realStep = (float)range/(float)steps;
+        int range = max - min;
+        float realStep = (float) range / (float) steps;
         ticks.append("values: [");
-        int accumulatedStep=min;
-        for(int a = 0; a<steps;a++){
+        int accumulatedStep = min;
+        for (int a = 0; a < steps; a++) {
             ticks.append(accumulatedStep);
             ticks.append(",");
-            accumulatedStep+=(int)realStep;
+            accumulatedStep += (int) realStep;
         }
         ticks.append(accumulatedStep);
         ticks.append("]");
 
         String jsCommand = "new Control.Slider('%s','%s',{sliderValue:" + getNumberPattern(value) + ",range:" +
-                "$R('%d','%d'),"+ticks.toString()+
+                "$R('%d','%d')," + ticks.toString() +
                 ",onSlide:function(v){$('%s').innerHTML = 'No more than ' + v  + ' USD'}";
-        jsCommand = String.format(Locale.US, jsCommand, handleId, tackId, value,min, max, ouputId);
+        jsCommand = String.format(Locale.US, jsCommand, handleId, tackId, value, min, max, ouputId);
 
         if (disabled)
             jsCommand += ",disabled:true";
@@ -157,27 +153,23 @@ public class Slider implements ClientElement
     }
 
     @OnEvent(value = "action")
-    private void onAction(Number value)
-    {
+    private void onAction(Number value) {
         this.value = value;
     }
 
-    public Number getValue()
-    {
+    public Number getValue() {
         return value;
     }
 
-    public void setValue(Number value)
-    {
+    public void setValue(Number value) {
         this.value = value;
     }
 
-    public String getActionLink()
-    {
+    public String getActionLink() {
         return componentResources.createEventLink(EventConstants.ACTION).toURI();
     }
 
-    private String getNumberPattern(Number value){
+    private String getNumberPattern(Number value) {
         return "%d";
     }
 
@@ -186,8 +178,7 @@ public class Slider implements ClientElement
      * page. This value is intended for use as the id attribute of the client-side element, and will
      * be used with any DHTML/Ajax related JavaScript.
      */
-    public String getClientId()
-    {
+    public String getClientId() {
         return assignedClientId;
     }
 }

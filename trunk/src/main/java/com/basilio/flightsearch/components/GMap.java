@@ -28,8 +28,7 @@ import java.util.List;
 
 @SupportsInformalParameters
 @Import(library = {"../Basi.js", "GMap.js"})
-public class GMap implements ClientElement
-{
+public class GMap implements ClientElement {
     /**
      * For blocks, messages, crete actionlink, trigger event.
      */
@@ -86,13 +85,11 @@ public class GMap implements ClientElement
     private String assignedClientId;
     private static final int MAX_POLYLINE_VERTICES = 8;
 
-    void setupRender()
-    {
+    void setupRender() {
         assignedClientId = javascriptSupport.allocateClientId(clientId);
     }
 
-    public String getPlotterId()
-    {
+    public String getPlotterId() {
         return getClientId();
     }
 
@@ -102,8 +99,7 @@ public class GMap implements ClientElement
      *
      * @param writer the markup writer
      */
-    void beginRender(MarkupWriter writer)
-    {
+    void beginRender(MarkupWriter writer) {
         Element root = writer.getDocument().getRootElement();
         Element head = root.find("head");
 
@@ -121,15 +117,14 @@ public class GMap implements ClientElement
     /**
      * Tapestry render phase method. End a tag here.
      */
-    void afterRender()
-    {
+    void afterRender() {
         JSONObject configuration = new JSONObject();
         configuration.put("zoomLevel", 5);
         configuration.put("smallControl", true);
         configuration.put("largeControl", false);
         configuration.put("typeControl", true);
         configuration.put("label", "location");
-        configuration.put("geodesic",true);
+        configuration.put("geodesic", true);
         configure(configuration);
 
         javascriptSupport.addScript("var %s = new Hb.GMap('%s_map', '%s', '%s', '%s', %s);",
@@ -139,41 +134,41 @@ public class GMap implements ClientElement
                 dragendCallbackFunction,
                 configuration.toString());
 
-        if(coordlist!=null && coordlist.size()%2==0){
+        if (coordlist != null && coordlist.size() % 2 == 0) {
             JSONObject Polyline = new JSONObject();
             double latavg = 0.0;
             double lngavg = 0.0;
-            int coordinateCount = coordlist.size()/2;
-            for(int vertexIndex = 0; vertexIndex<MAX_POLYLINE_VERTICES;vertexIndex++){
+            int coordinateCount = coordlist.size() / 2;
+            for (int vertexIndex = 0; vertexIndex < MAX_POLYLINE_VERTICES; vertexIndex++) {
 
-                if(vertexIndex<coordinateCount){
+                if (vertexIndex < coordinateCount) {
                     Double getlat = coordlist.get(2 * vertexIndex);
                     Double getlng = coordlist.get((2 * vertexIndex) + 1);
 
                     String descriptor = "";
-                    if(descList!= null){
+                    if (descList != null) {
                         descriptor = descList.get(vertexIndex);
                     }
 
-                    latavg+=getlat;
-                    lngavg+=getlng;
+                    latavg += getlat;
+                    lngavg += getlng;
 
-                    Polyline.put("lat"+(vertexIndex+1), getlat);
-                    Polyline.put("lng"+(vertexIndex+1), getlng);
+                    Polyline.put("lat" + (vertexIndex + 1), getlat);
+                    Polyline.put("lng" + (vertexIndex + 1), getlng);
 
-                    javascriptSupport.addScript("%s.setMarker(%s, %s, '%s', %s);", getClientId(), getlat, getlng, descriptor,vertexIndex);
+                    javascriptSupport.addScript("%s.setMarker(%s, %s, '%s', %s);", getClientId(), getlat, getlng, descriptor, vertexIndex);
                 } else {
                     //We must fill the list.
-                    Double getlat = coordlist.get(2 * (coordinateCount-1));
-                    Double getlng = coordlist.get((2 * (coordinateCount-1)) + 1);
+                    Double getlat = coordlist.get(2 * (coordinateCount - 1));
+                    Double getlng = coordlist.get((2 * (coordinateCount - 1)) + 1);
 
-                    Polyline.put("lat"+(vertexIndex+1), getlat);
-                    Polyline.put("lng"+(vertexIndex+1), getlng);
+                    Polyline.put("lat" + (vertexIndex + 1), getlat);
+                    Polyline.put("lng" + (vertexIndex + 1), getlng);
                 }
             }
 
-            javascriptSupport.addScript("%s.addPolyline(%s);", getClientId(),Polyline);
-            javascriptSupport.addScript("%s.setCenter(%s, %s);", getClientId(), latavg/coordinateCount, lngavg/coordinateCount);
+            javascriptSupport.addScript("%s.addPolyline(%s);", getClientId(), Polyline);
+            javascriptSupport.addScript("%s.setCenter(%s, %s);", getClientId(), latavg / coordinateCount, lngavg / coordinateCount);
         } else {
             javascriptSupport.addScript("%s.setCenter(%s, %s);", getClientId(), 0, 0);
         }
@@ -185,8 +180,7 @@ public class GMap implements ClientElement
      *
      * @param jsonObject config object
      */
-    protected void configure(JSONObject jsonObject)
-    {
+    protected void configure(JSONObject jsonObject) {
     }
 
     /**
@@ -194,8 +188,7 @@ public class GMap implements ClientElement
      * page. This value is intended for use as the id attribute of the client-side element, and will
      * be used with any DHTML/Ajax related JavaScript.
      */
-    public String getClientId()
-    {
+    public String getClientId() {
         return assignedClientId;
     }
 }

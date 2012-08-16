@@ -1,11 +1,9 @@
 package com.basilio.flightsearch.components;
 
-import org.apache.tapestry5.*;
+import org.apache.tapestry5.Asset;
 import org.apache.tapestry5.annotations.Import;
-import org.apache.tapestry5.internal.services.AssetSourceImpl;
 import org.apache.tapestry5.internal.services.ajax.JavaScriptSupportImpl;
 import org.apache.tapestry5.ioc.Resource;
-import org.apache.tapestry5.ioc.internal.services.ThreadLocaleImpl;
 import org.apache.tapestry5.ioc.services.SymbolSource;
 import org.apache.tapestry5.services.AssetSource;
 import org.apache.tapestry5.services.javascript.JavaScriptSupport;
@@ -24,41 +22,41 @@ import static org.junit.Assert.*;
 public class AbstractWindowTest {
 
     @Test
-    public void testSetupRender(){
+    public void testSetupRender() {
         AbstractWindow window = new Window();
 
         window.setGeneralClientId("id");
 
-        window.setJavascriptSupport(new JavaScriptSupportImpl(null,null,null));
+        window.setJavascriptSupport(new JavaScriptSupportImpl(null, null, null));
         window.setJavaScriptSupport(new JavaScriptSupportImpl(null, null, null));
 
         window.setupRender();
 
-        assertEquals("id",window.getAssignedClientId());
-        assertEquals("id",window.getClientId());
+        assertEquals("id", window.getAssignedClientId());
+        assertEquals("id", window.getClientId());
 
         window.setAssignedClientId("new id");
-        assertEquals("new id",window.getAssignedClientId());
+        assertEquals("new id", window.getAssignedClientId());
 
     }
 
     @Test
-    public void testBeginRender(){
+    public void testBeginRender() {
         AbstractWindow window = new Window();
         JavaScriptSupport javaScriptSupport = createNiceMock(JavaScriptSupport.class);
         window.setJavascriptSupport(javaScriptSupport);
         window.setJavaScriptSupport(javaScriptSupport);
 
-        assertEquals(javaScriptSupport,window.getJavascriptSupport());
-        assertEquals(javaScriptSupport,window.getJavaScriptSupport());
+        assertEquals(javaScriptSupport, window.getJavascriptSupport());
+        assertEquals(javaScriptSupport, window.getJavaScriptSupport());
 
         SymbolSource symbolSource = createNiceMock(SymbolSource.class);
         AssetSource assetSource = createNiceMock(AssetSource.class);
 
         window.setAssetSource(assetSource);
-        assertEquals(assetSource,window.getAssetSource());
+        assertEquals(assetSource, window.getAssetSource());
         window.setSymbolSource(symbolSource);
-        assertEquals(symbolSource,window.getSymbolSource());
+        assertEquals(symbolSource, window.getSymbolSource());
 
         expect(symbolSource.expandSymbols("${ck.components}")).andReturn("path").anyTimes();
 
@@ -75,7 +73,7 @@ public class AbstractWindowTest {
         javaScriptSupport.importStylesheet(testAsset);
         expectLastCall();
 
-        replay(symbolSource,assetSource,javaScriptSupport);
+        replay(symbolSource, assetSource, javaScriptSupport);
 
         window.setClassName("classlighting");
         window.beginRender(null);
@@ -86,7 +84,7 @@ public class AbstractWindowTest {
         window.setClassName("customname");
         window.beginRender(null);
 
-        verify(symbolSource,assetSource,javaScriptSupport);
+        verify(symbolSource, assetSource, javaScriptSupport);
 
     }
 
@@ -98,10 +96,12 @@ public class AbstractWindowTest {
         public Resource getResource() {
             return null;
         }
-    };
+    }
+
+    ;
 
     @Test
-    public void testOtherMethods(){
+    public void testOtherMethods() {
         AbstractWindow window = new Window();
 
         assertFalse(window.isShow());
@@ -109,20 +109,20 @@ public class AbstractWindowTest {
         assertFalse(window.isModal());
 
         window.setClassName("class name");
-        assertEquals("class name",window.getClassName());
+        assertEquals("class name", window.getClassName());
 
-        assertEquals(0,window.getHeight());
+        assertEquals(0, window.getHeight());
         assertEquals(0, window.getWidth());
 
         window.setTitle("test title");
-        assertEquals("test title",window.getTitle());
+        assertEquals("test title", window.getTitle());
 
         window.setResources(null);
         assertNull(window.getResources());
     }
 
     @Test
-    public void testIsAnnotationPresent(){
+    public void testIsAnnotationPresent() {
         assertTrue(AbstractWindow.class.isAnnotationPresent(Import.class));
     }
 

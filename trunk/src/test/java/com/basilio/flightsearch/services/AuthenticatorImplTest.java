@@ -1,7 +1,7 @@
 package com.basilio.flightsearch.services;
 
-import com.basilio.flightsearch.dal.persistence.QueryParameters;
-import com.basilio.flightsearch.dal.persistence.ServiceDAO;
+import com.basilio.flightsearch.persistence.QueryParameters;
+import com.basilio.flightsearch.persistence.ServiceDAO;
 import com.basilio.flightsearch.entities.User;
 import com.basilio.flightsearch.security.AuthenticationException;
 import org.apache.tapestry5.services.Request;
@@ -45,9 +45,9 @@ public class AuthenticatorImplTest {
 
         replay(request, serviceDAO, session);
 
-        authenticator.login(username,password);
+        authenticator.login(username, password);
 
-        verify(request,serviceDAO, session);
+        verify(request, serviceDAO, session);
 
     }
 
@@ -70,9 +70,9 @@ public class AuthenticatorImplTest {
 
         replay(request, serviceDAO, session);
 
-        assertEquals(user,authenticator.getLoggedUser());
+        assertEquals(user, authenticator.getLoggedUser());
 
-        verify(request,serviceDAO, session);
+        verify(request, serviceDAO, session);
 
     }
 
@@ -96,9 +96,9 @@ public class AuthenticatorImplTest {
 
         replay(request, serviceDAO, session, user);
 
-        assertEquals(true,authenticator.isUserAdmin());
+        assertEquals(true, authenticator.isUserAdmin());
 
-        verify(request,serviceDAO, session, user);
+        verify(request, serviceDAO, session, user);
 
     }
 }
