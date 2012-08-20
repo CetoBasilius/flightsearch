@@ -478,6 +478,13 @@ table td.showtd {
     #border-style:solid; border-width:1px;
 }
 
+.testtd {
+
+
+    height:20px;
+    border-style:solid;
+    border-width:1px;
+}
 
 .combobox {
     width:100%;

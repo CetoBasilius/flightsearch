@@ -187,5 +187,66 @@ public class ResultsPageTest {
         assertEquals(String.valueOf(number + 5), resultsPage.getOutWindowNumber());
     }
 
+    @Test
+    public void testGetOutSegmentsArray(){
+        ResultsPage resultsPage = new ResultsPage();
+        Route route = new Route();
+        List<Segment> segments = new ArrayList<Segment>();
+        segments.add(new Segment());
+        segments.add(new Segment());
+        segments.add(new Segment());
+        route.setSegments(segments);
+        resultsPage.setOutboundRouteValue(route);
+
+        assertEquals(route, resultsPage.getOutboundRouteValue());
+        assertEquals(segments.toArray(new Segment[0]),resultsPage.getOutSegments());
+    }
+
+    @Test
+    public void testGetInSegmentsArray(){
+        ResultsPage resultsPage = new ResultsPage();
+        Route route = new Route();
+        List<Segment> segments = new ArrayList<Segment>();
+        segments.add(new Segment());
+        segments.add(new Segment());
+        segments.add(new Segment());
+        route.setSegments(segments);
+        resultsPage.setInboundRouteValue(route);
+
+        assertEquals(route, resultsPage.getInboundRouteValue());
+        assertEquals(segments.toArray(new Segment[0]),resultsPage.getInSegments());
+
+    }
+
+    @Test
+    public void testGetOutRoutesArray(){
+        ResultsPage resultsPage = new ResultsPage();
+        Flight flight = new Flight();
+        List<Route> routes = new ArrayList<Route>();
+        routes.add(new Route());
+        routes.add(new Route());
+        routes.add(new Route());
+        flight.setOutboundRoutes(routes);
+        resultsPage.setFlightValue(flight);
+
+        assertEquals(flight,resultsPage.getFlightValue());
+        assertEquals(routes.toArray(new Route[0]),resultsPage.getOutRoutes());
+    }
+
+    @Test
+    public void testGetInRoutesArray(){
+        ResultsPage resultsPage = new ResultsPage();
+        Flight flight = new Flight();
+        List<Route> routes = new ArrayList<Route>();
+        routes.add(new Route());
+        routes.add(new Route());
+        routes.add(new Route());
+        flight.setInboundRoutes(routes);
+        resultsPage.setFlightValue(flight);
+
+        assertEquals(flight,resultsPage.getFlightValue());
+        assertEquals(routes.toArray(new Route[0]),resultsPage.getInRoutes());
+
+    }
 
 }

@@ -773,4 +773,28 @@ public class ResultsPage {
     public void setWindowNumber(int windowNumber) {
         this.windowNumber = windowNumber;
     }
+
+    public Route getInboundRouteValue() {
+        return inboundRoute;
+    }
+
+    public void setInboundRouteValue(Route inboundRoute) {
+        this.inboundRoute = inboundRoute;
+    }
+
+    public Flight getFlightValue() {
+        return flight;
+    }
+
+    public void setFlightValue(Flight flight) {
+        this.flight = flight;
+    }
+
+    public Route getOutboundRouteValue() {
+        return outboundRoute;
+    }
+
+    public void setOutboundRouteValue(Route outboundRoute) {
+        this.outboundRoute = outboundRoute;
+    }
 }
