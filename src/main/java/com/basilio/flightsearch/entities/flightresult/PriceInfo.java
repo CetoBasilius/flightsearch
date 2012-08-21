@@ -11,7 +11,7 @@ package com.basilio.flightsearch.entities.flightresult;
 public class PriceInfo {
     private Adults adults;
     private Children children;
-    private String infants;
+    private Infants infants;
     private Total total;
 
     public Adults getAdults() {
@@ -30,11 +30,11 @@ public class PriceInfo {
         this.children = children;
     }
 
-    public String getInfants() {
+    public Infants getInfants() {
         return this.infants;
     }
 
-    public void setInfants(String infants) {
+    public void setInfants(Infants infants) {
         this.infants = infants;
     }
 
