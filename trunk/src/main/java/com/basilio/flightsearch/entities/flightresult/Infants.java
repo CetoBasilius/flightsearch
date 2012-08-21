@@ -1,15 +1,15 @@
 package com.basilio.flightsearch.entities.flightresult;
 
+
 /**
  * Created with IntelliJ IDEA.
  * User: bgerman
  * Date: 7/11/12
- * Time: 1:16 PM
- * To change this template use File | Settings | File Templates.
+ * Time: 1:11 PM
+ * Results adult field. specifies how many adults and the base fare.
  */
 
-
-public class Children {
+public class Infants {
     private Number baseFare;
     private Number quantity;
 
