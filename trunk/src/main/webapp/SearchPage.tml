@@ -60,7 +60,7 @@
                     <label t:type="label" t:for="adults">Adults</label>
                 </th>
                 <td>
-                    <t:textfield t:id="adults" value="adults" size="1" t:validate="required,regexp=^[0-9]+$"/>
+                    <t:textfield t:id="adults" value="adults" size="1" t:validate="required,regexp"/>
                 </td>
             </tr>
             <tr>
@@ -68,7 +68,7 @@
                     <label t:type="label" t:for="children">Children</label>
                 </th>
                 <td>
-                    <t:textfield t:id="children" value="children" size="1" t:validate="required,regexp=^[0-9]+$"/>
+                    <t:textfield t:id="children" value="children" size="1" t:validate="required,regexp"/>
                 </td>
             </tr>
             <tr>
@@ -76,7 +76,7 @@
                     <label t:type="label" t:for="infants">Infants</label>
                 </th>
                 <td>
-                    <t:textfield t:id="infants" value="infants" size="1" t:validate="required,regexp=^[0-9]+$"/>
+                    <t:textfield t:id="infants" value="infants" size="1" t:validate="required,regexp"/>
                 </td>
             </tr>
             <tr height="5"/>

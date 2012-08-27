@@ -11,8 +11,7 @@
                         <!-- Title -->
                         <tr>
                             <td class="testtd">
-
-
+                                <label>Please confirm your booking and fill out the information.</label>
                             </td>
                         </tr>
 
@@ -21,29 +20,38 @@
                             <td>
                                 <label>Passengers</label>
                                 <!-- Must loop and add every passenger -->
-                                <t:loop source="passengers" value="passenger"
-                                        encoder="passengerValueEncoder">
+                                <t:loop source="passengers" value="passenger" encoder="passengerValueEncoder" index="passengerIndex">
 
                                     <table style="width:100%;">
                                         <tr>
-                                            <td rowspan="2" class="testtd" style="width:20%;">
+                                            <td rowspan="2" class="testtd" style="width:16%;" valign="middle" align="middle">
                                                 <!-- passenger title (adult,child,inf) -->
                                                 ${passengerId}
                                             </td>
-                                            <td class="testtd" style="width:40%;">
+                                            <td class="testtd" style="width:44%;">
                                                 <!-- name/s (as in passport) -->
+                                                <label t:type="label" t:for="passengerName">First name</label>
+                                                <t:textfield t:id="passengerName" t:value="passengerName" size="24" t:validate="required"/>
                                             </td>
                                             <td class="testtd" style="width:40%;">
                                                 <!-- last name (as in passport) -->
+                                                <label t:type="label" t:for="passengerName">Last name</label>
+                                                <t:textfield t:id="lastName" t:value="lastName" size="16" t:validate="required"/>
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td class="testtd">
                                                 <!-- birth date -->
+                                                <label t:type="label" t:for="birthDay">Birth date</label>
+                                                <t:select t:id="birthDay" model="literal:Red,Green,Blue"/>
+                                                <t:select t:id="birthMonth" model="literal:Red,Green,Blue"/>
+                                                <t:select t:id="birthYear" model="literal:Red,Green,Blue"/>
                                             </td>
                                             <td class="testtd">
                                                 <!-- gender -->
+                                                <label t:type="label" t:for="gender">Gender</label>
+                                                <t:select t:id="gender" model="literal:Female,Male"/>
                                             </td>
                                         </tr>
 
@@ -59,14 +67,18 @@
                                 <label>Payment options</label>
                                 <table style="width:100%;">
                                     <!-- loop payment options -->
-                                    <tr>
-                                        <td class="testtd">
-                                            <!-- payment radio and label -->
-                                        </td>
-                                        <td class="testtd">
-                                            <!-- payment icons and description -->
-                                        </td>
-                                    </tr>
+                                    <t:radiogroup t:id="paymentRadios" value="paymentRadioSelectedValue">
+                                    <t:loop source="paymentOptions" value="paymentOption" encoder="paymentValueEncoder" index="paymentIndex">
+                                        <tr>
+                                            <td class="testtd">
+                                                <!-- payment radio and label -->
+                                            </td>
+                                            <td class="testtd">
+                                                <!-- payment icons and description -->
+                                            </td>
+                                        </tr>
+                                    </t:loop>
+                                    </t:radiogroup>
                                 </table>
 
                                 <label>Card details</label>
@@ -106,18 +118,30 @@
                                 <label>Contact informtion</label>
                                 <table style="width:100%;">
                                     <tr>
+                                        <!-- Email -->
+                                        <td class="testtd" align="right" style="width:110px">
+                                            <label t:type="label" t:for="email">Email &nbsp;</label>
+                                        </td>
                                         <td class="testtd">
-                                            <!-- Email -->
+                                            <t:textfield t:id="email" t:value="email" size="16" t:validate="required,email"/>
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td class="testtd" align="right" style="width:110px">
+                                            <label t:type="label" t:for="confirmEmail">Confirm email &nbsp;</label>
+                                        </td>
                                         <td class="testtd">
                                             <!-- Confirm email -->
+                                            <t:textfield t:id="confirmEmail" t:value="confirmEmail" size="16" t:validate="required,email"/>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="testtd">
+                                        <td class="testtd" align="right" style="width:110px">
+                                            <label t:type="label" t:for="phone">Phone number &nbsp;</label>
+                                        </td>
+                                        <td class="testtd" colspan="2">
                                             <!-- Phone -->
+                                            <t:textfield t:id="phone" t:value="phone" size="16" t:validate="required"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -133,6 +157,9 @@
                                     <tr>
                                         <td class="testtd">
                                             <!-- I agree checkbox -->
+                                            <t:checkbox t:id="agreeTerms" value="agreeTerms"/>
+                                            &nbsp;
+                                            <label t:type="label" t:for="agreeTerms">I agree to the terms and conditions</label>
                                         </td>
                                     </tr>
                                     <tr>
