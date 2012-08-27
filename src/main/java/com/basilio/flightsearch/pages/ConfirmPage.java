@@ -1,6 +1,7 @@
 package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
+import com.basilio.flightsearch.entities.PaymentOption;
 import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import com.basilio.flightsearch.entities.Passenger;
 import org.apache.tapestry5.ValueEncoder;
@@ -27,23 +28,62 @@ public class ConfirmPage {
     private Form confirmForm;
 
     private List<Passenger> passengerList;
+    private List<PaymentOption> paymentOptionList;
+
+    @Property
+    private int passengerIndex;
+    @Property
+    private String passengerName;
+    @Property
+    private String lastName;
+    @Property
+    private String birthDay;
+    @Property
+    private String birthMonth;
+    @Property
+    private String birthYear;
+    @Property
+    private String gender;
+    @Property
+    private boolean agreeTerms;
+    @Property
+    private String email;
+    @Property
+    private String confirmEmail;
+    @Property
+    private String phone;
+    @Property
+    private Passenger passenger;
+    @Property
+    private PaymentOption paymentOption;
+    @Property
+    private int paymentIndex;
+    @Property
+    private String paymentRadioSelectedValue;
+
+    private FlightSearch flightSearch;
 
     public Passenger[] getPassengers(){
         return passengerList.toArray(new Passenger[0]);
     }
 
-    public void setupRender(){
-        if (passengerList == null) {
-            passengerList = new ArrayList<Passenger>();
-            Passenger passenger = new Passenger(Passenger.TYPE_ADULT);
-            passengerList.add(passenger);
-        }
+    public PaymentOption[] getPaymentOptions(){
+        return paymentOptionList.toArray(new PaymentOption[0]);
     }
 
-    @Property
-    private Passenger passenger;
+    public void setupRender(){
+        if (passengerList == null) {
+            paymentOptionList = new ArrayList<PaymentOption>();
+            PaymentOption paymentOption = new PaymentOption();
+            paymentOptionList.add(paymentOption);
 
-    private FlightSearch flightSearch;
+            passengerList = new ArrayList<Passenger>();
+            Passenger passenger1 = new Passenger(Passenger.TYPE_ADULT);
+            Passenger passenger2 = new Passenger(Passenger.TYPE_CHILD);
+            passengerList.add(passenger1);
+            passengerList.add(passenger2);
+        }
+    }
 
     @Property
     private final ValueEncoder<Passenger> passengerValueEncoder = new ValueEncoder<Passenger>() {
@@ -58,14 +98,45 @@ public class ConfirmPage {
         }
     };
 
+    @Property
+    private final ValueEncoder<PaymentOption> paymentValueEncoder = new ValueEncoder<PaymentOption>() {
+
+        public String toClient(PaymentOption answer) {
+            int in = paymentOptionList.indexOf(answer);
+            return String.valueOf(answer.toString());
+        }
+
+        public PaymentOption toValue(String str) {
+            return null;
+        }
+    };
+
+    private int numAdult;
+    private int numChild;
+    private int numInfant;
+
     public String getPassengerId(){
+        switch (passenger.getPassengerType()){
+            case(Passenger.TYPE_ADULT):{
+                numAdult++;
+                return passenger.getPassengerTypeString()+numAdult;
+            }
+            case(Passenger.TYPE_CHILD):{
+                numChild++;
+                return passenger.getPassengerTypeString()+numChild;
+            }
+            case(Passenger.TYPE_INFANT):{
+                numInfant++;
+                return passenger.getPassengerTypeString()+numInfant;
+            }
+        }
         return passenger.getPassengerTypeString();
     }
 
     @OnEvent(value = "confirmPurchase")
     public Object confirmPurchase(){
         return null;
-    }
 
+    }
 
 }
