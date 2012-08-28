@@ -733,9 +733,9 @@
                                                                 <td align="left">
 
                                                                     <center>
-                                                                        <label>flights in this category cost</label>
+                                                                        <label>flights in this category cost </label>
                                                                         <b>${flightPrice}</b>
-                                                                        <label>in total</label>
+                                                                        <label> in total</label>
                                                                     </center>
                                                                 </td>
                                                                 <td>

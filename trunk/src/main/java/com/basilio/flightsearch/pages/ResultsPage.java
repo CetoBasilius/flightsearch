@@ -168,6 +168,8 @@ public class ResultsPage {
 
     @InjectPage
     private SuggestPage suggestPage;
+    @InjectPage
+    private ConfirmPage confirmPage;
 
     public void setup(FlightSearch flightSearch, FlightResult flightResult) {
         customPagedLoop.setCurrentPage(1);
@@ -392,9 +394,10 @@ public class ResultsPage {
             }
         }
 
+        confirmPage.setup(this.flightResult.getFlights().get(0));
         suggestPage.setup(this.flightResult.getFlights().get(0));
 
-        return suggestPage;
+        return confirmPage;
     }
 
 
