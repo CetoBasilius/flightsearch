@@ -5,7 +5,7 @@
 
     <table style="width:100%;">
         <tr>
-            <td class="testtd" style="width:50%;" valign="top">
+            <td class="testtd" style="width:60%;" valign="top">
                 <form t:type="form" t:id="confirmForm">
                     <table style="width:100%;">
                         <!-- Title -->
@@ -22,35 +22,44 @@
                                 <!-- Must loop and add every passenger -->
                                 <t:loop source="passengers" value="passenger" encoder="passengerValueEncoder" index="passengerIndex">
 
-                                    <table style="width:100%;">
+                                    <table style="width:100%;" valign="middle">
                                         <tr>
-                                            <td rowspan="2" class="testtd" style="width:16%;" valign="middle" align="middle">
+                                            <td rowspan="2" class="testtd" style="width:10%;" valign="middle" align="middle">
                                                 <!-- passenger title (adult,child,inf) -->
                                                 ${passengerId}
                                             </td>
-                                            <td class="testtd" style="width:44%;">
-                                                <!-- name/s (as in passport) -->
-                                                <label t:type="label" t:for="passengerName">First name</label>
+                                            <!-- name/s (as in passport) -->
+                                            <td class="testtd" style="width:12%;" align="right">
+                                                <label t:type="label" t:for="passengerName">First name &nbsp;</label>
+                                            </td>
+                                            <td class="testtd" style="width:32%;">
                                                 <t:textfield t:id="passengerName" t:value="passengerName" size="24" t:validate="required"/>
                                             </td>
-                                            <td class="testtd" style="width:40%;">
-                                                <!-- last name (as in passport) -->
-                                                <label t:type="label" t:for="passengerName">Last name</label>
+                                            <!-- last name (as in passport) -->
+                                            <td class="testtd" style="width:12%;" align="right">
+                                                <label t:type="label" t:for="passengerName">Last name &nbsp;</label>
+                                            </td>
+                                            <td class="testtd" style="width:32%;">
                                                 <t:textfield t:id="lastName" t:value="lastName" size="16" t:validate="required"/>
                                             </td>
                                         </tr>
 
                                         <tr>
+                                            <td class="testtd" align="right">
+                                            <label t:type="label" t:for="birthDay">Birth date &nbsp;</label>
+                                            </td>
                                             <td class="testtd">
                                                 <!-- birth date -->
-                                                <label t:type="label" t:for="birthDay">Birth date</label>
-                                                <t:select t:id="birthDay" model="literal:Red,Green,Blue"/>
-                                                <t:select t:id="birthMonth" model="literal:Red,Green,Blue"/>
-                                                <t:select t:id="birthYear" model="literal:Red,Green,Blue"/>
+
+                                                <t:select t:id="birthDay" model="literal:day"/>
+                                                <t:select t:id="birthMonth" model="literal:month"/>
+                                                <t:select t:id="birthYear" model="literal:year"/>
+                                            </td>
+                                            <td class="testtd" align="right">
+                                                <label t:type="label" t:for="gender">Gender &nbsp;</label>
                                             </td>
                                             <td class="testtd">
                                                 <!-- gender -->
-                                                <label t:type="label" t:for="gender">Gender</label>
                                                 <t:select t:id="gender" model="literal:Female,Male"/>
                                             </td>
                                         </tr>
@@ -70,11 +79,16 @@
                                     <t:radiogroup t:id="paymentRadios" value="paymentRadioSelectedValue">
                                     <t:loop source="paymentOptions" value="paymentOption" encoder="paymentValueEncoder" index="paymentIndex">
                                         <tr>
-                                            <td class="testtd">
+                                            <td class="testtd" valign="middle">
                                                 <!-- payment radio and label -->
+                                                <t:radio
+                                                        id="radio_${paymentIndex}"
+                                                        value="paymentRadio"/>
+                                                <label>${paymentDescription}</label>
                                             </td>
                                             <td class="testtd">
                                                 <!-- payment icons and description -->
+
                                             </td>
                                         </tr>
                                     </t:loop>
@@ -84,27 +98,48 @@
                                 <label>Card details</label>
                                 <table style="width:100%;">
                                     <tr>
-                                        <td class="testtd">
-                                            <!-- Drop down card type -->
+                                        <!-- Drop down card type -->
+                                        <td class="testtd" align="right">
+                                            <label t:type="label" t:for="cardType">Card type &nbsp;</label>
                                         </td>
                                         <td class="testtd">
-                                            <!-- Card expire date -->
+                                            <t:select t:id="cardType" model="literal:Mastercard,Visa"/>
+                                        </td>
+                                        <!-- Card expire date -->
+                                        <td class="testtd" align="right">
+                                            <label t:type="label" t:for="expireMonth">Expire date &nbsp;</label>
+                                        </td>
+                                        <td class="testtd">
+                                            <t:select t:id="expireMonth" model="literal:Red,Green,Blue"/>
+                                            <t:select t:id="expireYear" model="literal:Red,Green,Blue"/>
 
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td class="testtd">
-                                            <!-- Card number -->
+                                        <!-- Card number -->
+                                        <td class="testtd" align="right">
+                                            <label t:type="label" t:for="cardNumber">Card number &nbsp;</label>
                                         </td>
                                         <td class="testtd">
-                                            <!-- security ocde -->
+                                            <t:textfield t:id="cardNumber" t:value="cardNumber" size="24" t:validate="required"/>
+                                        </td>
+                                        <!-- security ocde -->
+                                        <td class="testtd" align="right">
+                                            <label t:type="label" t:for="cardCode">Card code &nbsp;</label>
+                                        </td>
+                                        <td class="testtd">
+                                            <t:textfield t:id="cardCode" t:value="cardCode" size="6" t:validate="required"/>
                                         </td>
                                     </tr>
 
                                     <tr>
-                                        <td class="testtd">
+                                        <td class="testtd" align="right">
+                                            <label t:type="label" t:for="cardOwner">Card owner &nbsp;</label>
+                                        </td>
+                                        <td class="testtd" >
                                             <!-- name of card owner -->
+                                            <t:textfield t:id="cardOwner" t:value="cardOwner" size="24" t:validate="required"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -176,7 +211,7 @@
                 </form>
             </td>
 
-            <td class="testtd" style="width:50%;" valign="top">
+            <td class="testtd" style="width:40%;" valign="top">
                 <table style="width:100%;">
                     <tr>
                         <td class="testtd">

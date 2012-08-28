@@ -2,6 +2,7 @@ package com.basilio.flightsearch.pages;
 
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.entities.PaymentOption;
+import com.basilio.flightsearch.entities.flightresult.Flight;
 import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import com.basilio.flightsearch.entities.Passenger;
 import org.apache.tapestry5.ValueEncoder;
@@ -60,8 +61,21 @@ public class ConfirmPage {
     private int paymentIndex;
     @Property
     private String paymentRadioSelectedValue;
+    @Property
+    private String cardType;
+    @Property
+    private String expireMonth;
+    @Property
+    private String expireYear;
+    @Property
+    private String cardNumber;
+    @Property
+    private String cardCode;
+    @Property
+    private String cardOwner;
 
     private FlightSearch flightSearch;
+    private Flight flight;
 
     public Passenger[] getPassengers(){
         return passengerList.toArray(new Passenger[0]);
@@ -75,6 +89,7 @@ public class ConfirmPage {
         if (passengerList == null) {
             paymentOptionList = new ArrayList<PaymentOption>();
             PaymentOption paymentOption = new PaymentOption();
+            paymentOption.setDescription("3 Payments in 3 months");
             paymentOptionList.add(paymentOption);
 
             passengerList = new ArrayList<Passenger>();
@@ -139,4 +154,17 @@ public class ConfirmPage {
 
     }
 
+    public String getPaymentRadio() {
+        //TODO: this method gives me the correct value
+        return String.valueOf(paymentIndex);
+    }
+
+    public String getPaymentDescription(){
+        return paymentOptionList.get(paymentIndex).getDescription();
+    }
+
+    public void setup(Flight flight) {
+        this.flight = flight;
+        //get paymentinfo, then payments.
+    }
 }
