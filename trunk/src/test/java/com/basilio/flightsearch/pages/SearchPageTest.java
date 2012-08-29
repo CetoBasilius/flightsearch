@@ -17,21 +17,6 @@ import static org.junit.Assert.*;
  */
 public class SearchPageTest {
 
-    @Test
-    public void testToggleRoundTrip() {
-        SearchPage searchPage = new SearchPage();
-
-        assertFalse(searchPage.showRoundTripValue());
-
-        searchPage.toggleRoundTrip();
-
-        assertTrue(searchPage.showRoundTripValue());
-
-        searchPage.toggleRoundTrip();
-
-        assertFalse(searchPage.showRoundTripValue());
-
-    }
 
     @Test
     public void testSetupRender() {

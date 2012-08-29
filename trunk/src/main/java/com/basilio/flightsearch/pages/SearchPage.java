@@ -9,6 +9,7 @@ import com.basilio.flightsearch.entities.flightresult.FlightResult;
 import com.basilio.flightsearch.entities.flightresult.FlightSearch;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tapestry5.EventConstants;
+import org.apache.tapestry5.RenderSupport;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
 import org.apache.tapestry5.ioc.Messages;
@@ -27,6 +28,7 @@ import java.util.List;
  */
 
 @GuestAccess
+@Import()
 public class SearchPage {
 
     private static final Logger logger = LoggerFactory.getLogger(SearchPage.class);
@@ -64,12 +66,10 @@ public class SearchPage {
 
     @Persist
     @Property
-    @ActivationRequestParameter("origin")
     private String origin;
 
     @Persist
     @Property
-    @ActivationRequestParameter("destination")
     private String destination;
 
     @Property
@@ -99,17 +99,19 @@ public class SearchPage {
 
     @Persist
     @Property
-    @ActivationRequestParameter("budget")
     private int slider;
 
     //---------------------------------------
 
     @Property
-    @ActivationRequestParameter("round")
-    private boolean showRoundTrip;
+    private boolean showRoundTrip = true;
+
+    @Environmental
+    private RenderSupport renderSupport;
 
     void setupRender() {
         showRoundTrip = true;
+        renderSupport.addScript("document.getElementById('%s').checked = true;", "roundTrip");
         if (startDate == null) {
             Date tomorrow = new Date();
             tomorrow.setTime(tomorrow.getTime() + 2 * MILLISECONDS_IN_ONE_DAY);
@@ -215,11 +217,6 @@ public class SearchPage {
         if (allAirportStubs == null) {
             allAirportStubs = serviceDAO.findWithNamedQuery(AirportStub.ALL);
         }
-    }
-
-    void toggleRoundTrip() {
-        showRoundTrip = !showRoundTrip;
-
     }
 
     List<String> onProvideCompletionsFromOrigin(String partial) {
