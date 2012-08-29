@@ -34,7 +34,7 @@ public class FlightSearchAppInitializer {
     @Inject
     private AirportInformationConnector airportInformationConnector;
 
-    private boolean useLocalDemoList = false;
+    private boolean useLocalDemoList = true;
 
     public FlightSearchAppInitializer(ServiceDAO serviceDAO) {
         super();

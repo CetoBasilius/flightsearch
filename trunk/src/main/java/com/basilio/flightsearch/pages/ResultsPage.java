@@ -394,7 +394,7 @@ public class ResultsPage {
             }
         }
 
-        confirmPage.setup(this.flightResult.getFlights().get(0));
+        confirmPage.setup(this.flightSearch,this.flightResult.getFlights().get(0));
         suggestPage.setup(this.flightResult.getFlights().get(0));
 
         return confirmPage;
