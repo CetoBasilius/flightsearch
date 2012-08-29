@@ -33,8 +33,8 @@
                     <input t:id="startDateTimeField" t:value="startDate" autocomplete="false"
                            t:validate="required,aftertomorrow"/>
                     &nbsp;&nbsp;
-                    <t:checkbox t:id="roundTrip" check="checked" value="showRoundTrip"
-                                onclick="!$('returnbox').toggle();"/>
+                    <t:checkbox id="roundTrip" t:id="roundTrip" checked="yes" value="showRoundTrip"
+                                onclick="if($('returnbox').visible() &amp;&amp; !$('roundTrip').checked){$('returnbox').hide();}else{$('returnbox').show();};"/>
                     <t:label for="roundTrip" value="Round Trip"/>
                 </td>
             </tr>
