@@ -14,6 +14,12 @@ public class Passenger {
     public static final int TYPE_INFANT = 2;
 
     private int passengerType;
+    private String name;
+    private String lastName;
+    private String Gender;
+    private String birthDay;
+    private String birthMonth;
+    private String birthYear;
 
     public Passenger(int type){
         passengerType = type;
@@ -41,4 +47,53 @@ public class Passenger {
         }
         return "Unknown";
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getBirthDay() {
+        return birthDay;
+    }
+
+    public void setBirthDay(String birthDay) {
+        this.birthDay = birthDay;
+    }
+
+    public String getBirthMonth() {
+        return birthMonth;
+    }
+
+    public void setBirthMonth(String birthMonth) {
+        this.birthMonth = birthMonth;
+    }
+
+    public String getGender() {
+        return Gender;
+    }
+
+    public void setGender(String gender) {
+        Gender = gender;
+    }
+
+    public String getBirthYear() {
+        return birthYear;
+    }
+
+    public void setBirthYear(String birthYear) {
+        this.birthYear = birthYear;
+    }
+
 }
