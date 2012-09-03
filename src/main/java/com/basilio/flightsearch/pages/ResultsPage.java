@@ -345,12 +345,7 @@ public class ResultsPage {
     }
 
     public boolean getInSegmentHasStops() {
-        if (inSegment.getStopovers() != null) {
-            if (inSegment.getStopovers().size() > 0) {
-                return true;
-            }
-        }
-        return false;
+        return inSegment.getStopovers() != null && inSegment.getStopovers().size() > 0;
     }
 
 
