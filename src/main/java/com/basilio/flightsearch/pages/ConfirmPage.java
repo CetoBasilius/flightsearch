@@ -7,14 +7,17 @@ import com.basilio.flightsearch.entities.PaymentOption;
 import com.basilio.flightsearch.entities.flightresult.*;
 import com.basilio.flightsearch.entities.Passenger;
 import org.apache.commons.lang.WordUtils;
+import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.*;
 import org.apache.tapestry5.corelib.components.Form;
+import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -51,6 +54,15 @@ public class ConfirmPage {
     @Persist
     @Property
     private String birthYear;
+
+    @Persist
+    @Property
+    private List<String> birthDayList;
+
+    @Persist
+    @Property
+    private List<String> birthYearList;
+
     @Persist
     @Property
     private String gender;
@@ -69,15 +81,11 @@ public class ConfirmPage {
     @Persist
     @Property
     private Passenger passenger;
-    @Persist
-    @Property
-    private PaymentOption paymentOption;
+
     @Persist
     @Property
     private int paymentIndex;
-    @Persist
-    @Property
-    private String paymentRadioSelectedValue;
+
     @Persist
     @Property
     private String cardType;
@@ -96,6 +104,8 @@ public class ConfirmPage {
     @Persist
     @Property
     private String cardOwner;
+
+
 
 
     @Persist
@@ -138,7 +148,9 @@ public class ConfirmPage {
     }
 
     public Route getInboundRoute(){
-        inboundRoute = flight.getInboundRoutes().get(0);
+        if(flight.getInboundRoutes().size()>0){
+            inboundRoute = flight.getInboundRoutes().get(0);
+        }
         return inboundRoute;
     }
 
@@ -160,6 +172,14 @@ public class ConfirmPage {
     private Segment outSegment;
     @Property
     private Segment inSegment;
+    @Property
+    @Persist
+    private List<String> availableCards;
+
+    @Property
+    private List<String> allMonths;
+    @Property
+    private List<String> nextYears;
 
     public String getFinalMessage(){
         return builtFinalMessage;
@@ -192,16 +212,20 @@ public class ConfirmPage {
 
         public String toClient(PaymentOption answer) {
             int in = paymentOptionList.indexOf(answer);
-            return String.valueOf(answer.toString());
+            return String.valueOf(in);
         }
 
         public PaymentOption toValue(String str) {
-            return null;
+            int index = Integer.parseInt(str);
+            return paymentOptionList.get(index);
         }
     };
 
+    @Persist(PersistenceConstants.FLASH)
     private int numAdult;
+    @Persist(PersistenceConstants.FLASH)
     private int numChild;
+    @Persist(PersistenceConstants.FLASH)
     private int numInfant;
 
     public String getPassengerId(){
@@ -222,6 +246,18 @@ public class ConfirmPage {
         return passenger.getPassengerTypeString();
     }
 
+    public int getNumAdults(){
+        return numAdult;
+    }
+
+    public int getNumChildren(){
+        return numChild;
+    }
+
+    public int getNumInfants(){
+        return numInfant;
+    }
+
     @OnEvent(value = "confirmPurchase")
     public Object confirmPurchase(){
         builtFinalMessage = "";
@@ -233,19 +269,73 @@ public class ConfirmPage {
         }
 
         return null;
-
-    }
-
-    public String getPaymentRadio() {
-        //TODO: this method gives me the correct value
-        return String.valueOf(paymentIndex);
     }
 
     public String getPaymentDescription(){
         return paymentOptionList.get(paymentIndex).getDescription();
     }
 
+    public void setupRender(){
+        numAdult=0;
+        numChild=0;
+        numInfant=0;
+        if(availableCards == null){
+            availableCards = new ArrayList<String>();
+            availableCards.add("No card");
+        }
+        if(availableCards.size()>0){
+            cardType = availableCards.get(0);
+        }
+
+        if(allMonths == null){
+            allMonths = new ArrayList<String>();
+            allMonths.add("Jan");
+            allMonths.add("Feb");
+            allMonths.add("Mar");
+            allMonths.add("Apr");
+            allMonths.add("May");
+            allMonths.add("Jun");
+            allMonths.add("Jul");
+            allMonths.add("Aug");
+            allMonths.add("Sep");
+            allMonths.add("Oct");
+            allMonths.add("Nov");
+            allMonths.add("Dec");
+        }
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Calendar cal = Calendar.getInstance();
+
+        if(nextYears == null){
+            nextYears = new ArrayList<String>();
+            int nextYear = cal.get(Calendar.YEAR);
+            for(int index = 1; index < 20; index++){
+                nextYears.add(String.valueOf(nextYear+index));
+            }
+        }
+
+        if(birthDayList == null){
+            birthDayList = new ArrayList<String>();
+            for(int day = 1;day <= 31; day++){
+                birthDayList.add(String.valueOf(day));
+            }
+        }
+
+        if(birthYearList == null){
+            birthYearList = new ArrayList<String>();
+            int thisYear = cal.get(Calendar.YEAR);
+            for(int year = 0; year > -110; year--){
+                birthYearList.add(String.valueOf(thisYear+year));
+            }
+        }
+    }
+
     public void setup(FlightSearch search, Flight flight) {
+        numAdult = 0;
+        numChild = 0;
+        numInfant = 0;
+        availableCards = new ArrayList<String>();
+
         this.flightSearch = search;
         this.flight = flight;
 
@@ -266,12 +356,19 @@ public class ConfirmPage {
         getInboundRoute();
 
         List<Payment> payments = flight.getPaymentInfo().getPayments();
+
         for(int index = 0; index < payments.size();index++){
-            PaymentOption paymentOption = new PaymentOption();
-            paymentOption.setDescription(payments.get(index).getInstallments().getQuantity()+" payments of "+payments.get(index).getInstallments().getOthers());
-            paymentOptionList.add(paymentOption);
+            addCardToList(payments.get(index));
+        }
+        if(availableCards.size()>0){
+            cardType = availableCards.get(0);
         }
     }
+
+    private void addCardToList(Payment payment) {
+        availableCards.add(payment.getCardDescription());
+    }
+
 
     public boolean getPageReady(){
         return passengerList != null;
