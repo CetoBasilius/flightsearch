@@ -7,6 +7,7 @@ import com.basilio.flightsearch.entities.PaymentOption;
 import com.basilio.flightsearch.entities.flightresult.*;
 import com.basilio.flightsearch.entities.Passenger;
 import org.apache.commons.lang.WordUtils;
+import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.PersistenceConstants;
 import org.apache.tapestry5.ValueEncoder;
 import org.apache.tapestry5.annotations.*;
@@ -137,6 +138,13 @@ public class ConfirmPage {
             "title=literal:Inbound flight details"})
     private Window inboundWindow;
 
+    @Component(parameters = {"style=greylighting",
+            "show=false",
+            "modal=true",
+            "width=500",
+            "title=literal:Terms and conditions"})
+    private Window termsWindow;
+
     @Property
     private int outBoundIndex;
     @Property
@@ -180,6 +188,16 @@ public class ConfirmPage {
     private List<String> allMonths;
     @Property
     private List<String> nextYears;
+
+    @Property
+    private String paymentRadioSelectedValue;
+
+    @Inject
+    private ComponentResources componentResources;
+    @Property
+    private PaymentOption paymentOption;
+    @Property
+    private String paymentRadio;
 
     public String getFinalMessage(){
         return builtFinalMessage;
@@ -363,10 +381,25 @@ public class ConfirmPage {
         if(availableCards.size()>0){
             cardType = availableCards.get(0);
         }
+
+        populatePaymentOptionsList(cardType);
     }
 
     private void addCardToList(Payment payment) {
-        availableCards.add(payment.getCardDescription());
+        if(availableCards.size()>0){
+            boolean cardNameAlreadyExists = false;
+            for(String card : availableCards){
+                if(card.equals(payment.getCardDescription())){
+                    cardNameAlreadyExists = true;
+                    break;
+                }
+            }
+            if(!cardNameAlreadyExists){
+                availableCards.add(payment.getCardDescription());
+            }
+        } else{
+            availableCards.add(payment.getCardDescription());
+        }
     }
 
 
@@ -603,4 +636,56 @@ public class ConfirmPage {
             return null;
         }
     };
+
+    @InjectComponent
+    private Zone paymentOptionsZone;
+
+    Object onValueChangedFromCardType(String cardType) {
+        paymentOptionList = new ArrayList<PaymentOption>();
+
+        populatePaymentOptionsList(cardType);
+
+        System.out.println(cardType);
+        return request.isXHR() ? paymentOptionsZone.getBody() : null;
+    }
+
+    private void populatePaymentOptionsList(String cardType) {
+        for(int index = 0; index< flight.getPaymentInfo().getPayments().size();index++){
+            Payment payment = flight.getPaymentInfo().getPayments().get(index);
+            if(payment.getCardDescription().equals(cardType)){
+                PaymentOption paymentOption1 = new PaymentOption();
+                paymentOption1.setNumberOfPayments((Integer) payment.getInstallments().getQuantity());
+                paymentOption1.setFirstPayment((Integer) payment.getInstallments().getFirst());
+                paymentOption1.setOtherPayments((Integer) payment.getInstallments().getOthers());
+                paymentOption1.getCards().add(payment.getCardDescription());
+
+                paymentOptionList.add(paymentOption1);
+            }
+        }
+    }
+
+    public String getAdultTotalPrice(){
+        return "";
+    }
+
+    public String getChildrenTotalPrice(){
+        return "";
+    }
+
+    public String getInfantsTotalPrice(){
+        return "";
+    }
+
+    public String getTaxes(){
+        return "";
+    }
+
+    public String getCharges(){
+        return "";
+    }
+
+    public String getPriceTotal(){
+        return "";
+    }
+
 }

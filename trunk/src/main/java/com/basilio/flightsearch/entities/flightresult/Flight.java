@@ -10,7 +10,7 @@ import java.util.List;
  * Time: 11:22 AM
  * Actual flight result.
  */
-public class Flight {
+public class Flight implements Cloneable{
 
     public final static int ANY_SEGMENTS = 1;
     public final static int ONE_SEGMENT = 2;
@@ -27,6 +27,10 @@ public class Flight {
         inboundRoutes = new ArrayList<Route>();
         itineraryInfos = new ArrayList<ItineraryInfo>();
         outboundRoutes = new ArrayList<Route>();
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     public String getId() {
