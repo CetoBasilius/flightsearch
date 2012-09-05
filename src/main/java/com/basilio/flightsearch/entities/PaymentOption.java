@@ -59,7 +59,19 @@ public class PaymentOption {
     public String getDescription() {
         String paymentString = "Payment";
         if(numberOfPayments>1){paymentString+="s";}
-        return numberOfPayments+" "+paymentString;
+
+        String paymentPricesString = "";
+        if(this.numberOfPayments>1){
+            paymentPricesString = ", First payment of "+this.firstPayment+" dollars, and "+(numberOfPayments-1);
+            if(numberOfPayments-1 > 1){
+                paymentPricesString += " other payments of "+otherPayments+" dollars.";
+            }else{
+                paymentPricesString+= " other payment of "+otherPayments+" dollars.";
+            }
+        } else{
+            paymentPricesString = ", of "+this.firstPayment+" dollars.";
+        }
+        return numberOfPayments+" "+paymentString+paymentPricesString;
 
     }
 

@@ -6,19 +6,19 @@
     <t:if test="pageReady">
         <table style="width:100%;">
             <tr>
-                <td class="testtd" style="width:60%;" valign="top">
+                <td style="width:60%;" valign="top">
                     <form t:type="form" t:id="confirmForm">
                         <table style="width:100%;">
 
                             <!-- Title -->
                             <tr>
-                                <td class="testtd">
+                                <td align="center">
                                     <label>Please confirm your booking and fill out the information.</label>
                                 </td>
                             </tr>
                             <!-- Errors -->
                             <tr>
-                                <td class="testtd">
+                                <td>
                                     <t:errors/>
                                 </td>
                             </tr>
@@ -26,7 +26,8 @@
                             <!-- Passengers area -->
                             <tr>
                                 <td>
-                                    <label>Passengers</label>
+
+                                    <label><b>Passengers</b></label>
                                     <!-- Must loop and add every passenger -->
                                     <t:loop source="passengers" value="passenger" encoder="passengerValueEncoder" index="passengerIndex">
 
@@ -79,17 +80,40 @@
                             <!-- Payment options -->
                             <tr>
                                 <td>
-                                    <label>Card details</label>
+                                    <br/>
+                                    <label><b>Card details</b></label>
                                     <table style="width:100%;" class="rounded4">
                                         <tr>
                                             <!-- Drop down card type -->
                                             <td align="right">
                                                 <label t:type="label" t:for="cardType">Card type &nbsp;</label>
                                             </td>
-                                            <td>
-                                                <t:select t:id="cardType" model="availableCards" t:validate="required"/>
+                                            <td colspan="3">
+                                                <t:select t:id="cardType"
+                                                          t:value="cardType"
+                                                          t:model="availableCards"
+                                                          t:validate="required"
+                                                          t:zone="paymentOptionsZone"/>
                                             </td>
                                             <!-- Card expire date -->
+
+                                        </tr>
+
+                                        <tr>
+                                            <!-- Card number -->
+                                            <td align="right">
+                                                <label t:type="label" t:for="cardNumber">Card number &nbsp;</label>
+                                            </td>
+                                            <td>
+                                                <t:textfield t:id="cardNumber" t:value="cardNumber" size="16" t:validate="required"/>
+                                            </td>
+                                            <!-- security ocde -->
+                                            <td align="right">
+                                                <label t:type="label" t:for="cardCode">Card code &nbsp;</label>
+                                            </td>
+                                            <td>
+                                                <t:textfield t:id="cardCode" t:value="cardCode" size="6" t:validate="required"/>
+                                            </td>
                                             <td align="right">
                                                 <label t:type="label" t:for="expireMonth">Expire date &nbsp;</label>
                                             </td>
@@ -101,45 +125,45 @@
                                         </tr>
 
                                         <tr>
-                                            <!-- Card number -->
-                                            <td align="right">
-                                                <label t:type="label" t:for="cardNumber">Card number &nbsp;</label>
-                                            </td>
-                                            <td>
-                                                <t:textfield t:id="cardNumber" t:value="cardNumber" size="24" t:validate="required"/>
-                                            </td>
-                                            <!-- security ocde -->
-                                            <td align="right">
-                                                <label t:type="label" t:for="cardCode">Card code &nbsp;</label>
-                                            </td>
-                                            <td>
-                                                <t:textfield t:id="cardCode" t:value="cardCode" size="6" t:validate="required"/>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
                                             <td align="right">
                                                 <label t:type="label" t:for="cardOwner">Card owner &nbsp;</label>
                                             </td>
                                             <td>
                                                 <!-- name of card owner -->
-                                                <t:textfield t:id="cardOwner" t:value="cardOwner" size="24" t:validate="required"/>
+                                                <t:textfield t:id="cardOwner" t:value="cardOwner" size="16" t:validate="required"/>
                                             </td>
                                         </tr>
                                     </table>
 
-                                    <label>Payment options</label>
-                                    <table style="width:100%;" class="rounded4">
-                                    </table>
-
+                                    <t:zone t:id="paymentOptionsZone" id="paymentOptionsZone" style="display: inline;">
+                                        <br/>
+                                        <label><b>Payment options</b></label>
+                                        <table class="rounded4">
+                                            <!-- loop payment options -->
+                                            <t:radiogroup t:id="paymentRadios" value="paymentRadioSelectedValue">
+                                                <t:loop source="paymentOptions" value="paymentOption" encoder="paymentValueEncoder" index="paymentIndex">
+                                                    <tr>
+                                                        <td valign="middle">
+                                                            <!-- payment radio and label -->
+                                                            <t:radio
+                                                                    id="radio_${paymentIndex}"
+                                                                    value="paymentRadio"/>
+                                                            <label>${paymentDescription}</label>
+                                                        </td>
+                                                    </tr>
+                                                </t:loop>
+                                            </t:radiogroup>
+                                        </table>
+                                    </t:zone>
                                 </td>
                             </tr>
 
                             <!-- Contact information -->
                             <tr>
                                 <td>
-                                    <label>Contact informtion</label>
-                                    <table style="width:100%;" class="rounded4">
+                                    <br/>
+                                    <label><b>Contact informtion</b></label>
+                                    <table class="rounded4">
                                         <tr>
                                             <!-- Email -->
                                             <td align="right" style="width:110px">
@@ -174,40 +198,52 @@
 
                             <!-- Pay and agree terms -->
                             <tr>
-                                <td class="testtd">
-                                    <label>Confirm purchase</label>
+                                <td>
+                                    <br/>
                                     <table style="width:100%;">
                                         <tr>
                                             <td>
                                                 <!-- I agree checkbox -->
                                                 <t:checkbox t:id="agreeTerms" value="agreeTerms"/>
                                                 &nbsp;
-                                                <label t:type="label" t:for="agreeTerms">I agree to the terms and conditions</label>
+                                                <label t:type="label" t:for="agreeTerms">I agree to the <a href="#terms"
+                                                                                                           onclick="Windows.windows[0].showCenter();">
+                                                    terms and conditions</a>.</label>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <!-- confirm purchase -->
-                                                <input type="submit" t:type="submit" value="Confirm"
+                                                <input type="submit" t:type="submit" value="Confirm purchase"
                                                        t:id="confirmPurchase" t:event="confirmPurchase"/>
                                             </td>
                                         </tr>
                                     </table>
+                                    <div t:id="termsWindow">
+                                        <div class="rounded4"
+                                         style="width:97%;">
+                                            <p>Any information entered in this page must not be real. If any personal information gets lost we are not liable about it.
+                                            This page cannot be used to buy or book any flight and is for educational purposes only. Any information entered might be collected.</p>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         </table>
                     </form>
                 </td>
 
-                <td class="testtd" style="width:40%;" valign="top">
+                <td style="width:40%;" valign="top">
+
                     <table style="width:100%;">
                         <tr>
-                            <td>
-                                <table align="center">
+                            <td align="center">
+                                <label><b>Price information:</b></label>
+                                <table style="width:70%;" align="center">
                                     <tr>
-                                        <td class="testtd">
+                                        <td  class="roundedbox" align="center">
                                             <!-- Price information -->
-                                            <table>
+
+                                            <table style="width=100%;">
                                                 <tr>
                                                     <td>
                                                         <!-- Adult quantity -->
@@ -215,7 +251,7 @@
                                                     </td>
                                                     <td>
                                                         <!-- total adult price -->
-                                                        <label>Test</label>
+                                                        <label>${adultTotalPrice}</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -225,7 +261,7 @@
                                                     </td>
                                                     <td>
                                                         <!-- total children price -->
-                                                        <label>Test</label>
+                                                        <label>${childrenTotalPrice}</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -235,7 +271,7 @@
                                                     </td>
                                                     <td>
                                                         <!-- total infant price -->
-                                                        <label>Test</label>
+                                                        <label>${infantsTotalPrice}</label>
                                                     </td>
                                                 </tr>
 
@@ -246,7 +282,7 @@
                                                     </td>
                                                     <td>
                                                         <!-- taxes -->
-                                                        <label>Test</label>
+                                                        <label>${taxes}</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -256,7 +292,7 @@
                                                     </td>
                                                     <td>
                                                         <!-- charges -->
-                                                        <label>Test</label>
+                                                        <label>${charges}</label>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -266,7 +302,7 @@
                                                     </td>
                                                     <td>
                                                         <!-- total -->
-                                                        <label>Test</label>
+                                                        <label>${priceTotal}</label>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -277,9 +313,11 @@
                         </tr>
 
                         <tr>
-                            <td class="testtd">
+                            <td align="center">
                                 <!-- Itinerary information -->
-                                <table style="width:100%;">
+                                <br/>
+                                <label><b>Flight information:</b></label>
+                                <table style="width:70%;">
                                     <tr>
                                         <td class="roundedbox">
                                             <table class="combobox">
@@ -362,7 +400,7 @@
                                                                                                                 <td colspan="3">
                                                                                                                     <center>
                                                                                                                         <a href="#outwindow0"
-                                                                                                                           onclick="Windows.windows[0].showCenter();">
+                                                                                                                           onclick="Windows.windows[1].showCenter();">
                                                                                                                             Show
                                                                                                                             more
                                                                                                                             details
@@ -600,7 +638,7 @@
                                                                                                         <td colspan="3">
                                                                                                             <center>
                                                                                                                 <a href="#inwindow0"
-                                                                                                                   onclick="Windows.windows[1].showCenter();">
+                                                                                                                   onclick="Windows.windows[2].showCenter();">
                                                                                                                     Show
                                                                                                                     more
                                                                                                                     details

@@ -281,12 +281,13 @@ public class ResultsPage {
     }
 
     public String getOutboundRouteShort() {
-        //TODO: this method gives me the correct value
-        return "FLIGHT:" + (this.getNumFlightsBeforeCurrentPage() + flightIndex) + " OUT:" + outBoundIndex;
+        //Flight,OutboundRoute
+        return (this.getNumFlightsBeforeCurrentPage() + flightIndex) + "," + outBoundIndex;
     }
 
     public String getInboundRouteShort() {
-        return " IN:" + inBoundIndex;
+        //,InboundRoute
+        return " ," + inBoundIndex;
     }
 
 
@@ -373,6 +374,10 @@ public class ResultsPage {
 
     @OnEvent(value = EventConstants.SUCCESS, component = "buyForm")
     public Object buyTicket() {
+        int selectedOutRouteIndex = -1;
+        int selectedFlightIndex = -1;
+        int selectedInRouteIndex = -1;
+
         if (StringUtils.isNotBlank(outRadioSelectedValue)) {
 
             bought = this.outRadioSelectedValue;
@@ -381,16 +386,58 @@ public class ResultsPage {
             return null;
         }
         if (flightSearch.isRoundTrip()) {
+
             if (StringUtils.isNotBlank(inRadioSelectedValue)) {
                 bought += this.inRadioSelectedValue;
+
+                String[] numbers = bought.split(",");
+                if(numbers.length==3){
+                    selectedFlightIndex = Integer.parseInt(numbers[0]);
+                    selectedOutRouteIndex = Integer.parseInt(numbers[1]);
+                    selectedInRouteIndex = Integer.parseInt(numbers[2]);
+                } else{
+                    errorForm.recordError(messages.get("error.somethingwrong"));
+                }
             } else {
                 errorForm.recordError(messages.get("error.mustselectinboundroute"));
                 return null;
             }
+        } else {
+            String[] numbers = bought.split(",");
+            if(numbers.length==2){
+                selectedFlightIndex = Integer.parseInt(numbers[0]);
+                selectedOutRouteIndex = Integer.parseInt(numbers[1]);
+
+            } else{
+                errorForm.recordError(messages.get("error.somethingwrong"));
+            }
         }
 
-        confirmPage.setup(this.flightSearch,this.flightResult.getFlights().get(0));
-        suggestPage.setup(this.flightResult.getFlights().get(0));
+        Flight chosenFlightCombo = null;
+        try {
+            chosenFlightCombo = (Flight) flightResult.getFlights().get(selectedFlightIndex).clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        if(chosenFlightCombo!=null){
+            Route ChosenOutboundRoute = chosenFlightCombo.getOutboundRoutes().get(selectedOutRouteIndex);
+            Route chosenInboundRoute = null;
+            if(selectedInRouteIndex>=0){
+                chosenInboundRoute = chosenFlightCombo.getInboundRoutes().get(selectedInRouteIndex);
+            }
+
+            chosenFlightCombo.getOutboundRoutes().clear();
+            chosenFlightCombo.getInboundRoutes().clear();
+
+            chosenFlightCombo.getOutboundRoutes().add(ChosenOutboundRoute);
+            if(selectedInRouteIndex>=0){
+                chosenFlightCombo.getInboundRoutes().add(chosenInboundRoute);
+            }
+
+            confirmPage.setup(this.flightSearch,chosenFlightCombo);
+
+            suggestPage.setup(this.flightResult.getFlights().get(0));
+        }
 
         return confirmPage;
     }
