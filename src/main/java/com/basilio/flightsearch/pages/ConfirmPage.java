@@ -3,9 +3,13 @@ package com.basilio.flightsearch.pages;
 import com.basilio.flightsearch.annotations.GuestAccess;
 import com.basilio.flightsearch.components.Window;
 import com.basilio.flightsearch.core.helpers.NumberHelper;
+import com.basilio.flightsearch.entities.CardDetails;
+import com.basilio.flightsearch.entities.ContactInformation;
 import com.basilio.flightsearch.entities.PaymentOption;
 import com.basilio.flightsearch.entities.flightresult.*;
 import com.basilio.flightsearch.entities.Passenger;
+import com.basilio.flightsearch.services.BookingService;
+import com.basilio.flightsearch.services.BookingServiceImpl;
 import org.apache.commons.lang.WordUtils;
 import org.apache.tapestry5.ComponentResources;
 import org.apache.tapestry5.PersistenceConstants;
@@ -16,8 +20,6 @@ import org.apache.tapestry5.corelib.components.Zone;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.services.Request;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -70,15 +72,11 @@ public class ConfirmPage {
     @Persist
     @Property
     private boolean agreeTerms;
+
     @Persist
     @Property
-    private String email;
-    @Persist
-    @Property
-    private String confirmEmail;
-    @Persist
-    @Property
-    private String phone;
+    private ContactInformation contactInformation;
+
     @Persist
     @Property
     private Passenger passenger;
@@ -89,25 +87,10 @@ public class ConfirmPage {
 
     @Persist
     @Property
-    private String cardType;
-    @Persist
-    @Property
-    private String expireMonth;
-    @Persist
-    @Property
-    private String expireYear;
-    @Persist
-    @Property
-    private String cardNumber;
-    @Persist
-    @Property
-    private String cardCode;
-    @Persist
-    @Property
-    private String cardOwner;
+    private CardDetails cardDetails;
 
-
-
+    @Inject
+    private BookingService bookingService;
 
     @Persist
     private String builtFinalMessage;
@@ -150,6 +133,9 @@ public class ConfirmPage {
     @Property
     private int inBoundIndex;
 
+    public ConfirmPage() {
+    }
+
     public Route getOutboundRoute(){
         outboundRoute = flight.getOutboundRoutes().get(0);
         return outboundRoute;
@@ -166,7 +152,6 @@ public class ConfirmPage {
     private Route outboundRoute;
     @Persist
     private Route inboundRoute;
-
 
     @Property
     private String outSegmentInfo;
@@ -286,6 +271,8 @@ public class ConfirmPage {
             }
         }
 
+        bookingService.bookFlight(passengerList,contactInformation,flight,cardDetails);
+
         return null;
     }
 
@@ -294,17 +281,42 @@ public class ConfirmPage {
     }
 
     public void setupRender(){
+        resetNumberOfPersons();
+
+        createCardDetailsIfNull();
+        createAvailableCardsIfNull();
+
+        createAllMonths();
+        Calendar cal = Calendar.getInstance();
+        createNextYears(cal);
+        createBirthDayList();
+        createBirthYearList(cal);
+        populatePaymentOptionsList(cardDetails.getCardType());
+    }
+
+    private void resetNumberOfPersons() {
         numAdult=0;
         numChild=0;
         numInfant=0;
+    }
+
+    private void createAvailableCardsIfNull() {
         if(availableCards == null){
             availableCards = new ArrayList<String>();
             availableCards.add("No card");
         }
         if(availableCards.size()>0){
-            cardType = availableCards.get(0);
+            cardDetails.setCardType(availableCards.get(0));
         }
+    }
 
+    private void createCardDetailsIfNull() {
+        if(cardDetails == null){
+            cardDetails = new CardDetails();
+        }
+    }
+
+    private void createAllMonths() {
         if(allMonths == null){
             allMonths = new ArrayList<String>();
             allMonths.add("Jan");
@@ -320,10 +332,9 @@ public class ConfirmPage {
             allMonths.add("Nov");
             allMonths.add("Dec");
         }
+    }
 
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Calendar cal = Calendar.getInstance();
-
+    private void createNextYears(Calendar cal) {
         if(nextYears == null){
             nextYears = new ArrayList<String>();
             int nextYear = cal.get(Calendar.YEAR);
@@ -331,14 +342,18 @@ public class ConfirmPage {
                 nextYears.add(String.valueOf(nextYear+index));
             }
         }
+    }
 
+    private void createBirthDayList() {
         if(birthDayList == null){
             birthDayList = new ArrayList<String>();
             for(int day = 1;day <= 31; day++){
                 birthDayList.add(String.valueOf(day));
             }
         }
+    }
 
+    private void createBirthYearList(Calendar cal) {
         if(birthYearList == null){
             birthYearList = new ArrayList<String>();
             int thisYear = cal.get(Calendar.YEAR);
@@ -349,9 +364,10 @@ public class ConfirmPage {
     }
 
     public void setup(FlightSearch search, Flight flight) {
-        numAdult = 0;
-        numChild = 0;
-        numInfant = 0;
+        resetNumberOfPersons();
+
+        cardDetails = new CardDetails();
+        contactInformation = new ContactInformation();
         availableCards = new ArrayList<String>();
 
         this.flightSearch = search;
@@ -379,10 +395,10 @@ public class ConfirmPage {
             addCardToList(payments.get(index));
         }
         if(availableCards.size()>0){
-            cardType = availableCards.get(0);
+            cardDetails.setCardType(availableCards.get(0));
         }
 
-        populatePaymentOptionsList(cardType);
+        populatePaymentOptionsList(cardDetails.getCardType());
     }
 
     private void addCardToList(Payment payment) {
@@ -641,15 +657,12 @@ public class ConfirmPage {
     private Zone paymentOptionsZone;
 
     Object onValueChangedFromCardType(String cardType) {
-        paymentOptionList = new ArrayList<PaymentOption>();
-
         populatePaymentOptionsList(cardType);
-
-        System.out.println(cardType);
         return request.isXHR() ? paymentOptionsZone.getBody() : null;
     }
 
     private void populatePaymentOptionsList(String cardType) {
+        paymentOptionList = new ArrayList<PaymentOption>();
         for(int index = 0; index< flight.getPaymentInfo().getPayments().size();index++){
             Payment payment = flight.getPaymentInfo().getPayments().get(index);
             if(payment.getCardDescription().equals(cardType)){
@@ -665,27 +678,27 @@ public class ConfirmPage {
     }
 
     public String getAdultTotalPrice(){
-        return "";
+        return String.valueOf((Integer) flight.getPriceInfo().getAdults().getBaseFare() * numAdult);
     }
 
     public String getChildrenTotalPrice(){
-        return "";
+        return numChild>0 ? String.valueOf((Integer)flight.getPriceInfo().getChildren().getBaseFare()*numChild) : "0";
     }
 
     public String getInfantsTotalPrice(){
-        return "";
+        return numInfant>0 ? String.valueOf((Integer)flight.getPriceInfo().getInfants().getBaseFare()*numInfant) : "0";
     }
 
     public String getTaxes(){
-        return "";
+        return String.valueOf((Integer)flight.getPriceInfo().getTotal().getTaxes());
     }
 
     public String getCharges(){
-        return "";
+        return String.valueOf((Integer)flight.getPriceInfo().getTotal().getCharges());
     }
 
     public String getPriceTotal(){
-        return "";
+        return String.valueOf((Integer)flight.getPriceInfo().getTotal().getFare());
     }
 
 }

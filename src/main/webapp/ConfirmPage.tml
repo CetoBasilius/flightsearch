@@ -90,13 +90,11 @@
                                             </td>
                                             <td colspan="3">
                                                 <t:select t:id="cardType"
-                                                          t:value="cardType"
+                                                          t:value="cardDetails.cardType"
                                                           t:model="availableCards"
                                                           t:validate="required"
                                                           t:zone="paymentOptionsZone"/>
                                             </td>
-                                            <!-- Card expire date -->
-
                                         </tr>
 
                                         <tr>
@@ -105,21 +103,21 @@
                                                 <label t:type="label" t:for="cardNumber">Card number &nbsp;</label>
                                             </td>
                                             <td>
-                                                <t:textfield t:id="cardNumber" t:value="cardNumber" size="16" t:validate="required"/>
+                                                <t:textfield t:id="cardNumber" t:value="cardDetails.cardNumber" size="16" t:validate="required"/>
                                             </td>
                                             <!-- security ocde -->
                                             <td align="right">
                                                 <label t:type="label" t:for="cardCode">Card code &nbsp;</label>
                                             </td>
                                             <td>
-                                                <t:textfield t:id="cardCode" t:value="cardCode" size="6" t:validate="required"/>
+                                                <t:textfield t:id="cardCode" t:value="cardDetails.cardCode" size="6" t:validate="required"/>
                                             </td>
                                             <td align="right">
                                                 <label t:type="label" t:for="expireMonth">Expire date &nbsp;</label>
                                             </td>
                                             <td>
-                                                <t:select t:id="expireMonth" model="allMonths" t:validate="required"/>
-                                                <t:select t:id="expireYear" model="nextYears" t:validate="required"/>
+                                                <t:select t:id="expireMonth" t:value="cardDetails.expireMonth" model="allMonths" t:validate="required"/>
+                                                <t:select t:id="expireYear" t:value="cardDetails.expireYear" model="nextYears" t:validate="required"/>
 
                                             </td>
                                         </tr>
@@ -130,7 +128,7 @@
                                             </td>
                                             <td>
                                                 <!-- name of card owner -->
-                                                <t:textfield t:id="cardOwner" t:value="cardOwner" size="16" t:validate="required"/>
+                                                <t:textfield t:id="cardOwner" t:value="cardDetails.cardOwner" size="16" t:validate="required"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -170,7 +168,7 @@
                                                 <label t:type="label" t:for="email">Email &nbsp;</label>
                                             </td>
                                             <td>
-                                                <t:textfield t:id="email" t:value="email" size="16" t:validate="required,email"/>
+                                                <t:textfield t:id="email" t:value="contactInformation.email" size="24" t:validate="required,email"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -179,7 +177,7 @@
                                             </td>
                                             <td>
                                                 <!-- Confirm email -->
-                                                <t:textfield t:id="confirmEmail" t:value="confirmEmail" size="16" t:validate="required,email"/>
+                                                <t:textfield t:id="confirmEmail" t:value="contactInformation.confirmEmail" size="24" t:validate="required,email"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -188,7 +186,7 @@
                                             </td>
                                             <td colspan="2">
                                                 <!-- Phone -->
-                                                <t:textfield t:id="phone" t:value="phone" size="16" t:validate="required"/>
+                                                <t:textfield t:id="phone" t:value="contactInformation.phone" size="24" t:validate="required"/>
                                             </td>
                                         </tr>
                                     </table>
@@ -238,12 +236,12 @@
                         <tr>
                             <td align="center">
                                 <label><b>Price information:</b></label>
-                                <table style="width:70%;" align="center">
+                                <table style="width:80%;" align="center">
                                     <tr>
                                         <td  class="roundedbox" align="center">
                                             <!-- Price information -->
 
-                                            <table style="width=100%;">
+                                            <table style="width:100%;">
                                                 <tr>
                                                     <td>
                                                         <!-- Adult quantity -->
@@ -317,7 +315,7 @@
                                 <!-- Itinerary information -->
                                 <br/>
                                 <label><b>Flight information:</b></label>
-                                <table style="width:70%;">
+                                <table style="width:80%;">
                                     <tr>
                                         <td class="roundedbox">
                                             <table class="combobox">
