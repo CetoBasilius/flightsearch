@@ -39,7 +39,7 @@ public class AppModule {
         binder.bind(FlightSearchConnector.class, FlightSearchConnectorImpl.class);
         binder.bind(AirportInformationConnector.class, HttpAirportInformationConnector.class);
         binder.bind(HotelSearchConnector.class, HotelSearchConnectorImpl.class);
-
+        binder.bind(BookingService.class,BookingServiceImpl.class);
 
         // Make bind() calls on the binder object to define most IoC services.
         // Use service builder methods (example below) when the implementation

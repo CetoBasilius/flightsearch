@@ -112,13 +112,14 @@ public class SearchPage {
     void setupRender() {
         showRoundTrip = true;
         renderSupport.addScript("document.getElementById('%s').checked = true;", "roundTrip");
+        Date tomorrow = new Date();
         if (startDate == null) {
-            Date tomorrow = new Date();
             tomorrow.setTime(tomorrow.getTime() + 2 * MILLISECONDS_IN_ONE_DAY);
             startDate = tomorrow;
         }
         if (endDate == null) {
-            endDate = startDate;
+            endDate = new Date();
+            endDate.setTime(tomorrow.getTime() + 3 * MILLISECONDS_IN_ONE_DAY);
         }
 
         if (slider <= MIN_SLIDER_VALUE) {

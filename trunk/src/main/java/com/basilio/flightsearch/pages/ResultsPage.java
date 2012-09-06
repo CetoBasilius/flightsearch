@@ -287,7 +287,7 @@ public class ResultsPage {
 
     public String getInboundRouteShort() {
         //,InboundRoute
-        return " ," + inBoundIndex;
+        return "," + inBoundIndex;
     }
 
 
@@ -419,15 +419,15 @@ public class ResultsPage {
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        if(chosenFlightCombo!=null){
-            Route ChosenOutboundRoute = chosenFlightCombo.getOutboundRoutes().get(selectedOutRouteIndex);
+        if(chosenFlightCombo != null){
+            Route ChosenOutboundRoute = flightResult.getFlights().get(selectedFlightIndex).getOutboundRoutes().get(selectedOutRouteIndex);
             Route chosenInboundRoute = null;
             if(selectedInRouteIndex>=0){
-                chosenInboundRoute = chosenFlightCombo.getInboundRoutes().get(selectedInRouteIndex);
+                chosenInboundRoute = flightResult.getFlights().get(selectedFlightIndex).getInboundRoutes().get(selectedInRouteIndex);
             }
 
-            chosenFlightCombo.getOutboundRoutes().clear();
-            chosenFlightCombo.getInboundRoutes().clear();
+            chosenFlightCombo.setOutboundRoutes(new ArrayList<Route>());
+            chosenFlightCombo.setInboundRoutes(new ArrayList<Route>());
 
             chosenFlightCombo.getOutboundRoutes().add(ChosenOutboundRoute);
             if(selectedInRouteIndex>=0){
@@ -435,8 +435,7 @@ public class ResultsPage {
             }
 
             confirmPage.setup(this.flightSearch,chosenFlightCombo);
-
-            suggestPage.setup(this.flightResult.getFlights().get(0));
+            //suggestPage.setup(this.flightResult.getFlights().get(0));
         }
 
         return confirmPage;
